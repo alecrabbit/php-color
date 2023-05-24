@@ -1,0 +1,47 @@
+{
+    "name": "alecrabbit/php-console-spinner-extras",
+    "description": "Add-ons for php-console-spinner",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "php",
+        "spinner",
+        "extras"
+    ],
+    "require": {
+        "php": ">=8.2",
+        "alecrabbit/php-console-spinner": "dev-prepare-next",
+        "alecrabbit/php-wcwidth": "^1.0.0-ALPHA.0"
+    },
+    "require-dev": {
+        "fakerphp/faker": "*",
+        "nunomaduro/collision": "^7.0",
+        "phpunit/php-code-coverage": "*",
+        "phpunit/phpunit": "^10.0",
+        "revolt/event-loop": "^1.0",
+        "symfony/console": "^6.2",
+        "symfony/var-dumper": "*"
+    },
+    "suggest": {
+        "ext-mbstring": "For multibyte Unicode string functionality."
+    },
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "AlecRabbit\\Spinner\\": "src\\Spinner\\"
+        },
+        "files": [
+            "src/Spinner/Extras/bootstrap.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AlecRabbit\\Tests\\": "tests"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
+}
