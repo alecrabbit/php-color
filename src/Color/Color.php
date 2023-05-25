@@ -52,12 +52,12 @@ class Color implements IColor
 
     public function getOpacity(): float
     {
-        return $this->getAlpha() / self::SEGMENT;
+        return round($this->getAlpha() / self::SEGMENT, 3);
     }
 
     public function getAlpha(): int
     {
-        return ($this->value & 0xFF000000) >> 24;
+        return (0xFF000000 & $this->value) >> 24;
     }
 
     public function getRed(): int

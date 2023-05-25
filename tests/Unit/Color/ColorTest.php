@@ -67,13 +67,13 @@ class ColorTest extends TestCase
     {
         yield from [
             // result, [r , g, b, opacity]
-            [0x00FF00FF, [0xFF, 0x00, 0xFF, 0.0]],      // #0
-            [0xFFFF00FF, [0xFF, 0x00, 0xFF, 1.0]],      // #1
-            [0xFFFFFFFF, [255, 255, 255, 1.0]],         // #2
-            [0x00000000, [256, 256, 256, 0.0]],         // #3
-            [0xFF000000, [256, 256, 256, 1.0]],         // #4
-            [0xFF252525, [0x25, 0x25, 0x25, 1.0]],      // #5
-            [0x7F252525, [0x25, 0x25, 0x25, 0.5]],      // #6
+            [0x00FF00FF, [0xFF, 0x00, 0xFF, 0.0]],  // #0
+            [0xFFFF00FF, [0xFF, 0x00, 0xFF, 1.0]],  // #1
+            [0xFFFFFFFF, [255, 255, 255, 1.0]],     // #2
+            [0x00000000, [256, 256, 256, 0.0]],     // #3
+            [0xFF000000, [256, 256, 256, 1.0]],     // #4
+            [0xFF252525, [0x25, 0x25, 0x25, 1.0]],  // #5
+            [0x7F252525, [0x25, 0x25, 0x25, 0.5]],  // #6
         ];
     }
 
@@ -115,7 +115,7 @@ class ColorTest extends TestCase
             [[0xFF000000, [0xFF, 0x00, 0x00, 0x00, 1.0]], [0xFF, 256, 256, 256,]],      // #4
             [[0xFF252525, [0xFF, 0x25, 0x25, 0x25, 1.0]], [0xFF, 0x25, 0x25, 0x25,]],   // #5
             [[0x7F252525, [0x7F, 0x25, 0x25, 0x25, 0.498]], [0x7F, 0x25, 0x25, 0x25,]], // #6
-            [[0x01282825, [0x01, 0x28, 0x28, 0x25, 0.0039]], [0x01, 0x28, 0x28, 0x25,]],// #7
+            [[0x01282825, [0x01, 0x28, 0x28, 0x25, 0.004]], [0x01, 0x28, 0x28, 0x25,]], // #7
             [[0xFE282825, [0xFE, 0x28, 0x28, 0x25, 0.996]], [0xFE, 0x28, 0x28, 0x25,]], // #8
         ];
     }
@@ -196,7 +196,7 @@ class ColorTest extends TestCase
         self::assertSame($result[self::GREEN], $testee->getGreen());
         self::assertSame($result[self::BLUE], $testee->getBlue());
         self::assertSame($result[self::ALPHA], $testee->getAlpha());
-        self::assertEqualsWithDelta($result[self::OPACITY], $testee->getOpacity(), 0.0001);
+        self::assertEquals($result[self::OPACITY], $testee->getOpacity());
     }
 
     private static function getTesteeFromARGB(array $argb): IColor
