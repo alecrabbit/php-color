@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+// @codeCoverageIgnoreStart
+
 function checkSystem(): void
 {
     if (PHP_INT_SIZE === 4) {
@@ -11,3 +13,5 @@ function checkSystem(): void
 }
 
 checkSystem();
+
+// @codeCoverageIgnoreEnd
