@@ -13,4 +13,14 @@ interface IColor
     public static function fromARGB(int $alpha, int $r, int $g, int $b): IColor;
 
     public function getValue(): int;
+
+    public function getAlpha(): int;
+
+    public function getRed(): int;
+
+    public function getGreen(): int;
+
+    public function getBlue(): int;
+
+    public function getOpacity(): float;
 }
