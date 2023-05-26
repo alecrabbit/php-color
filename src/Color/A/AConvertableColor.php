@@ -9,124 +9,105 @@ use AlecRabbit\Color\Contract\IConvertableColor;
 
 abstract class AConvertableColor implements IConvertableColor
 {
-
-    public static function fromRGBO(int $r, int $g, int $b, float $opacity = 1.0): IColor
+    public function fromString(string $color): IColor
     {
-        // TODO: Implement fromRGBO() method.
-    }
-
-    public static function fromRGBA(int $r, int $g, int $b, int $alpha = self::SEGMENT): IColor
-    {
-        // TODO: Implement fromRGBA() method.
-    }
-
-    public function getValue(): int
-    {
-        // TODO: Implement getValue() method.
-    }
-
-    public function getAlpha(): int
-    {
-        // TODO: Implement getAlpha() method.
-    }
-
-    public function getRed(): int
-    {
-        // TODO: Implement getRed() method.
-    }
-
-    public function getGreen(): int
-    {
-        // TODO: Implement getGreen() method.
-    }
-
-    public function getBlue(): int
-    {
-        // TODO: Implement getBlue() method.
-    }
-
-    public function getOpacity(): float
-    {
-        // TODO: Implement getOpacity() method.
+        // TODO: Implement fromString() method.
+        throw new \RuntimeException('Not implemented.');
     }
 
     public function toHex(): IConvertableColor
     {
-        // TODO: Implement toHex() method.
+        // TODO: Implement toHex()  method.
+        throw new \RuntimeException('Not implemented.');
     }
 
     public function toHSL(): IConvertableColor
     {
-        // TODO: Implement toHSL() method.
+        // TODO: Implement toHSL()  method.
+        throw new \RuntimeException('Not implemented.');
     }
 
     public function toHSLA(): IConvertableColor
     {
-        // TODO: Implement toHSLA() method.
+        // TODO: Implement toHSLA()  method.
+        throw new \RuntimeException('Not implemented.');
     }
 
     public function toRGB(): IConvertableColor
     {
-        // TODO: Implement toRGB() method.
+        // TODO: Implement toRGB()  method.
+        throw new \RuntimeException('Not implemented.');
     }
 
     public function toRGBA(): IConvertableColor
     {
-        // TODO: Implement toRGBA() method.
+        // TODO: Implement toRGBA()  method.
+        throw new \RuntimeException('Not implemented.');
     }
 
     public function toYUV(): IConvertableColor
     {
-        // TODO: Implement toYUV() method.
+        // TODO: Implement toYUV()  method.
+        throw new \RuntimeException('Not implemented.');
     }
 
     public function toCMYK(): IConvertableColor
     {
-        // TODO: Implement toCMYK() method.
+        // TODO: Implement toCMYK()  method.
+        throw new \RuntimeException('Not implemented.');
     }
 
     public function toXYZ(): IConvertableColor
     {
-        // TODO: Implement toXYZ() method.
+        // TODO: Implement toXYZ()  method.
+        throw new \RuntimeException('Not implemented.');
     }
 
     public function toLAB(): IConvertableColor
     {
-        // TODO: Implement toLAB() method.
+        // TODO: Implement toLAB()  method.
+        throw new \RuntimeException('Not implemented.');
     }
 
     public function toLCh(): IConvertableColor
     {
-        // TODO: Implement toLCh() method.
+        // TODO: Implement toLCh()  method.
+        throw new \RuntimeException('Not implemented.');
     }
 
     public function toHCL(): IConvertableColor
     {
-        // TODO: Implement toHCL() method.
+        // TODO: Implement toHCL()  method.
+        throw new \RuntimeException('Not implemented.');
     }
 
     public function toHSV(): IConvertableColor
     {
-        // TODO: Implement toHSV() method.
+        // TODO: Implement toHSV()  method.
+        throw new \RuntimeException('Not implemented.');
     }
 
     public function toHSVA(): IConvertableColor
     {
-        // TODO: Implement toHSVA() method.
+        // TODO: Implement toHSVA()  method.
+        throw new \RuntimeException('Not implemented.');
     }
 
     public function toYIQ(): IConvertableColor
     {
-        // TODO: Implement toYIQ() method.
+        // TODO: Implement toYIQ()  method.
+        throw new \RuntimeException('Not implemented.');
     }
 
     public function toGrayscale(): IConvertableColor
     {
-        // TODO: Implement toGrayscale() method.
+        // TODO: Implement toGrayscale()  method.
+        throw new \RuntimeException('Not implemented.');
     }
 
     public function toPantone(): IConvertableColor
     {
-        // TODO: Implement toPantone() method.
+        // TODO: Implement toPantone()  method.
+        throw new \RuntimeException('Not implemented.');
     }
 }

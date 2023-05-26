@@ -10,6 +10,10 @@ use AlecRabbit\Color\Contract\IRGBColor;
 
 class RGB extends AConvertableColor implements IRGBColor
 {
+    private const MAX = 0xFFFFFFFF;
+    private const SEGMENT = 0xFF;
+    private const PRECISION = 3;
+
     private int $value;
 
     public function __construct(int $value)
