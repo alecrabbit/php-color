@@ -5,51 +5,19 @@ declare(strict_types=1);
 namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\A\AConvertableColor;
-use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IRGBColor;
 
 class RGB extends AConvertableColor implements IRGBColor
 {
-    private const MAX = 0xFFFFFF;
-    private const COMPONENT = 0xFF;
-    private const PRECISION = 3;
-    private const RED = 0xFF0000;
-    private const GREEN = 0x00FF00;
-    private const BLUE = 0x0000FF;
+    protected const MAX = 0xFFFFFF;
+    protected const COMPONENT = 0xFF;
+    protected const RED = 0xFF0000;
+    protected const GREEN = 0x00FF00;
+    protected const BLUE = 0x0000FF;
 
     protected function __construct(
-        private readonly int $value,
-        private readonly int $alpha = self::COMPONENT,
+        protected readonly int $value,
     ) {
-    }
-
-    public static function fromRGBO(int $r, int $g, int $b, float $opacity = 1.0): IColor
-    {
-        return
-            self::fromRGBA(
-                $r,
-                $g,
-                $b,
-                (int)(abs($opacity) * self::COMPONENT) & self::COMPONENT
-            );
-    }
-
-    public static function fromRGBA(int $r, int $g, int $b, int $alpha = self::COMPONENT): IColor
-    {
-        return
-            new self(
-                self::componentsToInteger($r, $g, $b),
-                (abs($alpha) & self::COMPONENT)
-            );
-    }
-
-    private static function componentsToInteger(int $r, int $g, int $b): int
-    {
-        return (
-                ((abs($r) & self::COMPONENT) << 16) |
-                ((abs($g) & self::COMPONENT) << 8) |
-                ((abs($b) & self::COMPONENT) << 0)
-            ) & self::MAX;
     }
 
     public function getValue(): int
@@ -57,19 +25,26 @@ class RGB extends AConvertableColor implements IRGBColor
         return $this->value;
     }
 
-    public function getOpacity(): float
+    public function withRed(int $red): IRGBColor
     {
-        return round($this->getAlpha() / self::COMPONENT, self::PRECISION);
+        return self::fromRGB($red, $this->getGreen(), $this->getBlue());
     }
 
-    public function getAlpha(): int
+    public static function fromRGB(int $r, int $g, int $b): IRGBColor
     {
-        return $this->alpha;
+        return
+            new self(
+                self::componentsToInteger($r, $g, $b),
+            );
     }
 
-    public function getRed(): int
+    protected static function componentsToInteger(int $r, int $g, int $b): int
     {
-        return (self::RED & $this->value) >> 16;
+        return (
+                ((abs($r) & self::COMPONENT) << 16) |
+                ((abs($g) & self::COMPONENT) << 8) |
+                ((abs($b) & self::COMPONENT) << 0)
+            ) & self::MAX;
     }
 
     public function getGreen(): int
@@ -82,24 +57,28 @@ class RGB extends AConvertableColor implements IRGBColor
         return (self::BLUE & $this->value) >> 0;
     }
 
-    public function withRed(int $red): IRGBColor
-    {
-        return self::fromRGBA($red, $this->getGreen(), $this->getBlue(), $this->getAlpha());
-    }
-
     public function withGreen(int $green): IRGBColor
     {
-        return self::fromRGBA($this->getRed(), $green, $this->getBlue(), $this->getAlpha());
+        return self::fromRGB($this->getRed(), $green, $this->getBlue());
+    }
+
+    public function getRed(): int
+    {
+        return (self::RED & $this->value) >> 16;
     }
 
     public function withBlue(int $blue): IRGBColor
     {
-       return self::fromRGBA($this->getRed(), $this->getGreen(), $blue, $this->getAlpha());
+        return self::fromRGB($this->getRed(), $this->getGreen(), $blue);
     }
 
     public function toString(): string
     {
-        // TODO: Implement toString() method.
-        throw new \RuntimeException('Not implemented.');
+        return sprintf(
+            self::FORMAT_RGB,
+            $this->getRed(),
+            $this->getGreen(),
+            $this->getBlue(),
+        );
     }
 }

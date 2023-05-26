@@ -6,11 +6,9 @@ namespace AlecRabbit\Color\Contract;
 
 interface IRGBColor extends IConvertableColor
 {
+    public static function fromRGB(int $r, int $g, int $b): IRGBColor;
+
     public function getValue(): int;
-
-    public function getAlpha(): int;
-
-    public function getOpacity(): float;
 
     public function getRed(): int;
 

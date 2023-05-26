@@ -25,6 +25,7 @@ interface IConvertableColor extends IColor
     public function toLAB(): IConvertableColor;
 
     public function toLCh(): IConvertableColor;
+
     public function toHCL(): IConvertableColor;
 
     public function toHSV(): IConvertableColor;
