@@ -6,6 +6,10 @@ namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\Contract\IRGBAColor;
 
+use function abs;
+use function round;
+use function sprintf;
+
 class RGBA extends RGB implements IRGBAColor
 {
     protected const PRECISION = 3;
@@ -51,13 +55,14 @@ class RGBA extends RGB implements IRGBAColor
 
     public function toString(): string
     {
-        return sprintf(
-            self::FORMAT_RGBA,
-            $this->getRed(),
-            $this->getGreen(),
-            $this->getBlue(),
-            $this->getOpacity()
-        );
+        return
+            sprintf(
+                self::FORMAT_RGBA,
+                $this->getRed(),
+                $this->getGreen(),
+                $this->getBlue(),
+                $this->getOpacity()
+            );
     }
 
     public function getOpacity(): float

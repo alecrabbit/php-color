@@ -7,6 +7,9 @@ namespace AlecRabbit\Color;
 use AlecRabbit\Color\A\AConvertableColor;
 use AlecRabbit\Color\Contract\IRGBColor;
 
+use function abs;
+use function sprintf;
+
 class RGB extends AConvertableColor implements IRGBColor
 {
     protected const MAX = 0xFFFFFF;
@@ -74,11 +77,12 @@ class RGB extends AConvertableColor implements IRGBColor
 
     public function toString(): string
     {
-        return sprintf(
-            self::FORMAT_RGB,
-            $this->getRed(),
-            $this->getGreen(),
-            $this->getBlue(),
-        );
+        return
+            sprintf(
+                self::FORMAT_RGB,
+                $this->getRed(),
+                $this->getGreen(),
+                $this->getBlue(),
+            );
     }
 }
