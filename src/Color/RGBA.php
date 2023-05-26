@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color;
 
+use AlecRabbit\Color\Contract\IColorConverter;
 use AlecRabbit\Color\Contract\IRGBAColor;
 
 use function abs;
@@ -17,19 +18,14 @@ class RGBA extends RGB implements IRGBAColor
     protected function __construct(
         int $value,
         protected readonly int $alpha = self::COMPONENT,
+        IColorConverter $converter = null,
     ) {
-        parent::__construct($value);
+        parent::__construct($value, $converter);
     }
 
     public static function fromRGB(int $r, int $g, int $b): IRGBAColor
     {
         return self::fromRGBA($r, $g, $b);
-    }
-
-    public function withRed(int $red): IRGBAColor
-    {
-        return
-            self::fromRGBA($red, $this->getGreen(), $this->getBlue(), $this->getAlpha());
     }
 
     public static function fromRGBA(int $r, int $g, int $b, int $alpha = self::COMPONENT): IRGBAColor
@@ -39,6 +35,12 @@ class RGBA extends RGB implements IRGBAColor
                 self::componentsToInteger($r, $g, $b),
                 (abs($alpha) & self::COMPONENT)
             );
+    }
+
+    public function withRed(int $red): IRGBAColor
+    {
+        return
+            self::fromRGBA($red, $this->getGreen(), $this->getBlue(), $this->getAlpha());
     }
 
     public function getAlpha(): int

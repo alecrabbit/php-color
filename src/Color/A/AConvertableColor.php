@@ -4,12 +4,22 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\A;
 
+use AlecRabbit\Color\ColorConverter;
 use AlecRabbit\Color\Contract\IColor;
+use AlecRabbit\Color\Contract\IColorConverter;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use RuntimeException;
 
 abstract class AConvertableColor implements IConvertableColor
 {
+    protected readonly IColorConverter $converter;
+
+    public function __construct(
+        ?IColorConverter $converter = null,
+    ) {
+        $this->converter = $converter ?? new ColorConverter();
+    }
+
     public function fromString(string $color): IColor
     {
         // TODO: Implement fromString() method.
@@ -36,14 +46,12 @@ abstract class AConvertableColor implements IConvertableColor
 
     public function toRGB(): IConvertableColor
     {
-        // TODO: Implement toRGB()  method.
-        throw new RuntimeException('Not implemented.');
+        return $this->converter->toRGB($this);
     }
 
     public function toRGBA(): IConvertableColor
     {
-        // TODO: Implement toRGBA()  method.
-        throw new RuntimeException('Not implemented.');
+        return $this->converter->toRGBA($this);
     }
 
     public function toYUV(): IConvertableColor

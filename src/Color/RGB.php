@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\A\AConvertableColor;
+use AlecRabbit\Color\Contract\IColorConverter;
 use AlecRabbit\Color\Contract\IRGBColor;
 
 use function abs;
@@ -20,7 +21,9 @@ class RGB extends AConvertableColor implements IRGBColor
 
     protected function __construct(
         protected readonly int $value,
+        IColorConverter $converter = null,
     ) {
+        parent::__construct($converter);
     }
 
     public function getValue(): int
