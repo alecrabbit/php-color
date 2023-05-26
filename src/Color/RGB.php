@@ -84,20 +84,17 @@ class RGB extends AConvertableColor implements IRGBColor
 
     public function withRed(int $red): IRGBColor
     {
-        // TODO: Implement withRed() method.
-        throw new \RuntimeException('Not implemented.');
+        return self::fromRGBA($red, $this->getGreen(), $this->getBlue(), $this->getAlpha());
     }
 
     public function withGreen(int $green): IRGBColor
     {
-        // TODO: Implement withGreen() method.
-        throw new \RuntimeException('Not implemented.');
+        return self::fromRGBA($this->getRed(), $green, $this->getBlue(), $this->getAlpha());
     }
 
     public function withBlue(int $blue): IRGBColor
     {
-        // TODO: Implement withBlue() method.
-        throw new \RuntimeException('Not implemented.');
+       return self::fromRGBA($this->getRed(), $this->getGreen(), $blue, $this->getAlpha());
     }
 
     public function toString(): string
