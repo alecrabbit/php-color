@@ -89,9 +89,9 @@ class ColorTest extends TestCase
         ];
     }
 
-    public static function canBeCreatedFromARGBDataProvider(): iterable
+    public static function canBeCreatedFromRGBADataProvider(): iterable
     {
-        foreach (self::canBeCreatedFromARGBDataFeeder() as $item) {
+        foreach (self::canBeCreatedFromRGBADataFeeder() as $item) {
             [$resulting, $incoming] = $item;
             yield [
                 [
@@ -116,7 +116,7 @@ class ColorTest extends TestCase
         }
     }
 
-    private static function canBeCreatedFromARGBDataFeeder(): iterable
+    private static function canBeCreatedFromRGBADataFeeder(): iterable
     {
         yield from [
             // [value, [alpha, r, g, b, opacity]], (incoming)[alpha, r, g, b]
@@ -206,12 +206,12 @@ class ColorTest extends TestCase
     }
 
     #[Test]
-    #[DataProvider('canBeCreatedFromARGBDataProvider')]
-    public function canBeCreatedFromARGB(array $expected, array $incoming): void
+    #[DataProvider('canBeCreatedFromRGBADataProvider')]
+    public function canBeCreatedFromRGBA(array $expected, array $incoming): void
     {
         $result = $expected[self::RESULT];
-        $argb = $incoming[self::VALUE];
-        $testee = self::getTesteeFromARGB($argb);
+        $rgba = $incoming[self::VALUE];
+        $testee = self::getTesteeFromRGBA($rgba);
         self::assertSame($result[self::VALUE], $testee->getValue());
         self::assertSame($result[self::RED], $testee->getRed());
         self::assertSame($result[self::GREEN], $testee->getGreen());
@@ -220,13 +220,13 @@ class ColorTest extends TestCase
         self::assertEquals($result[self::OPACITY], $testee->getOpacity());
     }
 
-    private static function getTesteeFromARGB(array $argb): IColor
+    private static function getTesteeFromRGBA(array $rgba): IColor
     {
-        return Color::fromARGB(
-            $argb[self::ALPHA],
-            $argb[self::RED],
-            $argb[self::GREEN],
-            $argb[self::BLUE],
+        return Color::fromRGBA(
+            $rgba[self::RED],
+            $rgba[self::GREEN],
+            $rgba[self::BLUE],
+            $rgba[self::ALPHA],
         );
     }
 }

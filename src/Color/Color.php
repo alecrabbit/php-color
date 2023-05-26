@@ -8,9 +8,6 @@ use AlecRabbit\Color\Contract\IColor;
 
 class Color implements IColor
 {
-    private const MAX = 0xFFFFFFFF;
-    private const PRECISION = 3;
-    private const SEGMENT = 0xFF;
     private int $value;
 
     public function __construct(int $value)
@@ -18,7 +15,7 @@ class Color implements IColor
         $this->value = abs($value) & self::MAX;
     }
 
-    public static function fromRGBO(int $r, int $g, int $b, float $opacity): IColor
+    public static function fromRGBO(int $r, int $g, int $b, float $opacity = 1.0): IColor
     {
         $value =
             (
@@ -32,7 +29,7 @@ class Color implements IColor
             new self($value);
     }
 
-    public static function fromARGB(int $alpha, int $r, int $g, int $b): IColor
+    public static function fromRGBA(int $r, int $g, int $b, int $alpha = self::SEGMENT): IColor
     {
         $value =
             (
