@@ -269,4 +269,38 @@ class RGBATest extends TestCase
         $testee = self::getTesteeFromRGBA($rgba);
         self::assertSame($result[self::VALUE], $testee->toString());
     }
+
+    #[Test]
+    #[DataProvider('canBeCreatedFromRGBODataProvider')]
+    public function canBeSerialized(array $expected, array $incoming): void
+    {
+        $rgbo = $incoming[self::VALUE];
+        $testee = self::getTesteeFromRGBO($rgbo);
+        $serialized = serialize($testee);
+        self::assertEquals($testee, unserialize($serialized));
+    }
+
+    #[Test]
+    #[DataProvider('canBeCreatedFromRGBODataProvider')]
+    public function canBeCreatedFromRGB(array $expected, array $incoming): void
+    {
+        $result = $expected[self::RESULT];
+        $rgbo = $incoming[self::VALUE];
+        $testee = self::getTesteeFromRGB($rgbo);
+        self::assertSame($result[self::RED], $testee->getRed());
+        self::assertSame($result[self::GREEN], $testee->getGreen());
+        self::assertSame($result[self::BLUE], $testee->getBlue());
+        self::assertSame(255, $testee->getAlpha());
+        self::assertEquals(1.0, $testee->getOpacity());
+    }
+
+    private static function getTesteeFromRGB(array $rgbo): IRGBAColor
+    {
+        return
+            RGBA::fromRGB(
+                $rgbo[self::RED],
+                $rgbo[self::GREEN],
+                $rgbo[self::BLUE],
+            );
+    }
 }
