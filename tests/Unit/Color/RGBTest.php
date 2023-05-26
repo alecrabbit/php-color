@@ -173,4 +173,24 @@ class RGBTest extends TestCase
         self::assertSame(0x00, $original->getRed());
         self::assertNotSame($original, $modified);
     }
+
+    #[Test]
+    public function canBeModifiedWithGreen(): void
+    {
+        $original = RGB::fromRGBA(0x00, 0x00, 0x00);
+        $modified = $original->withGreen(0xFF);
+        self::assertSame(0xFF, $modified->getGreen());
+        self::assertSame(0x00, $original->getGreen());
+        self::assertNotSame($original, $modified);
+    }
+
+    #[Test]
+    public function canBeModifiedWithBlue(): void
+    {
+        $original = RGB::fromRGBA(0x00, 0x00, 0x00);
+        $modified = $original->withBlue(0xFF);
+        self::assertSame(0xFF, $modified->getBlue());
+        self::assertSame(0x00, $original->getBlue());
+        self::assertNotSame($original, $modified);
+    }
 }
