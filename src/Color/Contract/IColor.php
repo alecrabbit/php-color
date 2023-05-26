@@ -14,15 +14,4 @@ interface IColor
 
     public static function fromRGBA(int $r, int $g, int $b, int $alpha = self::SEGMENT): IColor;
 
-    public function getValue(): int;
-
-    public function getAlpha(): int;
-
-    public function getRed(): int;
-
-    public function getGreen(): int;
-
-    public function getBlue(): int;
-
-    public function getOpacity(): float;
 }

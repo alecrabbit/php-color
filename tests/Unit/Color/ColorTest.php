@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Color;
 
-use AlecRabbit\Color\Color;
+use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -145,13 +145,13 @@ class ColorTest extends TestCase
     public function canBeCreated(): void
     {
         $testee = self::getTesteeInstance();
-        self::assertInstanceOf(Color::class, $testee);
+        self::assertInstanceOf(RGB::class, $testee);
     }
 
     protected static function getTesteeInstance(?int $value = null): IColor
     {
         return
-            new Color($value ?? 0);
+            new RGB($value ?? 0);
     }
 
     #[Test]
@@ -197,7 +197,7 @@ class ColorTest extends TestCase
 
     private static function getTesteeFromRGBO(array $rgbo): IColor
     {
-        return Color::fromRGBO(
+        return RGB::fromRGBO(
             $rgbo[self::RED],
             $rgbo[self::GREEN],
             $rgbo[self::BLUE],
@@ -222,7 +222,7 @@ class ColorTest extends TestCase
 
     private static function getTesteeFromRGBA(array $rgba): IColor
     {
-        return Color::fromRGBA(
+        return RGB::fromRGBA(
             $rgba[self::RED],
             $rgba[self::GREEN],
             $rgba[self::BLUE],

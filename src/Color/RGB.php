@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color;
 
+use AlecRabbit\Color\A\AConvertableColor;
 use AlecRabbit\Color\Contract\IColor;
+use AlecRabbit\Color\Contract\IRGBColor;
 
-class Color implements IColor
+class RGB extends AConvertableColor implements IRGBColor
 {
     private int $value;
 
@@ -71,5 +73,29 @@ class Color implements IColor
     public function getBlue(): int
     {
         return (0x000000FF & $this->value) >> 0;
+    }
+
+    public function withRed(int $red): IRGBColor
+    {
+        // TODO: Implement withRed() method.
+        throw new \RuntimeException('Not implemented.');
+    }
+
+    public function withGreen(int $green): IRGBColor
+    {
+        // TODO: Implement withGreen() method.
+        throw new \RuntimeException('Not implemented.');
+    }
+
+    public function withBlue(int $blue): IRGBColor
+    {
+        // TODO: Implement withBlue() method.
+        throw new \RuntimeException('Not implemented.');
+    }
+
+    public function toString(): string
+    {
+        // TODO: Implement toString() method.
+        throw new \RuntimeException('Not implemented.');
     }
 }
