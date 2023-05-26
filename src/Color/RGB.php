@@ -10,43 +10,46 @@ use AlecRabbit\Color\Contract\IRGBColor;
 
 class RGB extends AConvertableColor implements IRGBColor
 {
-    private const MAX = 0xFFFFFFFF;
-    private const SEGMENT = 0xFF;
+    private const MAX = 0xFFFFFF;
+    private const COMPONENT = 0xFF;
     private const PRECISION = 3;
+    private const RED = 0xFF0000;
+    private const GREEN = 0x00FF00;
+    private const BLUE = 0x0000FF;
 
-    private int $value;
-
-    public function __construct(int $value)
-    {
-        $this->value = abs($value) & self::MAX;
+    protected function __construct(
+        private readonly int $value,
+        private readonly int $alpha = self::COMPONENT,
+    ) {
     }
 
     public static function fromRGBO(int $r, int $g, int $b, float $opacity = 1.0): IColor
     {
-        $value =
-            (
-                (((int)(abs($opacity) * self::SEGMENT) & self::SEGMENT) << 24) |
-                ((abs($r) & self::SEGMENT) << 16) |
-                ((abs($g) & self::SEGMENT) << 8) |
-                ((abs($b) & self::SEGMENT) << 0)
-            ) & self::MAX;
-
         return
-            new self($value);
+            self::fromRGBA(
+                $r,
+                $g,
+                $b,
+                (int)(abs($opacity) * self::COMPONENT) & self::COMPONENT
+            );
     }
 
-    public static function fromRGBA(int $r, int $g, int $b, int $alpha = self::SEGMENT): IColor
+    public static function fromRGBA(int $r, int $g, int $b, int $alpha = self::COMPONENT): IColor
     {
-        $value =
-            (
-                ((abs($alpha) & self::SEGMENT) << 24) |
-                ((abs($r) & self::SEGMENT) << 16) |
-                ((abs($g) & self::SEGMENT) << 8) |
-                ((abs($b) & self::SEGMENT) << 0)
-            ) & self::MAX;
-
         return
-            new self($value);
+            new self(
+                self::componentsToInteger($r, $g, $b),
+                (abs($alpha) & self::COMPONENT)
+            );
+    }
+
+    private static function componentsToInteger(int $r, int $g, int $b): int
+    {
+        return (
+                ((abs($r) & self::COMPONENT) << 16) |
+                ((abs($g) & self::COMPONENT) << 8) |
+                ((abs($b) & self::COMPONENT) << 0)
+            ) & self::MAX;
     }
 
     public function getValue(): int
@@ -56,27 +59,27 @@ class RGB extends AConvertableColor implements IRGBColor
 
     public function getOpacity(): float
     {
-        return round($this->getAlpha() / self::SEGMENT, self::PRECISION);
+        return round($this->getAlpha() / self::COMPONENT, self::PRECISION);
     }
 
     public function getAlpha(): int
     {
-        return (0xFF000000 & $this->value) >> 24;
+        return $this->alpha;
     }
 
     public function getRed(): int
     {
-        return (0x00FF0000 & $this->value) >> 16;
+        return (self::RED & $this->value) >> 16;
     }
 
     public function getGreen(): int
     {
-        return (0x0000FF00 & $this->value) >> 8;
+        return (self::GREEN & $this->value) >> 8;
     }
 
     public function getBlue(): int
     {
-        return (0x000000FF & $this->value) >> 0;
+        return (self::BLUE & $this->value) >> 0;
     }
 
     public function withRed(int $red): IRGBColor
