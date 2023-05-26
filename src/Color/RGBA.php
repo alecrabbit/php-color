@@ -6,8 +6,6 @@ namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\Contract\IRGBAColor;
 
-use AlecRabbit\Color\Contract\IRGBColor;
-
 use function abs;
 use function round;
 use function sprintf;
@@ -21,6 +19,11 @@ class RGBA extends RGB implements IRGBAColor
         protected readonly int $alpha = self::COMPONENT,
     ) {
         parent::__construct($value);
+    }
+
+    public static function fromRGB(int $r, int $g, int $b): IRGBAColor
+    {
+        return self::fromRGBA($r, $g, $b);
     }
 
     public function withRed(int $red): IRGBAColor
@@ -89,10 +92,5 @@ class RGBA extends RGB implements IRGBAColor
         $alpha = (int)(abs($opacity) * self::COMPONENT) & self::COMPONENT;
         return
             self::fromRGBA($r, $g, $b, $alpha);
-    }
-
-    public static function fromRGB(int $r, int $g, int $b): IRGBAColor
-    {
-        return self::fromRGBA($r, $g, $b);
     }
 }
