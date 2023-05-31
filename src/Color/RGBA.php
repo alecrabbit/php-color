@@ -34,7 +34,7 @@ class RGBA extends RGB implements IRGBAColor
     {
         return
             new self(
-                self::componentsToInteger($r, $g, $b),
+                self::componentsToValue($r, $g, $b),
                 (abs($alpha) & self::COMPONENT)
             );
     }

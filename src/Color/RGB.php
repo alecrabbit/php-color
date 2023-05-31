@@ -48,11 +48,11 @@ class RGB extends AConvertableColor implements IRGBColor
     {
         return
             new self(
-                self::componentsToInteger($r, $g, $b),
+                self::componentsToValue($r, $g, $b),
             );
     }
 
-    protected static function componentsToInteger(int $r, int $g, int $b): int
+    protected static function componentsToValue(int $r, int $g, int $b): int
     {
         return (
                 ((abs($r) & self::COMPONENT) << 16) |

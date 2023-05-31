@@ -9,6 +9,7 @@ use AlecRabbit\Color\ColorInstantiator;
 use AlecRabbit\Color\Contract\IColorConverter;
 use AlecRabbit\Color\Contract\IColorInstantiator;
 use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Exception\ColorException;
 use RuntimeException;
 
 abstract class AConvertableColor implements IConvertableColor
@@ -26,17 +27,6 @@ abstract class AConvertableColor implements IConvertableColor
         self::$instantiator = $instantiator;
     }
 
-
-    protected static function refineConverter(?IColorConverter $converter = null): IColorConverter
-    {
-        return $converter ?? new ColorConverter();
-    }
-
-    protected static function refineInstantiator(?IColorInstantiator $instantiator = null): IColorInstantiator
-    {
-        return $instantiator ?? new ColorInstantiator();
-    }
-
     public static function fromString(string $color): IConvertableColor
     {
         return self::getInstantiator()->fromString($color);
@@ -45,7 +35,7 @@ abstract class AConvertableColor implements IConvertableColor
     protected static function getInstantiator(): IColorInstantiator
     {
         if (null === self::$instantiator) {
-            self::$instantiator = self::refineInstantiator();
+            throw new ColorException('Instantiator is not set.');
         }
         return self::$instantiator;
     }
@@ -53,7 +43,7 @@ abstract class AConvertableColor implements IConvertableColor
     protected static function getConverter(): IColorConverter
     {
         if (null === self::$converter) {
-            self::$converter = self::refineConverter();
+            throw new ColorException('Converter is not set.');
         }
         return self::$converter;
     }

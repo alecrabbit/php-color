@@ -4,14 +4,7 @@ declare(strict_types=1);
 
 // @codeCoverageIgnoreStart
 
-function checkSystem(): void
-{
-    if (PHP_INT_SIZE === 4) {
-        echo 'This library is for 64-bit systems only!' . PHP_EOL;
-        exit(1);
-    }
-}
-
-checkSystem();
+\AlecRabbit\Color\A\AConvertableColor::useConverter(new \AlecRabbit\Color\ColorConverter());
+\AlecRabbit\Color\A\AConvertableColor::useInstantiator(new \AlecRabbit\Color\ColorInstantiator());
 
 // @codeCoverageIgnoreEnd
