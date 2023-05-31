@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\A;
 
 use AlecRabbit\Color\ColorConverter;
-use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IColorConverter;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use RuntimeException;
@@ -20,11 +19,8 @@ abstract class AConvertableColor implements IConvertableColor
         $this->converter = $converter ?? new ColorConverter();
     }
 
-    public static function fromString(string $color): IColor
-    {
-        // TODO: Implement fromString() method.
-        throw new RuntimeException('Not implemented.');
-    }
+    abstract public static function fromString(string $color): IConvertableColor;
+
 
     public function toHex(): IConvertableColor
     {

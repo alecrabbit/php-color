@@ -7,6 +7,8 @@ namespace AlecRabbit\Color;
 use AlecRabbit\Color\Contract\IColorConverter;
 use AlecRabbit\Color\Contract\IRGBAColor;
 
+use RuntimeException;
+
 use function abs;
 use function round;
 use function sprintf;
@@ -35,6 +37,12 @@ class RGBA extends RGB implements IRGBAColor
                 self::componentsToInteger($r, $g, $b),
                 (abs($alpha) & self::COMPONENT)
             );
+    }
+
+    public static function fromString(string $color): IRGBAColor
+    {
+        // TODO: Implement fromString() method.
+        throw new RuntimeException('Not implemented.');
     }
 
     public function withRed(int $red): IRGBAColor

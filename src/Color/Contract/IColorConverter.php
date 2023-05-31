@@ -9,4 +9,6 @@ interface IColorConverter
     public function toRGB(IConvertableColor $color): IConvertableColor;
 
     public function toRGBA(IConvertableColor $color): IConvertableColor;
+
+    public static function fromString(string $color): IConvertableColor;
 }

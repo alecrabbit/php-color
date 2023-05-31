@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Exception;
 
-class ColorException extends \RuntimeException
+use RuntimeException;
+
+class ColorException extends RuntimeException
 {
 
 }
