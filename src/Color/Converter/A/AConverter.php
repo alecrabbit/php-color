@@ -9,5 +9,4 @@ use AlecRabbit\Color\Contract\IConverter;
 
 abstract class AConverter implements IConverter
 {
-    abstract protected function assertColor(IConvertableColor $color): void;
 }

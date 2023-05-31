@@ -16,6 +16,9 @@ class ColorConverter implements IColorConverter
         return $this->to(RGB::class)->convert($color);
     }
 
+    /**
+     * @param class-string $class
+     */
     protected function to(string $class): IConverter
     {
         return ConverterFactory::make($class);

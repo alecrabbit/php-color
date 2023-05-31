@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Converter;
 
 use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Converter\A\AConverter;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
 use AlecRabbit\Color\RGB;
@@ -14,33 +15,26 @@ class ToRGBAConverter extends AConverter
 {
     public function convert(IConvertableColor $color): IConvertableColor
     {
-        $this->assertColor($color);
-
-        if ($color instanceof RGBA) {
+        if ($color instanceof IRGBAColor) {
             return $color;
         }
 
-        return
-            RGBA::fromRGBA(
-                $color->getRed(),
-                $color->getGreen(),
-                $color->getBlue()
-            );
-    }
+        if ($color instanceof RGB) {
+            return
+                RGBA::fromRGBA(
+                    $color->getRed(),
+                    $color->getGreen(),
+                    $color->getBlue()
+                );
+        }
 
-    protected function assertColor(IConvertableColor $color): void
-    {
-        match ($color::class) {
-            RGB::class, RGBA::class => null,
-            default => throw new UnsupportedColorConversion(
-                sprintf(
-                    'Conversion from %s to %s is not supported by %s.',
-                    $color::class,
-                    RGBA::class,
-                    static::class
-                )
-            ),
-        };
+        throw new UnsupportedColorConversion(
+            sprintf(
+                'Conversion from %s to %s is not supported by %s.',
+                $color::class,
+                RGB::class,
+                static::class
+            )
+        );
     }
-
 }
