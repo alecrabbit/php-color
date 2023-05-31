@@ -2,6 +2,8 @@ include ${_APP_DIR}/app.init.Makefile
 include ${_APP_DIR}/phpinsights.Makefile
 include ${_APP_DIR}/tests.Makefile
 include ${_APP_DIR}/phploc.Makefile
+include ${_APP_DIR}/psalm.Makefile
+include ${_APP_DIR}/phpcs.Makefile
 
 ##
 ## —— Application 📦 ———————————————————————————————————————————————————————————
