@@ -14,22 +14,25 @@ use RuntimeException;
 abstract class AConvertableColor implements IConvertableColor
 {
     protected static ?IColorInstantiator $instantiator = null;
-    protected readonly IColorConverter $converter;
+    protected static ?IColorConverter $converter = null;
 
-    public function __construct(
-        ?IColorConverter $converter = null,
-        ?IColorInstantiator $instantiator = null,
-    ) {
-        $this->converter = self::refineConverter($converter);
-        self::$instantiator = self::refineInstantiator($instantiator);
+    final public static function useConverter(IColorConverter $converter): void
+    {
+        self::$converter = $converter;
     }
 
-    protected static function refineConverter(?IColorConverter $converter): IColorConverter
+    final public static function useInstantiator(IColorInstantiator $instantiator): void
+    {
+        self::$instantiator = $instantiator;
+    }
+
+
+    protected static function refineConverter(?IColorConverter $converter = null): IColorConverter
     {
         return $converter ?? new ColorConverter();
     }
 
-    protected static function refineInstantiator(?IColorInstantiator $instantiator): IColorInstantiator
+    protected static function refineInstantiator(?IColorInstantiator $instantiator = null): IColorInstantiator
     {
         return $instantiator ?? new ColorInstantiator();
     }
@@ -42,9 +45,17 @@ abstract class AConvertableColor implements IConvertableColor
     protected static function getInstantiator(): IColorInstantiator
     {
         if (null === self::$instantiator) {
-            throw new RuntimeException('Instantiator is not set.');
+            self::$instantiator = self::refineInstantiator();
         }
         return self::$instantiator;
+    }
+
+    protected static function getConverter(): IColorConverter
+    {
+        if (null === self::$converter) {
+            self::$converter = self::refineConverter();
+        }
+        return self::$converter;
     }
 
     public function toHex(): IConvertableColor
@@ -67,12 +78,12 @@ abstract class AConvertableColor implements IConvertableColor
 
     public function toRGB(): IConvertableColor
     {
-        return $this->converter->toRGB($this);
+        return self::getConverter()->toRGB($this);
     }
 
     public function toRGBA(): IConvertableColor
     {
-        return $this->converter->toRGBA($this);
+        return self::getConverter()->toRGBA($this);
     }
 
     public function toYUV(): IConvertableColor

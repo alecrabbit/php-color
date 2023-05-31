@@ -21,9 +21,7 @@ class RGB extends AConvertableColor implements IRGBColor
 
     protected function __construct(
         protected readonly int $value,
-        IColorConverter $converter = null,
     ) {
-        parent::__construct($converter);
     }
 
     /** @psalm-suppress MoreSpecificReturnType */

@@ -94,7 +94,7 @@ class RGBTest extends TestCase
             [['rgb(17, 34, 51)'], [17, 34, 51,]],
             [['rgb(254, 34, 51)'], [254, 34, 51,]],
             [['rgb(254, 18, 51)'], [254, 18, -51,]],
-            [['rgb(29, 34, 51)'], [29, 34, -51, ]],
+            [['rgb(29, 34, 51)'], [29, 34, -51,]],
             [['rgb(254, 34, 51)'], [-254, 34, -51,]],
             [['rgb(254, 34, 0)'], [-254, 34, 256,]],
             [['rgb(0, 0, 0)'], [0, 0, 0,]],
@@ -102,6 +102,16 @@ class RGBTest extends TestCase
             [['rgb(0, 0, 0)'], [-256, 256, 256,]],
             [['rgb(0, 0, 0)'], [256, -256, 256,]],
             [['rgb(0, 0, 0)'], [256, 256, -256,]],
+        ];
+    }
+
+    public static function canBeInstantiatedFromStringDataProvider(): iterable
+    {
+        yield from [
+            ['rgb(0, 0, 0)', 0, 0, 0,],
+            ['rgba(0, 0, 0, 1.0)', 0, 0, 0,],
+            ['rgba(0, 12, 33, 0.333)', 0, 12, 33,],
+            ['rgba(0, 0, 1, 1.0)', 0, 0, 1,],
         ];
     }
 
@@ -175,11 +185,12 @@ class RGBTest extends TestCase
     }
 
     #[Test]
-    public function canBeInstantiatedFromString(): void
+    #[DataProvider('canBeInstantiatedFromStringDataProvider')]
+    public function canBeInstantiatedFromString(string $color, int $r, int $g, int $b): void
     {
-        $testee = RGB::fromString('rgb(0, 0, 0)');
-        self::assertSame(0x00, $testee->getRed());
-        self::assertSame(0x00, $testee->getGreen());
-        self::assertSame(0x00, $testee->getBlue());
+        $testee = RGB::fromString($color);
+        self::assertSame($r, $testee->getRed());
+        self::assertSame($g, $testee->getGreen());
+        self::assertSame($b, $testee->getBlue());
     }
 }
