@@ -6,10 +6,7 @@ namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\A\AConvertableColor;
 use AlecRabbit\Color\Contract\IColorConverter;
-use AlecRabbit\Color\Contract\IColorInstantiator;
 use AlecRabbit\Color\Contract\IRGBColor;
-
-use RuntimeException;
 
 use function abs;
 use function sprintf;
@@ -29,9 +26,14 @@ class RGB extends AConvertableColor implements IRGBColor
         parent::__construct($converter);
     }
 
+    /** @psalm-suppress MoreSpecificReturnType */
     public static function fromString(string $color): IRGBColor
     {
-        return self::getInstantiator()->fromString($color)->toRGB();
+        /**
+         * @noinspection PhpIncompatibleReturnTypeInspection
+         * @psalm-suppress LessSpecificReturnStatement
+         */
+        return parent::fromString($color)->toRGB();
     }
 
     public function getValue(): int

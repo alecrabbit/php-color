@@ -34,7 +34,10 @@ abstract class AConvertableColor implements IConvertableColor
         return $instantiator ?? new ColorInstantiator();
     }
 
-    abstract public static function fromString(string $color): IConvertableColor;
+    public static function fromString(string $color): IConvertableColor
+    {
+        return self::getInstantiator()->fromString($color);
+    }
 
     protected static function getInstantiator(): IColorInstantiator
     {

@@ -6,6 +6,7 @@ namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\Contract\IColorInstantiator;
 use AlecRabbit\Color\Contract\IConvertableColor;
+use RuntimeException;
 
 class ColorInstantiator implements IColorInstantiator
 {
