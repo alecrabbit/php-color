@@ -20,7 +20,7 @@ abstract class AConvertableColor implements IConvertableColor
         $this->converter = $converter ?? new ColorConverter();
     }
 
-    public function fromString(string $color): IColor
+    public static function fromString(string $color): IColor
     {
         // TODO: Implement fromString() method.
         throw new RuntimeException('Not implemented.');

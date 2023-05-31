@@ -303,4 +303,12 @@ class RGBATest extends TestCase
                 $rgbo[self::BLUE],
             );
     }
+
+    #[Test]
+    public function returnsSelfIfConvertToRGBA(): void
+    {
+        $testee = RGBA::fromRGBA(0x00, 0x00, 0x00);
+        self::assertSame($testee, $testee->toRGBA());
+        self::assertNotSame($testee, $testee->toRGB());
+    }
 }

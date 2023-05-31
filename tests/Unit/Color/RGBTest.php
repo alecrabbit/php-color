@@ -167,4 +167,11 @@ class RGBTest extends TestCase
         self::assertSame($result[self::VALUE], $testee->toString());
     }
 
+    #[Test]
+    public function returnsSelfIfConvertToRGB(): void
+    {
+        $testee = RGB::fromRGB(0x00, 0x00, 0x00);
+        self::assertSame($testee, $testee->toRGB());
+    }
+
 }

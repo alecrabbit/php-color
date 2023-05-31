@@ -12,7 +12,7 @@ interface IColor
     public const FORMAT_RGB = 'rgb(%d, %d, %d)';
     public const FORMAT_RGBA = 'rgba(%d, %d, %d, %s)';
 
-    public function fromString(string $color): IColor;
+    public static function fromString(string $color): IColor;
 
     public function toString(): string;
 }
