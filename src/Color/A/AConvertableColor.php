@@ -5,22 +5,44 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\A;
 
 use AlecRabbit\Color\ColorConverter;
+use AlecRabbit\Color\ColorInstantiator;
 use AlecRabbit\Color\Contract\IColorConverter;
+use AlecRabbit\Color\Contract\IColorInstantiator;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use RuntimeException;
 
 abstract class AConvertableColor implements IConvertableColor
 {
+    protected static ?IColorInstantiator $instantiator = null;
     protected readonly IColorConverter $converter;
 
     public function __construct(
         ?IColorConverter $converter = null,
+        ?IColorInstantiator $instantiator = null,
     ) {
-        $this->converter = $converter ?? new ColorConverter();
+        $this->converter = self::refineConverter($converter);
+        self::$instantiator = self::refineInstantiator($instantiator);
+    }
+
+    protected static function refineConverter(?IColorConverter $converter): IColorConverter
+    {
+        return $converter ?? new ColorConverter();
+    }
+
+    protected static function refineInstantiator(?IColorInstantiator $instantiator): IColorInstantiator
+    {
+        return $instantiator ?? new ColorInstantiator();
     }
 
     abstract public static function fromString(string $color): IConvertableColor;
 
+    protected static function getInstantiator(): IColorInstantiator
+    {
+        if (null === self::$instantiator) {
+            throw new RuntimeException('Instantiator is not set.');
+        }
+        return self::$instantiator;
+    }
 
     public function toHex(): IConvertableColor
     {

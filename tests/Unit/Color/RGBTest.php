@@ -174,4 +174,12 @@ class RGBTest extends TestCase
         self::assertSame($testee, $testee->toRGB());
     }
 
+    #[Test]
+    public function canBeInstantiatedFromString(): void
+    {
+        $testee = RGB::fromString('rgb(0, 0, 0)');
+        self::assertSame(0x00, $testee->getRed());
+        self::assertSame(0x00, $testee->getGreen());
+        self::assertSame(0x00, $testee->getBlue());
+    }
 }

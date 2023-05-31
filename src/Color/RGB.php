@@ -6,6 +6,7 @@ namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\A\AConvertableColor;
 use AlecRabbit\Color\Contract\IColorConverter;
+use AlecRabbit\Color\Contract\IColorInstantiator;
 use AlecRabbit\Color\Contract\IRGBColor;
 
 use RuntimeException;
@@ -30,8 +31,7 @@ class RGB extends AConvertableColor implements IRGBColor
 
     public static function fromString(string $color): IRGBColor
     {
-        // TODO: Implement fromString() method.
-        throw new RuntimeException('Not implemented.');
+        return self::getInstantiator()->fromString($color)->toRGB();
     }
 
     public function getValue(): int
