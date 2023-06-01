@@ -11,8 +11,5 @@ interface IColorInstantiator
     public const REGEXP_RGBA = '/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)$/';
     public const REGEXP_RGB = '/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/';
 
-
-
-
     public function fromString(string $color): IConvertableColor;
 }

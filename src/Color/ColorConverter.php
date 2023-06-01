@@ -34,4 +34,9 @@ class ColorConverter implements IColorConverter
         // TODO: Implement fromString() method.
         throw new \RuntimeException('Not implemented.');
     }
+
+    public function toHex(IConvertableColor $color): IConvertableColor
+    {
+        return $this->to(Hex::class)->convert($color);
+    }
 }

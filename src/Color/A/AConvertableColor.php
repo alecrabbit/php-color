@@ -50,8 +50,7 @@ abstract class AConvertableColor implements IConvertableColor
 
     public function toHex(): IConvertableColor
     {
-        // TODO: Implement toHex()  method.
-        throw new RuntimeException('Not implemented.');
+        return self::getConverter()->toHex($this);
     }
 
     public function toHSL(): IConvertableColor

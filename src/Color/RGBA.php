@@ -20,9 +20,8 @@ class RGBA extends RGB implements IRGBAColor
     protected function __construct(
         int $value,
         protected readonly int $alpha = self::COMPONENT,
-        IColorConverter $converter = null,
     ) {
-        parent::__construct($value, $converter);
+        parent::__construct($value);
     }
 
     public static function fromRGB(int $r, int $g, int $b): IRGBAColor
