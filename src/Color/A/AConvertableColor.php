@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\A;
 
-use AlecRabbit\Color\ColorConverter;
-use AlecRabbit\Color\ColorInstantiator;
 use AlecRabbit\Color\Contract\IColorConverter;
 use AlecRabbit\Color\Contract\IColorInstantiator;
 use AlecRabbit\Color\Contract\IConvertableColor;
@@ -40,17 +38,17 @@ abstract class AConvertableColor implements IConvertableColor
         return self::$instantiator;
     }
 
+    public function toHex(): IConvertableColor
+    {
+        return self::getConverter()->toHex($this);
+    }
+
     protected static function getConverter(): IColorConverter
     {
         if (null === self::$converter) {
             throw new ColorException('Converter is not set.');
         }
         return self::$converter;
-    }
-
-    public function toHex(): IConvertableColor
-    {
-        return self::getConverter()->toHex($this);
     }
 
     public function toHSL(): IConvertableColor

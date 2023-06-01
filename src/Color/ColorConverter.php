@@ -8,9 +8,16 @@ use AlecRabbit\Color\Contract\IColorConverter;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IConverter;
 use AlecRabbit\Color\Factory\ConverterFactory;
+use RuntimeException;
 
 class ColorConverter implements IColorConverter
 {
+    public static function fromString(string $color): IConvertableColor
+    {
+        // TODO: Implement fromString() method.
+        throw new RuntimeException('Not implemented.');
+    }
+
     public function toRGB(IConvertableColor $color): IConvertableColor
     {
         return $this->to(RGB::class)->convert($color);
@@ -27,12 +34,6 @@ class ColorConverter implements IColorConverter
     public function toRGBA(IConvertableColor $color): IConvertableColor
     {
         return $this->to(RGBA::class)->convert($color);
-    }
-
-    public static function fromString(string $color): IConvertableColor
-    {
-        // TODO: Implement fromString() method.
-        throw new \RuntimeException('Not implemented.');
     }
 
     public function toHex(IConvertableColor $color): IConvertableColor

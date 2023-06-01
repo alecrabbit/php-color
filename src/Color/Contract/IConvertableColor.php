@@ -7,6 +7,7 @@ namespace AlecRabbit\Color\Contract;
 interface IConvertableColor extends IColor
 {
     public static function useConverter(IColorConverter $converter): void;
+
     public static function useInstantiator(IColorInstantiator $instantiator): void;
 
     public function toHex(): IConvertableColor;

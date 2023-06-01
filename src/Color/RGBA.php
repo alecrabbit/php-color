@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color;
 
-use AlecRabbit\Color\Contract\IColorConverter;
 use AlecRabbit\Color\Contract\IRGBAColor;
-
 use RuntimeException;
 
 use function abs;

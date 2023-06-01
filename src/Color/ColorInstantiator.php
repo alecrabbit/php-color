@@ -6,7 +6,7 @@ namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\Contract\IColorInstantiator;
 use AlecRabbit\Color\Contract\IConvertableColor;
-use RuntimeException;
+use AlecRabbit\Color\Exception\UnrecognizedColorString;
 
 class ColorInstantiator implements IColorInstantiator
 {
@@ -14,7 +14,7 @@ class ColorInstantiator implements IColorInstantiator
     {
         if (preg_match(self::REGEXP_RGB, $color, $matches)) {
             return
-                RGBA::fromRGBO(
+                RGB::fromRGB(
                     (int)$matches[1],
                     (int)$matches[2],
                     (int)$matches[3],
@@ -29,6 +29,35 @@ class ColorInstantiator implements IColorInstantiator
                     isset($matches[4]) ? (float)$matches[4] : 1.0,
                 );
         }
-        throw new RuntimeException('Not implemented.');
+        if (preg_match(self::REGEXP_HEX, $color)) {
+            return self::fromHex($color);
+        }
+        throw new UnrecognizedColorString(
+            sprintf(
+                'Unrecognized color string: "%s".',
+                $color
+            )
+        );
+    }
+
+    protected static function fromHex(string $color): IConvertableColor
+    {
+        return
+            Hex::fromInteger(
+                hexdec(
+                    self::normalizeHex($color)
+                )
+            );
+    }
+
+    private static function normalizeHex(string $hex): string
+    {
+        $hex = str_replace('#', '', $hex);
+
+        if (strlen($hex) === 3) {
+            $hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
+        }
+
+        return $hex;
     }
 }
