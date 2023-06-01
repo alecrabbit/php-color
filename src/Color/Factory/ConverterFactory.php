@@ -35,7 +35,6 @@ class ConverterFactory
 
     private static function assertClass(string $class): void
     {
-        // assert $class is a subclass of IConvertableColor
         if (!is_subclass_of($class, IConvertableColor::class)) {
             throw new InvalidArgument(
                 sprintf(

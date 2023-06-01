@@ -124,7 +124,7 @@ class HexTest extends TestCase
     }
 
     #[Test]
-    public function canBeUnmutablyModifiedByWithMethods(): void
+    public function canBeImmutablyModifiedByWithMethods(): void
     {
         $testee = self::getTesteeFromInteger(0x000000);
 
