@@ -35,8 +35,7 @@ class AConvertableColorConverterExceptionTest extends TestCase
             function () {
                 (new AConvertableColorOverride())->getConverterProperty();
             },
-            ColorException::class,
-            'Converter is not set.'
+            new ColorException('Converter is not set.')
         );
     }
 }
