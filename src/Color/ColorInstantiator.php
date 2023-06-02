@@ -12,6 +12,15 @@ class ColorInstantiator implements IColorInstantiator
 {
     public function fromString(string $color): IConvertableColor
     {
+        if (preg_match(self::REGEXP_HSLA, $color, $matches)) {
+            return
+                HSLA::fromHSLO(
+                    (int)$matches[1],
+                    (int)$matches[2],
+                    (int)$matches[3],
+                    isset($matches[4]) ? (float)$matches[4] : 1.0,
+                );
+        }
         if (preg_match(self::REGEXP_RGB, $color, $matches)) {
             return
                 RGB::fromRGB(
@@ -30,8 +39,9 @@ class ColorInstantiator implements IColorInstantiator
                 );
         }
         if (preg_match(self::REGEXP_HEX, $color)) {
-            return self::fromHex($color);
+            return self::fromHexString($color);
         }
+
         throw new UnrecognizedColorString(
             sprintf(
                 'Unrecognized color string: "%s".',
@@ -40,17 +50,17 @@ class ColorInstantiator implements IColorInstantiator
         );
     }
 
-    protected static function fromHex(string $color): IConvertableColor
+    protected static function fromHexString(string $color): IConvertableColor
     {
         return
             Hex::fromInteger(
                 hexdec(
-                    self::normalizeHex($color)
+                    self::normalizeHexString($color)
                 )
             );
     }
 
-    private static function normalizeHex(string $hex): string
+    protected static function normalizeHexString(string $hex): string
     {
         $hex = str_replace('#', '', $hex);
 
