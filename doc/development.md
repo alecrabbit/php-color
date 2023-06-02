@@ -10,10 +10,7 @@ To use this repository development environment you should have:
 - make
 
 ### 1. Clone repository
-> **Note** This repository got quite big, consider using `--depth` option
-> ```bash
-> git clone --depth=10 <repo_url>
-> ```
+
 ```bash
 git clone <repo_url>
 ```
