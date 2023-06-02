@@ -39,7 +39,7 @@ class ColorInstantiator implements IColorInstantiator
                 );
         }
         if (preg_match(self::REGEXP_HEX, $color)) {
-            return self::fromHexString($color);
+            return self::hexFromString($color);
         }
 
         throw new UnrecognizedColorString(
@@ -50,7 +50,7 @@ class ColorInstantiator implements IColorInstantiator
         );
     }
 
-    protected static function fromHexString(string $color): IConvertableColor
+    protected static function hexFromString(string $color): IConvertableColor
     {
         return
             Hex::fromInteger(
