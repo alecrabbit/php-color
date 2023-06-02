@@ -1,0 +1,38 @@
+{
+    "name": "alecrabbit/php-color",
+    "description": "Utilities for working with colors",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "php",
+        "color"
+    ],
+    "require": {
+        "php": ">=8.2"
+    },
+    "require-dev": {
+        "fakerphp/faker": "*",
+        "nunomaduro/collision": "^7.0",
+        "phpunit/php-code-coverage": "*",
+        "phpunit/phpunit": "^10.0",
+        "symfony/console": "^6.2",
+        "symfony/var-dumper": "*"
+    },
+    "suggest": {
+        "ext-mbstring": "For multibyte Unicode string functionality."
+    },
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "AlecRabbit\\Color\\": "src\\Color\\"
+        },
+        "files": [
+            "src/bootstrap.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AlecRabbit\\Tests\\": "tests\\"
+        }
+    }
+}
