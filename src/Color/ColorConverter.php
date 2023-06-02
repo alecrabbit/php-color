@@ -12,12 +12,6 @@ use RuntimeException;
 
 class ColorConverter implements IColorConverter
 {
-    public static function fromString(string $color): IConvertableColor
-    {
-        // TODO: Implement fromString() method.
-        throw new RuntimeException('Not implemented.');
-    }
-
     public function toRGB(IConvertableColor $color): IConvertableColor
     {
         return $this->to(RGB::class)->convert($color);
