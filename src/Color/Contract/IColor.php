@@ -4,23 +4,15 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Contract;
 
-use AlecRabbit\Color\Color;
-
 interface IColor
 {
-    public static function fromRGBO(int $r, int $g, int $b, float $opacity): IColor;
+    public const FORMAT_HEX = '#%06x';
+    public const FORMAT_HSL = 'hsl(%d, %s%%, %s%%)';
+    public const FORMAT_HSLA = 'hsla(%d, %s%%, %s%%, %s)';
+    public const FORMAT_RGB = 'rgb(%d, %d, %d)';
+    public const FORMAT_RGBA = 'rgba(%d, %d, %d, %s)';
 
-    public static function fromARGB(int $alpha, int $r, int $g, int $b): IColor;
+    public static function fromString(string $color): IColor;
 
-    public function getValue(): int;
-
-    public function getAlpha(): int;
-
-    public function getRed(): int;
-
-    public function getGreen(): int;
-
-    public function getBlue(): int;
-
-    public function getOpacity(): float;
+    public function toString(): string;
 }
