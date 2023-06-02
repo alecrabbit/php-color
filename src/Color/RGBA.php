@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color;
 
+use AlecRabbit\Color\A\AConvertableColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
 use RuntimeException;
 
@@ -36,10 +37,14 @@ class RGBA extends RGB implements IRGBAColor
             );
     }
 
+    /** @psalm-suppress MoreSpecificReturnType */
     public static function fromString(string $color): IRGBAColor
     {
-        // TODO: Implement fromString() method.
-        throw new RuntimeException('Not implemented.');
+        /**
+         * @noinspection PhpIncompatibleReturnTypeInspection
+         * @psalm-suppress LessSpecificReturnStatement
+         */
+        return AConvertableColor::fromString($color)->toRGBA();
     }
 
     public function withRed(int $red): IRGBAColor
