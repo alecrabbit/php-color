@@ -38,10 +38,11 @@ class ConverterFactoryTest extends TestCase
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
             sprintf(
-            'Class "%s" is not a "%s" subclass.',
-            $class,
+                'Class "%s" is not a "%s" subclass.',
+                $class,
                 IConvertableColor::class
-        ));
+            )
+        );
         ConverterFactory::make($class);
     }
 

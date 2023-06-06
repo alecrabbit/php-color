@@ -21,6 +21,4 @@ interface IRGBColor extends IConvertableColor
     public function withGreen(int $green): IRGBColor;
 
     public function withBlue(int $blue): IRGBColor;
-
-    public function toString(): string;
 }

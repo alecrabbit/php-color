@@ -4,12 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Contract;
 
-interface IRGBAColor extends IRGBColor
+interface IRGBAColor extends IRGBColor, HasAlpha, HasOpacity
 {
-    public function getAlpha(): int;
-
-    public function getOpacity(): float;
-
     public function withRed(int $red): IRGBAColor;
 
     public function withGreen(int $green): IRGBAColor;
@@ -19,6 +15,4 @@ interface IRGBAColor extends IRGBColor
     public function withAlpha(int $alpha): IRGBAColor;
 
     public function withOpacity(float $opacity): IRGBAColor;
-
-    public function toString(): string;
 }

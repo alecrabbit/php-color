@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Unit\Color\A\Override;
 
 use AlecRabbit\Color\A\AConvertableColor;
 use AlecRabbit\Color\Contract\IColorConverter;
+use RuntimeException;
 
 class AConvertableColorOverride extends AConvertableColor
 {
@@ -16,6 +17,6 @@ class AConvertableColorOverride extends AConvertableColor
 
     public function toString(): string
     {
-        throw new \RuntimeException('INTENTIONALLY Not implemented.');
+        throw new RuntimeException('INTENTIONALLY Not implemented.');
     }
 }

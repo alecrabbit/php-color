@@ -15,6 +15,4 @@ interface IHexColor extends IConvertableColor
     public function withGreen(int $green): IHexColor;
 
     public function withBlue(int $blue): IHexColor;
-
-    public function toString(): string;
 }
