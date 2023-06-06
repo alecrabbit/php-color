@@ -6,7 +6,6 @@ namespace AlecRabbit\Color\Converter;
 
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IHexColor;
-use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Converter\A\AConverter;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;

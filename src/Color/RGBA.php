@@ -6,7 +6,6 @@ namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\A\AConvertableColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
-use RuntimeException;
 
 use function abs;
 use function round;

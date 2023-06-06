@@ -8,7 +8,6 @@ use AlecRabbit\Color\Contract\IColorConverter;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IConverter;
 use AlecRabbit\Color\Factory\ConverterFactory;
-use RuntimeException;
 
 class ColorConverter implements IColorConverter
 {

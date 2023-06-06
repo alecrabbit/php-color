@@ -116,4 +116,54 @@ class HSLTest extends TestCase
         $testee = self::getTesteeFromHSL($hsl);
         self::assertSame($result, $testee->toString());
     }
+
+
+    #[Test]
+    public function canBeModifiedWithHue(): void
+    {
+        $original = self::getTesteeFromHSL(
+            [
+                self::HUE => 0,
+                self::SATURATION => 0,
+                self::LIGHTNESS => 0,
+            ]
+        );
+        $modified = $original->withHue(22);
+        self::assertSame(0, $original->getHue());
+        self::assertSame(22, $modified->getHue());
+        self::assertNotSame($original, $modified);
+    }
+
+    #[Test]
+    public function canBeModifiedWithSaturation(): void
+    {
+        $original = self::getTesteeFromHSL(
+            [
+                self::HUE => 0,
+                self::SATURATION => 0,
+                self::LIGHTNESS => 0,
+            ]
+        );
+        $modified = $original->withSaturation(0.33);
+        self::assertSame(0.0, $original->getSaturation());
+        self::assertSame(0.33, $modified->getSaturation());
+        self::assertNotSame($original, $modified);
+    }
+
+    #[Test]
+    public function canBeModifiedWithLightness(): void
+    {
+        $original = self::getTesteeFromHSL(
+            [
+                self::HUE => 0,
+                self::SATURATION => 0,
+                self::LIGHTNESS => 0,
+            ]
+        );
+        $modified = $original->withLightness(0.24);
+        self::assertSame(0.0, $original->getLightness());
+        self::assertSame(0.24, $modified->getLightness());
+        self::assertNotSame($original, $modified);
+    }
+
 }

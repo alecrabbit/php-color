@@ -16,6 +16,37 @@ class HSL extends AConvertableColor implements IHSLColor
     ) {
     }
 
+    public function toString(): string
+    {
+        return
+            sprintf(
+                self::FORMAT_HSL,
+                $this->hue,
+                round($this->saturation * 100),
+                round($this->lightness * 100),
+            );
+    }
+
+    public function getHue(): int
+    {
+        return $this->hue;
+    }
+
+    public function getSaturation(): float
+    {
+        return $this->saturation;
+    }
+
+    public function getLightness(): float
+    {
+        return $this->lightness;
+    }
+
+    public function withHue(int $hue): IHSLColor
+    {
+        return self::fromHSL($hue, $this->saturation, $this->lightness);
+    }
+
     public static function fromHSL(
         int $hue,
         float $saturation = 1.0,
@@ -39,28 +70,13 @@ class HSL extends AConvertableColor implements IHSLColor
         return round(max(0.0, min(1.0, $value)), 2);
     }
 
-    public function toString(): string
+    public function withSaturation(float $saturation): IHSLColor
     {
-        return sprintf(
-            self::FORMAT_HSL,
-            $this->hue,
-            round($this->saturation * 100),
-            round($this->lightness * 100),
-        );;
+        return self::fromHSL($this->hue, $saturation, $this->lightness);
     }
 
-    public function getHue(): int
+    public function withLightness(float $lightness): IHSLColor
     {
-        return $this->hue;
-    }
-
-    public function getSaturation(): float
-    {
-        return $this->saturation;
-    }
-
-    public function getLightness(): float
-    {
-        return $this->lightness;
+        return self::fromHSL($this->hue, $this->saturation, $lightness);
     }
 }
