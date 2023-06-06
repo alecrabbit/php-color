@@ -47,11 +47,8 @@ class HSL extends AConvertableColor implements IHSLColor
         return self::fromHSL($hue, $this->saturation, $this->lightness);
     }
 
-    public static function fromHSL(
-        int $hue,
-        float $saturation = 1.0,
-        float $lightness = 0.5,
-    ): IHSLColor {
+    public static function fromHSL(int $hue, float $saturation = 1.0, float $lightness = 0.5): IHSLColor
+    {
         return
             new self(
                 self::refineHue($hue),

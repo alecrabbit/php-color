@@ -1,0 +1,78 @@
+<?php
+
+declare(strict_types=1);
+
+namespace AlecRabbit\Color;
+
+use AlecRabbit\Color\Contract\IHSLAColor;
+
+class HSLA extends HSL implements IHSLAColor
+{
+    protected const COMPONENT = 0xFF;
+
+    protected function __construct(
+        int $hue,
+        float $saturation,
+        float $lightness,
+        protected float $alpha,
+    ) {
+        parent::__construct($hue, $saturation, $lightness);
+    }
+
+    public function toString(): string
+    {
+        return
+            sprintf(
+                self::FORMAT_HSLA,
+                $this->hue,
+                round($this->saturation * 100),
+                round($this->lightness * 100),
+                $this->alpha,
+            );
+    }
+
+    public function withHue(int $hue): IHSLAColor
+    {
+        return self::fromHSLA($hue, $this->saturation, $this->lightness, $this->alpha);
+    }
+
+    public static function fromHSLA(
+        int $hue,
+        float $saturation = 1.0,
+        float $lightness = 0.5,
+        float $alpha = 1.0,
+    ): IHSLAColor {
+        return new self(
+            self::refineHue($hue),
+            self::refineValue($saturation),
+            self::refineValue($lightness),
+            self::refineValue($alpha),
+        );
+    }
+
+    public function withSaturation(float $saturation): IHSLAColor
+    {
+        return self::fromHSL($this->hue, $saturation, $this->lightness);
+    }
+
+    public static function fromHSL(int $hue, float $saturation = 1.0, float $lightness = 0.5): IHSLAColor
+    {
+        return
+            self::fromHSLA($hue, $saturation, $lightness);
+    }
+
+    public function withLightness(float $lightness): IHSLAColor
+    {
+        return self::fromHSL($this->hue, $this->saturation, $lightness);
+    }
+
+    public function getAlpha(): int
+    {
+        return (int)round($this->getOpacity() * self::COMPONENT);
+    }
+
+    public function getOpacity(): float
+    {
+        return $this->alpha;
+    }
+}

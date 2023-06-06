@@ -14,7 +14,7 @@ class ColorInstantiator implements IColorInstantiator
     {
         if (preg_match(self::REGEXP_HSLA, $color, $matches)) {
             return
-                HSLA::fromHSLO(
+                HSLA::fromHSLA(
                     (int)$matches[1],
                     (int)$matches[2],
                     (int)$matches[3],
