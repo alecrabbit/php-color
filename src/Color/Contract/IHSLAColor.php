@@ -18,4 +18,8 @@ interface IHSLAColor extends IHSLColor, HasAlpha, HasOpacity
     public function withSaturation(float $saturation): IHSLAColor;
 
     public function withLightness(float $lightness): IHSLAColor;
+
+    public function withOpacity(float $opacity): IHSLAColor;
+
+    public function withAlpha(int $alpha): IHSLAColor;
 }

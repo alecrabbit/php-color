@@ -75,4 +75,14 @@ class HSLA extends HSL implements IHSLAColor
     {
         return $this->alpha;
     }
+
+    public function withOpacity(float $opacity): IHSLAColor
+    {
+        return self::fromHSLA($this->hue, $this->saturation, $this->lightness, $opacity);
+    }
+
+    public function withAlpha(int $alpha): IHSLAColor
+    {
+        return self::fromHSLA($this->hue, $this->saturation, $this->lightness, $alpha / self::COMPONENT);
+    }
 }
