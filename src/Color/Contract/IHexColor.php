@@ -4,11 +4,16 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Contract;
 
-interface IHexColor extends IConvertableColor
+interface IHexColor extends IConvertableColor,
+                            IHasValue,
+                            IHasRed,
+                            IHasGreen,
+                            IHasBlue,
+                            IModifiableWithRed,
+                            IModifiableWithGreen,
+                            IModifiableWithBlue
 {
     public static function fromInteger(int $value): IHexColor;
-
-    public function getValue(): int;
 
     public function withRed(int $red): IHexColor;
 
