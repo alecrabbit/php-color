@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Unit\Color\Factory;
 
 use AlecRabbit\Color\ColorConverter;
 use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IConverterFactory;
 use AlecRabbit\Color\Exception\ConverterUnavailable;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Factory\ConverterFactory;
@@ -27,7 +28,8 @@ class ConverterFactoryTest extends TestCase
                 $class
             )
         );
-        ConverterFactory::make($class);
+        $converterFactory = self::getTestee();
+        $converterFactory->makeFor($class);
     }
 
     #[Test]
@@ -43,7 +45,12 @@ class ConverterFactoryTest extends TestCase
                 IConvertableColor::class
             )
         );
-        ConverterFactory::make($class);
+        $converterFactory = self::getTestee();
+        $converterFactory->makeFor($class);
     }
 
+    private static function getTestee(): IConverterFactory
+    {
+        return new ConverterFactory();
+    }
 }

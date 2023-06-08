@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Factory;
 
+use AlecRabbit\Color\Contract\IConverterFactory;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IConverter;
 use AlecRabbit\Color\Converter\ToHexConverter;
@@ -15,12 +16,12 @@ use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
 
-class ConverterFactory
+class ConverterFactory implements IConverterFactory
 {
     /**
      * @param class-string $class
      */
-    public static function make(string $class): IConverter
+    public function makeFor(string $class): IConverter
     {
         self::assertClass($class);
         return match ($class) {
