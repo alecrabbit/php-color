@@ -12,6 +12,14 @@ class ColorInstantiator implements IColorInstantiator
 {
     public function fromString(string $color): IConvertableColor
     {
+        if (preg_match(self::REGEXP_HSL, $color, $matches)) {
+            return
+                HSL::fromHSL(
+                    (int)$matches[1],
+                    (int)$matches[2],
+                    (int)$matches[3],
+                );
+        }
         if (preg_match(self::REGEXP_HSLA, $color, $matches)) {
             return
                 HSLA::fromHSLA(

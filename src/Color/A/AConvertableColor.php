@@ -58,7 +58,7 @@ abstract class AConvertableColor implements IConvertableColor
 
     public function toHSLA(): IConvertableColor
     {
-       return self::getConverter()->toHSLA($this);
+        return self::getConverter()->toHSLA($this);
     }
 
     public function toRGB(): IConvertableColor

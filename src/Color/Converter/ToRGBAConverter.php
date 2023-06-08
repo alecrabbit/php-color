@@ -6,8 +6,8 @@ namespace AlecRabbit\Color\Converter;
 
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
+use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Converter\A\AConverter;
-use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
 
 class ToRGBAConverter extends AConverter
@@ -18,7 +18,7 @@ class ToRGBAConverter extends AConverter
             return $color;
         }
 
-        if ($color instanceof RGB) {
+        if ($color instanceof IRGBColor) {
             return
                 RGBA::fromRGBA(
                     $color->getRed(),

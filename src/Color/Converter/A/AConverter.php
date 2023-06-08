@@ -10,6 +10,8 @@ use AlecRabbit\Color\Exception\UnsupportedColorConversion;
 
 abstract class AConverter implements IConverter
 {
+    abstract public function convert(IConvertableColor $color): IConvertableColor;
+
     protected function unsupportedConversion(IConvertableColor $color): never
     {
         throw new UnsupportedColorConversion(
@@ -26,6 +28,4 @@ abstract class AConverter implements IConverter
      * @return class-string
      */
     abstract protected function getTargetClass(): string;
-
-    abstract public function convert(IConvertableColor $color): IConvertableColor;
 }

@@ -6,8 +6,8 @@ namespace AlecRabbit\Color\Converter;
 
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
+use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Converter\A\AConverter;
-use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
 
 class ToHSLAConverter extends AConverter
@@ -18,7 +18,7 @@ class ToHSLAConverter extends AConverter
             return $color;
         }
 
-        if ($color instanceof HSL) {
+        if ($color instanceof IHSLColor) {
             return
                 HSLA::fromHSL(
                     $color->getHue(),

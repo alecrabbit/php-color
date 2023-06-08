@@ -7,6 +7,7 @@ namespace AlecRabbit\Tests\Unit\Color\Converter;
 use AlecRabbit\Color\Contract\IConverter;
 use AlecRabbit\Color\Converter\ToHSLAConverter;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
+use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
 use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Color\Converter\A\Override\AConvertableColorOverride;
@@ -55,5 +56,32 @@ class ToHSLAConverterTest extends TestCase
         );
 
         $testee->convert(new AConvertableColorOverride());
+    }
+
+    #[Test]
+    public function canConvertFromHSLA(): void
+    {
+        $testee = self::getTestee();
+        $color = HSLA::fromString('hsla(0, 0%, 0%, 0.5)');
+
+        $result = $testee->convert($color);
+
+        self::assertSame($color, $result);
+    }
+
+    #[Test]
+    public function canConvertFromHSL(): void
+    {
+        $testee = self::getTestee();
+        $color = HSL::fromString('hsl(0, 0%, 0%)');
+
+        $result = $testee->convert($color);
+        self::assertNotSame($color, $result);
+        self::assertInstanceOf(HSLA::class, $result);
+        self::assertEquals(0, $result->getHue());
+        self::assertSame(0.0, $result->getSaturation());
+        self::assertEquals(0, $result->getLightness());
+        self::assertEquals(255, $result->getAlpha());
+        self::assertSame(1.0, $result->getOpacity());
     }
 }
