@@ -8,9 +8,7 @@ use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Converter\A\AConverter;
-use AlecRabbit\Color\Exception\UnsupportedColorConversion;
 use AlecRabbit\Color\Hex;
-use AlecRabbit\Color\RGB;
 
 class ToHexConverter extends AConverter
 {
@@ -25,14 +23,12 @@ class ToHexConverter extends AConverter
             return Hex::fromInteger($color->getValue());
         }
 
-        throw new UnsupportedColorConversion(
-            sprintf(
-                'Conversion from %s to %s is not supported by %s.',
-                $color::class,
-                RGB::class,
-                static::class
-            )
-        );
+        $this->unsupportedConversion($color);
     }
 
+    /** @inheritDoc */
+    protected function getTargetClass(): string
+    {
+        return Hex::class;
+    }
 }

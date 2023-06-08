@@ -5,36 +5,35 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Converter;
 
 use AlecRabbit\Color\Contract\IConvertableColor;
-use AlecRabbit\Color\Contract\IRGBAColor;
-use AlecRabbit\Color\Contract\IRGBColor;
+use AlecRabbit\Color\Contract\IHSLAColor;
+use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Converter\A\AConverter;
-use AlecRabbit\Color\Exception\UnsupportedColorConversion;
-use AlecRabbit\Color\RGB;
+use AlecRabbit\Color\HSL;
 
 class ToHSLConverter extends AConverter
 {
     public function convert(IConvertableColor $color): IConvertableColor
     {
-//        if ($color instanceof IRGBColor && !$color instanceof IRGBAColor) {
-//            return $color;
-//        }
-//
-//        if ($color instanceof IRGBAColor) {
-//            return
-//                RGB::fromRGB(
-//                    $color->getRed(),
-//                    $color->getGreen(),
-//                    $color->getBlue()
-//                );
-//        }
-        throw new UnsupportedColorConversion(
-            sprintf(
-                'Conversion from %s to %s is not supported by %s.',
-                $color::class,
-                RGB::class,
-                static::class
-            )
-        );
+        if ($color instanceof IHSLColor && !$color instanceof IHSLAColor) {
+            return $color;
+        }
+
+        if ($color instanceof IHSLAColor) {
+            return
+                HSL::fromHSL(
+                    $color->getHue(),
+                    $color->getSaturation(),
+                    $color->getLightness()
+                );
+        }
+
+        $this->unsupportedConversion($color);
+    }
+
+    /** @inheritDoc */
+    protected function getTargetClass(): string
+    {
+        return HSL::class;
     }
 
 }

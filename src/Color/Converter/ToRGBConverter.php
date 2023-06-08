@@ -8,7 +8,6 @@ use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Converter\A\AConverter;
-use AlecRabbit\Color\Exception\UnsupportedColorConversion;
 use AlecRabbit\Color\RGB;
 
 class ToRGBConverter extends AConverter
@@ -27,14 +26,13 @@ class ToRGBConverter extends AConverter
                     $color->getBlue()
                 );
         }
-        throw new UnsupportedColorConversion(
-            sprintf(
-                'Conversion from %s to %s is not supported by %s.',
-                $color::class,
-                RGB::class,
-                static::class
-            )
-        );
+
+        $this->unsupportedConversion($color);
     }
 
+    /** @inheritDoc */
+    protected function getTargetClass(): string
+    {
+        return RGB::class;
+    }
 }

@@ -7,7 +7,6 @@ namespace AlecRabbit\Color\Converter;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Converter\A\AConverter;
-use AlecRabbit\Color\Exception\UnsupportedColorConversion;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
 
@@ -28,13 +27,12 @@ class ToRGBAConverter extends AConverter
                 );
         }
 
-        throw new UnsupportedColorConversion(
-            sprintf(
-                'Conversion from %s to %s is not supported by %s.',
-                $color::class,
-                RGB::class,
-                static::class
-            )
-        );
+        $this->unsupportedConversion($color);
+    }
+
+    /** @inheritDoc */
+    protected function getTargetClass(): string
+    {
+        return RGBA::class;
     }
 }
