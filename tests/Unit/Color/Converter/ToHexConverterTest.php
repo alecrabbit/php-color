@@ -8,6 +8,8 @@ use AlecRabbit\Color\Contract\IConverter;
 use AlecRabbit\Color\Converter\ToHexConverter;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
 use AlecRabbit\Color\Hex;
+use AlecRabbit\Color\RGB;
+use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Color\Converter\A\Override\AConvertableColorOverride;
 use PHPUnit\Framework\Attributes\Test;
@@ -55,5 +57,42 @@ class ToHexConverterTest extends TestCase
         );
 
         $testee->convert(new AConvertableColorOverride());
+    }
+
+    #[Test]
+    public function canConvertFromHex(): void
+    {
+        $testee = self::getTestee();
+        $color = Hex::fromString('ff0000');
+
+        $result = $testee->convert($color);
+
+        self::assertSame($color, $result);
+    }
+
+    #[Test]
+    public function canConvertFromRGB(): void
+    {
+        $testee = self::getTestee();
+        $color = RGB::fromRGB(0xff, 0, 0);
+
+        $result = $testee->convert($color);
+
+        self::assertNotSame($color, $result);
+        self::assertInstanceOf(Hex::class, $result);
+        self::assertSame(0xff0000, $result->getValue());
+    }
+
+    #[Test]
+    public function canConvertFromRGBA(): void
+    {
+        $testee = self::getTestee();
+        $color = RGBA::fromRGBA(0xff, 0, 0);
+
+        $result = $testee->convert($color);
+
+        self::assertNotSame($color, $result);
+        self::assertInstanceOf(Hex::class, $result);
+        self::assertSame(0xff0000, $result->getValue());
     }
 }

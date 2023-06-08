@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Converter;
 
 use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Converter\A\AConverter;
@@ -26,6 +27,16 @@ class ToRGBConverter extends AConverter
                     $color->getBlue()
                 );
         }
+
+        if ($color instanceof IHexColor) {
+            return
+                RGB::fromRGB(
+                    $color->getRed(),
+                    $color->getGreen(),
+                    $color->getBlue()
+                );
+        }
+
 
         $this->unsupportedConversion($color);
     }
