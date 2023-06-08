@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Color\Converter;
 
 use AlecRabbit\Color\Contract\IConverter;
-use AlecRabbit\Color\Converter\ToHexConverter;
+use AlecRabbit\Color\Converter\ToRGBAConverter;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
-use AlecRabbit\Color\Hex;
+use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Color\Converter\A\Override\AConvertableColorOverride;
 use PHPUnit\Framework\Attributes\Test;
 
-class ToHexConverterTest extends TestCase
+class ToRGBAConverterTest extends TestCase
 {
-    protected const CONVERTER_TARGET_CLASS = Hex::class;
-    protected const CONVERTER_CLASS = ToHexConverter::class;
+    protected const CONVERTER_TARGET_CLASS = RGBA::class;
+    protected const CONVERTER_CLASS = ToRGBAConverter::class;
 
     #[Test]
     public function canBeCreated(): void
@@ -27,7 +27,7 @@ class ToHexConverterTest extends TestCase
 
     private static function getTestee(): IConverter
     {
-        return new ToHexConverter();
+        return new ToRGBAConverter();
     }
 
     #[Test]
