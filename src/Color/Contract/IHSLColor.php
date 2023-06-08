@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Contract;
 
-use AlecRabbit\Color\HSL;
-
 interface IHSLColor extends IConvertableColor
 {
     public static function fromHSL(int $hue, float $saturation = 1.0, float $lightness = 0.5): IHSLColor;

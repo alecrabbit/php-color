@@ -195,6 +195,7 @@ class HSLATest extends TestCase
         self::assertSame(0.74, $modified->getOpacity());
         self::assertNotSame($original, $modified);
     }
+
     #[Test]
     public function canBeModifiedWithAlpha(): void
     {
