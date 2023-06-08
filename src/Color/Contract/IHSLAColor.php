@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Contract;
 
-interface IHSLAColor extends IHSLColor, HasAlpha, HasOpacity
+interface IHSLAColor extends IHSLColor, IHasAlpha, IHasOpacity
 {
     public static function fromHSLA(
         int $hue,

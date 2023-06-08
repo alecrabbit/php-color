@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Contract;
 
-interface HasAlpha
+interface IHasOpacity
 {
-    public function getAlpha(): int;
+    public function getOpacity(): float;
 }

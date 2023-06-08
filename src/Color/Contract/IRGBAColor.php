@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Contract;
 
-interface IRGBAColor extends IRGBColor, HasAlpha, HasOpacity
+interface IRGBAColor extends IRGBColor, IHasAlpha, IHasOpacity
 {
     public static function fromRGBA(int $r, int $g, int $b, int $alpha = 0xFF): IRGBAColor;
 
