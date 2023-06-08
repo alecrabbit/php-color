@@ -5,25 +5,25 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Converter;
 
 use AlecRabbit\Color\Contract\IConvertableColor;
-use AlecRabbit\Color\Contract\IRGBAColor;
-use AlecRabbit\Color\Contract\IRGBColor;
+use AlecRabbit\Color\Contract\IHSLAColor;
+use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Converter\A\AConverter;
-use AlecRabbit\Color\RGBA;
+use AlecRabbit\Color\HSLA;
 
-class ToRGBAConverter extends AConverter
+class ToHSLAConverter extends AConverter
 {
     public function convert(IConvertableColor $color): IConvertableColor
     {
-        if ($color instanceof IRGBAColor) {
+        if ($color instanceof IHSLAColor) {
             return $color;
         }
 
-        if ($color instanceof IRGBColor) {
+        if ($color instanceof IHSLColor) {
             return
-                RGBA::fromRGBA(
-                    $color->getRed(),
-                    $color->getGreen(),
-                    $color->getBlue()
+                HSLA::fromHSL(
+                    $color->getHue(),
+                    $color->getSaturation(),
+                    $color->getLightness(),
                 );
         }
 
@@ -33,6 +33,6 @@ class ToRGBAConverter extends AConverter
     /** @inheritDoc */
     protected function getTargetClass(): string
     {
-        return RGBA::class;
+        return HSLA::class;
     }
 }

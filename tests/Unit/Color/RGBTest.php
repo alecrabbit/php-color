@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Color;
 
-use AlecRabbit\Color\Contract\IColor;
+use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -84,7 +84,7 @@ class RGBTest extends TestCase
     private static function canBeConvertedToStringDataFeeder(): iterable
     {
         yield from [
-            // (resulting)[string], (incoming)[r, g, b, alpha,]
+            // (resulting)[string], (incoming)[r, g, b,]
             [['rgb(254, 32, 22)'], [254, 32, 22,]],
             [['rgb(254, 32, 22)'], [254, 32, 22,]],
             [['rgb(254, 32, 22)'], [254, 32, 22,]],
@@ -112,6 +112,7 @@ class RGBTest extends TestCase
             ['rgba(0, 0, 0, 1.0)', 0, 0, 0,],
             ['rgba(0, 12, 33, 0.333)', 0, 12, 33,],
             ['rgba(0, 0, 1, 1.0)', 0, 0, 1,],
+            ['rgb(0, 12, 1)', 0, 12, 1,],
         ];
     }
 
@@ -128,13 +129,14 @@ class RGBTest extends TestCase
         self::assertSame($result[self::VALUE], $testee->getValue());
     }
 
-    private static function getTesteeFromRGB(array $rgb): IColor
+    private static function getTesteeFromRGB(array $rgb): IRGBColor
     {
-        return RGB::fromRGB(
-            $rgb[self::RED],
-            $rgb[self::GREEN],
-            $rgb[self::BLUE],
-        );
+        return
+            RGB::fromRGB(
+                $rgb[self::RED],
+                $rgb[self::GREEN],
+                $rgb[self::BLUE],
+            );
     }
 
     #[Test]
