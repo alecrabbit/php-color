@@ -10,7 +10,7 @@ use AlecRabbit\Color\Exception\UnsupportedColorConversion;
 
 abstract class AConverter implements IConverter
 {
-    public function unsupportedConversion(IConvertableColor $color): never
+    protected function unsupportedConversion(IConvertableColor $color): never
     {
         throw new UnsupportedColorConversion(
             sprintf(
