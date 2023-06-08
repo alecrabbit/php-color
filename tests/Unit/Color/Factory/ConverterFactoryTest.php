@@ -29,7 +29,7 @@ class ConverterFactoryTest extends TestCase
             )
         );
         $converterFactory = self::getTestee();
-        $converterFactory->makeFor($class);
+        $converterFactory->make($class);
     }
 
     #[Test]
@@ -46,7 +46,7 @@ class ConverterFactoryTest extends TestCase
             )
         );
         $converterFactory = self::getTestee();
-        $converterFactory->makeFor($class);
+        $converterFactory->make($class);
     }
 
     private static function getTestee(): IConverterFactory

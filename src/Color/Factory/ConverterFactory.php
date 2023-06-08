@@ -21,9 +21,10 @@ class ConverterFactory implements IConverterFactory
     /**
      * @param class-string $class
      */
-    public function makeFor(string $class): IConverter
+    public function make(string $class): IConverter
     {
         self::assertClass($class);
+        
         return match ($class) {
             RGB::class => new ToRGBConverter(),
             RGBA::class => new ToRGBAConverter(),

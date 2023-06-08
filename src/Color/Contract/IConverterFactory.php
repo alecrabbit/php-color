@@ -9,5 +9,5 @@ interface IConverterFactory
     /**
      * @param class-string $class
      */
-    public function makeFor(string $class): IConverter;
+    public function make(string $class): IConverter;
 }

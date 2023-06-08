@@ -27,7 +27,7 @@ class ColorConverter implements IColorConverter
      */
     protected function to(string $class): IConverter
     {
-        return $this->converterFactory->makeFor($class);
+        return $this->converterFactory->make($class);
     }
 
     public function toRGBA(IConvertableColor $color): IConvertableColor
