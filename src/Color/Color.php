@@ -7,6 +7,11 @@ namespace AlecRabbit\Color;
 use AlecRabbit\Color\A\AConvertableColor;
 use AlecRabbit\Color\Exception\ColorException;
 
+/**
+ * Utility class for color instantiation.
+ *
+ * @codeCoverageIgnore Coverage does not make sense.
+ */
 final class Color extends AConvertableColor
 {
     private function __construct()

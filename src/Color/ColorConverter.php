@@ -39,4 +39,14 @@ class ColorConverter implements IColorConverter
     {
         return $this->to(Hex::class)->convert($color);
     }
+
+    public function toHSL(IConvertableColor $color): IConvertableColor
+    {
+        return $this->to(HSL::class)->convert($color);
+    }
+
+    public function toHSLA(IConvertableColor $color): IConvertableColor
+    {
+        return $this->to(HSLA::class)->convert($color);
+    }
 }

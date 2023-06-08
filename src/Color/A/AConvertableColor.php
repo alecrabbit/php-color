@@ -53,14 +53,12 @@ abstract class AConvertableColor implements IConvertableColor
 
     public function toHSL(): IConvertableColor
     {
-        // TODO: Implement toHSL()  method.
-        throw new RuntimeException('Not implemented.');
+        return self::getConverter()->toHSL($this);
     }
 
     public function toHSLA(): IConvertableColor
     {
-        // TODO: Implement toHSLA()  method.
-        throw new RuntimeException('Not implemented.');
+       return self::getConverter()->toHSLA($this);
     }
 
     public function toRGB(): IConvertableColor
