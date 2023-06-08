@@ -6,7 +6,6 @@ namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\A\AConvertableColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
-use RuntimeException;
 
 use function abs;
 use function round;
@@ -18,7 +17,7 @@ class RGBA extends RGB implements IRGBAColor
 
     protected function __construct(
         int $value,
-        protected readonly int $alpha = self::COMPONENT,
+        protected readonly int $alpha,
     ) {
         parent::__construct($value);
     }

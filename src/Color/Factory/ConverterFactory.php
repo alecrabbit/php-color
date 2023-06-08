@@ -6,27 +6,35 @@ namespace AlecRabbit\Color\Factory;
 
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IConverter;
+use AlecRabbit\Color\Contract\IConverterFactory;
 use AlecRabbit\Color\Converter\ToHexConverter;
+use AlecRabbit\Color\Converter\ToHSLAConverter;
+use AlecRabbit\Color\Converter\ToHSLConverter;
 use AlecRabbit\Color\Converter\ToRGBAConverter;
 use AlecRabbit\Color\Converter\ToRGBConverter;
 use AlecRabbit\Color\Exception\ConverterUnavailable;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Hex;
+use AlecRabbit\Color\HSL;
+use AlecRabbit\Color\HSLA;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
 
-class ConverterFactory
+class ConverterFactory implements IConverterFactory
 {
     /**
      * @param class-string $class
      */
-    public static function make(string $class): IConverter
+    public function make(string $class): IConverter
     {
         self::assertClass($class);
+
         return match ($class) {
             RGB::class => new ToRGBConverter(),
             RGBA::class => new ToRGBAConverter(),
             Hex::class => new ToHexConverter(),
+            HSL::class => new ToHSLConverter(),
+            HSLA::class => new ToHSLAConverter(),
             default => throw new ConverterUnavailable(
                 sprintf('Converter for "%s" is not available.', $class)
             ),

@@ -7,11 +7,16 @@ namespace AlecRabbit\Color;
 use AlecRabbit\Color\Contract\IColorConverter;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IConverter;
+use AlecRabbit\Color\Contract\IConverterFactory;
 use AlecRabbit\Color\Factory\ConverterFactory;
-use RuntimeException;
 
 class ColorConverter implements IColorConverter
 {
+    public function __construct(
+        protected IConverterFactory $converterFactory = new ConverterFactory()
+    ) {
+    }
+
     public function toRGB(IConvertableColor $color): IConvertableColor
     {
         return $this->to(RGB::class)->convert($color);
@@ -22,7 +27,7 @@ class ColorConverter implements IColorConverter
      */
     protected function to(string $class): IConverter
     {
-        return ConverterFactory::make($class);
+        return $this->converterFactory->make($class);
     }
 
     public function toRGBA(IConvertableColor $color): IConvertableColor
@@ -33,5 +38,15 @@ class ColorConverter implements IColorConverter
     public function toHex(IConvertableColor $color): IConvertableColor
     {
         return $this->to(Hex::class)->convert($color);
+    }
+
+    public function toHSL(IConvertableColor $color): IConvertableColor
+    {
+        return $this->to(HSL::class)->convert($color);
+    }
+
+    public function toHSLA(IConvertableColor $color): IConvertableColor
+    {
+        return $this->to(HSLA::class)->convert($color);
     }
 }

@@ -11,4 +11,8 @@ interface IColorConverter
     public function toRGBA(IConvertableColor $color): IConvertableColor;
 
     public function toHex(IConvertableColor $color): IConvertableColor;
+
+    public function toHSL(IConvertableColor $color): IConvertableColor;
+
+    public function toHSLA(IConvertableColor $color): IConvertableColor;
 }
