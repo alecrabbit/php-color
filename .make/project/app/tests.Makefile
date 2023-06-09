@@ -22,3 +22,5 @@ test_dox: ## Run tests with testdox
 
 test_full: test_coverage test test_dox 	## Run tests with coverage, default and testdox
 	@${_NO_OP};
+
+tc: test test_coverage ## Run default tests and test with coverage
