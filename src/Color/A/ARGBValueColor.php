@@ -7,7 +7,6 @@ namespace AlecRabbit\Color\A;
 abstract class ARGBValueColor extends AConvertableColor
 {
     protected const MAX = 0xFFFFFF;
-    protected const COMPONENT = 0xFF;
     protected const RED = 0xFF0000;
     protected const GREEN = 0x00FF00;
     protected const BLUE = 0x0000FF;

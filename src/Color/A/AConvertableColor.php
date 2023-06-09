@@ -19,6 +19,7 @@ use AlecRabbit\Color\Exception\UnimplementedFunctionality;
  */
 abstract class AConvertableColor implements IConvertableColor
 {
+    protected const COMPONENT = 0xFF;
     private const K_METHOD_NOT_IMPLEMENTED = 'Method is not implemented yet. ["%s"]';
     protected static ?IColorInstantiator $instantiator = null;
     protected static ?IColorConverter $converter = null;

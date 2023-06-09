@@ -8,8 +8,6 @@ use AlecRabbit\Color\Contract\IHSLAColor;
 
 class HSLA extends HSL implements IHSLAColor
 {
-    protected const COMPONENT = 0xFF;
-
     protected function __construct(
         int $hue,
         float $saturation,
