@@ -16,6 +16,8 @@ use AlecRabbit\Color\Exception\UnimplementedFunctionality;
  * Thees methods are serving as a placeholder for potential future functionality or as a reference for extension.
  * Unimplemented methods throw `UnimplementedFunctionality` exception.
  * Please refer to the package documentation for updates on method availability.
+ *
+ * @link https://github.com/alecrabbit/php-color
  */
 abstract class AConvertableColor implements IConvertableColor
 {
