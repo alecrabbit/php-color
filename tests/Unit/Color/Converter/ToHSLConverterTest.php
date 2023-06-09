@@ -68,6 +68,7 @@ class ToHSLConverterTest extends TestCase
 
         self::assertSame($color, $result);
     }
+
     #[Test]
     public function canConvertFromHSLA(): void
     {

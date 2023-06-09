@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Color\Factory;
 
-use AlecRabbit\Color\ColorConverter;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IConverterFactory;
 use AlecRabbit\Color\Converter\ToHexConverter;
@@ -24,6 +23,7 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Color\Factory\Override\AConvertableColorOverride;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use stdClass;
 
 class ConverterFactoryTest extends TestCase
 {
@@ -73,7 +73,7 @@ class ConverterFactoryTest extends TestCase
     #[Test]
     public function throwsIfClassIsNotColorSubclass(): void
     {
-        $class = ColorConverter::class;
+        $class = stdClass::class;
 
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(

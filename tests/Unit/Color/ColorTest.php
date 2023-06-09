@@ -43,7 +43,6 @@ class ColorTest extends TestCase
     #[DataProvider('canBeCreatedFromStringDataProvider')]
     public function canBeCreatedFromString(string $expectedClass, string $incoming): void
     {
-
         $testee = self::getTesteeFromString($incoming);
 
         /** @noinspection UnnecessaryAssertionInspection */

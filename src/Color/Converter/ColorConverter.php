@@ -2,13 +2,18 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color;
+namespace AlecRabbit\Color\Converter;
 
 use AlecRabbit\Color\Contract\IColorConverter;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IConverter;
 use AlecRabbit\Color\Contract\IConverterFactory;
 use AlecRabbit\Color\Factory\ConverterFactory;
+use AlecRabbit\Color\Hex;
+use AlecRabbit\Color\HSL;
+use AlecRabbit\Color\HSLA;
+use AlecRabbit\Color\RGB;
+use AlecRabbit\Color\RGBA;
 
 class ColorConverter implements IColorConverter
 {
