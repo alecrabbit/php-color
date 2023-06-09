@@ -8,10 +8,18 @@ use AlecRabbit\Color\Contract\IColorConverter;
 use AlecRabbit\Color\Contract\IColorInstantiator;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Exception\ColorException;
-use RuntimeException;
+use AlecRabbit\Color\Exception\UnimplementedFunctionality;
 
+/**
+ * This class provides various functionalities related to color conversion.
+ * It contains several methods, some of which may not be implemented yet.
+ * Thees methods are serving as a placeholder for potential future functionality or as a reference for extension.
+ * Unimplemented methods throw `UnimplementedFunctionality` exception.
+ * Please refer to the package documentation for updates on method availability.
+ */
 abstract class AConvertableColor implements IConvertableColor
 {
+    private const K_METHOD_NOT_IMPLEMENTED = 'Method is not implemented yet. ["%s"]';
     protected static ?IColorInstantiator $instantiator = null;
     protected static ?IColorConverter $converter = null;
 
@@ -73,68 +81,90 @@ abstract class AConvertableColor implements IConvertableColor
 
     public function toYUV(): IConvertableColor
     {
-        // TODO: Implement toYUV()  method.
-        throw new RuntimeException('Not implemented.');
+        // Implementation may or may NOT be added in the future.
+        throw new UnimplementedFunctionality(
+            sprintf(self::K_METHOD_NOT_IMPLEMENTED, __METHOD__)
+        );
     }
 
     public function toCMYK(): IConvertableColor
     {
-        // TODO: Implement toCMYK()  method.
-        throw new RuntimeException('Not implemented.');
+        // Implementation may or may NOT be added in the future.
+        throw new UnimplementedFunctionality(
+            sprintf(self::K_METHOD_NOT_IMPLEMENTED, __METHOD__)
+        );
     }
 
     public function toXYZ(): IConvertableColor
     {
-        // TODO: Implement toXYZ()  method.
-        throw new RuntimeException('Not implemented.');
+        // Implementation may or may NOT be added in the future.
+        throw new UnimplementedFunctionality(
+            sprintf(self::K_METHOD_NOT_IMPLEMENTED, __METHOD__)
+        );
     }
 
     public function toLAB(): IConvertableColor
     {
-        // TODO: Implement toLAB()  method.
-        throw new RuntimeException('Not implemented.');
+        // Implementation may or may NOT be added in the future.
+        throw new UnimplementedFunctionality(
+            sprintf(self::K_METHOD_NOT_IMPLEMENTED, __METHOD__)
+        );
     }
 
     public function toLCh(): IConvertableColor
     {
-        // TODO: Implement toLCh()  method.
-        throw new RuntimeException('Not implemented.');
+        // Implementation may or may NOT be added in the future.
+        throw new UnimplementedFunctionality(
+            sprintf(self::K_METHOD_NOT_IMPLEMENTED, __METHOD__)
+        );
     }
 
     public function toHCL(): IConvertableColor
     {
-        // TODO: Implement toHCL()  method.
-        throw new RuntimeException('Not implemented.');
+        // Implementation may or may NOT be added in the future.
+        throw new UnimplementedFunctionality(
+            sprintf(self::K_METHOD_NOT_IMPLEMENTED, __METHOD__)
+        );
     }
 
     public function toHSV(): IConvertableColor
     {
-        // TODO: Implement toHSV()  method.
-        throw new RuntimeException('Not implemented.');
+        // Implementation may or may NOT be added in the future.
+        throw new UnimplementedFunctionality(
+            sprintf(self::K_METHOD_NOT_IMPLEMENTED, __METHOD__)
+        );
     }
 
     public function toHSVA(): IConvertableColor
     {
-        // TODO: Implement toHSVA()  method.
-        throw new RuntimeException('Not implemented.');
+        // Implementation may or may NOT be added in the future.
+        throw new UnimplementedFunctionality(
+            sprintf(self::K_METHOD_NOT_IMPLEMENTED, __METHOD__)
+        );
     }
 
     public function toYIQ(): IConvertableColor
     {
-        // TODO: Implement toYIQ()  method.
-        throw new RuntimeException('Not implemented.');
+        // Implementation may or may NOT be added in the future.
+        throw new UnimplementedFunctionality(
+            sprintf(self::K_METHOD_NOT_IMPLEMENTED, __METHOD__)
+        );
     }
 
     public function toGrayscale(): IConvertableColor
     {
-        // TODO: Implement toGrayscale()  method.
-        throw new RuntimeException('Not implemented.');
+        // Implementation may or may NOT be added in the future.
+        throw new UnimplementedFunctionality(
+            sprintf(self::K_METHOD_NOT_IMPLEMENTED, __METHOD__)
+        );
     }
 
     public function toPantone(): IConvertableColor
     {
-        // TODO: Implement toPantone()  method.
-        throw new RuntimeException('Not implemented.');
+        // Implementation may or may NOT be added in the future.
+        throw new UnimplementedFunctionality(
+            sprintf(self::K_METHOD_NOT_IMPLEMENTED, __METHOD__)
+        );
     }
 
     abstract public function toString(): string;
