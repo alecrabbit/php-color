@@ -27,7 +27,9 @@ class ToRGBAConverterTest extends TestCase
             [[0, 0, 0, 0.0], [22, 0, 0, 0]],
             [[0, 0, 0, 0.0], [678, 0, 0, 0]],
             // rgba(140, 96, 55, 0.47) <- hsla(29, 44%, 38%, 0.47)
-//            [[140, 96, 55, 0.47], [29, 44, 38, 0.47]],
+            [[140, 95, 54, 0.467], [29, 0.44, 0.38, 0.47]],
+            // rgba(74, 247, 204, 0.47) <- hsla(165, 92%, 63%, 0.47)
+            [[74, 247, 204, 0.467], [165, 0.92, 0.63, 0.47]],
         ];
     }
 
@@ -40,6 +42,8 @@ class ToRGBAConverterTest extends TestCase
             [[0, 0, 0], [44, 0, 0]],
             [[0, 0, 0], [22, 0, 0]],
             [[0, 0, 0], [678, 0, 0]],
+            // rgb(74, 247, 204) <- hsl(165, 92%, 63%)
+            [[74, 247, 204], [165, 0.92, 0.63]],
         ];
     }
 
@@ -98,7 +102,12 @@ class ToRGBAConverterTest extends TestCase
 
         self::assertNotSame($color, $result);
         self::assertInstanceOf(RGBA::class, $result);
-
+//        dump(
+//            $result,
+//            $result->getRed(),
+//            $result->getGreen(),
+//            $result->getBlue(),
+//        );
         self::assertSame($r, $result->getRed());
         self::assertSame($g, $result->getGreen());
         self::assertSame($b, $result->getBlue());

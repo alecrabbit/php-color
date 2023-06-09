@@ -6,5 +6,5 @@ namespace AlecRabbit\Color\Contract;
 
 interface ICoreConverter
 {
-    public function hslToRgb(int $h, float $s, float $l): array;
+    public function hslToRgb(int $hue, float $saturation, float $lightness): array;
 }
