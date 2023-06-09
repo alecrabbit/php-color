@@ -16,6 +16,16 @@ class HSL extends AConvertableColor implements IHSLColor
     ) {
     }
 
+    /** @psalm-suppress MoreSpecificReturnType */
+    public static function fromString(string $color): IHSLColor
+    {
+        /**
+         * @noinspection PhpIncompatibleReturnTypeInspection
+         * @psalm-suppress LessSpecificReturnStatement
+         */
+        return AConvertableColor::fromString($color)->toHSL();
+    }
+
     public function toString(): string
     {
         return
