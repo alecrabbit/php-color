@@ -17,25 +17,27 @@ use PHPUnit\Framework\Attributes\Test;
 
 class ToRGBAConverterTest extends TestCase
 {
-    public static function blackHSLAStringDataProvider(): iterable
+    public static function canConvertFromHSLADataProvider(): iterable
     {
         yield from [
-            ['hsla(0, 0%, 0%, 0)'],
-            ['hsla(12, 0%, 0%, 0)'],
-            ['hsla(44, 0%, 0%, 0)'],
-            ['hsla(22, 0%, 0%, 0)'],
-            ['hsla(678, 0%, 0%, 0)'],
+            // (result)[r, g, b, o], (incoming)[h, s, l, o]
+            [[0, 0, 0, 0.0], [0, 0, 0, 0]],
+            [[0, 0, 0, 0.0], [12, 0, 0, 0]],
+            [[0, 0, 0, 0.0], [44, 0, 0, 0]],
+            [[0, 0, 0, 0.0], [22, 0, 0, 0]],
+            [[0, 0, 0, 0.0], [678, 0, 0, 0]],
         ];
     }
 
-    public static function blackHSLStringDataProvider(): iterable
+    public static function canConvertFromHSLDataProvider(): iterable
     {
         yield from [
-            ['hsla(0, 0%, 0%, 0)'],
-            ['hsla(12, 0%, 0%, 0)'],
-            ['hsla(44, 0%, 0%, 0)'],
-            ['hsla(22, 0%, 0%, 0)'],
-            ['hsla(678, 0%, 0%, 0)'],
+            // (result)[r, g, b], (incoming)[h, s, l]
+            [[0, 0, 0], [0, 0, 0]],
+            [[0, 0, 0], [12, 0, 0]],
+            [[0, 0, 0], [44, 0, 0]],
+            [[0, 0, 0], [22, 0, 0]],
+            [[0, 0, 0], [678, 0, 0]],
         ];
     }
 
@@ -82,35 +84,42 @@ class ToRGBAConverterTest extends TestCase
     }
 
     #[Test]
-    #[DataProvider('blackHSLAStringDataProvider')]
-    public function canConvertFromHSLA(string $colorString): void
+    #[DataProvider('canConvertFromHSLADataProvider')]
+    public function canConvertFromHSLA(array $expected, array $incoming): void
     {
-        $testee = self::getTestee();
+        [$r, $g, $b, $o] = $expected;
 
-        $color = HSLA::fromString($colorString);
+        $color = HSLA::fromHSLA(...$incoming);
+
+        $testee = self::getTestee();
         $result = $testee->convert($color);
+
         self::assertNotSame($color, $result);
         self::assertInstanceOf(RGBA::class, $result);
-        self::assertSame(0, $result->getRed());
-        self::assertSame(0, $result->getGreen());
-        self::assertSame(0, $result->getBlue());
-        self::assertSame(0.0, $result->getOpacity());
+
+        self::assertSame($r, $result->getRed());
+        self::assertSame($g, $result->getGreen());
+        self::assertSame($b, $result->getBlue());
+        self::assertSame($o, $result->getOpacity());
     }
 
     #[Test]
-    #[DataProvider('blackHSLStringDataProvider')]
-    public function canConvertFromHSL(string $colorString): void
+    #[DataProvider('canConvertFromHSLDataProvider')]
+    public function canConvertFromHSL(array $expected, array $incoming): void
     {
-        $testee = self::getTestee();
+        [$r, $g, $b] = $expected;
 
-        $color = HSL::fromString($colorString);
+        $color = HSL::fromHSL(...$incoming);
+
+        $testee = self::getTestee();
         $result = $testee->convert($color);
+
         self::assertNotSame($color, $result);
         self::assertInstanceOf(RGBA::class, $result);
-        self::assertSame(0, $result->getRed());
-        self::assertSame(0, $result->getGreen());
-        self::assertSame(0, $result->getBlue());
+
+        self::assertSame($r, $result->getRed());
+        self::assertSame($g, $result->getGreen());
+        self::assertSame($b, $result->getBlue());
         self::assertSame(1.0, $result->getOpacity());
     }
-
 }
