@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Converter;
 
 use AlecRabbit\Color\Contract\ICoreConverter;
+use AlecRabbit\Color\Converter\DTO\DRGB;
 
 class CoreConverter implements ICoreConverter
 {
-    public function hslToRgb(int $hue, float $saturation, float $lightness): array
+    public function hslToRgb(int $hue, float $saturation, float $lightness): DRGB
     {
         $h = $hue / 360;
         $c = (1 - abs(2 * $lightness - 1)) * $saturation;
@@ -27,10 +28,11 @@ class CoreConverter implements ICoreConverter
             $h < 5 / 6 => [$r, $b] = [$x, $c],
             default => [$r, $b] = [$c, $x],
         };
-        return [
-            (int)round(($r + $m) * 255),
-            (int)round(($g + $m) * 255),
-            (int)round(($b + $m) * 255),
-        ];
+        return
+            new DRGB(
+                (int)round(($r + $m) * 255),
+                (int)round(($g + $m) * 255),
+                (int)round(($b + $m) * 255),
+            );
     }
 }

@@ -20,16 +20,15 @@ class ToRGBAConverterTest extends TestCase
     public static function canConvertFromHSLADataProvider(): iterable
     {
         yield from [
-            // (result)[r, g, b, o], (incoming)[h, s, l, o]
-            [[0, 0, 0, 0.0], [0, 0, 0, 0]],
-            [[0, 0, 0, 0.0], [12, 0, 0, 0]],
-            [[0, 0, 0, 0.0], [44, 0, 0, 0]],
-            [[0, 0, 0, 0.0], [22, 0, 0, 0]],
-            [[0, 0, 0, 0.0], [678, 0, 0, 0]],
-            // rgba(140, 96, 55, 0.47) <- hsla(29, 44%, 38%, 0.47)
-            [[140, 95, 54, 0.467], [29, 0.44, 0.38, 0.47]],
-            // rgba(74, 247, 204, 0.47) <- hsla(165, 92%, 63%, 0.47)
-            [[74, 247, 204, 0.467], [165, 0.92, 0.63, 0.47]],
+            // (result)[r, g, b, a], (incoming)[h, s, l, o]
+            [[0, 0, 0, 0], [0, 0, 0, 0]],
+            [[0, 0, 0, 0], [12, 0, 0, 0]],
+            [[0, 0, 0, 0], [44, 0, 0, 0]],
+            [[0, 0, 0, 0], [22, 0, 0, 0]],
+            [[0, 0, 0, 0], [678, 0, 0, 0]],
+            [[140, 95, 54, 119], [29, 0.44, 0.38, 0.47]],
+            [[74, 247, 204, 119], [165, 0.92, 0.63, 0.47]],
+            [[191, 204, 163, 175], [79, 0.29, 0.72, 0.69]],
         ];
     }
 
@@ -40,10 +39,11 @@ class ToRGBAConverterTest extends TestCase
             [[0, 0, 0], [0, 0, 0]],
             [[0, 0, 0], [12, 0, 0]],
             [[0, 0, 0], [44, 0, 0]],
+            [[191, 204, 163], [79, 0.29, 0.72]],
             [[0, 0, 0], [22, 0, 0]],
             [[0, 0, 0], [678, 0, 0]],
-            // rgb(74, 247, 204) <- hsl(165, 92%, 63%)
             [[74, 247, 204], [165, 0.92, 0.63]],
+            [[140, 95, 54], [29, 0.44, 0.38]],
         ];
     }
 
@@ -93,7 +93,7 @@ class ToRGBAConverterTest extends TestCase
     #[DataProvider('canConvertFromHSLADataProvider')]
     public function canConvertFromHSLA(array $expected, array $incoming): void
     {
-        [$r, $g, $b, $o] = $expected;
+        [$r, $g, $b, $a] = $expected;
 
         $color = HSLA::fromHSLA(...$incoming);
 
@@ -102,16 +102,11 @@ class ToRGBAConverterTest extends TestCase
 
         self::assertNotSame($color, $result);
         self::assertInstanceOf(RGBA::class, $result);
-//        dump(
-//            $result,
-//            $result->getRed(),
-//            $result->getGreen(),
-//            $result->getBlue(),
-//        );
+
         self::assertSame($r, $result->getRed());
         self::assertSame($g, $result->getGreen());
         self::assertSame($b, $result->getBlue());
-        self::assertSame($o, $result->getOpacity());
+        self::assertSame($a, $result->getAlpha());
     }
 
     #[Test]

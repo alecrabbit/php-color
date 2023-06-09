@@ -38,7 +38,7 @@ class ToRGBAConverter extends AConverter
         }
 
         if ($color instanceof IHSLAColor) {
-            [$r, $g, $b] = $this->converter->hslToRgb(
+            $rgb = $this->converter->hslToRgb(
                 $color->getHue(),
                 $color->getSaturation(),
                 $color->getLightness()
@@ -46,24 +46,24 @@ class ToRGBAConverter extends AConverter
 
             return
                 RGBA::fromRGBO(
-                    $r,
-                    $g,
-                    $b,
+                    $rgb->red,
+                    $rgb->green,
+                    $rgb->blue,
                     $color->getOpacity(),
                 );
         }
 
         if ($color instanceof IHSLColor) {
-            [$r, $g, $b] = $this->converter->hslToRgb(
+            $rgb = $this->converter->hslToRgb(
                 $color->getHue(),
                 $color->getSaturation(),
                 $color->getLightness()
             );
             return
                 RGBA::fromRGBO(
-                    $r,
-                    $g,
-                    $b,
+                    $rgb->red,
+                    $rgb->green,
+                    $rgb->blue,
                 );
         }
 
