@@ -2,14 +2,25 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color;
+namespace AlecRabbit\Color\Instantiator;
 
 use AlecRabbit\Color\Contract\IColorInstantiator;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Exception\UnrecognizedColorString;
+use AlecRabbit\Color\Hex;
+use AlecRabbit\Color\HSL;
+use AlecRabbit\Color\HSLA;
+use AlecRabbit\Color\RGB;
+use AlecRabbit\Color\RGBA;
 
 class ColorInstantiator implements IColorInstantiator
 {
+    protected const REGEXP_HEX = '/^#?(?:([a-f\d]{2}){3}|([a-f\d]){3})$/i';
+    protected const REGEXP_HSL = '/^hsl\((\d+),\s*(\d+)%,\s*(\d+)%\)$/';
+    protected const REGEXP_HSLA = '/^hsla?\((\d+),\s*(\d+)%,\s*(\d+)%(?:,\s*([\d.]+))?\)$/';
+    protected const REGEXP_RGB = '/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/';
+    protected const REGEXP_RGBA = '/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)$/';
+
     public function fromString(string $color): IConvertableColor
     {
         if (preg_match(self::REGEXP_HSL, $color, $matches)) {
