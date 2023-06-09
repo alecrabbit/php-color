@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Color;
+namespace AlecRabbit\Tests\Functional\Color;
 
 use AlecRabbit\Color\Color;
 use AlecRabbit\Color\Contract\IConvertableColor;
