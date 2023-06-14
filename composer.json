@@ -5,7 +5,9 @@
     "type": "library",
     "keywords": [
         "php",
-        "color"
+        "color",
+        "converter",
+        "convert"
     ],
     "require": {
         "php": ">=8.2"
