@@ -15,4 +15,5 @@ a_utils_run: _app_composer_normalize a_phpinsights_summary ## Run all utils
 	@${_NO_OP};
 
 a_deptrac_run_full:
+	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}Deptrac run...${_C_STOP}\n";
 	@${_ECHO_DISABLED};
