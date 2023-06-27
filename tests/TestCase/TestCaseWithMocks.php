@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\TestCase;
 
 use AlecRabbit\Color\Contract\IColorConverter;
-use AlecRabbit\Color\Contract\IColorInstantiator;
+use AlecRabbit\Color\Contract\IInstantiator;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use PHPUnit\Framework\MockObject\MockObject;
 
@@ -20,8 +20,8 @@ class TestCaseWithMocks extends TestCase
     {
         return $this->createMock(IColorConverter::class);
     }
-    protected function mockInstantiator(): MockObject&IColorInstantiator
+    protected function mockInstantiator(): MockObject&IInstantiator
     {
-        return $this->createMock(IColorInstantiator::class);
+        return $this->createMock(IInstantiator::class);
     }
 }

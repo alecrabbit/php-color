@@ -22,6 +22,7 @@ class ColorConverter implements IColorConverter
     ) {
     }
 
+    /** @deprecated */
     public function toRGB(IConvertableColor $color): IConvertableColor
     {
         return $this->to(RGB::class)->convert($color);
@@ -30,26 +31,30 @@ class ColorConverter implements IColorConverter
     /**
      * @param class-string $class
      */
-    protected function to(string $class): IConverter
+    public function to(string $class): IConverter
     {
         return $this->converterFactory->make($class);
     }
 
+    /** @deprecated */
     public function toRGBA(IConvertableColor $color): IConvertableColor
     {
         return $this->to(RGBA::class)->convert($color);
     }
 
+    /** @deprecated */
     public function toHex(IConvertableColor $color): IConvertableColor
     {
         return $this->to(Hex::class)->convert($color);
     }
 
+    /** @deprecated */
     public function toHSL(IConvertableColor $color): IConvertableColor
     {
         return $this->to(HSL::class)->convert($color);
     }
 
+    /** @deprecated */
     public function toHSLA(IConvertableColor $color): IConvertableColor
     {
         return $this->to(HSLA::class)->convert($color);

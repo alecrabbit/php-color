@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Color\A;
 
 use AlecRabbit\Color\Contract\IColorConverter;
-use AlecRabbit\Color\Contract\IColorInstantiator;
+use AlecRabbit\Color\Contract\IInstantiator;
 use AlecRabbit\Tests\TestCase\TestCaseWithMocks;
 use AlecRabbit\Tests\Unit\Color\A\Override\AConvertableColorOverride;
 use PHPUnit\Framework\Attributes\Test;
@@ -16,7 +16,7 @@ class AConvertableColorUseMethodTest extends TestCaseWithMocks
     protected const INSTANTIATOR = 'instantiator';
 
     protected static IColorConverter|null $converter = null;
-    protected static IColorInstantiator|null $instantiator = null;
+    protected static IInstantiator|null $instantiator = null;
 
     #[Test]
     public function canSetConverterViaUseConverter(): void
@@ -43,7 +43,7 @@ class AConvertableColorUseMethodTest extends TestCaseWithMocks
         self::assertSame($instantiator, $this->extractInstantiator());
     }
 
-    protected function extractInstantiator(): ?IColorInstantiator
+    protected function extractInstantiator(): ?IInstantiator
     {
         return self::getPropertyValue(AConvertableColorOverride::class, self::INSTANTIATOR);
     }

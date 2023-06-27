@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\A;
 
 use AlecRabbit\Color\Contract\IColorConverter;
-use AlecRabbit\Color\Contract\IColorInstantiator;
+use AlecRabbit\Color\Contract\IInstantiator;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Exception\ColorException;
 use AlecRabbit\Color\Exception\UnimplementedFunctionality;
@@ -23,7 +23,7 @@ abstract class AConvertableColor implements IConvertableColor
 {
     protected const COMPONENT = 0xFF;
     private const K_METHOD_NOT_IMPLEMENTED = 'Method is not implemented yet. ["%s"]';
-    protected static ?IColorInstantiator $instantiator = null;
+    protected static ?IInstantiator $instantiator = null;
     protected static ?IColorConverter $converter = null;
 
     final public static function useConverter(IColorConverter $converter): void
@@ -31,7 +31,7 @@ abstract class AConvertableColor implements IConvertableColor
         self::$converter = $converter;
     }
 
-    final public static function useInstantiator(IColorInstantiator $instantiator): void
+    final public static function useInstantiator(IInstantiator $instantiator): void
     {
         self::$instantiator = $instantiator;
     }
@@ -41,7 +41,7 @@ abstract class AConvertableColor implements IConvertableColor
         return self::getInstantiator()->fromString($color);
     }
 
-    protected static function getInstantiator(): IColorInstantiator
+    protected static function getInstantiator(): IInstantiator
     {
         if (null === self::$instantiator) {
             throw new ColorException('Instantiator is not set.');
@@ -49,6 +49,12 @@ abstract class AConvertableColor implements IConvertableColor
         return self::$instantiator;
     }
 
+    public function to(string $class): IConvertableColor
+    {
+        return self::getConverter()->to($class)->convert($this);
+    }
+
+    /** @deprecated Will be removed soon. */
     public function toHex(): IConvertableColor
     {
         return self::getConverter()->toHex($this);
@@ -62,26 +68,31 @@ abstract class AConvertableColor implements IConvertableColor
         return self::$converter;
     }
 
+    /** @deprecated Will be removed soon. */
     public function toHSL(): IConvertableColor
     {
         return self::getConverter()->toHSL($this);
     }
 
+    /** @deprecated Will be removed soon. */
     public function toHSLA(): IConvertableColor
     {
         return self::getConverter()->toHSLA($this);
     }
 
+    /** @deprecated Will be removed soon. */
     public function toRGB(): IConvertableColor
     {
         return self::getConverter()->toRGB($this);
     }
 
+    /** @deprecated Will be removed soon. */
     public function toRGBA(): IConvertableColor
     {
         return self::getConverter()->toRGBA($this);
     }
 
+    /** @deprecated Will be removed soon. */
     public function toYUV(): IConvertableColor
     {
         // Implementation may or may NOT be added in the future.
@@ -90,6 +101,7 @@ abstract class AConvertableColor implements IConvertableColor
         );
     }
 
+    /** @deprecated Will be removed soon. */
     public function toCMYK(): IConvertableColor
     {
         // Implementation may or may NOT be added in the future.
@@ -98,6 +110,7 @@ abstract class AConvertableColor implements IConvertableColor
         );
     }
 
+    /** @deprecated Will be removed soon. */
     public function toXYZ(): IConvertableColor
     {
         // Implementation may or may NOT be added in the future.
@@ -106,6 +119,7 @@ abstract class AConvertableColor implements IConvertableColor
         );
     }
 
+    /** @deprecated Will be removed soon. */
     public function toLAB(): IConvertableColor
     {
         // Implementation may or may NOT be added in the future.
@@ -114,6 +128,7 @@ abstract class AConvertableColor implements IConvertableColor
         );
     }
 
+    /** @deprecated Will be removed soon. */
     public function toLCh(): IConvertableColor
     {
         // Implementation may or may NOT be added in the future.
@@ -122,6 +137,7 @@ abstract class AConvertableColor implements IConvertableColor
         );
     }
 
+    /** @deprecated Will be removed soon. */
     public function toHCL(): IConvertableColor
     {
         // Implementation may or may NOT be added in the future.
@@ -130,6 +146,7 @@ abstract class AConvertableColor implements IConvertableColor
         );
     }
 
+    /** @deprecated Will be removed soon. */
     public function toHSV(): IConvertableColor
     {
         // Implementation may or may NOT be added in the future.
@@ -138,6 +155,7 @@ abstract class AConvertableColor implements IConvertableColor
         );
     }
 
+    /** @deprecated Will be removed soon. */
     public function toHSVA(): IConvertableColor
     {
         // Implementation may or may NOT be added in the future.
@@ -146,6 +164,7 @@ abstract class AConvertableColor implements IConvertableColor
         );
     }
 
+    /** @deprecated Will be removed soon. */
     public function toYIQ(): IConvertableColor
     {
         // Implementation may or may NOT be added in the future.
@@ -154,6 +173,7 @@ abstract class AConvertableColor implements IConvertableColor
         );
     }
 
+    /** @deprecated Will be removed soon. */
     public function toGrayscale(): IConvertableColor
     {
         // Implementation may or may NOT be added in the future.
@@ -162,6 +182,7 @@ abstract class AConvertableColor implements IConvertableColor
         );
     }
 
+    /** @deprecated Will be removed soon. */
     public function toPantone(): IConvertableColor
     {
         // Implementation may or may NOT be added in the future.

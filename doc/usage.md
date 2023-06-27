@@ -3,10 +3,16 @@
 
 > **Note** Tentative API - subject to change.
 
+### Create "closest" color class from string.
+
 ```php
-
-$color = Color::fromString('red');
-
+$hex = Color::fromString('red');                        // Hex::class
+$rgb = Color::fromString('rgb(255, 0, 0)');             // RGB::class
+$hsl = Color::fromString('hsl(0, 100%, 50%)');          // HSL::class
+$hsla = Color::fromString('hsla(0, 100%, 50%, 0.5)');   // HSLA::class
+```
+### Convert color to another color class.
+```php
 $hsl = Converter::to(HSL::class)->convert($color);
 $rgb = Converter::to(RGB::class)->convert($color);
 $hex = Converter::to(Hex::class)->convert($color);

@@ -65,7 +65,7 @@ class ColorConverterTest extends TestCase
         $testee = $this->getTestee($factory);
 
         self::assertInstanceOf(ColorConverter::class, $testee);
-        self::assertSame($result, $testee->toRGB($incoming));
+        self::assertSame($result, $testee->to($class)->convert($incoming));
     }
 
     protected function mockColor(): MockObject&IConvertableColor
@@ -105,7 +105,7 @@ class ColorConverterTest extends TestCase
         $testee = $this->getTestee($factory);
 
         self::assertInstanceOf(ColorConverter::class, $testee);
-        self::assertSame($result, $testee->toRGBA($incoming));
+        self::assertSame($result, $testee->to($class)->convert($incoming));
     }
 
     #[Test]
@@ -135,7 +135,7 @@ class ColorConverterTest extends TestCase
         $testee = $this->getTestee($factory);
 
         self::assertInstanceOf(ColorConverter::class, $testee);
-        self::assertSame($result, $testee->toHex($incoming));
+        self::assertSame($result, $testee->to($class)->convert($incoming));
     }
 
     #[Test]
@@ -165,7 +165,7 @@ class ColorConverterTest extends TestCase
         $testee = $this->getTestee($factory);
 
         self::assertInstanceOf(ColorConverter::class, $testee);
-        self::assertSame($result, $testee->toHSL($incoming));
+        self::assertSame($result, $testee->to($class)->convert($incoming));
     }
 
     #[Test]
@@ -195,6 +195,6 @@ class ColorConverterTest extends TestCase
         $testee = $this->getTestee($factory);
 
         self::assertInstanceOf(ColorConverter::class, $testee);
-        self::assertSame($result, $testee->toHSLA($incoming));
+        self::assertSame($result, $testee->to($class)->convert($incoming));
     }
 }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Color\A;
 
 use AlecRabbit\Color\A\AConvertableColor;
-use AlecRabbit\Color\Contract\IColorInstantiator;
+use AlecRabbit\Color\Contract\IInstantiator;
 use AlecRabbit\Color\Exception\ColorException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Color\A\Override\AConvertableColorOverride;
@@ -14,7 +14,7 @@ use PHPUnit\Framework\Attributes\Test;
 class AConvertableColorInstantiatorExceptionTest extends TestCase
 {
     protected const INSTANTIATOR = 'instantiator';
-    protected static IColorInstantiator|null $instantiator = null;
+    protected static IInstantiator|null $instantiator = null;
 
     #[Test]
     public function throwsColorExceptionIfInstantiatorIsNotSet(): void

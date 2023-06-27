@@ -6,9 +6,9 @@ declare(strict_types=1);
 
 use AlecRabbit\Color\A\AConvertableColor;
 use AlecRabbit\Color\Converter\ColorConverter;
-use AlecRabbit\Color\Instantiator\ColorInstantiator;
+use AlecRabbit\Color\Instantiator\Instantiator;
 
 AConvertableColor::useConverter(new ColorConverter());
-AConvertableColor::useInstantiator(new ColorInstantiator());
+AConvertableColor::useInstantiator(new Instantiator());
 
 // @codeCoverageIgnoreEnd

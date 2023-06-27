@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Functional\Color\Instantiator;
 
 use AlecRabbit\Color\Color;
-use AlecRabbit\Color\Contract\IColorInstantiator;
+use AlecRabbit\Color\Contract\IInstantiator;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
-use AlecRabbit\Color\Instantiator\ColorInstantiator;
+use AlecRabbit\Color\Instantiator\Instantiator;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -24,7 +24,7 @@ class ColorInstantiatorTest extends TestCase
     {
         $testee = $this->getTestee();
 
-        self::assertInstanceOf(ColorInstantiator::class, $testee);
+        self::assertInstanceOf(Instantiator::class, $testee);
     }
 
     public static function canInstantiateFromStringDataProvider(): iterable
@@ -59,8 +59,8 @@ class ColorInstantiatorTest extends TestCase
         self::assertInstanceOf($expectedClass, $testee->fromString($incoming));
     }
 
-    protected function getTestee(): IColorInstantiator
+    protected function getTestee(): IInstantiator
     {
-        return new ColorInstantiator();
+        return new Instantiator();
     }
 }

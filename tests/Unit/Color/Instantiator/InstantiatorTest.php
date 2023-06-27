@@ -4,25 +4,25 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Color\Instantiator;
 
-use AlecRabbit\Color\Contract\IColorInstantiator;
+use AlecRabbit\Color\Contract\IInstantiator;
 use AlecRabbit\Color\Exception\UnrecognizedColorString;
-use AlecRabbit\Color\Instantiator\ColorInstantiator;
+use AlecRabbit\Color\Instantiator\Instantiator;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-class ColorInstantiatorTest extends TestCase
+class InstantiatorTest extends TestCase
 {
     #[Test]
     public function canBeCreated(): void
     {
         $testee = $this->getTestee();
 
-        self::assertInstanceOf(ColorInstantiator::class, $testee);
+        self::assertInstanceOf(Instantiator::class, $testee);
     }
 
-    protected function getTestee(): IColorInstantiator
+    protected function getTestee(): IInstantiator
     {
-        return new ColorInstantiator();
+        return new Instantiator();
     }
 
     #[Test]
