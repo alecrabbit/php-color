@@ -9,7 +9,7 @@ use AlecRabbit\Color\Contract\IInstantiator;
 interface IInstantiatorFactory
 {
     /**
-     * @param class-string $class
+     * @param class-string<IInstantiator> $class
      */
     public static function setClass(string $class): void;
 

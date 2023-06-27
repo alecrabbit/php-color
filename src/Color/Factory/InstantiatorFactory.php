@@ -11,6 +11,7 @@ use AlecRabbit\Color\Instantiator;
 
 class InstantiatorFactory implements IInstantiatorFactory
 {
+    /** @var class-string<IInstantiator> */
     protected static string $class = Instantiator::class;
     protected static ?IInstantiator $instance = null;
 
