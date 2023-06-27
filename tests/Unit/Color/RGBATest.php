@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Color;
 
 use AlecRabbit\Color\Contract\IRGBAColor;
+use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -318,8 +319,8 @@ class RGBATest extends TestCase
     public function returnsSelfIfConvertToRGBA(): void
     {
         $testee = RGBA::fromRGBA(0x00, 0x00, 0x00);
-        self::assertSame($testee, $testee->toRGBA());
-        self::assertNotSame($testee, $testee->toRGB());
+        self::assertSame($testee, $testee->to(RGBA::class));
+        self::assertNotSame($testee, $testee->to(RGB::class));
     }
 
     #[Test]

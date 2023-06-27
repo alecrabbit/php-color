@@ -22,12 +22,6 @@ class ColorConverter implements IColorConverter
     ) {
     }
 
-    /** @deprecated */
-    public function toRGB(IConvertableColor $color): IConvertableColor
-    {
-        return $this->to(RGB::class)->convert($color);
-    }
-
     /**
      * @param class-string $class
      */

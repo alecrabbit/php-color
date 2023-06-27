@@ -25,7 +25,7 @@ class HSLA extends HSL implements IHSLAColor
          * @noinspection PhpIncompatibleReturnTypeInspection
          * @psalm-suppress LessSpecificReturnStatement
          */
-        return AConvertableColor::fromString($color)->toHSLA();
+        return AConvertableColor::fromString($color)->to(self::class);
     }
 
     public function toString(): string

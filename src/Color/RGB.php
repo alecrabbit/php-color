@@ -20,7 +20,7 @@ class RGB extends ARGBValueColor implements IRGBColor
          * @noinspection PhpIncompatibleReturnTypeInspection
          * @psalm-suppress LessSpecificReturnStatement
          */
-        return parent::fromString($color)->toRGB();
+        return parent::fromString($color)->to(self::class);
     }
 
     public function withRed(int $red): IRGBColor

@@ -54,12 +54,6 @@ abstract class AConvertableColor implements IConvertableColor
         return self::getConverter()->to($class)->convert($this);
     }
 
-    /** @deprecated Will be removed soon. */
-    public function toHex(): IConvertableColor
-    {
-        return self::getConverter()->toHex($this);
-    }
-
     protected static function getConverter(): IColorConverter
     {
         if (null === self::$converter) {

@@ -43,7 +43,7 @@ class RGBA extends RGB implements IRGBAColor
          * @noinspection PhpIncompatibleReturnTypeInspection
          * @psalm-suppress LessSpecificReturnStatement
          */
-        return AConvertableColor::fromString($color)->toRGBA();
+        return AConvertableColor::fromString($color)->to(self::class);
     }
 
     public function withRed(int $red): IRGBAColor
