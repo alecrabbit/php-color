@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color;
 
-use AlecRabbit\Color\A\AConvertableColor;
 use AlecRabbit\Color\A\ARGBValueColor;
 use AlecRabbit\Color\Contract\IHexColor;
 

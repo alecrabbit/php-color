@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Instantiator;
 
-use AlecRabbit\Color\Contract\IInstantiator;
 use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IInstantiator;
 use AlecRabbit\Color\Exception\UnrecognizedColorString;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Contract;
 
-use AlecRabbit\Color\Exception\UnimplementedFunctionality;
-
 interface IConvertableColor extends IColor
 {
     public static function useConverter(IColorConverter $converter): void;
