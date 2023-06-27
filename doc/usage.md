@@ -3,24 +3,35 @@
 
 > **Note** Tentative API - subject to change.
 
-### Create "closest" color class from string.
+### Create "closest" color class from string
 
 ```php
 $hex = Color::fromString('red');                        // Hex::class
+$hex = Color::fromString('#f00');                       // Hex::class
 $rgb = Color::fromString('rgb(255, 0, 0)');             // RGB::class
 $hsl = Color::fromString('hsl(0, 100%, 50%)');          // HSL::class
 $hsla = Color::fromString('hsla(0, 100%, 50%, 0.5)');   // HSLA::class
 ```
-### Convert color to another color class.
+
+### Create "exact" color class from string
+
 ```php
-$hsl = Converter::to(HSL::class)->convert($color);
-$rgb = Converter::to(RGB::class)->convert($color);
-$hex = Converter::to(Hex::class)->convert($color);
- // or
+$hex = Hex::fromString('rgb(255, 0, 0)');               // Hex::class
+$rgb = RGB::fromString('hsla(0, 100%, 50%, 0.5)');      // RGB::class
+```
+
+### Convert color to another color class
+```php
 $hsl = $color->to(HSL::class);
 $rgb = $color->to(RGB::class);
 $hex = $color->to(Hex::class);
 
 $hsla = Color::fromString('red')->to(HSLA::class);
 $rgb = Color::fromString('hsla(120, 100%, 50%, 0.5)')->to(RGB::class);
+```
+or
+```php
+$hsl = Converter::to(HSL::class)->convert($color);
+$rgb = Converter::to(RGB::class)->convert($color);
+$hex = Converter::to(Hex::class)->convert($color);
 ```
