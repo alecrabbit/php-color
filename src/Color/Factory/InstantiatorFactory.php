@@ -12,6 +12,7 @@ use AlecRabbit\Color\Instantiator;
 class InstantiatorFactory implements IInstantiatorFactory
 {
     protected static string $class = Instantiator::class;
+    protected static ?IInstantiator $instance = null;
 
     /** @inheritDoc */
     public static function setClass(string $class): void
@@ -33,8 +34,11 @@ class InstantiatorFactory implements IInstantiatorFactory
         }
     }
 
-    public static function create(): IInstantiator
+    public static function getInstantiator(): IInstantiator
     {
-        return new self::$class();
+        if (self::$instance === null) {
+            self::$instance = new self::$class();
+        }
+        return self::$instance;
     }
 }

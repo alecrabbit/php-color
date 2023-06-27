@@ -8,6 +8,7 @@ use AlecRabbit\Color\Contract\IColorConverter;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IInstantiator;
 use AlecRabbit\Color\Exception\ColorException;
+use AlecRabbit\Color\Factory\InstantiatorFactory;
 
 /**
  * This class provides various functionalities related to color conversion.
@@ -21,18 +22,12 @@ use AlecRabbit\Color\Exception\ColorException;
 abstract class AConvertableColor implements IConvertableColor
 {
     protected const COMPONENT = 0xFF;
-    private const K_METHOD_NOT_IMPLEMENTED = 'Method is not implemented yet. ["%s"]';
-    protected static ?IInstantiator $instantiator = null;
+
     protected static ?IColorConverter $converter = null;
 
     final public static function useConverter(IColorConverter $converter): void
     {
         self::$converter = $converter;
-    }
-
-    final public static function useInstantiator(IInstantiator $instantiator): void
-    {
-        self::$instantiator = $instantiator;
     }
 
     public static function fromString(string $color): IConvertableColor
@@ -42,10 +37,7 @@ abstract class AConvertableColor implements IConvertableColor
 
     protected static function getInstantiator(): IInstantiator
     {
-        if (null === self::$instantiator) {
-            throw new ColorException('Instantiator is not set.');
-        }
-        return self::$instantiator;
+        return InstantiatorFactory::getInstantiator();
     }
 
     public function to(string $class): IConvertableColor

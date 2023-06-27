@@ -13,5 +13,5 @@ interface IInstantiatorFactory
      */
     public static function setClass(string $class): void;
 
-    public static function create(): IInstantiator;
+    public static function getInstantiator(): IInstantiator;
 }

@@ -25,11 +25,22 @@ class InstantiatorFactoryTest extends TestCase
     }
 
     #[Test]
-    public function canCreate(): void
+    public function canProvideInstantiator(): void
     {
-        $instantiator = InstantiatorFactory::create();
+        $instantiator = InstantiatorFactory::getInstantiator();
 
         self::assertInstanceOf(Instantiator::class, $instantiator);
+    }
+
+    #[Test]
+    public function providedInstantiatorIsTheSameInstance(): void
+    {
+        $instantiator = InstantiatorFactory::getInstantiator();
+
+        self::assertInstanceOf(Instantiator::class, $instantiator);
+
+        self::assertSame($instantiator, InstantiatorFactory::getInstantiator());
+        self::assertSame($instantiator, InstantiatorFactory::getInstantiator());
     }
 
     #[Test]

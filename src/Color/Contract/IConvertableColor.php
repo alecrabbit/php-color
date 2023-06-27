@@ -8,8 +8,6 @@ interface IConvertableColor extends IColor
 {
     public static function useConverter(IColorConverter $converter): void;
 
-    public static function useInstantiator(IInstantiator $instantiator): void;
-
     /**
      * @param class-string $class
      */
