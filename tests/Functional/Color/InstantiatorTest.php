@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Functional\Color\Instantiator;
+namespace AlecRabbit\Tests\Functional\Color;
 
 use AlecRabbit\Color\Contract\IInstantiator;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
-use AlecRabbit\Color\Instantiator\Instantiator;
+use AlecRabbit\Color\Instantiator;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-class ColorInstantiatorTest extends TestCase
+class InstantiatorTest extends TestCase
 {
     public static function canInstantiateFromStringDataProvider(): iterable
     {

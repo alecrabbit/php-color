@@ -2,16 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color\Instantiator;
+namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IInstantiator;
 use AlecRabbit\Color\Exception\UnrecognizedColorString;
-use AlecRabbit\Color\Hex;
-use AlecRabbit\Color\HSL;
-use AlecRabbit\Color\HSLA;
-use AlecRabbit\Color\RGB;
-use AlecRabbit\Color\RGBA;
 
 class Instantiator implements IInstantiator
 {
