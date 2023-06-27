@@ -21,7 +21,6 @@ class ToRGBAConverter extends AConverter
     ) {
     }
 
-
     public function convert(IConvertableColor $color): IConvertableColor
     {
         if ($color instanceof IRGBAColor) {
@@ -38,11 +37,12 @@ class ToRGBAConverter extends AConverter
         }
 
         if ($color instanceof IHSLAColor) {
-            $rgb = $this->converter->hslToRgb(
-                $color->getHue(),
-                $color->getSaturation(),
-                $color->getLightness()
-            );
+            $rgb =
+                $this->converter->hslToRgb(
+                    $color->getHue(),
+                    $color->getSaturation(),
+                    $color->getLightness()
+                );
 
             return
                 RGBA::fromRGBO(
@@ -54,11 +54,12 @@ class ToRGBAConverter extends AConverter
         }
 
         if ($color instanceof IHSLColor) {
-            $rgb = $this->converter->hslToRgb(
-                $color->getHue(),
-                $color->getSaturation(),
-                $color->getLightness()
-            );
+            $rgb =
+                $this->converter->hslToRgb(
+                    $color->getHue(),
+                    $color->getSaturation(),
+                    $color->getLightness()
+                );
             return
                 RGBA::fromRGBO(
                     $rgb->red,
