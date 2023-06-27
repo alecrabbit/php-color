@@ -22,12 +22,15 @@ $rgb = RGB::fromString('hsla(0, 100%, 50%, 0.5)');      // RGB::class
 
 ### Convert color to another color class
 ```php
-$hsl = $color->to(HSL::class);
-$rgb = $color->to(RGB::class);
-$hex = $color->to(Hex::class);
+$hsla = Color::fromString('red')->to(HSLA::class);      // HSLA::class
 
-$hsla = Color::fromString('red')->to(HSLA::class);
-$rgb = Color::fromString('hsla(120, 100%, 50%, 0.5)')->to(RGB::class);
+$rgb = 
+    Color::fromString('hsla(120, 100%, 50%, 0.5)')
+    ->to(RGB::class);                                   // RGB::class
+
+$hsl = $color->to(HSL::class);                          // HSL::class
+$rgb = $color->to(RGB::class);                          // RGB::class
+$hex = $color->to(Hex::class);                          // Hex::class
 ```
 or
 ```php
