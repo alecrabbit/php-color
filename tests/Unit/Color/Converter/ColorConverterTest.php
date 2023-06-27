@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Color\Converter;
 
+use AlecRabbit\Color\Contract\Factory\IConverterFactory;
 use AlecRabbit\Color\Contract\IColorConverter;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IConverter;
-use AlecRabbit\Color\Contract\IConverterFactory;
 use AlecRabbit\Color\Converter\ColorConverter;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;

@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color\Contract;
+namespace AlecRabbit\Color\Contract\Factory;
+
+use AlecRabbit\Color\Contract\IConverter;
 
 interface IConverterFactory
 {

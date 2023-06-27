@@ -22,7 +22,7 @@ class InstantiatorTest extends TestCase
 
     protected function getTestee(): IInstantiator
     {
-        return Instantiator::getInstance();
+        return new Instantiator();
     }
 
     #[Test]

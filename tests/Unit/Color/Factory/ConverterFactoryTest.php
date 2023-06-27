@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Color\Factory;
 
+use AlecRabbit\Color\Contract\Factory\IConverterFactory;
 use AlecRabbit\Color\Contract\IConvertableColor;
-use AlecRabbit\Color\Contract\IConverterFactory;
 use AlecRabbit\Color\Converter\ToHexConverter;
 use AlecRabbit\Color\Converter\ToHSLAConverter;
 use AlecRabbit\Color\Converter\ToHSLConverter;
