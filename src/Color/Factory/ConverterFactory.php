@@ -22,26 +22,19 @@ use AlecRabbit\Color\RGBA;
 
 class ConverterFactory implements IConverterFactory
 {
-    /**
-     * @param class-string $class
-     */
+
+    /** @inheritDoc */
     public function make(string $class): IConverter
     {
         self::assertClass($class);
 
-        return match ($class) {
-            RGB::class => new ToRGBConverter(),
-            RGBA::class => new ToRGBAConverter(),
-            Hex::class => new ToHexConverter(),
-            HSL::class => new ToHSLConverter(),
-            HSLA::class => new ToHSLAConverter(),
-            default => throw new ConverterUnavailable(
-                sprintf('Converter for "%s" is not available.', $class)
-            ),
-        };
+        return self::getConverter($class);
     }
 
-    private static function assertClass(string $class): void
+    /**
+     * @param class-string<IConvertableColor> $class
+     */
+    protected static function assertClass(string $class): void
     {
         if (!is_subclass_of($class, IConvertableColor::class)) {
             throw new InvalidArgument(
@@ -52,5 +45,29 @@ class ConverterFactory implements IConverterFactory
                 )
             );
         }
+    }
+
+    private static function getConverter(string $class): IConverter
+    {
+        $converterClass =
+            self::getAvailableConverters()[$class] ??
+            throw new ConverterUnavailable(
+                sprintf('Converter for "%s" is not available.', $class)
+            );
+        return new $converterClass();
+    }
+
+    /**
+     * @return Array<class-string<IConvertableColor>, class-string<IConverter>>
+     */
+    protected static function getAvailableConverters(): array
+    {
+        return [
+            RGB::class => ToRGBConverter::class,
+            RGBA::class => ToRGBAConverter::class,
+            Hex::class => ToHexConverter::class,
+            HSL::class => ToHSLConverter::class,
+            HSLA::class => ToHSLAConverter::class,
+        ];
     }
 }

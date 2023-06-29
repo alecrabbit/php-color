@@ -6,10 +6,8 @@ namespace AlecRabbit\Color\Contract;
 
 interface IConvertableColor extends IColor
 {
-    public static function useConverter(IColorConverter $converter): void;
-
     /**
-     * @param class-string $class
+     * @param class-string<IConvertableColor> $class
      */
     public function to(string $class): IConvertableColor;
 }

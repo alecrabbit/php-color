@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Functional\Color;
+namespace AlecRabbit\Tests\Functional\Color\Util;
 
-use AlecRabbit\Color\Color;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
+use AlecRabbit\Color\Util\Color;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
 class ColorTest extends TestCase
 {
-    public static function canBeCreatedFromStringDataProvider(): iterable
+    public static function canCreateColorFromStringDataProvider(): iterable
     {
-        foreach (self::canBeCreatedFromStringDataFeeder() as $item) {
+        foreach (self::canCreateColorFromStringDataFeeder() as $item) {
             yield [
                 $item[0],
                 $item[1]
@@ -27,7 +27,7 @@ class ColorTest extends TestCase
         }
     }
 
-    private static function canBeCreatedFromStringDataFeeder(): iterable
+    private static function canCreateColorFromStringDataFeeder(): iterable
     {
         yield from [
             // (resulting)class, (incoming)value
@@ -40,8 +40,8 @@ class ColorTest extends TestCase
     }
 
     #[Test]
-    #[DataProvider('canBeCreatedFromStringDataProvider')]
-    public function canBeCreatedFromString(string $expectedClass, string $incoming): void
+    #[DataProvider('canCreateColorFromStringDataProvider')]
+    public function canCreateColorFromString(string $expectedClass, string $incoming): void
     {
         $testee = self::getTesteeFromString($incoming);
 

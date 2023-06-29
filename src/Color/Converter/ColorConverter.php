@@ -16,9 +16,7 @@ class ColorConverter implements IColorConverter
     ) {
     }
 
-    /**
-     * @param class-string $class
-     */
+    /** @inheritDoc */
     public function to(string $class): IConverter
     {
         return $this->converterFactory->make($class);

@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 // @codeCoverageIgnoreStart
 
-use AlecRabbit\Color\A\AConvertableColor;
-use AlecRabbit\Color\Converter\ColorConverter;
-
-
-AConvertableColor::useConverter(new ColorConverter());
+/* TODO (2023-06-29 15:49) [Alec Rabbit]: register converters here */
 
 // @codeCoverageIgnoreEnd

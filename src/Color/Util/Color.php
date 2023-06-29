@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color;
+namespace AlecRabbit\Color\Util;
 
 use AlecRabbit\Color\A\AConvertableColor;
 use AlecRabbit\Color\Exception\ColorException;
 
 /**
- * Utility class for color instantiation.
+ * Utility class for convenient color instantiation.
  *
  * @codeCoverageIgnore Coverage does not make sense.
  */
