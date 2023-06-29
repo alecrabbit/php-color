@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Functional\Color\Util;
 
 use AlecRabbit\Color\Contract\IConverter;
-use AlecRabbit\Color\Contract\IInstantiator;
 use AlecRabbit\Color\Converter\ToHexConverter;
 use AlecRabbit\Color\Converter\ToHSLAConverter;
 use AlecRabbit\Color\Converter\ToHSLConverter;
@@ -14,7 +13,6 @@ use AlecRabbit\Color\Converter\ToRGBConverter;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
-use AlecRabbit\Color\Instantiator;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Color\Util\Converter;
@@ -46,23 +44,6 @@ class ConverterTest extends TestCase
         ];
     }
 
-//    #[Test]
-//    public function canNotBeInstantiated(): void
-//    {
-//        $this->expectException(\Error::class);
-//
-//        $testee = new Converter();
-//
-//        self::assertInstanceOf(Converter::class, $testee);
-//
-//        self::fail('Exception was not thrown');
-//    }
-
-    protected function getTesteeFromClassString(string $class): IConverter
-    {
-        return Converter::to($class);
-    }
-
     #[Test]
     #[DataProvider('canGetConverterFromClassStringDataProvider')]
     public function canGetConverterFromClassString(string $converterClass, string $class): void
@@ -71,5 +52,10 @@ class ConverterTest extends TestCase
 
         /** @noinspection UnnecessaryAssertionInspection */
         self::assertInstanceOf($converterClass, $testee);
+    }
+
+    protected function getTesteeFromClassString(string $class): IConverter
+    {
+        return Converter::to($class);
     }
 }

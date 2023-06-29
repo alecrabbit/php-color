@@ -12,8 +12,6 @@ use AlecRabbit\Color\Factory\ConverterFactory;
 
 /**
  * Utility class for converter instantiation through factory.
- *
- * @codeCoverageIgnore
  */
 final class Converter
 {
@@ -21,6 +19,9 @@ final class Converter
     private static string $factoryClass = ConverterFactory::class;
     private static ?IConverterFactory $factory = null;
 
+    /**
+     * @codeCoverageIgnore
+     */
     private function __construct()
     {
         // Can not be instantiated
