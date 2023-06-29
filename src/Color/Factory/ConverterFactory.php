@@ -47,20 +47,33 @@ class ConverterFactory implements IConverterFactory
         }
     }
 
-    private static function getConverter(string $class): IConverter
+    /**
+     * @param class-string<IConvertableColor> $class
+     */
+    protected static function getConverter(string $class): IConverter
     {
-        $converterClass =
-            self::getAvailableConverters()[$class] ??
+        $converterClass = self::getConverterClass($class);
+        return new $converterClass();
+    }
+
+    /**
+     * @param class-string<IConvertableColor> $class
+     * @return class-string<IConverter>
+     */
+    protected static function getConverterClass(string $class): string
+    {
+        return
+            self::getRegisteredConverters()[$class]
+            ??
             throw new ConverterUnavailable(
                 sprintf('Converter for "%s" is not available.', $class)
             );
-        return new $converterClass();
     }
 
     /**
      * @return Array<class-string<IConvertableColor>, class-string<IConverter>>
      */
-    protected static function getAvailableConverters(): array
+    protected static function getRegisteredConverters(): array
     {
         return [
             RGB::class => ToRGBConverter::class,
