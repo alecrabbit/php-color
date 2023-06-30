@@ -7,12 +7,12 @@ namespace AlecRabbit\Color\Converter\DTO;
 /**
  * @codeCoverageIgnore Coverage does not make sense.
  */
-final class DRGB
+final readonly class DRGB
 {
     public function __construct(
-        public readonly int $red,
-        public readonly int $green,
-        public readonly int $blue,
+        public int $red,
+        public int $green,
+        public int $blue,
     ) {
     }
 }
