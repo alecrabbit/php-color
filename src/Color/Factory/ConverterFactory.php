@@ -22,6 +22,14 @@ use AlecRabbit\Color\RGBA;
 
 class ConverterFactory implements IConverterFactory
 {
+    /** @var Array<class-string<IConvertableColor>, class-string<IConverter>> */
+    protected static array $registeredConverters = [
+        RGB::class => ToRGBConverter::class,
+        RGBA::class => ToRGBAConverter::class,
+        Hex::class => ToHexConverter::class,
+        HSL::class => ToHSLConverter::class,
+        HSLA::class => ToHSLAConverter::class,
+    ];
 
     /** @inheritDoc */
     public function make(string $class): IConverter
@@ -63,24 +71,10 @@ class ConverterFactory implements IConverterFactory
     protected static function getConverterClass(string $class): string
     {
         return
-            self::getRegisteredConverters()[$class]
+            self::$registeredConverters[$class]
             ??
             throw new ConverterUnavailable(
                 sprintf('Converter for "%s" is not available.', $class)
             );
-    }
-
-    /**
-     * @return Array<class-string<IConvertableColor>, class-string<IConverter>>
-     */
-    protected static function getRegisteredConverters(): array
-    {
-        return [
-            RGB::class => ToRGBConverter::class,
-            RGBA::class => ToRGBAConverter::class,
-            Hex::class => ToHexConverter::class,
-            HSL::class => ToHSLConverter::class,
-            HSLA::class => ToHSLAConverter::class,
-        ];
     }
 }
