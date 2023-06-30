@@ -16,6 +16,12 @@ class Instantiator implements IInstantiator
     protected const REGEXP_RGB = '/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/';
     protected const REGEXP_RGBA = '/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)$/';
 
+    public static function isSupported(string $color): bool
+    {
+        // TODO: Implement isSupported() method.
+        throw new \RuntimeException('Not implemented.');
+    }
+
     public function fromString(string $color): IConvertableColor
     {
         if (preg_match(self::REGEXP_HSL, $color, $matches)) {
