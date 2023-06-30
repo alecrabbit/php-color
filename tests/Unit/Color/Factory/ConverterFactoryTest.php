@@ -57,7 +57,7 @@ class ConverterFactoryTest extends TestCase
         $this->expectException(ConverterUnavailable::class);
         $this->expectExceptionMessage(
             sprintf(
-                'Converter for "%s" is not available.',
+                'Converter class for "%s" is not available.',
                 $class
             )
         );
