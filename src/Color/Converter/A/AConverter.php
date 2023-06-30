@@ -18,7 +18,7 @@ abstract class AConverter implements IConverter
             sprintf(
                 'Conversion from "%s" to "%s" is not supported by "%s".',
                 $color::class,
-                $this->getTargetClass(),
+                static::getTargetClass(),
                 static::class
             )
         );
@@ -27,5 +27,5 @@ abstract class AConverter implements IConverter
     /**
      * @return class-string
      */
-    abstract protected function getTargetClass(): string;
+    abstract protected static function getTargetClass(): string;
 }

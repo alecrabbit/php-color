@@ -31,7 +31,7 @@ class ToHSLConverter extends AConverter
     }
 
     /** @inheritDoc */
-    protected function getTargetClass(): string
+    protected static function getTargetClass(): string
     {
         return HSL::class;
     }

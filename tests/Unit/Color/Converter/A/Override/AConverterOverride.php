@@ -14,7 +14,7 @@ class AConverterOverride extends AConverter
         $this->unsupportedConversion($color);
     }
 
-    protected function getTargetClass(): string
+    protected static function getTargetClass(): string
     {
         return '---dummy---';
     }

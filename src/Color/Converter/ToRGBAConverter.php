@@ -72,7 +72,7 @@ class ToRGBAConverter extends AConverter
     }
 
     /** @inheritDoc */
-    protected function getTargetClass(): string
+    protected static function getTargetClass(): string
     {
         return RGBA::class;
     }
