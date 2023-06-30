@@ -61,7 +61,8 @@ class ConverterFactory implements IConverterFactory
     protected static function getConverter(string $class): IConverter
     {
         $converterClass = self::getConverterClass($class);
-        return new $converterClass();
+        return
+            new $converterClass();
     }
 
     /**
