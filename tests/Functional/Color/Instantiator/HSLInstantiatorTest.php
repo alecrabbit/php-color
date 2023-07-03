@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Functional\Color\Instantiator;
 
-use AlecRabbit\Color\Contract\IInstantiator;
 use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Contract\IHSLColor;
+use AlecRabbit\Color\Contract\IInstantiator;
 use AlecRabbit\Color\Instantiator\HSLInstantiator;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;

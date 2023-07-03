@@ -10,6 +10,7 @@ use AlecRabbit\Color\Instantiator\RGBInstantiator;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use stdClass;
 
 class InstantiatorFactoryRegisterInstantiatorsTest extends TestCase
 {
@@ -25,12 +26,6 @@ class InstantiatorFactoryRegisterInstantiatorsTest extends TestCase
         self::assertContains(RGBInstantiator::class, $this->getRegisteredInstantiators());
     }
 
-    protected function setUp(): void
-    {
-        $this->registeredInstantiators = $this->getRegisteredInstantiators();
-        $this->setRegisteredInstantiators([]);
-    }
-
     protected function getRegisteredInstantiators(): array
     {
         return self::getPropertyValue(InstantiatorFactory::class, 'registeredInstantiators');
@@ -41,17 +36,12 @@ class InstantiatorFactoryRegisterInstantiatorsTest extends TestCase
         self::setPropertyValue(InstantiatorFactory::class, 'registeredInstantiators', $registeredInstantiators);
     }
 
-    protected function tearDown(): void
-    {
-        $this->setRegisteredInstantiators($this->registeredInstantiators);
-    }
-
     #[Test]
     public function throwsIfTargetClassIsInvalid(): void
     {
         $this->expectException(InvalidArgument::class);
 
-        InstantiatorFactory::registerInstantiator(\stdClass::class, RGBInstantiator::class);
+        InstantiatorFactory::registerInstantiator(stdClass::class, RGBInstantiator::class);
     }
 
     #[Test]
@@ -59,7 +49,18 @@ class InstantiatorFactoryRegisterInstantiatorsTest extends TestCase
     {
         $this->expectException(InvalidArgument::class);
 
-        InstantiatorFactory::registerInstantiator(RGB::class, \stdClass::class);
+        InstantiatorFactory::registerInstantiator(RGB::class, stdClass::class);
+    }
+
+    protected function setUp(): void
+    {
+        $this->registeredInstantiators = $this->getRegisteredInstantiators();
+        $this->setRegisteredInstantiators([]);
+    }
+
+    protected function tearDown(): void
+    {
+        $this->setRegisteredInstantiators($this->registeredInstantiators);
     }
 
 }

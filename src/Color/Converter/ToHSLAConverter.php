@@ -12,6 +12,12 @@ use AlecRabbit\Color\HSLA;
 
 class ToHSLAConverter extends AConverter
 {
+    /** @inheritDoc */
+    protected static function getTargetClass(): string
+    {
+        return HSLA::class;
+    }
+
     public function convert(IConvertableColor $color): IConvertableColor
     {
         if ($color instanceof IHSLAColor) {
@@ -28,11 +34,5 @@ class ToHSLAConverter extends AConverter
         }
 
         $this->unsupportedConversion($color);
-    }
-
-    /** @inheritDoc */
-    protected static function getTargetClass(): string
-    {
-        return HSLA::class;
     }
 }

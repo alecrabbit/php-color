@@ -21,6 +21,12 @@ class ToRGBAConverter extends AConverter
     ) {
     }
 
+    /** @inheritDoc */
+    protected static function getTargetClass(): string
+    {
+        return RGBA::class;
+    }
+
     public function convert(IConvertableColor $color): IConvertableColor
     {
         if ($color instanceof IRGBAColor) {
@@ -69,11 +75,5 @@ class ToRGBAConverter extends AConverter
         }
 
         $this->unsupportedConversion($color);
-    }
-
-    /** @inheritDoc */
-    protected static function getTargetClass(): string
-    {
-        return RGBA::class;
     }
 }

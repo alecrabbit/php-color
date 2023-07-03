@@ -10,6 +10,7 @@ use AlecRabbit\Color\Factory\ConverterFactory;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use stdClass;
 
 class ConverterFactoryRegisterConvertersTest extends TestCase
 {
@@ -26,12 +27,6 @@ class ConverterFactoryRegisterConvertersTest extends TestCase
         self::assertSame(ToRGBConverter::class, $registeredConverters[RGB::class]);
     }
 
-    protected function setUp(): void
-    {
-        $this->registeredConverters = $this->getRegisteredConverters();
-        $this->setRegisteredConverters([]);
-    }
-
     protected function getRegisteredConverters(): array
     {
         return self::getPropertyValue(ConverterFactory::class, 'registeredConverters');
@@ -42,17 +37,12 @@ class ConverterFactoryRegisterConvertersTest extends TestCase
         self::setPropertyValue(ConverterFactory::class, 'registeredConverters', $registeredConverters);
     }
 
-    protected function tearDown(): void
-    {
-        $this->setRegisteredConverters($this->registeredConverters);
-    }
-
     #[Test]
     public function throwsIfTargetClassIsInvalid(): void
     {
         $this->expectException(InvalidArgument::class);
 
-        ConverterFactory::registerConverter(\stdClass::class, ToRGBConverter::class);
+        ConverterFactory::registerConverter(stdClass::class, ToRGBConverter::class);
     }
 
     #[Test]
@@ -60,7 +50,18 @@ class ConverterFactoryRegisterConvertersTest extends TestCase
     {
         $this->expectException(InvalidArgument::class);
 
-        ConverterFactory::registerConverter(RGB::class, \stdClass::class);
+        ConverterFactory::registerConverter(RGB::class, stdClass::class);
+    }
+
+    protected function setUp(): void
+    {
+        $this->registeredConverters = $this->getRegisteredConverters();
+        $this->setRegisteredConverters([]);
+    }
+
+    protected function tearDown(): void
+    {
+        $this->setRegisteredConverters($this->registeredConverters);
     }
 
 }

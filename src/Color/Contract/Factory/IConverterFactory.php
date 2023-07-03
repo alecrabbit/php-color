@@ -6,7 +6,6 @@ namespace AlecRabbit\Color\Contract\Factory;
 
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IConverter;
-use AlecRabbit\Color\Factory\ConverterFactory;
 
 interface IConverterFactory
 {

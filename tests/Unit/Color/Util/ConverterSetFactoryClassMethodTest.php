@@ -9,6 +9,7 @@ use AlecRabbit\Color\Util\Converter;
 use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Color\Util\Override\ConverterFactoryOverride;
 use PHPUnit\Framework\Attributes\Test;
+use stdClass;
 
 class ConverterSetFactoryClassMethodTest extends TestCase
 {
@@ -31,7 +32,7 @@ class ConverterSetFactoryClassMethodTest extends TestCase
         $this->expectExceptionMessage(
             'Class "stdClass" is not a "AlecRabbit\Color\Contract\Factory\IConverterFactory" subclass.'
         );
-        Converter::setFactoryClass(\stdClass::class);
+        Converter::setFactoryClass(stdClass::class);
     }
 
     protected function setUp(): void

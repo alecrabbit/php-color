@@ -12,6 +12,12 @@ use AlecRabbit\Color\HSL;
 
 class ToHSLConverter extends AConverter
 {
+    /** @inheritDoc */
+    protected static function getTargetClass(): string
+    {
+        return HSL::class;
+    }
+
     public function convert(IConvertableColor $color): IConvertableColor
     {
         if ($color instanceof IHSLColor && !$color instanceof IHSLAColor) {
@@ -28,12 +34,6 @@ class ToHSLConverter extends AConverter
         }
 
         $this->unsupportedConversion($color);
-    }
-
-    /** @inheritDoc */
-    protected static function getTargetClass(): string
-    {
-        return HSL::class;
     }
 
 }

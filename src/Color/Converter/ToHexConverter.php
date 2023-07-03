@@ -12,6 +12,12 @@ use AlecRabbit\Color\Hex;
 
 class ToHexConverter extends AConverter
 {
+    /** @inheritDoc */
+    protected static function getTargetClass(): string
+    {
+        return Hex::class;
+    }
+
     public function convert(IConvertableColor $color): IConvertableColor
     {
         if ($color instanceof IHexColor) {
@@ -24,11 +30,5 @@ class ToHexConverter extends AConverter
         }
 
         $this->unsupportedConversion($color);
-    }
-
-    /** @inheritDoc */
-    protected static function getTargetClass(): string
-    {
-        return Hex::class;
     }
 }

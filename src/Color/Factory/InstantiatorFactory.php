@@ -15,19 +15,6 @@ class InstantiatorFactory implements IInstantiatorFactory
 
     protected static ?IInstantiator $instance = null;
 
-    protected static function assertClass(string $class): void
-    {
-        if (!is_subclass_of($class, IInstantiator::class)) {
-            throw new InvalidArgument(
-                sprintf(
-                    'Class "%s" must implement "%s" interface.',
-                    $class,
-                    IInstantiator::class,
-                )
-            );
-        }
-    }
-
     public static function getInstantiator(string $color): IInstantiator
     {
         /** @var IInstantiator $class */
@@ -50,6 +37,19 @@ class InstantiatorFactory implements IInstantiatorFactory
         if (!in_array($class, self::$registeredInstantiators, true)) {
             self::assertClass($class);
             self::$registeredInstantiators[] = $class;
+        }
+    }
+
+    protected static function assertClass(string $class): void
+    {
+        if (!is_subclass_of($class, IInstantiator::class)) {
+            throw new InvalidArgument(
+                sprintf(
+                    'Class "%s" must implement "%s" interface.',
+                    $class,
+                    IInstantiator::class,
+                )
+            );
         }
     }
 }

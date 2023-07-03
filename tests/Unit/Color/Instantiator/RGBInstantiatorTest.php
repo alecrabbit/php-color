@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Color\Instantiator;
 
 use AlecRabbit\Color\Contract\IInstantiator;
-use AlecRabbit\Color\Hex;
-use AlecRabbit\Color\Instantiator\HexInstantiator;
 use AlecRabbit\Color\Instantiator\RGBInstantiator;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
@@ -26,6 +24,7 @@ class RGBInstantiatorTest extends TestCase
             ['rgb(0, 0, 0)'],
         ];
     }
+
     public static function canInstantiateRGBADataProvider(): iterable
     {
         yield from [

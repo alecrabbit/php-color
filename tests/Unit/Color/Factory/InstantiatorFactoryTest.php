@@ -13,6 +13,7 @@ use AlecRabbit\Color\Instantiator\RGBInstantiator;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use stdClass;
 
 class InstantiatorFactoryTest extends TestCase
 {
@@ -46,7 +47,7 @@ class InstantiatorFactoryTest extends TestCase
     #[Test]
     public function throwsIfInstantiatorClassProvidedIsInvalid(): void
     {
-        $class = \stdClass::class;
+        $class = stdClass::class;
 
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(

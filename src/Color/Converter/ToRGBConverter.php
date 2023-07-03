@@ -13,6 +13,12 @@ use AlecRabbit\Color\RGB;
 
 class ToRGBConverter extends AConverter
 {
+    /** @inheritDoc */
+    protected static function getTargetClass(): string
+    {
+        return RGB::class;
+    }
+
     public function convert(IConvertableColor $color): IConvertableColor
     {
         if ($color instanceof IRGBColor && !$color instanceof IRGBAColor) {
@@ -39,11 +45,5 @@ class ToRGBConverter extends AConverter
 
 
         $this->unsupportedConversion($color);
-    }
-
-    /** @inheritDoc */
-    protected static function getTargetClass(): string
-    {
-        return RGB::class;
     }
 }

@@ -27,13 +27,13 @@ class HexInstantiatorTest extends TestCase
             [0xfff5ee, 'SeaShell'],
             [0x708090, 'slategray'],
             [0x708090, 'slaTeGray'],
-            [0xff0000,'#ff0000'],
-            [0x0,'#000'],
-            [0x0,'000'],
-            [0x008080,'teal'],
-            [0xffc0cb,'PINK'],
-            [0x48D1CC,'mediumTurquoise'],
-            [0x0f0e0d,'0f0e0d'],
+            [0xff0000, '#ff0000'],
+            [0x0, '#000'],
+            [0x0, '000'],
+            [0x008080, 'teal'],
+            [0xffc0cb, 'PINK'],
+            [0x48D1CC, 'mediumTurquoise'],
+            [0x0f0e0d, '0f0e0d'],
         ];
     }
 
