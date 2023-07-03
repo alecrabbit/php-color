@@ -8,6 +8,7 @@ use AlecRabbit\Color\Contract\IInstantiator;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Factory\InstantiatorFactory;
 use AlecRabbit\Color\Instantiator;
+use AlecRabbit\Color\Instantiator\RGBInstantiator;
 use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Color\Factory\Override\InstantiatorOverride;
 use PHPUnit\Framework\Attributes\Test;
@@ -15,32 +16,11 @@ use PHPUnit\Framework\Attributes\Test;
 class InstantiatorFactoryTest extends TestCase
 {
     #[Test]
-    public function canAcceptInstantiatorClass(): void
-    {
-        $class = InstantiatorOverride::class;
-
-        InstantiatorFactory::setClass($class);
-
-        self::assertSame($class, self::getPropertyValue(InstantiatorFactory::class, 'class'));
-    }
-
-    #[Test]
     public function canProvideInstantiator(): void
     {
-        $instantiator = InstantiatorFactory::getInstantiator();
+        $instantiator = InstantiatorFactory::getInstantiator('rgb(0, 0, 0)');
 
-        self::assertInstanceOf(Instantiator::class, $instantiator);
-    }
-
-    #[Test]
-    public function providedInstantiatorIsTheSameInstance(): void
-    {
-        $instantiator = InstantiatorFactory::getInstantiator();
-
-        self::assertInstanceOf(Instantiator::class, $instantiator);
-
-        self::assertSame($instantiator, InstantiatorFactory::getInstantiator());
-        self::assertSame($instantiator, InstantiatorFactory::getInstantiator());
+        self::assertInstanceOf(RGBInstantiator::class, $instantiator);
     }
 
     #[Test]
@@ -57,12 +37,8 @@ class InstantiatorFactoryTest extends TestCase
             )
         );
 
-        InstantiatorFactory::setClass($class);
+        InstantiatorFactory::registerInstantiator($class);
 
         self::fail('Exception was not thrown.');
-    }
-    protected function tearDown(): void
-    {
-        InstantiatorFactory::setClass(Instantiator::class);
     }
 }

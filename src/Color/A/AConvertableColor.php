@@ -14,7 +14,7 @@ abstract class AConvertableColor implements IConvertableColor
 
     public static function fromString(string $color): IConvertableColor
     {
-        return InstantiatorFactory::getInstantiator()->fromString($color);
+        return InstantiatorFactory::getInstantiator($color)->fromString($color);
     }
 
     public function to(string $class): IConvertableColor

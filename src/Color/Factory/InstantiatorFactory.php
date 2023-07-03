@@ -11,6 +11,8 @@ use AlecRabbit\Color\Instantiator;
 
 class InstantiatorFactory implements IInstantiatorFactory
 {
+    /** @var Array<class-string<IInstantiator>> */
+    protected static array $registeredInstantiators = [];
     /** @var class-string<IInstantiator> */
     protected static string $class = Instantiator::class;
     protected static ?IInstantiator $instance = null;
@@ -35,11 +37,28 @@ class InstantiatorFactory implements IInstantiatorFactory
         }
     }
 
-    public static function getInstantiator(): IInstantiator
+    public static function getInstantiator(string $color): IInstantiator
     {
-        if (self::$instance === null) {
-            self::$instance = new self::$class();
+        /** @var IInstantiator $class */
+        foreach (self::$registeredInstantiators as $class) {
+            if ($class::isSupported($color)) {
+                return new $class();
+            }
         }
-        return self::$instance;
+        throw new InvalidArgument(
+            sprintf(
+                'Color "%s" is not supported.',
+                $color,
+            )
+        );
+    }
+
+    /** @inheritDoc */
+    public static function registerInstantiator(string $class): void
+    {
+        if (!in_array($class, self::$registeredInstantiators, true)) {
+            self::assertClass($class);
+            self::$registeredInstantiators[] = $class;
+        }
     }
 }
