@@ -7,22 +7,13 @@ namespace AlecRabbit\Color\Factory;
 use AlecRabbit\Color\Contract\Factory\IInstantiatorFactory;
 use AlecRabbit\Color\Contract\IInstantiator;
 use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Instantiator;
 
 class InstantiatorFactory implements IInstantiatorFactory
 {
     /** @var Array<class-string<IInstantiator>> */
     protected static array $registeredInstantiators = [];
-    /** @var class-string<IInstantiator> */
-    protected static string $class = Instantiator::class;
-    protected static ?IInstantiator $instance = null;
 
-    /** @inheritDoc */
-    public static function setClass(string $class): void
-    {
-        self::assertClass($class);
-        self::$class = $class;
-    }
+    protected static ?IInstantiator $instance = null;
 
     protected static function assertClass(string $class): void
     {
@@ -47,7 +38,7 @@ class InstantiatorFactory implements IInstantiatorFactory
         }
         throw new InvalidArgument(
             sprintf(
-                'Color "%s" is not supported.',
+                'Instantiator for color "%s" is not registered.',
                 $color,
             )
         );

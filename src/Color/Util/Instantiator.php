@@ -2,12 +2,18 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color;
+namespace AlecRabbit\Color\Util;
 
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IInstantiator;
 use AlecRabbit\Color\Exception\UnrecognizedColorString;
+use AlecRabbit\Color\Hex;
+use AlecRabbit\Color\HSL;
+use AlecRabbit\Color\HSLA;
+use AlecRabbit\Color\RGB;
+use AlecRabbit\Color\RGBA;
 
+// TODO (2023-07-03 15:25) [Alec Rabbit]: make utility class from this
 class Instantiator implements IInstantiator
 {
     protected const REGEXP_HEX = '/^#?(?:([a-f\d]{2}){3}|([a-f\d]){3})$/i';

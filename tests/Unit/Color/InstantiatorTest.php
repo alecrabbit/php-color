@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Unit\Color;
 
 use AlecRabbit\Color\Contract\IInstantiator;
 use AlecRabbit\Color\Exception\UnrecognizedColorString;
-use AlecRabbit\Color\Instantiator;
+use AlecRabbit\Color\Util\Instantiator;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
