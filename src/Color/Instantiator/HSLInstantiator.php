@@ -15,6 +15,7 @@ class HSLInstantiator extends AInstantiator implements IInstantiator
 {
     protected const REGEXP_HSL = '/^hsl\((\d+),\s*(\d+)%,\s*(\d+)%\)$/';
     protected const REGEXP_HSLA = '/^hsla?\((\d+),\s*(\d+)%,\s*(\d+)%(?:,\s*([\d.]+))?\)$/';
+    protected const PRECISION = 2;
 
     public static function isSupported(string $color): bool
     {
@@ -28,17 +29,19 @@ class HSLInstantiator extends AInstantiator implements IInstantiator
             return
                 HSL::fromHSL(
                     (int)$matches[1],
-                    (int)$matches[2],
-                    (int)$matches[3],
+                    round(((int)$matches[2]) / 100, self::PRECISION),
+                    round(((int)$matches[3]) / 100, self::PRECISION),
                 );
         }
         if (preg_match(self::REGEXP_HSLA, $color, $matches)) {
             return
                 HSLA::fromHSLA(
                     (int)$matches[1],
-                    (int)$matches[2],
-                    (int)$matches[3],
-                    isset($matches[4]) ? (float)$matches[4] : 1.0,
+                    round(((int)$matches[2]) / 100, self::PRECISION),
+                    round(((int)$matches[3]) / 100, self::PRECISION),
+                    isset($matches[4])
+                        ? round((float)$matches[4], self::PRECISION)
+                        : 1.0,
                 );
         }
         // @codeCoverageIgnoreStart
