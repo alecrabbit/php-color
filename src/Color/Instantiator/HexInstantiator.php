@@ -7,8 +7,9 @@ namespace AlecRabbit\Color\Instantiator;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IInstantiator;
 use AlecRabbit\Color\Hex;
+use AlecRabbit\Color\Instantiator\A\AInstantiator;
 
-class HexInstantiator implements IInstantiator
+class HexInstantiator extends AInstantiator implements IInstantiator
 {
     protected const REGEXP_HEX = '/^#?(?:([a-f\d]{2}){3}|([a-f\d]){3})$/i';
 
@@ -194,11 +195,6 @@ class HexInstantiator implements IInstantiator
                     self::normalizeHexString($color)
                 )
             );
-    }
-
-    protected static function normalize(string $color): string
-    {
-        return strtolower($color);
     }
 
     protected static function normalizeHexString(string $hex): string
