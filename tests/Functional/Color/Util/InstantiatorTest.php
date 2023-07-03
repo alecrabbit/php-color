@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Functional\Color;
+namespace AlecRabbit\Tests\Functional\Color\Util;
 
 use AlecRabbit\Color\Contract\IInstantiator;
 use AlecRabbit\Color\Hex;
@@ -40,25 +40,10 @@ class InstantiatorTest extends TestCase
     }
 
     #[Test]
-    public function canBeCreated(): void
-    {
-        $testee = $this->getTestee();
-
-        self::assertInstanceOf(Instantiator::class, $testee);
-    }
-
-    protected function getTestee(): IInstantiator
-    {
-        return new Instantiator();
-    }
-
-    #[Test]
     #[DataProvider('canInstantiateFromStringDataProvider')]
     public function canInstantiateFromString(string $expectedClass, string $incoming): void
     {
-        $testee = $this->getTestee();
-
         /** @noinspection UnnecessaryAssertionInspection */
-        self::assertInstanceOf($expectedClass, $testee->fromString($incoming));
+        self::assertInstanceOf($expectedClass, Instantiator::fromString($incoming));
     }
 }

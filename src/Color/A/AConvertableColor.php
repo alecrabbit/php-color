@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\A;
 
 use AlecRabbit\Color\Contract\IConvertableColor;
-use AlecRabbit\Color\Factory\InstantiatorFactory;
 use AlecRabbit\Color\Util\Converter;
+use AlecRabbit\Color\Util\Instantiator;
 
 abstract class AConvertableColor implements IConvertableColor
 {
@@ -14,7 +14,7 @@ abstract class AConvertableColor implements IConvertableColor
 
     public static function fromString(string $color): IConvertableColor
     {
-        return InstantiatorFactory::getInstantiator($color)->fromString($color);
+        return Instantiator::fromString($color);
     }
 
     public function to(string $class): IConvertableColor
