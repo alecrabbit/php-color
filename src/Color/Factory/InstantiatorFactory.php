@@ -13,9 +13,7 @@ class InstantiatorFactory implements IInstantiatorFactory
     /** @var Array<class-string<IInstantiator>> */
     protected static array $registeredInstantiators = [];
 
-    protected static ?IInstantiator $instance = null;
-
-    public static function getInstantiator(string $color): IInstantiator
+    public function getInstantiator(string $color): IInstantiator
     {
         /** @var IInstantiator $class */
         foreach (self::$registeredInstantiators as $class) {

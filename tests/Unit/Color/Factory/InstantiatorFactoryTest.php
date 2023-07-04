@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Color\Factory;
 
+use AlecRabbit\Color\Contract\Factory\IInstantiatorFactory;
 use AlecRabbit\Color\Contract\IInstantiator;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Factory\InstantiatorFactory;
@@ -38,7 +39,8 @@ class InstantiatorFactoryTest extends TestCase
     #[DataProvider('canProvideInstantiatorDataProvider')]
     public function canProvideInstantiator(string $class, string $color): void
     {
-        $instantiator = InstantiatorFactory::getInstantiator($color);
+        $factory = $this->getTestee();
+        $instantiator = $factory->getInstantiator($color);
 
         /** @noinspection UnnecessaryAssertionInspection */
         self::assertInstanceOf($class, $instantiator);
@@ -75,8 +77,13 @@ class InstantiatorFactoryTest extends TestCase
             )
         );
 
-        InstantiatorFactory::getInstantiator($color);
+        $this->getTestee()->getInstantiator($color);
 
         self::fail('Exception was not thrown.');
+    }
+
+    protected function getTestee(): IInstantiatorFactory
+    {
+        return new InstantiatorFactory();
     }
 }
