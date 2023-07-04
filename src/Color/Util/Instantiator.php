@@ -28,18 +28,17 @@ final class Instantiator
         return self::getFactory()->getInstantiator($color)->fromString($color);
     }
 
-
-    private static function createFactory(): IInstantiatorFactory
-    {
-        return new self::$factoryClass();
-    }
-
     private static function getFactory(): IInstantiatorFactory
     {
         if (self::$factory === null) {
             self::$factory = self::createFactory();
         }
         return self::$factory;
+    }
+
+    private static function createFactory(): IInstantiatorFactory
+    {
+        return new self::$factoryClass();
     }
 
     /**

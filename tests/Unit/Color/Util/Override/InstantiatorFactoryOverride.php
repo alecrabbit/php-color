@@ -6,19 +6,20 @@ namespace AlecRabbit\Tests\Unit\Color\Util\Override;
 
 use AlecRabbit\Color\Contract\Factory\IInstantiatorFactory;
 use AlecRabbit\Color\Contract\IInstantiator;
+use RuntimeException;
 
 final class InstantiatorFactoryOverride implements IInstantiatorFactory
 {
 
-    public function getInstantiator(string $color): IInstantiator
-    {
-        // TODO: Implement getInstantiator() method.
-        throw new \RuntimeException('Not implemented.');
-    }
-
     public static function register(string $class): void
     {
         // TODO: Implement registerInstantiator() method.
-        throw new \RuntimeException('Not implemented.');
+        throw new RuntimeException('Not implemented.');
+    }
+
+    public function getInstantiator(string $color): IInstantiator
+    {
+        // TODO: Implement getInstantiator() method.
+        throw new RuntimeException('Not implemented.');
     }
 }

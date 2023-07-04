@@ -32,13 +32,7 @@ final class Converter
      */
     public static function to(string $class): IConverter
     {
-
         return self::getFactory()->make($class);
-    }
-
-    private static function createFactory(): IConverterFactory
-    {
-        return new self::$factoryClass();
     }
 
     private static function getFactory(): IConverterFactory
@@ -47,6 +41,11 @@ final class Converter
             self::$factory = self::createFactory();
         }
         return self::$factory;
+    }
+
+    private static function createFactory(): IConverterFactory
+    {
+        return new self::$factoryClass();
     }
 
     /**

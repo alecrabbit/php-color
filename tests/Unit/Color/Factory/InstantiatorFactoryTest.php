@@ -46,6 +46,11 @@ class InstantiatorFactoryTest extends TestCase
         self::assertInstanceOf($class, $instantiator);
     }
 
+    protected function getTestee(): IInstantiatorFactory
+    {
+        return new InstantiatorFactory();
+    }
+
     #[Test]
     public function throwsIfInstantiatorClassProvidedIsInvalid(): void
     {
@@ -80,10 +85,5 @@ class InstantiatorFactoryTest extends TestCase
         $this->getTestee()->getInstantiator($color);
 
         self::fail('Exception was not thrown.');
-    }
-
-    protected function getTestee(): IInstantiatorFactory
-    {
-        return new InstantiatorFactory();
     }
 }
