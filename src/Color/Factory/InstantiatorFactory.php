@@ -11,12 +11,12 @@ use AlecRabbit\Color\Exception\InvalidArgument;
 class InstantiatorFactory implements IInstantiatorFactory
 {
     /** @var Array<class-string<IInstantiator>> */
-    protected static array $registeredInstantiators = [];
+    protected static array $registered = [];
 
     public function getInstantiator(string $color): IInstantiator
     {
         /** @var IInstantiator $class */
-        foreach (self::$registeredInstantiators as $class) {
+        foreach (self::$registered as $class) {
             if ($class::isSupported($color)) {
                 return new $class();
             }
@@ -30,11 +30,11 @@ class InstantiatorFactory implements IInstantiatorFactory
     }
 
     /** @inheritDoc */
-    public static function registerInstantiator(string $class): void
+    public static function register(string $class): void
     {
-        if (!in_array($class, self::$registeredInstantiators, true)) {
+        if (!in_array($class, self::$registered, true)) {
             self::assertClass($class);
-            self::$registeredInstantiators[] = $class;
+            self::$registered[] = $class;
         }
     }
 

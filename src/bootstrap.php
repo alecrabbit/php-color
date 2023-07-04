@@ -20,15 +20,15 @@ use AlecRabbit\Color\Instantiator\RGBInstantiator;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
 
-ConverterFactory::registerConverter(RGB::class, ToRGBConverter::class);
-ConverterFactory::registerConverter(RGBA::class, ToRGBAConverter::class);
-ConverterFactory::registerConverter(Hex::class, ToHexConverter::class);
-ConverterFactory::registerConverter(HSL::class, ToHSLConverter::class);
-ConverterFactory::registerConverter(HSLA::class, ToHSLAConverter::class);
+ConverterFactory::register(RGB::class, ToRGBConverter::class);
+ConverterFactory::register(RGBA::class, ToRGBAConverter::class);
+ConverterFactory::register(Hex::class, ToHexConverter::class);
+ConverterFactory::register(HSL::class, ToHSLConverter::class);
+ConverterFactory::register(HSLA::class, ToHSLAConverter::class);
 
 // Order is important
-InstantiatorFactory::registerInstantiator(HexInstantiator::class);
-InstantiatorFactory::registerInstantiator(RGBInstantiator::class);
-InstantiatorFactory::registerInstantiator(HSLInstantiator::class);
+InstantiatorFactory::register(HexInstantiator::class);
+InstantiatorFactory::register(RGBInstantiator::class);
+InstantiatorFactory::register(HSLInstantiator::class);
 
 // @codeCoverageIgnoreEnd

@@ -21,19 +21,19 @@ class InstantiatorFactoryRegisterInstantiatorsTest extends TestCase
     {
         self::assertEmpty($this->getRegisteredInstantiators());
 
-        InstantiatorFactory::registerInstantiator(RGBInstantiator::class);
+        InstantiatorFactory::register(RGBInstantiator::class);
 
         self::assertContains(RGBInstantiator::class, $this->getRegisteredInstantiators());
     }
 
     protected function getRegisteredInstantiators(): array
     {
-        return self::getPropertyValue(InstantiatorFactory::class, 'registeredInstantiators');
+        return self::getPropertyValue(InstantiatorFactory::class, 'registered');
     }
 
     protected function setRegisteredInstantiators(array $registeredInstantiators): void
     {
-        self::setPropertyValue(InstantiatorFactory::class, 'registeredInstantiators', $registeredInstantiators);
+        self::setPropertyValue(InstantiatorFactory::class, 'registered', $registeredInstantiators);
     }
 
     #[Test]
@@ -41,7 +41,7 @@ class InstantiatorFactoryRegisterInstantiatorsTest extends TestCase
     {
         $this->expectException(InvalidArgument::class);
 
-        InstantiatorFactory::registerInstantiator(stdClass::class, RGBInstantiator::class);
+        InstantiatorFactory::register(stdClass::class, RGBInstantiator::class);
     }
 
     #[Test]
@@ -49,7 +49,7 @@ class InstantiatorFactoryRegisterInstantiatorsTest extends TestCase
     {
         $this->expectException(InvalidArgument::class);
 
-        InstantiatorFactory::registerInstantiator(RGB::class, stdClass::class);
+        InstantiatorFactory::register(RGB::class, stdClass::class);
     }
 
     protected function setUp(): void

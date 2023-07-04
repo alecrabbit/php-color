@@ -20,7 +20,7 @@ class ConverterFactoryRegisterConvertersTest extends TestCase
     public function convertersCanBeRegistered(): void
     {
         self::assertEmpty($this->getRegisteredConverters());
-        ConverterFactory::registerConverter(RGB::class, ToRGBConverter::class);
+        ConverterFactory::register(RGB::class, ToRGBConverter::class);
 
         $registeredConverters = $this->getRegisteredConverters();
         self::assertArrayHasKey(RGB::class, $registeredConverters);
@@ -29,12 +29,12 @@ class ConverterFactoryRegisterConvertersTest extends TestCase
 
     protected function getRegisteredConverters(): array
     {
-        return self::getPropertyValue(ConverterFactory::class, 'registeredConverters');
+        return self::getPropertyValue(ConverterFactory::class, 'registered');
     }
 
     protected function setRegisteredConverters(array $registeredConverters): void
     {
-        self::setPropertyValue(ConverterFactory::class, 'registeredConverters', $registeredConverters);
+        self::setPropertyValue(ConverterFactory::class, 'registered', $registeredConverters);
     }
 
     #[Test]
@@ -42,7 +42,7 @@ class ConverterFactoryRegisterConvertersTest extends TestCase
     {
         $this->expectException(InvalidArgument::class);
 
-        ConverterFactory::registerConverter(stdClass::class, ToRGBConverter::class);
+        ConverterFactory::register(stdClass::class, ToRGBConverter::class);
     }
 
     #[Test]
@@ -50,7 +50,7 @@ class ConverterFactoryRegisterConvertersTest extends TestCase
     {
         $this->expectException(InvalidArgument::class);
 
-        ConverterFactory::registerConverter(RGB::class, stdClass::class);
+        ConverterFactory::register(RGB::class, stdClass::class);
     }
 
     protected function setUp(): void

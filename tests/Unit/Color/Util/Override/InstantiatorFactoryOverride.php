@@ -16,7 +16,7 @@ final class InstantiatorFactoryOverride implements IInstantiatorFactory
         throw new \RuntimeException('Not implemented.');
     }
 
-    public static function registerInstantiator(string $class): void
+    public static function register(string $class): void
     {
         // TODO: Implement registerInstantiator() method.
         throw new \RuntimeException('Not implemented.');

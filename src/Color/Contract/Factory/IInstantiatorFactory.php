@@ -13,5 +13,5 @@ interface IInstantiatorFactory
     /**
      * @param class-string<IInstantiator> $class
      */
-    public static function registerInstantiator(string $class): void;
+    public static function register(string $class): void;
 }

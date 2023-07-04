@@ -60,7 +60,7 @@ class InstantiatorFactoryTest extends TestCase
             )
         );
 
-        InstantiatorFactory::registerInstantiator($class);
+        InstantiatorFactory::register($class);
 
         self::fail('Exception was not thrown.');
     }
