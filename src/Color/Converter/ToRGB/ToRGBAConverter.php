@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Converter\ToRGB;
 
 use AlecRabbit\Color\Contract\IConvertableColor;
-use AlecRabbit\Color\Contract\ICoreConverter;
 use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Contract\IHSLColor;
@@ -17,11 +16,6 @@ use AlecRabbit\Color\RGBA;
 
 class ToRGBAConverter extends AConverter
 {
-    public function __construct(
-        protected ICoreConverter $converter = new CoreConverter(),
-    ) {
-    }
-
     /** @inheritDoc */
     protected static function getTargetClass(): string
     {
@@ -45,7 +39,7 @@ class ToRGBAConverter extends AConverter
 
         if ($color instanceof IHSLAColor) {
             $rgb =
-                $this->converter->hslToRgb(
+                (new CoreConverter())->hslToRgb(
                     $color->getHue(),
                     $color->getSaturation(),
                     $color->getLightness()
@@ -62,7 +56,7 @@ class ToRGBAConverter extends AConverter
 
         if ($color instanceof IHSLColor) {
             $rgb =
-                $this->converter->hslToRgb(
+                (new CoreConverter())->hslToRgb(
                     $color->getHue(),
                     $color->getSaturation(),
                     $color->getLightness()
