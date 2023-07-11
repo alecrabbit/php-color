@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Color\Converter;
+namespace AlecRabbit\Tests\Unit\Color\Converter\ToHSL;
 
 use AlecRabbit\Color\Contract\IConverter;
-use AlecRabbit\Color\Converter\ToHSLAConverter;
+use AlecRabbit\Color\Converter\ToHSL\ToHSLAConverter;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
@@ -13,7 +13,7 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Color\Converter\A\Override\AConvertableColorOverride;
 use PHPUnit\Framework\Attributes\Test;
 
-class ToHSLAConverterTest extends TestCase
+class ToHSLAConverterGenericTest extends TestCase
 {
     protected const CONVERTER_TARGET_CLASS = HSLA::class;
     protected const CONVERTER_CLASS = ToHSLAConverter::class;
@@ -44,6 +44,8 @@ class ToHSLAConverterTest extends TestCase
     {
         $testee = self::getTestee();
 
+        $color = new AConvertableColorOverride();
+
         $this->expectException(UnsupportedColorConversion::class);
         $this->expectExceptionMessage(
             'Conversion from "' .
@@ -55,8 +57,9 @@ class ToHSLAConverterTest extends TestCase
             . '".'
         );
 
-        $testee->convert(new AConvertableColorOverride());
+        $testee->convert($color);
     }
+
 
     #[Test]
     public function canConvertFromHSLA(): void

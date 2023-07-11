@@ -2,21 +2,20 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Color\Converter;
+namespace AlecRabbit\Tests\Unit\Color\Converter\ToRGB;
 
 use AlecRabbit\Color\Contract\IConverter;
-use AlecRabbit\Color\Converter\ToHSLConverter;
+use AlecRabbit\Color\Converter\ToRGB\ToRGBAConverter;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
-use AlecRabbit\Color\HSL;
-use AlecRabbit\Color\HSLA;
+use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Color\Converter\A\Override\AConvertableColorOverride;
 use PHPUnit\Framework\Attributes\Test;
 
-class ToHSLConverterTest extends TestCase
+class ToRGBAConverterGenericTest extends TestCase
 {
-    protected const CONVERTER_TARGET_CLASS = HSL::class;
-    protected const CONVERTER_CLASS = ToHSLConverter::class;
+    protected const CONVERTER_TARGET_CLASS = RGBA::class;
+    protected const CONVERTER_CLASS = ToRGBAConverter::class;
 
     #[Test]
     public function canBeCreated(): void
@@ -28,7 +27,7 @@ class ToHSLConverterTest extends TestCase
 
     private static function getTestee(): IConverter
     {
-        return new ToHSLConverter();
+        return new ToRGBAConverter();
     }
 
     #[Test]
@@ -44,6 +43,8 @@ class ToHSLConverterTest extends TestCase
     {
         $testee = self::getTestee();
 
+        $color = new AConvertableColorOverride();
+
         $this->expectException(UnsupportedColorConversion::class);
         $this->expectExceptionMessage(
             'Conversion from "' .
@@ -55,31 +56,7 @@ class ToHSLConverterTest extends TestCase
             . '".'
         );
 
-        $testee->convert(new AConvertableColorOverride());
+        $testee->convert($color);
     }
 
-    #[Test]
-    public function canConvertFromHSL(): void
-    {
-        $testee = self::getTestee();
-        $color = HSL::fromString('hsl(0, 0%, 0%)');
-
-        $result = $testee->convert($color);
-
-        self::assertSame($color, $result);
-    }
-
-    #[Test]
-    public function canConvertFromHSLA(): void
-    {
-        $testee = self::getTestee();
-        $color = HSLA::fromString('hsla(0, 0%, 0%, 1)');
-
-        $result = $testee->convert($color);
-        self::assertNotSame($color, $result);
-        self::assertInstanceOf(HSL::class, $result);
-        self::assertEquals(0, $result->getHue());
-        self::assertSame(0.0, $result->getSaturation());
-        self::assertEquals(0, $result->getLightness());
-    }
 }

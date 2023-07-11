@@ -34,6 +34,8 @@ class AConverterTest extends TestCase
     {
         $testee = self::getTestee();
 
+        $color = new AConvertableColorOverride();
+
         $this->expectException(UnsupportedColorConversion::class);
         $this->expectExceptionMessage(
             'Conversion from "' .
@@ -45,6 +47,7 @@ class AConverterTest extends TestCase
             . '".'
         );
 
-        $testee->convert(new AConvertableColorOverride());
+        $testee->convert($color);
     }
+
 }

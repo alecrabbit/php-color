@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Functional\Color\Converter;
 
 use AlecRabbit\Color\Contract\IConverter;
-use AlecRabbit\Color\Converter\ToRGBAConverter;
+use AlecRabbit\Color\Converter\ToRGB\ToRGBAConverter;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;

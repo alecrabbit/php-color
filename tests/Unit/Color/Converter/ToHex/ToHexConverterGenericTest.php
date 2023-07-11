@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Color\Converter;
+namespace AlecRabbit\Tests\Unit\Color\Converter\ToHex;
 
 use AlecRabbit\Color\Contract\IConverter;
-use AlecRabbit\Color\Converter\ToRGBConverter;
+use AlecRabbit\Color\Converter\ToHex\ToHexConverter;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\RGB;
@@ -14,10 +14,10 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Color\Converter\A\Override\AConvertableColorOverride;
 use PHPUnit\Framework\Attributes\Test;
 
-class ToRGBConverterTest extends TestCase
+class ToHexConverterGenericTest extends TestCase
 {
-    protected const CONVERTER_TARGET_CLASS = RGB::class;
-    protected const CONVERTER_CLASS = ToRGBConverter::class;
+    protected const CONVERTER_TARGET_CLASS = Hex::class;
+    protected const CONVERTER_CLASS = ToHexConverter::class;
 
     #[Test]
     public function canBeCreated(): void
@@ -29,7 +29,7 @@ class ToRGBConverterTest extends TestCase
 
     private static function getTestee(): IConverter
     {
-        return new ToRGBConverter();
+        return new ToHexConverter();
     }
 
     #[Test]
@@ -45,6 +45,8 @@ class ToRGBConverterTest extends TestCase
     {
         $testee = self::getTestee();
 
+        $color = new AConvertableColorOverride();
+
         $this->expectException(UnsupportedColorConversion::class);
         $this->expectExceptionMessage(
             'Conversion from "' .
@@ -56,14 +58,14 @@ class ToRGBConverterTest extends TestCase
             . '".'
         );
 
-        $testee->convert(new AConvertableColorOverride());
+        $testee->convert($color);
     }
 
     #[Test]
-    public function canConvertFromRGB(): void
+    public function canConvertFromHex(): void
     {
         $testee = self::getTestee();
-        $color = RGB::fromString('rgb(255,0,0)');
+        $color = Hex::fromString('ff0000');
 
         $result = $testee->convert($color);
 
@@ -71,28 +73,28 @@ class ToRGBConverterTest extends TestCase
     }
 
     #[Test]
-    public function canConvertFromHex(): void
+    public function canConvertFromRGB(): void
     {
         $testee = self::getTestee();
-        $color = Hex::fromString('00ff00');
+        $color = RGB::fromRGB(0xff, 0, 0);
 
         $result = $testee->convert($color);
 
         self::assertNotSame($color, $result);
-        self::assertInstanceOf(RGB::class, $result);
-        self::assertSame(0x00ff00, $result->getValue());
+        self::assertInstanceOf(Hex::class, $result);
+        self::assertSame(0xff0000, $result->getValue());
     }
 
     #[Test]
     public function canConvertFromRGBA(): void
     {
         $testee = self::getTestee();
-        $color = RGBA::fromString('rgba(255,0,0,0.5)');
+        $color = RGBA::fromRGBA(0xff, 0, 0);
 
         $result = $testee->convert($color);
 
         self::assertNotSame($color, $result);
-        self::assertInstanceOf(RGB::class, $result);
+        self::assertInstanceOf(Hex::class, $result);
         self::assertSame(0xff0000, $result->getValue());
     }
 }

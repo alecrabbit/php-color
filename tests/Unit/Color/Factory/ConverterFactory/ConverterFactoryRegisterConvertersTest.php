@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Color\Factory\ConverterFactory;
 
-use AlecRabbit\Color\Converter\ToRGBConverter;
+use AlecRabbit\Color\Converter\ToRGB\ToRGBConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Factory\ConverterFactory;
 use AlecRabbit\Color\RGB;

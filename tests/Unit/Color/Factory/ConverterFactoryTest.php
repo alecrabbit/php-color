@@ -6,11 +6,11 @@ namespace AlecRabbit\Tests\Unit\Color\Factory;
 
 use AlecRabbit\Color\Contract\Factory\IConverterFactory;
 use AlecRabbit\Color\Contract\IConvertableColor;
-use AlecRabbit\Color\Converter\ToHexConverter;
-use AlecRabbit\Color\Converter\ToHSLAConverter;
-use AlecRabbit\Color\Converter\ToHSLConverter;
-use AlecRabbit\Color\Converter\ToRGBAConverter;
-use AlecRabbit\Color\Converter\ToRGBConverter;
+use AlecRabbit\Color\Converter\ToHex\ToHexConverter;
+use AlecRabbit\Color\Converter\ToHSL\ToHSLAConverter;
+use AlecRabbit\Color\Converter\ToHSL\ToHSLConverter;
+use AlecRabbit\Color\Converter\ToRGB\ToRGBAConverter;
+use AlecRabbit\Color\Converter\ToRGB\ToRGBConverter;
 use AlecRabbit\Color\Exception\ConverterUnavailable;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Factory\ConverterFactory;

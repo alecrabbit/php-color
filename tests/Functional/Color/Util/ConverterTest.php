@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Functional\Color\Util;
 
 use AlecRabbit\Color\Contract\IConverter;
-use AlecRabbit\Color\Converter\ToHexConverter;
-use AlecRabbit\Color\Converter\ToHSLAConverter;
-use AlecRabbit\Color\Converter\ToHSLConverter;
-use AlecRabbit\Color\Converter\ToRGBAConverter;
-use AlecRabbit\Color\Converter\ToRGBConverter;
+use AlecRabbit\Color\Converter\ToHex\ToHexConverter;
+use AlecRabbit\Color\Converter\ToHSL\ToHSLAConverter;
+use AlecRabbit\Color\Converter\ToHSL\ToHSLConverter;
+use AlecRabbit\Color\Converter\ToRGB\ToRGBAConverter;
+use AlecRabbit\Color\Converter\ToRGB\ToRGBConverter;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;

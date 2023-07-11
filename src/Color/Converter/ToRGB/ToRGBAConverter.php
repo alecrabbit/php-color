@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color\Converter;
+namespace AlecRabbit\Color\Converter\ToRGB;
 
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\ICoreConverter;
@@ -12,6 +12,7 @@ use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Converter\A\AConverter;
+use AlecRabbit\Color\Converter\CoreConverter;
 use AlecRabbit\Color\RGBA;
 
 class ToRGBAConverter extends AConverter

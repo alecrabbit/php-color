@@ -2,37 +2,38 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color\Converter;
+namespace AlecRabbit\Color\Converter\ToHSL;
 
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Converter\A\AConverter;
-use AlecRabbit\Color\HSLA;
+use AlecRabbit\Color\HSL;
 
-class ToHSLAConverter extends AConverter
+class ToHSLConverter extends AConverter
 {
     /** @inheritDoc */
     protected static function getTargetClass(): string
     {
-        return HSLA::class;
+        return HSL::class;
     }
 
     public function convert(IConvertableColor $color): IConvertableColor
     {
-        if ($color instanceof IHSLAColor) {
+        if ($color instanceof IHSLColor && !$color instanceof IHSLAColor) {
             return $color;
         }
 
-        if ($color instanceof IHSLColor) {
+        if ($color instanceof IHSLAColor) {
             return
-                HSLA::fromHSL(
+                HSL::fromHSL(
                     $color->getHue(),
                     $color->getSaturation(),
-                    $color->getLightness(),
+                    $color->getLightness()
                 );
         }
 
         $this->unsupportedConversion($color);
     }
+
 }

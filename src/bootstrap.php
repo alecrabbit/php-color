@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 // @codeCoverageIgnoreStart
 
-use AlecRabbit\Color\Converter\ToHexConverter;
-use AlecRabbit\Color\Converter\ToHSLAConverter;
-use AlecRabbit\Color\Converter\ToHSLConverter;
-use AlecRabbit\Color\Converter\ToRGBAConverter;
-use AlecRabbit\Color\Converter\ToRGBConverter;
+use AlecRabbit\Color\Converter\ToHex\ToHexConverter;
+use AlecRabbit\Color\Converter\ToHSL\ToHSLAConverter;
+use AlecRabbit\Color\Converter\ToHSL\ToHSLConverter;
+use AlecRabbit\Color\Converter\ToRGB\ToRGBAConverter;
+use AlecRabbit\Color\Converter\ToRGB\ToRGBConverter;
 use AlecRabbit\Color\Factory\ConverterFactory;
 use AlecRabbit\Color\Factory\InstantiatorFactory;
 use AlecRabbit\Color\Hex;
