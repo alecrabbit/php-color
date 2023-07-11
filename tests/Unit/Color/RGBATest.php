@@ -161,16 +161,6 @@ class RGBATest extends TestCase
         ];
     }
 
-    public static function canBeInstantiatedFromStringDataProvider(): iterable
-    {
-        yield from [
-            ['rgb(0, 0, 0)', 0, 0, 0, 1, 255],
-            ['rgba(0, 0, 0, 1.0)', 0, 0, 0, 1.0, 255],
-            ['rgba(0, 12, 33, 0.333)', 0, 12, 33, 0.329, 84],
-            ['rgba(0, 0, 1, 1.0)', 0, 0, 1, 1.0, 255],
-        ];
-    }
-
     #[Test]
     #[DataProvider('canBeCreatedFromRGBADataProvider')]
     public function canBeCreatedFromRGBA(array $expected, array $incoming): void
@@ -323,15 +313,4 @@ class RGBATest extends TestCase
         self::assertNotSame($testee, $testee->to(RGB::class));
     }
 
-    #[Test]
-    #[DataProvider('canBeInstantiatedFromStringDataProvider')]
-    public function canBeInstantiatedFromString(string $color, int $r, int $g, int $b, float $opacity, int $alpha): void
-    {
-        $testee = RGBA::fromString($color);
-        self::assertSame($r, $testee->getRed());
-        self::assertSame($g, $testee->getGreen());
-        self::assertSame($b, $testee->getBlue());
-        self::assertEquals($opacity, $testee->getOpacity());
-        self::assertSame($alpha, $testee->getAlpha());
-    }
 }

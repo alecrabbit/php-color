@@ -8,6 +8,7 @@ use AlecRabbit\Color\Contract\IInstantiator;
 use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Instantiator\RGBInstantiator;
+use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -42,6 +43,16 @@ class RGBInstantiatorTest extends TestCase
         ];
     }
 
+    public static function canBeInstantiatedFromStringDataProvider(): iterable
+    {
+        yield from [
+            ['rgba(0, 0, 0, 0)', 0, 0, 0, 0, 0],
+            ['rgba(0, 0, 0, 1.0)', 0, 0, 0, 1.0, 255],
+            ['rgba(0, 12, 33, 0.333)', 0, 12, 33, 0.329, 84],
+            ['rgba(0, 0, 1, 1.0)', 0, 0, 1, 1.0, 255],
+        ];
+    }
+
     #[Test]
     #[DataProvider('canInstantiateRGBDataProvider')]
     public function canInstantiateRGB(int $expected, string $incoming): void
@@ -70,5 +81,19 @@ class RGBInstantiatorTest extends TestCase
         self::assertSame($value, $color->getValue());
         self::assertSame($opacity, $color->getOpacity());
         self::assertSame($alpha, $color->getAlpha());
+    }
+
+    #[Test]
+    #[DataProvider('canBeInstantiatedFromStringDataProvider')]
+    public function canBeInstantiatedFromString(string $color, int $r, int $g, int $b, float $opacity, int $alpha): void
+    {
+        $instantiator = $this->getTesteeInstance();
+        $testee = $instantiator->fromString($color);
+        self::assertInstanceOf(RGBA::class, $testee);
+        self::assertSame($r, $testee->getRed());
+        self::assertSame($g, $testee->getGreen());
+        self::assertSame($b, $testee->getBlue());
+        self::assertEquals($opacity, $testee->getOpacity());
+        self::assertSame($alpha, $testee->getAlpha());
     }
 }
