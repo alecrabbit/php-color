@@ -5,9 +5,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\TestCase;
 
-use AlecRabbit\Tests\Helper\PickLock;
-use AlecRabbit\Tests\Helper\Stringify;
-use AlecRabbit\Tests\Mixin\AppRelatedConstTrait;
+use AlecRabbit\Tests\TestCase\Helper\PickLock;
+use AlecRabbit\Tests\TestCase\Helper\Stringify;
+use AlecRabbit\Tests\TestCase\Mixin\AppRelatedConstTrait;
 use ArrayAccess;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 use Throwable;

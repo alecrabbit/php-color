@@ -6,13 +6,8 @@ namespace AlecRabbit\Color\Contract;
 
 interface IColorConverter
 {
-    public function toRGB(IConvertableColor $color): IConvertableColor;
-
-    public function toRGBA(IConvertableColor $color): IConvertableColor;
-
-    public function toHex(IConvertableColor $color): IConvertableColor;
-
-    public function toHSL(IConvertableColor $color): IConvertableColor;
-
-    public function toHSLA(IConvertableColor $color): IConvertableColor;
+    /**
+     * @param class-string<IConvertableColor> $class
+     */
+    public function to(string $class): IConverter;
 }

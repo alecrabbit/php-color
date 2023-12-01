@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color;
 
-use AlecRabbit\Color\A\AConvertableColor;
 use AlecRabbit\Color\A\ARGBValueColor;
 use AlecRabbit\Color\Contract\IHexColor;
 
@@ -20,7 +19,7 @@ class Hex extends ARGBValueColor implements IHexColor
          * @noinspection PhpIncompatibleReturnTypeInspection
          * @psalm-suppress LessSpecificReturnStatement
          */
-        return parent::fromString($color)->toHex();
+        return parent::fromString($color)->to(self::class);
     }
 
     public function toString(): string

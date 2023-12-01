@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color;
 
-use AlecRabbit\Color\A\AConvertableColor;
 use AlecRabbit\Color\A\ARGBValueColor;
 use AlecRabbit\Color\Contract\IRGBColor;
 
-use function abs;
 use function sprintf;
 
 class RGB extends ARGBValueColor implements IRGBColor
@@ -20,7 +18,7 @@ class RGB extends ARGBValueColor implements IRGBColor
          * @noinspection PhpIncompatibleReturnTypeInspection
          * @psalm-suppress LessSpecificReturnStatement
          */
-        return parent::fromString($color)->toRGB();
+        return parent::fromString($color)->to(self::class);
     }
 
     public function withRed(int $red): IRGBColor

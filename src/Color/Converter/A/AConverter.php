@@ -12,13 +12,13 @@ abstract class AConverter implements IConverter
 {
     abstract public function convert(IConvertableColor $color): IConvertableColor;
 
-    protected function unsupportedConversion(IConvertableColor $color): never
+    protected function unsupportedConversion(object $from): never
     {
         throw new UnsupportedColorConversion(
             sprintf(
                 'Conversion from "%s" to "%s" is not supported by "%s".',
-                $color::class,
-                $this->getTargetClass(),
+                $from::class,
+                static::getTargetClass(),
                 static::class
             )
         );
@@ -27,5 +27,5 @@ abstract class AConverter implements IConverter
     /**
      * @return class-string
      */
-    abstract protected function getTargetClass(): string;
+    abstract protected static function getTargetClass(): string;
 }
