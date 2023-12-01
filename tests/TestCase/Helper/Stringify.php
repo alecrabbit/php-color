@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Tests\Helper;
+namespace AlecRabbit\Tests\TestCase\Helper;
 
 use Throwable;
 
