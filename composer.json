@@ -13,10 +13,10 @@
         "php": ">=8.2"
     },
     "require-dev": {
-        "nunomaduro/collision": "^7.0",
+        "nunomaduro/collision": "*",
         "phpunit/php-code-coverage": "*",
         "phpunit/phpunit": "^10.0",
-        "symfony/console": "^6.2",
+        "symfony/console": "*",
         "symfony/var-dumper": "*"
     },
     "minimum-stability": "stable",
