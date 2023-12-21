@@ -64,11 +64,56 @@ final readonly class Gradient implements IGradient
         };
     }
 
-    private function toRGBA(IColor|string $from): IRGBAColor
+    private function toRGBA(IColor|string $color): IRGBAColor
     {
-        if ($from instanceof IColor) {
-            return Converter::to(RGBA::class)->convert($from);
+        if ($color instanceof IColor) {
+            return $this->convert($color);
         }
-        return RGBA::fromString($from);
+        return RGBA::fromString($color);
+    }
+
+    private function convert(IColor $from): IRGBAColor
+    {
+        return Converter::to(RGBA::class)->convert($from);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getOne(int $index, IColor|string $start = '#000', IColor|string $end = '#fff', int $count = 100): IColor
+    {
+        $this->assertCount($count);
+        $this->assertIndex($index, $count);
+
+        $count--;
+
+        $start = $this->toRGBA($start);
+        $end = $this->toRGBA($end);
+
+        $rStep = ($end->getRed() - $start->getRed()) / $count;
+        $gStep = ($end->getGreen() - $start->getGreen()) / $count;
+        $bStep = ($end->getBlue() - $start->getBlue()) / $count;
+        $oStep = ($end->getOpacity() - $start->getOpacity()) / $count;
+
+        return RGBA::fromRGBO(
+            (int)round($start->getRed() + $rStep * $index),
+            (int)round($start->getGreen() + $gStep * $index),
+            (int)round($start->getBlue() + $bStep * $index),
+            round($start->getOpacity() + $oStep * $index, $this->floatPrecision),
+        );
+    }
+
+    private function assertIndex(int $index, int $count): void
+    {
+        match (true) {
+            $index < 0 => throw new InvalidArgument('Index must be greater than or equal 0.'),
+            $index >= $count => throw new InvalidArgument(
+                sprintf(
+                    'Index must be less than %s.',
+                    $count
+                )
+            ),
+            default => null,
+        };
     }
 }
