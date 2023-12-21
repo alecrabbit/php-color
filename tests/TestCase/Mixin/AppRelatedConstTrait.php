@@ -47,6 +47,7 @@ trait AppRelatedConstTrait
     final protected const SECOND = 'second';
     final protected const SEQUENCE = 'sequence';
     final protected const START = 'start';
+    final protected const END = 'end';
     final protected const START_VALUE = 'startValue';
     final protected const STEPS = 'steps';
     final protected const STYLE = 'style';
