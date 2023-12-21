@@ -9,13 +9,13 @@ use AlecRabbit\Color\Contract\Gradient\IGradients;
 use AlecRabbit\Color\Gradient\Gradient;
 use AlecRabbit\Color\Gradient\Gradients;
 use AlecRabbit\Color\RGBA;
-use AlecRabbit\Tests\TestCase\TestCase;
+use AlecRabbit\Tests\TestCase\FactoryAwareTestCase;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class GradientsTest extends TestCase
+final class GradientsTest extends FactoryAwareTestCase
 {
     public static function canProduceGradientsDataProvider(): iterable
     {

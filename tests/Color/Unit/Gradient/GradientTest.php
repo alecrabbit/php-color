@@ -9,11 +9,11 @@ use AlecRabbit\Color\Contract\Gradient\IGradient;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Gradient\Gradient;
 use AlecRabbit\Color\RGBA;
-use AlecRabbit\Tests\TestCase\TestCase;
+use AlecRabbit\Tests\TestCase\FactoryAwareTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-final class GradientTest extends TestCase
+final class GradientTest extends FactoryAwareTestCase
 {
     public static function canProduceGradientDataProvider(): iterable
     {

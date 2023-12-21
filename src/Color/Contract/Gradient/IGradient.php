@@ -18,7 +18,7 @@ interface IGradient
      * @param IColor|string $end The ending color of the gradient.
      * @param int $count The number of colors in the resulting gradient. Minimum 2.
      *
-     * @return Traversable<IRGBAColor>
+     * @return Traversable<IColor>
      *
      * @throws InvalidArgument
      */

@@ -10,12 +10,12 @@ use AlecRabbit\Color\Contract\IColorRange;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\RGB;
-use AlecRabbit\Tests\TestCase\TestCase;
+use AlecRabbit\Tests\TestCase\FactoryAwareTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class ColorRangeTest extends TestCase
+final class ColorRangeTest extends FactoryAwareTestCase
 {
     public static function canBeInstantiatedWithParamsDataProvider(): iterable
     {
