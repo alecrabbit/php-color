@@ -14,11 +14,11 @@ interface IGradients
     /**
      * Generates gradients of colors between pairs of colors.
      *
-     * @param Traversable $colors Colors to generate gradients.
+     * @param Traversable<IColor|string> $colors Colors to generate gradients.
      * @param int $num The number of colors between supplied colors. Minimum 2.
      * @param IColor|string|null $start Optional. The starting color of the gradient.
      *
-     * @return Traversable<IRGBAColor>
+     * @return Traversable<IColor>
      *
      * @throws InvalidArgument
      */

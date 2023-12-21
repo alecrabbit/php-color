@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 // @codeCoverageIgnoreStart
 
+use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Converter\ToHex\ToHexConverter;
 use AlecRabbit\Color\Converter\ToHSL\ToHSLAConverter;
 use AlecRabbit\Color\Converter\ToHSL\ToHSLConverter;
@@ -20,8 +21,11 @@ use AlecRabbit\Color\Instantiator\RGBInstantiator;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
 
+// FIXME (2023-12-21 19:6) [Alec Rabbit]: rethink registration process, make it more flexible and simple
+
 ConverterFactory::register(RGB::class, ToRGBConverter::class);
 ConverterFactory::register(RGBA::class, ToRGBAConverter::class);
+ConverterFactory::register(IRGBAColor::class, ToRGBAConverter::class);
 ConverterFactory::register(Hex::class, ToHexConverter::class);
 ConverterFactory::register(HSL::class, ToHSLConverter::class);
 ConverterFactory::register(HSLA::class, ToHSLAConverter::class);

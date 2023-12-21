@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit\Gradient;
 
 
+use AlecRabbit\Color\ColorRange;
 use AlecRabbit\Color\Contract\Gradient\IGradient;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Gradient\Gradient;
@@ -259,53 +260,11 @@ final class GradientTest extends FactoryAwareTestCase
     {
         $generator = $this->getTesteeInstance();
 
-        $result = $generator->create(...$incoming);
+        $result = $generator->unwrap(new ColorRange(...$incoming));
 
         self::assertEquals($expected, iterator_to_array($result));
     }
 
-    #[Test]
-    public function throwsIfCreateCountGreaterThenMax(): void
-    {
-        $this->expectException(InvalidArgument::class);
-        $this->expectExceptionMessage('Number of colors must be less than 5.');
-
-        $generator = $this->getTesteeInstance(
-            maxColors: 5,
-        );
-
-
-        $result = $generator->create(
-            RGBA::fromRGBO(0, 0, 0),
-            RGBA::fromRGBO(255, 255, 255),
-            6
-        );
-
-        // unwrap generator
-        iterator_to_array($result);
-
-        self::fail('Exception was not thrown.');
-    }
-
-    #[Test]
-    public function throwsIfCreateCountLessThenTwo(): void
-    {
-        $this->expectException(InvalidArgument::class);
-        $this->expectExceptionMessage('Number of colors must be greater than 2.');
-
-        $generator = $this->getTesteeInstance();
-
-        $result = $generator->create(
-            RGBA::fromRGBO(0, 0, 0),
-            RGBA::fromRGBO(255, 255, 255),
-            1
-        );
-
-        // unwrap generator
-        iterator_to_array($result);
-
-        self::fail('Exception was not thrown.');
-    }
 
     #[Test]
     public function throwsIfGetOneCountGreaterThenMax(): void
