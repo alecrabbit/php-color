@@ -29,26 +29,9 @@ final readonly class Gradient implements IGradient
     {
         $this->assertCount($count);
 
-        $count--;
-
-        $start = $this->toRGBA($start);
-        $end = $this->toRGBA($end);
-
-        $rStep = ($end->getRed() - $start->getRed()) / $count;
-        $gStep = ($end->getGreen() - $start->getGreen()) / $count;
-        $bStep = ($end->getBlue() - $start->getBlue()) / $count;
-        $oStep = ($end->getOpacity() - $start->getOpacity()) / $count;
-
         for ($i = 0; $i < $count; $i++) {
-            yield RGBA::fromRGBO(
-                (int)round($start->getRed() + $rStep * $i),
-                (int)round($start->getGreen() + $gStep * $i),
-                (int)round($start->getBlue() + $bStep * $i),
-                round($start->getOpacity() + $oStep * $i, $this->floatPrecision),
-            );
+            yield $this->getOne($i, $start, $end, $count);
         }
-
-        yield $end;
     }
 
     private function assertCount(int $count): void
@@ -80,8 +63,12 @@ final readonly class Gradient implements IGradient
     /**
      * @inheritDoc
      */
-    public function getOne(int $index, IColor|string $start = '#000', IColor|string $end = '#fff', int $count = 100): IColor
-    {
+    public function getOne(
+        int $index,
+        IColor|string $start = '#000',
+        IColor|string $end = '#fff',
+        int $count = 100
+    ): IColor {
         $this->assertCount($count);
         $this->assertIndex($index, $count);
 
