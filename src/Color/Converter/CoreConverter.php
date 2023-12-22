@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Converter;
 
 use AlecRabbit\Color\Contract\ICoreConverter;
-use AlecRabbit\Color\Converter\DTO\DRGB as RGB;
+use AlecRabbit\Color\DTO\DRGB as RGB;
 
 class CoreConverter implements ICoreConverter
 {

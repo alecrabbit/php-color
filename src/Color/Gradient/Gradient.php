@@ -7,17 +7,25 @@ namespace AlecRabbit\Color\Gradient;
 use AlecRabbit\Color\Contract\Gradient\IGradient;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IColorRange;
+use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
+use AlecRabbit\Color\DTO\DRGBO;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Util\Color;
-use AlecRabbit\Color\Util\Converter;
 use Traversable;
+
+use function is_string;
 
 final readonly class Gradient implements IGradient
 {
     private const MAX = 1000;
     private const MIN = 2;
     private const FLOAT_PRECISION = 2;
+    private DRGBO $start;
+    private float $rStep;
+    private float $gStep;
+    private float $bStep;
+    private float $oStep;
 
     public function __construct(
         private IColorRange $range,
@@ -26,6 +34,16 @@ final readonly class Gradient implements IGradient
         private int $precision = self::FLOAT_PRECISION,
     ) {
         $this->assertCount($count);
+
+        $this->start = $this->toDTO($this->range->getStart());
+        $end = $this->toRGBA($this->range->getEnd());
+
+        $count = $this->count - 1;
+
+        $this->rStep = ($end->getRed() - $this->start->red) / $count;
+        $this->gStep = ($end->getGreen() - $this->start->green) / $count;
+        $this->bStep = ($end->getBlue() - $this->start->blue) / $count;
+        $this->oStep = ($end->getOpacity() - $this->start->opacity) / $count;
     }
 
     private function assertCount(int $count): void
@@ -39,6 +57,36 @@ final readonly class Gradient implements IGradient
             ),
             default => null,
         };
+    }
+
+    private function toDTO(IColor|string $color): DRGBO
+    {
+        $rgba = $this->toRGBA($color);
+
+        return new DRGBO(
+            $rgba->getRed(),
+            $rgba->getGreen(),
+            $rgba->getBlue(),
+            $rgba->getOpacity(),
+        );
+    }
+
+    private function toRGBA(IColor|string $color): IRGBAColor
+    {
+        return $this->ensureConvertable($color)->to(IRGBAColor::class);
+    }
+
+    protected function ensureConvertable(IColor|string $color): IConvertableColor
+    {
+        if ($color instanceof IConvertableColor) {
+            return $color;
+        }
+
+        if (!is_string($color)) {
+            $color = $color->toString();
+        }
+
+        return Color::fromString($color);
     }
 
     /** @inheritDoc */
@@ -56,23 +104,13 @@ final readonly class Gradient implements IGradient
     {
         $this->assertIndex($index);
 
-        $count = $this->count - 1;
-
-        $start = $this->toRGBA($this->range->getStart());
-        $end = $this->toRGBA($this->range->getEnd());
-
-        $rStep = ($end->getRed() - $start->getRed()) / $count;
-        $gStep = ($end->getGreen() - $start->getGreen()) / $count;
-        $bStep = ($end->getBlue() - $start->getBlue()) / $count;
-        $oStep = ($end->getOpacity() - $start->getOpacity()) / $count;
-
         return Color::fromString(
             sprintf(
                 'rgba(%s, %s, %s, %s)',
-                (int)round($start->getRed() + $rStep * $index),
-                (int)round($start->getGreen() + $gStep * $index),
-                (int)round($start->getBlue() + $bStep * $index),
-                round($start->getOpacity() + $oStep * $index, $this->precision),
+                (int)round($this->start->red + $this->rStep * $index),
+                (int)round($this->start->green + $this->gStep * $index),
+                (int)round($this->start->blue + $this->bStep * $index),
+                round($this->start->opacity + $this->oStep * $index, $this->precision),
             ),
         );
     }
@@ -83,20 +121,13 @@ final readonly class Gradient implements IGradient
             $index < 0 => throw new InvalidArgument('Index must be greater than or equal 0.'),
             $index >= $this->count => throw new InvalidArgument(
                 sprintf(
-                    'Index must be less than %s.',
+                    'Index(%s) must be less than count(%s).',
+                    $index,
                     $this->count
                 )
             ),
             default => null,
         };
-    }
-
-    private function toRGBA(IColor|string $color): IRGBAColor
-    {
-        if (\is_string($color)) {
-            $color = Color::fromString($color);
-        }
-        return Converter::to(IRGBAColor::class)->convert($color);
     }
 
     public function getCount(): int

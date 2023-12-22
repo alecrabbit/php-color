@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Contract;
 
-use AlecRabbit\Color\Converter\DTO\DRGB;
+use AlecRabbit\Color\DTO\DRGB;
 
 interface ICoreConverter
 {

@@ -38,16 +38,16 @@ final readonly class Gradients implements IGradients
         };
     }
 
-    private function createRange(IColor|string $start, IColor|string $color): IColorRange
-    {
-        return new ColorRange($start, $color);
-    }
-
     private function createGradient(IColorRange $range, int $num): IGradient
     {
         return new Gradient(
             range: $range,
             count: $num,
         );
+    }
+
+    private function createRange(IColor|string $start, IColor|string $color): IColorRange
+    {
+        return new ColorRange($start, $color);
     }
 }

@@ -216,7 +216,7 @@ final class GradientTest extends FactoryAwareTestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgument::class,
-                        self::MESSAGE => 'Index must be less than 12.',
+                        self::MESSAGE => 'Index(15) must be less than count(12).',
                     ],
                 ],
                 [
