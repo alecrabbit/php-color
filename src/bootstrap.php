@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 // @codeCoverageIgnoreStart
 
+use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Converter\ToHex\ToHexConverter;
 use AlecRabbit\Color\Converter\ToHSL\ToHSLAConverter;
@@ -27,6 +28,7 @@ ConverterFactory::register(RGB::class, ToRGBConverter::class);
 ConverterFactory::register(RGBA::class, ToRGBAConverter::class);
 ConverterFactory::register(IRGBAColor::class, ToRGBAConverter::class);
 ConverterFactory::register(Hex::class, ToHexConverter::class);
+ConverterFactory::register(IHexColor::class, ToHexConverter::class);
 ConverterFactory::register(HSL::class, ToHSLConverter::class);
 ConverterFactory::register(HSLA::class, ToHSLAConverter::class);
 
