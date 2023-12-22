@@ -5,6 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Functional\Util;
 
 use AlecRabbit\Color\Contract\IConverter;
+use AlecRabbit\Color\Contract\IHexColor;
+use AlecRabbit\Color\Contract\IHSLAColor;
+use AlecRabbit\Color\Contract\IHSLColor;
+use AlecRabbit\Color\Contract\IRGBAColor;
+use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Converter\ToHex\ToHexConverter;
 use AlecRabbit\Color\Converter\ToHSL\ToHSLAConverter;
 use AlecRabbit\Color\Converter\ToHSL\ToHSLConverter;
@@ -37,10 +42,15 @@ class ConverterTest extends TestCase
         yield from [
             // (resulting)class, (incoming)value
             [ToHexConverter::class, Hex::class],
+            [ToHexConverter::class, IHexColor::class],
             [ToRGBAConverter::class, RGBA::class],
+            [ToRGBAConverter::class, IRGBAColor::class],
             [ToHSLConverter::class, HSL::class],
+            [ToHSLConverter::class, IHSLColor::class],
             [ToHSLAConverter::class, HSLA::class],
+            [ToHSLAConverter::class, IHSLAColor::class],
             [ToRGBConverter::class, RGB::class],
+            [ToRGBConverter::class, IRGBColor::class],
         ];
     }
 

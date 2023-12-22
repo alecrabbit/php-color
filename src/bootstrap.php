@@ -5,7 +5,10 @@ declare(strict_types=1);
 // @codeCoverageIgnoreStart
 
 use AlecRabbit\Color\Contract\IHexColor;
+use AlecRabbit\Color\Contract\IHSLAColor;
+use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
+use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Converter\ToHex\ToHexConverter;
 use AlecRabbit\Color\Converter\ToHSL\ToHSLAConverter;
 use AlecRabbit\Color\Converter\ToHSL\ToHSLConverter;
@@ -25,12 +28,15 @@ use AlecRabbit\Color\RGBA;
 // FIXME (2023-12-21 19:6) [Alec Rabbit]: rethink registration process, make it more flexible and simple
 
 ConverterFactory::register(RGB::class, ToRGBConverter::class);
+ConverterFactory::register(IRGBColor::class, ToRGBConverter::class);
 ConverterFactory::register(RGBA::class, ToRGBAConverter::class);
 ConverterFactory::register(IRGBAColor::class, ToRGBAConverter::class);
 ConverterFactory::register(Hex::class, ToHexConverter::class);
 ConverterFactory::register(IHexColor::class, ToHexConverter::class);
 ConverterFactory::register(HSL::class, ToHSLConverter::class);
+ConverterFactory::register(IHSLColor::class, ToHSLConverter::class);
 ConverterFactory::register(HSLA::class, ToHSLAConverter::class);
+ConverterFactory::register(IHSLAColor::class, ToHSLAConverter::class);
 
 // Order is important
 InstantiatorFactory::register(HexInstantiator::class);
