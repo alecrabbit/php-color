@@ -14,11 +14,6 @@ use Traversable;
 
 final readonly class Gradients implements IGradients
 {
-    public function __construct(
-        private IGradient $gradient,
-    ) {
-    }
-
     /** @inheritDoc */
     public function create(Traversable $colors, int $num = 2, IColor|string|null $start = null): Traversable
     {
@@ -28,7 +23,7 @@ final readonly class Gradients implements IGradients
                 $start = $color;
                 continue;
             }
-            yield from $this->gradient->unwrap($this->createRange($start, $color, $num));
+            yield from $this->createGradient($this->createRange($start, $color), $num)->unwrap();
             $start = $color;
         }
     }
@@ -43,8 +38,16 @@ final readonly class Gradients implements IGradients
         };
     }
 
-    private function createRange(IColor|string $start, IColor|string $color, int $num): IColorRange
+    private function createRange(IColor|string $start, IColor|string $color): IColorRange
     {
-        return new ColorRange($start, $color, $num);
+        return new ColorRange($start, $color);
+    }
+
+    private function createGradient(IColorRange $range, int $num): IGradient
+    {
+        return new Gradient(
+            range: $range,
+            count: $num,
+        );
     }
 }

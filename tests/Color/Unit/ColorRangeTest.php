@@ -22,77 +22,20 @@ final class ColorRangeTest extends FactoryAwareTestCase
         yield from [
             [
                 [
-                    self::EXCEPTION => [
-                        self::CLASS_ => InvalidArgument::class,
-                        self::MESSAGE => 'Number of colors must be less than 1000.',
-                    ],
-                ],
-                [
-                    self::ARGUMENTS => ['#000000', '#ffffff', 2000],
-                ],
-            ],
-            [
-                [
-                    self::EXCEPTION => [
-                        self::CLASS_ => InvalidArgument::class,
-                        self::MESSAGE => 'Number of colors must be less than 5.',
-                    ],
-                ],
-                [
-                    self::ARGUMENTS => ['#000000', '#ffffff', 2000, 5],
-                ],
-            ],
-            [
-                [
-                    self::EXCEPTION => [
-                        self::CLASS_ => InvalidArgument::class,
-                        self::MESSAGE => 'Number of colors must be greater than or equal 2.',
-                    ],
-                ],
-                [
-                    self::ARGUMENTS => ['#000000', '#ffffff', 1],
-                ],
-            ],
-            [
-                [
-                    self::EXCEPTION => [
-                        self::CLASS_ => InvalidArgument::class,
-                        self::MESSAGE => 'Number of colors must be greater than or equal 2.',
-                    ],
-                ],
-                [
-                    self::ARGUMENTS => ['#000000', '#ffffff', -1],
-                ],
-            ],
-            [
-                [
-                    self::EXCEPTION => [
-                        self::CLASS_ => InvalidArgument::class,
-                        self::MESSAGE => 'Number of colors must be greater than or equal 2.',
-                    ],
-                ],
-                [
-                    self::ARGUMENTS => ['#000000', '#ffffff', 0],
-                ],
-            ],
-            [
-                [
                     self::START => $start = '#000000',
                     self::END => $end = '#ffffff',
-                    self::COUNT => $count = 2,
                 ],
                 [
-                    self::ARGUMENTS => [$start, $end, $count],
+                    self::ARGUMENTS => [$start, $end],
                 ],
             ],
             [
                 [
                     self::START => $start = HSL::fromString('hsl(0, 0%, 0%)'),
                     self::END => $end = RGB::fromString('rgb(255, 255, 255)'),
-                    self::COUNT => $count = 16,
                 ],
                 [
-                    self::ARGUMENTS => [$start, $end, $count],
+                    self::ARGUMENTS => [$start, $end],
                 ],
             ],
         ];
@@ -109,14 +52,10 @@ final class ColorRangeTest extends FactoryAwareTestCase
     private function getTesteeInstance(
         null|IColor|string $start = null,
         null|IColor|string $end = null,
-        ?int $count = null,
-        ?int $max = null,
     ): IColorRange {
         return new ColorRange(
             start: $start ?? $this->getColorMock(),
             end: $end ?? $this->getColorMock(),
-            count: $count ?? 2,
-            max: $max ?? 1000,
         );
     }
 
@@ -150,6 +89,5 @@ final class ColorRangeTest extends FactoryAwareTestCase
         }
         self::assertEquals($expected[self::START], $range->getStart());
         self::assertEquals($expected[self::END], $range->getEnd());
-        self::assertEquals($expected[self::COUNT], $range->getCount());
     }
 }

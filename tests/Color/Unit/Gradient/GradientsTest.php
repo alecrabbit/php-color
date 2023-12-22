@@ -6,7 +6,6 @@ namespace AlecRabbit\Tests\Color\Unit\Gradient;
 
 use AlecRabbit\Color\Contract\Gradient\IGradient;
 use AlecRabbit\Color\Contract\Gradient\IGradients;
-use AlecRabbit\Color\Gradient\Gradient;
 use AlecRabbit\Color\Gradient\Gradients;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\FactoryAwareTestCase;
@@ -82,26 +81,16 @@ final class GradientsTest extends FactoryAwareTestCase
         self::assertInstanceOf(Gradients::class, $gradient);
     }
 
-    private function getTesteeInstance(
-        ?IGradient $gradient = null,
-    ): IGradients {
-        return new Gradients(
-            gradient: $gradient ?? $this->getGradientMock(),
-        );
-    }
-
-    private function getGradientMock(): MockObject&IGradient
+    private function getTesteeInstance(): IGradients
     {
-        return $this->createMock(IGradient::class);
+        return new Gradients();
     }
 
     #[Test]
     #[DataProvider('canProduceGradientsDataProvider')]
     public function canGenerateGradientsFromColors(array $expected, array $incoming): void
     {
-        $gradients = $this->getTesteeInstance(
-            gradient: new Gradient()
-        );
+        $gradients = $this->getTesteeInstance();
 
         $result = [];
 
@@ -110,5 +99,10 @@ final class GradientsTest extends FactoryAwareTestCase
         }
 
         self::assertEquals($expected, $result);
+    }
+
+    private function getGradientMock(): MockObject&IGradient
+    {
+        return $this->createMock(IGradient::class);
     }
 }

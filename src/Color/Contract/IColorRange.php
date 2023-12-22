@@ -9,6 +9,4 @@ interface IColorRange
     public function getStart(): IColor|string;
 
     public function getEnd(): IColor|string;
-
-    public function getCount(): int;
 }

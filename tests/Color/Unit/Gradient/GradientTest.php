@@ -7,6 +7,7 @@ namespace AlecRabbit\Tests\Color\Unit\Gradient;
 
 use AlecRabbit\Color\ColorRange;
 use AlecRabbit\Color\Contract\Gradient\IGradient;
+use AlecRabbit\Color\Contract\IColorRange;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Gradient\Gradient;
 use AlecRabbit\Color\RGBA;
@@ -127,7 +128,7 @@ final class GradientTest extends FactoryAwareTestCase
                     self::RESULT => RGBA::fromRGBO(0, 0, 0, 1),
                 ],
                 [
-                    self::ARGUMENTS => [0],
+                    self::ARGUMENTS => [0, '#000', '#fff', 2],
                 ],
             ],
             [
@@ -135,7 +136,7 @@ final class GradientTest extends FactoryAwareTestCase
                     self::RESULT => RGBA::fromRGBO(255, 255, 255, 1),
                 ],
                 [
-                    self::ARGUMENTS => [99],
+                    self::ARGUMENTS => [99, '#000', '#fff', 100],
                 ],
             ],
             [
@@ -143,7 +144,7 @@ final class GradientTest extends FactoryAwareTestCase
                     self::RESULT => RGBA::fromRGBO(85, 85, 85, 1),
                 ],
                 [
-                    self::ARGUMENTS => [33],
+                    self::ARGUMENTS => [33, '#000', '#fff', 100],
                 ],
             ],
             [
@@ -151,7 +152,7 @@ final class GradientTest extends FactoryAwareTestCase
                     self::RESULT => RGBA::fromRGBO(31, 31, 31, 1),
                 ],
                 [
-                    self::ARGUMENTS => [12],
+                    self::ARGUMENTS => [12, '#000', '#fff', 100],
                 ],
             ],
             [
@@ -159,7 +160,7 @@ final class GradientTest extends FactoryAwareTestCase
                     self::RESULT => RGBA::fromRGBO(201, 201, 201, 1),
                 ],
                 [
-                    self::ARGUMENTS => [78],
+                    self::ARGUMENTS => [78, '#000', '#fff', 100],
                 ],
             ],
             [
@@ -245,12 +246,24 @@ final class GradientTest extends FactoryAwareTestCase
     }
 
     private function getTesteeInstance(
-        ?int $maxColors = null,
-        ?int $floatPrecision = null,
+        ?IColorRange $range = null,
+        ?int $count = null,
+        ?int $max = null,
+        ?int $precision = null,
     ): IGradient {
         return new Gradient(
-            maxColors: $maxColors ?? 1000,
-            floatPrecision: $floatPrecision ?? 2,
+            range: $range ?? $this->getColorRange(),
+            count: $count ?? 2,
+            max: $max ?? 1000,
+            precision: $precision ?? 2,
+        );
+    }
+
+    private function getColorRange(): IColorRange
+    {
+        return new ColorRange(
+            start: RGBA::fromRGBO(0, 0, 0),
+            end: RGBA::fromRGBO(255, 255, 255),
         );
     }
 
@@ -258,13 +271,20 @@ final class GradientTest extends FactoryAwareTestCase
     #[DataProvider('canProduceGradientDataProvider')]
     public function canGenerateGradientFromColors(array $expected, array $incoming): void
     {
-        $generator = $this->getTesteeInstance();
+        $colorRange = new ColorRange(
+            start: array_shift($incoming),
+            end: array_shift($incoming),
+        );
 
-        $result = $generator->unwrap(new ColorRange(...$incoming));
+        $generator = $this->getTesteeInstance(
+            range: $colorRange,
+            count: array_shift($incoming),
+        );
+
+        $result = $generator->unwrap();
 
         self::assertEquals($expected, iterator_to_array($result));
     }
-
 
     #[Test]
     public function throwsIfGetOneCountGreaterThenMax(): void
@@ -273,14 +293,8 @@ final class GradientTest extends FactoryAwareTestCase
         $this->expectExceptionMessage('Number of colors must be less than 5.');
 
         $generator = $this->getTesteeInstance(
-            maxColors: 5,
-        );
-
-        $generator->getOne(
-            2,
-            RGBA::fromRGBO(0, 0, 0),
-            RGBA::fromRGBO(255, 255, 255),
-            6
+            count: 6,
+            max: 5,
         );
 
         self::fail('Exception was not thrown.');
@@ -292,18 +306,14 @@ final class GradientTest extends FactoryAwareTestCase
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage('Number of colors must be greater than 2.');
 
-        $generator = $this->getTesteeInstance();
-
-        $generator->getOne(
-            1,
-            RGBA::fromRGBO(0, 0, 0),
-            RGBA::fromRGBO(255, 255, 255),
-            1
+        $generator = $this->getTesteeInstance(
+            count: 1,
         );
+
+        $generator->getOne(1);
 
         self::fail('Exception was not thrown.');
     }
-
 
     #[Test]
     #[DataProvider('canGetOneDataProvider')]
@@ -317,12 +327,20 @@ final class GradientTest extends FactoryAwareTestCase
             $this->expectException($expectedException::class);
             $this->expectExceptionMessage($exceptionMessage);
         }
-
-        $generator = $this->getTesteeInstance();
-
         $args = $incoming[self::ARGUMENTS];
+        $index = array_shift($args);
 
-        $result = $generator->getOne(...$args);
+        $colorRange = new ColorRange(
+            start: array_shift($args),
+            end: array_shift($args),
+        );
+
+        $generator = $this->getTesteeInstance(
+            range: $colorRange,
+            count: array_shift($args),
+        );
+
+        $result = $generator->getOne($index);
 
         if ($expectedException) {
             self::fail(
@@ -330,6 +348,6 @@ final class GradientTest extends FactoryAwareTestCase
             );
         }
 
-        self::assertEquals($expected[self::RESULT], $result, 'Actual result: '. $result->toString());
+        self::assertEquals($expected[self::RESULT], $result, 'Actual result: ' . $result->toString());
     }
 }

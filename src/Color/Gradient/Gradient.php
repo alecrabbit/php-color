@@ -19,38 +19,47 @@ final readonly class Gradient implements IGradient
     private const MIN = 2;
     private const FLOAT_PRECISION = 2;
 
-    // FIXME (2023-12-21 19:16) [Alec Rabbit]: [702ab3fb-a914-4384-921c-54381f26c5c7] or here
     public function __construct(
-        private int $maxColors = self::MAX,
-        private int $floatPrecision = self::FLOAT_PRECISION,
+        private IColorRange $range,
+        private int $count = self::MIN,
+        private int $max = self::MAX,
+        private int $precision = self::FLOAT_PRECISION,
     ) {
+        $this->assertCount($count);
+    }
+
+    private function assertCount(int $count): void
+    {
+        match (true) {
+            $count < self::MIN => throw new InvalidArgument(
+                sprintf('Number of colors must be greater than %s.', self::MIN)
+            ),
+            $count > $this->max => throw new InvalidArgument(
+                sprintf('Number of colors must be less than %s.', $this->max)
+            ),
+            default => null,
+        };
     }
 
     /** @inheritDoc */
-    public function unwrap(IColorRange $range): Traversable
+    public function unwrap(): Traversable
     {
-        $count = $range->getCount();
-        for ($i = 0; $i < $count; $i++) {
-            yield $this->getOne($i, $range->getStart(), $range->getEnd(), $count);
+        for ($i = 0; $i < $this->count; $i++) {
+            yield $this->getOne($i);
         }
     }
 
     /**
      * @inheritDoc
      */
-    public function getOne(
-        int $index,
-        IColor|string $start = '#000',
-        IColor|string $end = '#fff',
-        int $count = 100
-    ): IColor {
-        $this->assertCount($count);
-        $this->assertIndex($index, $count);
+    public function getOne(int $index): IColor
+    {
+        $this->assertIndex($index);
 
-        $count--;
+        $count = $this->count - 1;
 
-        $start = $this->toRGBA($start);
-        $end = $this->toRGBA($end);
+        $start = $this->toRGBA($this->range->getStart());
+        $end = $this->toRGBA($this->range->getEnd());
 
         $rStep = ($end->getRed() - $start->getRed()) / $count;
         $gStep = ($end->getGreen() - $start->getGreen()) / $count;
@@ -63,32 +72,19 @@ final readonly class Gradient implements IGradient
                 (int)round($start->getRed() + $rStep * $index),
                 (int)round($start->getGreen() + $gStep * $index),
                 (int)round($start->getBlue() + $bStep * $index),
-                round($start->getOpacity() + $oStep * $index, $this->floatPrecision),
+                round($start->getOpacity() + $oStep * $index, $this->precision),
             ),
         );
     }
 
-    private function assertCount(int $count): void
-    {
-        match (true) {
-            $count < self::MIN => throw new InvalidArgument(
-                sprintf('Number of colors must be greater than %s.', self::MIN)
-            ),
-            $count > $this->maxColors => throw new InvalidArgument(
-                sprintf('Number of colors must be less than %s.', $this->maxColors)
-            ),
-            default => null,
-        };
-    }
-
-    private function assertIndex(int $index, int $count): void
+    private function assertIndex(int $index): void
     {
         match (true) {
             $index < 0 => throw new InvalidArgument('Index must be greater than or equal 0.'),
-            $index >= $count => throw new InvalidArgument(
+            $index >= $this->count => throw new InvalidArgument(
                 sprintf(
                     'Index must be less than %s.',
-                    $count
+                    $this->count
                 )
             ),
             default => null,
@@ -101,6 +97,11 @@ final readonly class Gradient implements IGradient
             $color = Color::fromString($color);
         }
         return Converter::to(IRGBAColor::class)->convert($color);
+    }
+
+    public function getCount(): int
+    {
+        return $this->count;
     }
 
 }
