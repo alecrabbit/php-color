@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit;
 
 use AlecRabbit\Color\Contract\IRGBColor;
+use AlecRabbit\Color\Contract\IWrapper;
 use AlecRabbit\Color\Converter\ToRGB\ToRGBConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Instantiator\RGBInstantiator;
-use AlecRabbit\Color\IWrapper;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\Wrapper;
 use AlecRabbit\Tests\TestCase\TestCase;

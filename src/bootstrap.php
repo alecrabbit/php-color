@@ -14,33 +14,42 @@ use AlecRabbit\Color\Converter\ToHSL\ToHSLAConverter;
 use AlecRabbit\Color\Converter\ToHSL\ToHSLConverter;
 use AlecRabbit\Color\Converter\ToRGB\ToRGBAConverter;
 use AlecRabbit\Color\Converter\ToRGB\ToRGBConverter;
-use AlecRabbit\Color\Factory\ConverterFactory;
-use AlecRabbit\Color\Factory\InstantiatorFactory;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
 use AlecRabbit\Color\Instantiator\HexInstantiator;
 use AlecRabbit\Color\Instantiator\HSLInstantiator;
 use AlecRabbit\Color\Instantiator\RGBInstantiator;
+use AlecRabbit\Color\Package;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
+use AlecRabbit\Color\Wrapper;
 
-// FIXME (2023-12-21 19:6) [Alec Rabbit]: rethink registration process, make it more flexible and simple
-
-ConverterFactory::register(RGB::class, ToRGBConverter::class);
-ConverterFactory::register(IRGBColor::class, ToRGBConverter::class);
-ConverterFactory::register(RGBA::class, ToRGBAConverter::class);
-ConverterFactory::register(IRGBAColor::class, ToRGBAConverter::class);
-ConverterFactory::register(Hex::class, ToHexConverter::class);
-ConverterFactory::register(IHexColor::class, ToHexConverter::class);
-ConverterFactory::register(HSL::class, ToHSLConverter::class);
-ConverterFactory::register(IHSLColor::class, ToHSLConverter::class);
-ConverterFactory::register(HSLA::class, ToHSLAConverter::class);
-ConverterFactory::register(IHSLAColor::class, ToHSLAConverter::class);
-
-// Order is important
-InstantiatorFactory::register(HexInstantiator::class);
-InstantiatorFactory::register(RGBInstantiator::class);
-InstantiatorFactory::register(HSLInstantiator::class);
-
+Package::add(
+    new Wrapper(
+        targets: new \ArrayObject([Hex::class, IHexColor::class]),
+        converter: ToHexConverter::class,
+        instantiator: HexInstantiator::class,
+    ),
+    new Wrapper(
+        targets: new \ArrayObject([RGB::class, IRGBColor::class]),
+        converter: ToRGBConverter::class,
+        instantiator: RGBInstantiator::class,
+    ),
+    new Wrapper(
+        targets: new \ArrayObject([RGBA::class, IRGBAColor::class]),
+        converter: ToRGBAConverter::class,
+        instantiator: RGBInstantiator::class,
+    ),
+    new Wrapper(
+        targets: new \ArrayObject([HSL::class, IHSLColor::class]),
+        converter: ToHSLConverter::class,
+        instantiator: HSLInstantiator::class,
+    ),
+    new Wrapper(
+        targets: new \ArrayObject([HSLA::class, IHSLAColor::class]),
+        converter: ToHSLAConverter::class,
+        instantiator: HSLInstantiator::class,
+    ),
+);
 // @codeCoverageIgnoreEnd
