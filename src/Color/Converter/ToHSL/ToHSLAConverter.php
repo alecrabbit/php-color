@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Converter\ToHSL;
 
 use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
@@ -54,7 +55,7 @@ class ToHSLAConverter extends AConverter
         }
 
 
-        if ($color instanceof IRGBColor) {
+        if ($color instanceof IRGBColor || $color instanceof IHexColor)    {
             $hsl =
                 (new CoreConverter())->rgbToHsl(
                     $color->getRed(),

@@ -195,16 +195,16 @@
         },
         {
             "name": "nunomaduro/collision",
-            "version": "v8.0.0",
+            "version": "v8.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nunomaduro/collision.git",
-                "reference": "0098cfa00e6ed53a7892a3ce6630f7f5b40ad732"
+                "reference": "0225cf94fc9aaf645bbc42b5fc838aace025e0e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/0098cfa00e6ed53a7892a3ce6630f7f5b40ad732",
-                "reference": "0098cfa00e6ed53a7892a3ce6630f7f5b40ad732",
+                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/0225cf94fc9aaf645bbc42b5fc838aace025e0e3",
+                "reference": "0225cf94fc9aaf645bbc42b5fc838aace025e0e3",
                 "shasum": ""
             },
             "require": {
@@ -288,7 +288,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2023-12-04T12:08:38+00:00"
+            "time": "2023-12-08T16:03:53+00:00"
         },
         {
             "name": "nunomaduro/termwind",

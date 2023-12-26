@@ -55,3 +55,27 @@ function getDumper(): AbstractDumper
             ? new CliDumper()
             : new HtmlDumper();
 }
+
+if (!function_exists('dump')) {
+    function dump(...$vars): mixed
+    {
+        if (!$vars) {
+            return null;
+        }
+
+        if (array_key_exists(0, $vars) && 1 === count($vars)) {
+            var_dump($vars[0]);
+            $k = 0;
+        } else {
+            foreach ($vars as $k => $v) {
+                var_dump($v);
+            }
+        }
+
+        if (1 < count($vars)) {
+            return $vars;
+        }
+
+        return $vars[$k];
+    }
+}

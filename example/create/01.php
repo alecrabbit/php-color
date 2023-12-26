@@ -2,13 +2,20 @@
 
 declare(strict_types=1);
 
+use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
-use Symfony\Component\VarDumper\Caster\ScalarStub;
+use AlecRabbit\Color\RGBA;
 
 require_once __DIR__ . '/../bootstrap.php';
 
-$source = 'hsla(23, 100%, 50%, 0.5)';
-$rgb = \AlecRabbit\Color\RGBA::fromString($source);
+$source = 'hsla(23, 89%, 47%, 1)';
 
-dump(new ScalarStub($rgb->toString()));
-dump(new ScalarStub($source . ' -> ' . $rgb->to(IHSLAColor::class)->toString()));
+$rgb = RGBA::fromString($source);
+$hsla = $rgb->to(IHSLAColor::class);
+$hex = $hsla->to(IHexColor::class);
+
+dump($hex->toString());
+dump($hsla->toString());
+dump($rgb->toString());
+
+dump($source . ' →  ' . $hex->to(IHSLAColor::class)->toString());
