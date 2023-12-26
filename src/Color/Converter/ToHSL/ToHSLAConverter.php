@@ -7,7 +7,10 @@ namespace AlecRabbit\Color\Converter\ToHSL;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Contract\IHSLColor;
+use AlecRabbit\Color\Contract\IRGBAColor;
+use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Converter\A\AConverter;
+use AlecRabbit\Color\Converter\CoreConverter;
 use AlecRabbit\Color\HSLA;
 
 class ToHSLAConverter extends AConverter
@@ -32,6 +35,41 @@ class ToHSLAConverter extends AConverter
                     $color->getLightness(),
                 );
         }
+
+        if ($color instanceof IRGBAColor) {
+            $hsl =
+                (new CoreConverter())->rgbToHsl(
+                    $color->getRed(),
+                    $color->getGreen(),
+                    $color->getBlue()
+                );
+
+            return
+                HSLA::fromHSLA(
+                    $hsl->hue,
+                    $hsl->saturation,
+                    $hsl->lightness,
+                    $color->getOpacity(),
+                );
+        }
+
+
+        if ($color instanceof IRGBColor) {
+            $hsl =
+                (new CoreConverter())->rgbToHsl(
+                    $color->getRed(),
+                    $color->getGreen(),
+                    $color->getBlue()
+                );
+
+            return
+                HSLA::fromHSL(
+                    $hsl->hue,
+                    $hsl->saturation,
+                    $hsl->lightness
+                );
+        }
+
 
         $this->unsupportedConversion($color);
     }
