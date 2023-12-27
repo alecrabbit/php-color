@@ -8,7 +8,7 @@ use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IHasBlue;
 use AlecRabbit\Color\Contract\IHasGreen;
 use AlecRabbit\Color\Contract\IHasRed;
-use AlecRabbit\Color\Converter\From\AFromConverter;
+use AlecRabbit\Color\Converter\A\AFromConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\RGBA;
 
