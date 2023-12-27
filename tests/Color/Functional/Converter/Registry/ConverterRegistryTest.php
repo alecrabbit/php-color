@@ -23,7 +23,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class ConverterRegistryTest extends TestCase
 {
     private const CONVERTERS = 'converters';
-    private static null|\ArrayObject $converters = null;
+    private static mixed $converters = null;
 
     #[Test]
     public function canBeInstantiated(): void

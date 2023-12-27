@@ -20,27 +20,27 @@ abstract class AToConverter implements IToConverter
 
     public function convert(IConvertableColor $color): IConvertableColor
     {
-        return $this->getConverter($color)->convert($color);
+        return $this->getFromConverter($color)->convert($color);
+    }
+
+    protected function getFromConverter(IConvertableColor $color): IFromConverter
+    {
+        return $this->registry->getFromConverter($this::class, $color::class) ?? $this->unsupportedConversion($color);
     }
 
     /**
      * @throws UnsupportedColorConversion
      */
-    protected function unsupportedConversion(object $from, ?string $to = null): never
+    protected function unsupportedConversion(object $from): never
     {
         throw new UnsupportedColorConversion(
             sprintf(
                 'Conversion from "%s" to "%s" is not supported by "%s".',
                 $from::class,
-                $to ?? static::getTargetClass(),
+                static::getTargetClass(),
                 static::class
             )
         );
-    }
-
-    protected function getConverter(IConvertableColor $color): IFromConverter
-    {
-        return $this->registry->getFromConverter($this::class, $color::class) ?? $this->unsupportedConversion($color);
     }
 
     /**

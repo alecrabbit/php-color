@@ -12,34 +12,32 @@ use AlecRabbit\Color\Exception\InvalidArgument;
 
 final class ConverterRegistry implements IConverterRegistry
 {
-    /** @var null|\ArrayObject<class-string<IToConverter>, Array<class-string<IConvertableColor>,IFromConverter|class-string<IFromConverter>>> */
-    private static ?\ArrayObject $converters = null;
+    /** @var Array<class-string<IToConverter>, Array<class-string<IConvertableColor>,IFromConverter|class-string<IFromConverter>>> */
+    private static array $converters = [];
 
     /**
      * @inheritDoc
      */
-    public function getFromConverter(string $toConverter, string $color): ?IFromConverter
+    public static function register(string $toConverter, \Traversable $fromConverters): void
     {
         self::assertToConverter($toConverter);
-        self::assertColor($color);
-        self::ensureInitialized();
 
-        $fromConverter = self::$converters[$toConverter][$color] ?? null;
-        if (is_string($fromConverter)) {
-            $fromConverter = new $fromConverter();
+        /**
+         * @var class-string<IToConverter> $toConverter
+         * @var class-string<IConvertableColor> $color
+         * @var class-string<IFromConverter> $fromConverter
+         */
+        foreach ($fromConverters as $color => $fromConverter) {
+            self::assertColor($color);
+            self::assertFromConverter($fromConverter);
+
+            self::$converters[$toConverter][$color] = $fromConverter;
         }
-        return $fromConverter;
     }
 
-    private static function assertToConverter(mixed $toConverter): void
+    private static function assertToConverter(string $toConverter): void
     {
         match (true) {
-            !is_string($toConverter) => throw new InvalidArgument(
-                sprintf(
-                    'Converter must be type of string. "%s" given.',
-                    get_debug_type($toConverter)
-                )
-            ),
             !is_subclass_of($toConverter, IToConverter::class) => throw new InvalidArgument(
                 sprintf(
                     'Converter must be instance of "%s". "%s" given.',
@@ -71,28 +69,6 @@ final class ConverterRegistry implements IConverterRegistry
         };
     }
 
-    /**
-     * @inheritDoc
-     */
-    public static function register(string $toConverter, \Traversable $fromConverters): void
-    {
-        self::assertToConverter($toConverter);
-        self::ensureInitialized();
-
-        foreach ($fromConverters as $color => $fromConverter) {
-            self::assertColor($color);
-            self::assertFromConverter($fromConverter);
-            self::$converters[$toConverter][$color] = $fromConverter;
-        }
-    }
-
-    private static function ensureInitialized(): void
-    {
-        if (null === self::$converters) {
-            self::$converters = new \ArrayObject();
-        }
-    }
-
     private static function assertFromConverter(mixed $fromConverter): void
     {
         match (true) {
@@ -111,5 +87,31 @@ final class ConverterRegistry implements IConverterRegistry
             ),
             default => null,
         };
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getFromConverter(string $toConverter, string $color): ?IFromConverter
+    {
+        self::assertToConverter($toConverter);
+        self::assertColor($color);
+
+        return $this->getRefinedFromConverter($toConverter, $color);
+    }
+
+    private function getRefinedFromConverter(string $toConverter, string $color): ?IFromConverter
+    {
+        /**
+         * @var class-string<IToConverter> $toConverter
+         * @var class-string<IConvertableColor> $color
+         * @var null|IFromConverter|class-string<IFromConverter> $fromConverter
+         */
+        $fromConverter = self::$converters[$toConverter][$color] ?? null;
+        if (is_string($fromConverter)) {
+            $fromConverter = new $fromConverter();
+            self::$converters[$toConverter][$color] = $fromConverter;
+        }
+        return $fromConverter;
     }
 }
