@@ -31,17 +31,23 @@ final class ConverterRegistry implements IConverterRegistry
         return $fromConverter;
     }
 
-    private static function assertToConverter(string $toConverter): void
+    private static function assertToConverter(mixed $toConverter): void
     {
         match (true) {
-            is_subclass_of($toConverter, IToConverter::class) => null,
-            default => throw new InvalidArgument(
+            !is_string($toConverter) => throw new InvalidArgument(
+                sprintf(
+                    'Converter must be type of string. "%s" given.',
+                    get_debug_type($toConverter)
+                )
+            ),
+            !is_subclass_of($toConverter, IToConverter::class) => throw new InvalidArgument(
                 sprintf(
                     'Converter must be instance of "%s". "%s" given.',
                     IToConverter::class,
                     $toConverter
                 )
             ),
+            default => null,
         };
     }
 
@@ -63,14 +69,6 @@ final class ConverterRegistry implements IConverterRegistry
             ),
             default => null,
         };
-//        if (!is_string($color)) {
-//            throw new InvalidArgument(
-//                sprintf(
-//                    'Color must be type of string. "%s" given.',
-//                    get_debug_type($color)
-//                )
-//            );
-//        }
     }
 
     /**
@@ -95,7 +93,23 @@ final class ConverterRegistry implements IConverterRegistry
         }
     }
 
-    private static function assertFromConverter($fromConverter): void
+    private static function assertFromConverter(mixed $fromConverter): void
     {
+        match (true) {
+            !is_string($fromConverter) => throw new InvalidArgument(
+                sprintf(
+                    'Converter must be type of string. "%s" given.',
+                    get_debug_type($fromConverter)
+                )
+            ),
+            !is_subclass_of($fromConverter, IFromConverter::class) => throw new InvalidArgument(
+                sprintf(
+                    'Converter must be instance of "%s". "%s" given.',
+                    IFromConverter::class,
+                    $fromConverter
+                )
+            ),
+            default => null,
+        };
     }
 }

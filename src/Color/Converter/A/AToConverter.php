@@ -5,13 +5,27 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Converter\A;
 
 use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IConverterRegistry;
+use AlecRabbit\Color\Contract\IFromConverter;
 use AlecRabbit\Color\Contract\IToConverter;
+use AlecRabbit\Color\Converter\Registry\ConverterRegistry;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
 
 abstract class AToConverter implements IToConverter
 {
-    abstract public function convert(IConvertableColor $color): IConvertableColor;
+    public function __construct(
+        private readonly IConverterRegistry $registry = new ConverterRegistry(),
+    ) {
+    }
 
+    public function convert(IConvertableColor $color): IConvertableColor
+    {
+        return $this->getConverter($color)->convert($color);
+    }
+
+    /**
+     * @throws UnsupportedColorConversion
+     */
     protected function unsupportedConversion(object $from, ?string $to = null): never
     {
         throw new UnsupportedColorConversion(
@@ -24,8 +38,12 @@ abstract class AToConverter implements IToConverter
         );
     }
 
+    protected function getConverter(IConvertableColor $color): IFromConverter
+    {
+        return $this->registry->getFromConverter($this::class, $color::class) ?? $this->unsupportedConversion($color);
+    }
+
     /**
-     * @deprecated pass class-string<IConvertableColor> to `unsupportedConversion` as a parameter instead
      * @return class-string<IConvertableColor>
      */
     abstract protected static function getTargetClass(): string;

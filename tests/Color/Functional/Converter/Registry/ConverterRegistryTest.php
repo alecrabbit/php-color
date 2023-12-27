@@ -83,8 +83,6 @@ final class ConverterRegistryTest extends TestCase
     #[Test]
     public function throwsIfSuppliedToConverterClassIsInvalid(): void
     {
-        $registry = $this->getTesteeInstance();
-
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
             'Converter must be instance of "AlecRabbit\Color\Contract\IToConverter". "invalid" given.'
@@ -96,8 +94,6 @@ final class ConverterRegistryTest extends TestCase
     #[Test]
     public function throwsIfSuppliedColorClassIsInvalid(): void
     {
-        $registry = $this->getTesteeInstance();
-
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
             'Color must be instance of "AlecRabbit\Color\Contract\IConvertableColor". "invalid" given.'
@@ -111,10 +107,38 @@ final class ConverterRegistryTest extends TestCase
     }
 
     #[Test]
-    public function throwsIfSuppliedColorClassNotStringInvalid(): void
+    public function throwsIfSuppliedFromConverterClassIsInvalid(): void
     {
-        $registry = $this->getTesteeInstance();
+        $this->expectException(InvalidArgument::class);
+        $this->expectExceptionMessage(
+            'Converter must be instance of "AlecRabbit\Color\Contract\IFromConverter". "invalid" given.'
+        );
 
+        $converters = [
+            IRGBAColor::class => 'invalid',
+        ];
+
+        ConverterRegistry::register(ToRGBAConverter::class, new \ArrayObject($converters));
+    }
+
+    #[Test]
+    public function throwsIfSuppliedFromConverterClassIsNotString(): void
+    {
+        $this->expectException(InvalidArgument::class);
+        $this->expectExceptionMessage(
+            'Converter must be type of string. "int" given.'
+        );
+
+        $converters = [
+            IRGBAColor::class => 1,
+        ];
+
+        ConverterRegistry::register(ToRGBAConverter::class, new \ArrayObject($converters));
+    }
+
+    #[Test]
+    public function throwsIfSuppliedColorClassIsNotString(): void
+    {
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage('Color must be type of string. "int" given.');
 
