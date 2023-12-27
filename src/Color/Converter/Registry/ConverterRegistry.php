@@ -13,7 +13,7 @@ use AlecRabbit\Color\Exception\InvalidArgument;
 final class ConverterRegistry implements IConverterRegistry
 {
     /** @var Array<class-string<IToConverter>, Array<class-string<IConvertableColor>,IFromConverter|class-string<IFromConverter>>> */
-    private static array $converters = [];
+    private static array $fromConverters = [];
 
     /**
      * @inheritDoc
@@ -31,7 +31,7 @@ final class ConverterRegistry implements IConverterRegistry
             self::assertColor($color);
             self::assertFromConverter($fromConverter);
 
-            self::$converters[$toConverter][$color] = $fromConverter;
+            self::$fromConverters[$toConverter][$color] = $fromConverter;
         }
     }
 
@@ -107,10 +107,10 @@ final class ConverterRegistry implements IConverterRegistry
          * @var class-string<IConvertableColor> $color
          * @var null|IFromConverter|class-string<IFromConverter> $fromConverter
          */
-        $fromConverter = self::$converters[$toConverter][$color] ?? null;
+        $fromConverter = self::$fromConverters[$toConverter][$color] ?? null;
         if (is_string($fromConverter)) {
             $fromConverter = new $fromConverter();
-            self::$converters[$toConverter][$color] = $fromConverter;
+            self::$fromConverters[$toConverter][$color] = $fromConverter;
         }
         return $fromConverter;
     }

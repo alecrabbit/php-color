@@ -9,6 +9,7 @@ use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Contract\IToConverter;
 use AlecRabbit\Color\Converter\To\RGBA\ToRGBAConverter;
+use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -21,7 +22,10 @@ final class ToRGBAConverterTest extends TestCase
     {
         yield from [
             [RGBA::fromRGB(0, 0, 0), RGBA::fromRGB(0, 0, 0)],
+            [RGBA::fromRGB(12, 250, 77), RGBA::fromRGB(12, 250, 77)],
             [RGBA::fromRGB(0, 0, 0), RGB::fromRGB(0, 0, 0)],
+            [RGBA::fromRGB(0, 0, 0), Hex::fromInteger(0)],
+            [RGBA::fromRGB(0x22, 0x33, 0x44), Hex::fromInteger(0x223344)],
         ];
     }
 
