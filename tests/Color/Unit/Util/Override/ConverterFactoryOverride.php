@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit\Util\Override;
 
 use AlecRabbit\Color\Contract\Factory\IConverterFactory;
-use AlecRabbit\Color\Contract\IConverter;
+use AlecRabbit\Color\Contract\IToConverter;
 use RuntimeException;
 
 final class ConverterFactoryOverride implements IConverterFactory
@@ -17,7 +17,7 @@ final class ConverterFactoryOverride implements IConverterFactory
         throw new RuntimeException('Not implemented.');
     }
 
-    public function make(string $class): IConverter
+    public function make(string $class): IToConverter
     {
         throw new RuntimeException('INTENTIONALLY Not implemented.');
     }

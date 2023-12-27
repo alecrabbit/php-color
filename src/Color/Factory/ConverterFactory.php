@@ -6,18 +6,18 @@ namespace AlecRabbit\Color\Factory;
 
 use AlecRabbit\Color\Contract\Factory\IConverterFactory;
 use AlecRabbit\Color\Contract\IConvertableColor;
-use AlecRabbit\Color\Contract\IConverter;
+use AlecRabbit\Color\Contract\IToConverter;
 use AlecRabbit\Color\Exception\ConverterUnavailable;
 use AlecRabbit\Color\Exception\InvalidArgument;
 
 class ConverterFactory implements IConverterFactory
 {
-    /** @var Array<class-string<IConvertableColor>, class-string<IConverter>> */
+    /** @var Array<class-string<IConvertableColor>, class-string<IToConverter>> */
     protected static array $registered = [];
 
     /**
      * @param class-string<IConvertableColor> $targetClass
-     * @param class-string<IConverter> $converterClass
+     * @param class-string<IToConverter> $converterClass
      */
     public static function register(string $targetClass, string $converterClass): void
     {
@@ -43,23 +43,23 @@ class ConverterFactory implements IConverterFactory
     }
 
     /**
-     * @param class-string<IConverter> $class
+     * @param class-string<IToConverter> $class
      */
     private static function assertConverterClass(string $class): void
     {
-        if (!is_subclass_of($class, IConverter::class)) {
+        if (!is_subclass_of($class, IToConverter::class)) {
             throw new InvalidArgument(
                 sprintf(
                     'Class "%s" is not a "%s" subclass.',
                     $class,
-                    IConverter::class
+                    IToConverter::class
                 )
             );
         }
     }
 
     /** @inheritDoc */
-    public function make(string $class): IConverter
+    public function make(string $class): IToConverter
     {
         self::assertTargetClass($class);
 
@@ -69,7 +69,7 @@ class ConverterFactory implements IConverterFactory
     /**
      * @param class-string<IConvertableColor> $class
      */
-    protected static function createConverter(string $class): IConverter
+    protected static function createConverter(string $class): IToConverter
     {
         $converterClass = self::getConverterClass($class);
         return
@@ -78,7 +78,7 @@ class ConverterFactory implements IConverterFactory
 
     /**
      * @param class-string<IConvertableColor> $class
-     * @return class-string<IConverter>
+     * @return class-string<IToConverter>
      */
     protected static function getConverterClass(string $class): string
     {

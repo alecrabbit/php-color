@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Color\Unit\Converter\A;
 
-use AlecRabbit\Color\Contract\IConverter;
+use AlecRabbit\Color\Contract\IToConverter;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
 use AlecRabbit\Tests\Color\Unit\Converter\A\Override\AConvertableColorOverride;
 use AlecRabbit\Tests\Color\Unit\Converter\A\Override\AConverterOverride;
@@ -24,7 +24,7 @@ class AConverterTest extends TestCase
         self::assertInstanceOf(self::CONVERTER_CLASS, $testee);
     }
 
-    private static function getTestee(): IConverter
+    private static function getTestee(): IToConverter
     {
         return new AConverterOverride();
     }

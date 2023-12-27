@@ -10,11 +10,11 @@ use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Contract\IRGBColor;
-use AlecRabbit\Color\Converter\A\AConverter;
+use AlecRabbit\Color\Converter\A\AToConverter;
 use AlecRabbit\Color\Converter\CoreConverter;
 use AlecRabbit\Color\HSLA;
 
-class ToHSLAConverter extends AConverter
+class ToHSLAConverter extends AToConverter
 {
     /** @inheritDoc */
     protected static function getTargetClass(): string

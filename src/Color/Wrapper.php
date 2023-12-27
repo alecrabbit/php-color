@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\Contract\IConvertableColor;
-use AlecRabbit\Color\Contract\IConverter;
+use AlecRabbit\Color\Contract\IToConverter;
 use AlecRabbit\Color\Contract\IInstantiator;
 use AlecRabbit\Color\Contract\IWrapper;
 use AlecRabbit\Color\Exception\InvalidArgument;
@@ -16,7 +16,7 @@ final readonly class Wrapper implements IWrapper
     /** @var Traversable<IConvertableColor> */
     private Traversable $targets;
 
-    /** @var class-string<IConverter> */
+    /** @var class-string<IToConverter> */
     private string $converter;
 
     /** @var class-string<IInstantiator> */
@@ -33,7 +33,7 @@ final readonly class Wrapper implements IWrapper
 
         /** @var Traversable<IConvertableColor> $targets */
         $this->targets = $targets;
-        /** @var class-string<IConverter> $converter */
+        /** @var class-string<IToConverter> $converter */
         $this->converter = $converter;
         /** @var class-string<IInstantiator> $instantiator */
         $this->instantiator = $instantiator;
@@ -85,11 +85,11 @@ final readonly class Wrapper implements IWrapper
                 )
             );
         }
-        if (!is_subclass_of($converter, IConverter::class)) {
+        if (!is_subclass_of($converter, IToConverter::class)) {
             throw new InvalidArgument(
                 sprintf(
                     'Converter class must be a subclass of "%s". "%s" given.',
-                    IConverter::class,
+                    IToConverter::class,
                     $converter,
                 )
             );

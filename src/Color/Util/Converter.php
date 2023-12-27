@@ -6,7 +6,7 @@ namespace AlecRabbit\Color\Util;
 
 use AlecRabbit\Color\Contract\Factory\IConverterFactory;
 use AlecRabbit\Color\Contract\IConvertableColor;
-use AlecRabbit\Color\Contract\IConverter;
+use AlecRabbit\Color\Contract\IToConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Factory\ConverterFactory;
 
@@ -30,7 +30,7 @@ final class Converter
     /**
      * @param class-string<IConvertableColor> $class
      */
-    public static function to(string $class): IConverter
+    public static function to(string $class): IToConverter
     {
         return self::getFactory()->make($class);
     }

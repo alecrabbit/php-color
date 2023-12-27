@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Color\Functional\Converter;
 
-use AlecRabbit\Color\Contract\IConverter;
+use AlecRabbit\Color\Contract\IToConverter;
 use AlecRabbit\Color\Converter\ToRGB\ToRGBAConverter;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
@@ -56,7 +56,7 @@ class ToRGBAConverterTest extends TestCase
         self::assertSame($color, $testee->convert($color));
     }
 
-    protected static function getTestee(): IConverter
+    protected static function getTestee(): IToConverter
     {
         return new ToRGBAConverter();
     }

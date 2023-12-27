@@ -9,6 +9,9 @@ use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Contract\IRGBColor;
+use AlecRabbit\Color\Converter\From\NoOpConverter;
+use AlecRabbit\Color\Converter\Registry\ConverterRegistry;
+use AlecRabbit\Color\Converter\To\RGBA\From\FromRGBConverter;
 use AlecRabbit\Color\Converter\ToHex\ToHexConverter;
 use AlecRabbit\Color\Converter\ToHSL\ToHSLAConverter;
 use AlecRabbit\Color\Converter\ToHSL\ToHSLConverter;
@@ -52,4 +55,19 @@ Package::add(
         instantiator: HSLInstantiator::class,
     ),
 );
+
+$converters = [
+    \AlecRabbit\Color\Converter\To\RGBA\ToRGBAConverter::class => [
+        IRGBAColor::class => NoOpConverter::class,
+        RGBA::class => NoOpConverter::class,
+        IRGBColor::class => FromRGBConverter::class,
+        RGB::class => FromRGBConverter::class,
+        IHexColor::class => FromRGBConverter::class,
+        Hex::class => FromRGBConverter::class,
+    ],
+];
+
+foreach ($converters as $toConverter => $fromConverters) {
+    ConverterRegistry::register($toConverter, new \ArrayObject($fromConverters));
+}
 // @codeCoverageIgnoreEnd

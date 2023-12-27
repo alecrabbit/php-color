@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Contract;
 
-interface IConverter
+interface IFromConverter
 {
     public function convert(IConvertableColor $color): IConvertableColor;
 }

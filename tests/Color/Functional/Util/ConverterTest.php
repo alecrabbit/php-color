@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Color\Functional\Util;
 
-use AlecRabbit\Color\Contract\IConverter;
+use AlecRabbit\Color\Contract\IToConverter;
 use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Contract\IHSLColor;
@@ -64,7 +64,7 @@ class ConverterTest extends TestCase
         self::assertInstanceOf($converterClass, $testee);
     }
 
-    protected function getTesteeFromClassString(string $class): IConverter
+    protected function getTesteeFromClassString(string $class): IToConverter
     {
         return Converter::to($class);
     }

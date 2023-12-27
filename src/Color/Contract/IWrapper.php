@@ -14,7 +14,7 @@ interface IWrapper
     public function getTargets(): Traversable;
 
     /**
-     * @return class-string<IConverter>
+     * @return class-string<IToConverter>
      */
     public function getConverterClass(): string;
 

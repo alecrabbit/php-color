@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Color\Unit\Converter\ToRGB;
 
-use AlecRabbit\Color\Contract\IConverter;
+use AlecRabbit\Color\Contract\IToConverter;
 use AlecRabbit\Color\Converter\ToRGB\ToRGBConverter;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
 use AlecRabbit\Color\Hex;
@@ -27,7 +27,7 @@ class ToRGBConverterGenericTest extends TestCase
         self::assertInstanceOf(self::CONVERTER_CLASS, $testee);
     }
 
-    private static function getTestee(): IConverter
+    private static function getTestee(): IToConverter
     {
         return new ToRGBConverter();
     }
