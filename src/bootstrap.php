@@ -11,6 +11,7 @@ use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Converter\From\NoOpConverter;
 use AlecRabbit\Color\Converter\Registry\ConverterRegistry;
+use AlecRabbit\Color\Converter\To\RGBA\From\FromHSLConverter;
 use AlecRabbit\Color\Converter\To\RGBA\From\FromRGBConverter;
 use AlecRabbit\Color\Converter\ToHex\ToHexConverter;
 use AlecRabbit\Color\Converter\ToHSL\ToHSLAConverter;
@@ -64,6 +65,10 @@ $converters = [
         RGB::class => FromRGBConverter::class,
         IHexColor::class => FromRGBConverter::class,
         Hex::class => FromRGBConverter::class,
+        IHSLColor::class => FromHSLConverter::class,
+        HSL::class => FromHSLConverter::class,
+        IHSLAColor::class => FromHSLConverter::class,
+        HSLA::class => FromHSLConverter::class,
     ],
 ];
 
