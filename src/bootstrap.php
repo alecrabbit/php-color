@@ -23,6 +23,7 @@ use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
 use AlecRabbit\Color\Instantiator\HexInstantiator;
 use AlecRabbit\Color\Instantiator\HSLInstantiator;
+use AlecRabbit\Color\Instantiator\RGBAInstantiator;
 use AlecRabbit\Color\Instantiator\RGBInstantiator;
 use AlecRabbit\Color\Package;
 use AlecRabbit\Color\RGB;
@@ -43,7 +44,7 @@ Package::add(
     new Wrapper(
         targets: new ArrayObject([RGBA::class, IRGBAColor::class]),
         converter: ToRGBAConverter::class,
-        instantiator: RGBInstantiator::class,
+        instantiator: RGBAInstantiator::class,
     ),
     new Wrapper(
         targets: new ArrayObject([HSL::class, IHSLColor::class]),

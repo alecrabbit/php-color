@@ -11,28 +11,20 @@ use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
 
-class HSLInstantiator extends AInstantiator implements IInstantiator
+class HSLAInstantiator extends AInstantiator implements IInstantiator
 {
-    protected const REGEXP_HSL = '/^hsl\((\d+),\s*(\d+)%,\s*(\d+)%\)$/';
     protected const REGEXP_HSLA = '/^hsla?\((\d+),\s*(\d+)%,\s*(\d+)%(?:,\s*([\d.]+))?\)$/';
     protected const PRECISION = 2;
 
     protected static function canInstantiate(string $color): bool
     {
-        return str_contains($color, 'hsl') && preg_match(self::REGEXP_HSLA, $color);
+        return str_contains($color, 'hsla(');
     }
 
     public function fromString(string $color): IConvertableColor
     {
-        if (preg_match(self::REGEXP_HSL, $color, $matches)) {
-            return
-                HSL::fromHSL(
-                    (int)$matches[1],
-                    round(((int)$matches[2]) / 100, self::PRECISION),
-                    round(((int)$matches[3]) / 100, self::PRECISION),
-                );
-        }
-        if (preg_match(self::REGEXP_HSLA, $color, $matches)) {
+        $color = self::normalize($color);
+        if (self::canInstantiate($color) && preg_match(self::REGEXP_HSLA, $color, $matches)) {
             return
                 HSLA::fromHSLA(
                     (int)$matches[1],

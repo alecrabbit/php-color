@@ -8,29 +8,30 @@ use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IInstantiator;
 use AlecRabbit\Color\Exception\UnrecognizedColorString;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
-use AlecRabbit\Color\RGB;
+use AlecRabbit\Color\RGBA;
 
 use function str_starts_with;
 
-class RGBInstantiator extends AInstantiator implements IInstantiator
+class RGBAInstantiator extends AInstantiator implements IInstantiator
 {
-    protected const REGEXP_RGB = '/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/';
+    protected const REGEXP_RGBA = '/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)$/';
 
     protected static function canInstantiate(string $color): bool
     {
-        return str_starts_with($color, 'rgb(');
+        return str_starts_with($color, 'rgba(');
     }
 
     public function fromString(string $color): IConvertableColor
     {
         $color = self::normalize($color);
 
-        if (self::canInstantiate($color) && preg_match(self::REGEXP_RGB, $color, $matches)) {
+        if (self::canInstantiate($color) && preg_match(self::REGEXP_RGBA, $color, $matches)) {
             return
-                RGB::fromRGB(
+                RGBA::fromRGBO(
                     (int)$matches[1],
                     (int)$matches[2],
                     (int)$matches[3],
+                    isset($matches[4]) ? (float)$matches[4] : 1.0,
                 );
         }
 

@@ -8,17 +8,17 @@ use AlecRabbit\Color\Contract\IInstantiator;
 use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Exception\UnrecognizedColorString;
-use AlecRabbit\Color\Instantiator\RGBInstantiator;
-use AlecRabbit\Color\RGB;
+use AlecRabbit\Color\Instantiator\RGBAInstantiator;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-class RGBInstantiatorTest extends TestCase
+class RGBAInstantiatorTest extends TestCase
 {
-    public static function canInstantiateRGBDataProvider(): iterable
+    public static function canNotInstantiateRGBDataProvider(): iterable
     {
+
         yield from [
             // [(int)expected, (string)incoming]
             [0xff0000, 'rgb(255, 0, 0)'],
@@ -30,7 +30,7 @@ class RGBInstantiatorTest extends TestCase
         ];
     }
 
-    public static function canNotInstantiateRGBADataProvider(): iterable
+    public static function canInstantiateRGBADataProvider(): iterable
     {
         yield from [
             // [[(int)value, (float)opacity, (int)alpha]expected, (string)incoming]
@@ -48,17 +48,25 @@ class RGBInstantiatorTest extends TestCase
     public static function canBeInstantiatedFromStringDataProvider(): iterable
     {
         yield from [
-            ['rgb(0, 0, 0)', 0, 0, 0],
-            ['rgb(0, 0, 0)', 0, 0, 0],
-            ['rgb(0, 12, 33)', 0, 12, 33],
-            ['rgb(0, 0, 1)', 0, 0, 1],
+            ['rgba(0, 0, 0, 0)', 0, 0, 0, 0, 0],
+            ['rgba(0, 0, 0, 1.0)', 0, 0, 0, 1.0, 255],
+            ['rgba(0, 12, 33, 0.333)', 0, 12, 33, 0.329, 84],
+            ['rgba(0, 0, 1, 1.0)', 0, 0, 1, 1.0, 255],
         ];
     }
 
     #[Test]
-    #[DataProvider('canInstantiateRGBDataProvider')]
+    #[DataProvider('canNotInstantiateRGBDataProvider')]
     public function canInstantiateRGB(int $expected, string $incoming): void
     {
+        $this->expectException(UnrecognizedColorString::class);
+        $this->expectExceptionMessage(
+            sprintf(
+                'Unrecognized color string: "%s".',
+                $incoming
+            )
+        );
+
         $instantiator = $this->getTesteeInstance();
 
         $color = $instantiator->fromString($incoming);
@@ -68,20 +76,13 @@ class RGBInstantiatorTest extends TestCase
 
     protected function getTesteeInstance(): IInstantiator
     {
-        return new RGBInstantiator();
+        return new RGBAInstantiator();
     }
 
     #[Test]
-    #[DataProvider('canNotInstantiateRGBADataProvider')]
+    #[DataProvider('canInstantiateRGBADataProvider')]
     public function canInstantiateRGBA(array $expected, string $incoming): void
     {
-        $this->expectException(UnrecognizedColorString::class);
-        $this->expectExceptionMessage(
-            sprintf(
-                'Unrecognized color string: "%s".',
-                $incoming
-            )
-        );
         [$value, $opacity, $alpha] = $expected;
         $instantiator = $this->getTesteeInstance();
 
@@ -94,13 +95,15 @@ class RGBInstantiatorTest extends TestCase
 
     #[Test]
     #[DataProvider('canBeInstantiatedFromStringDataProvider')]
-    public function canBeInstantiatedFromString(string $color, int $r, int $g, int $b): void
+    public function canBeInstantiatedFromString(string $color, int $r, int $g, int $b, float $opacity, int $alpha): void
     {
         $instantiator = $this->getTesteeInstance();
         $testee = $instantiator->fromString($color);
-        self::assertInstanceOf(RGB::class, $testee);
+        self::assertInstanceOf(RGBA::class, $testee);
         self::assertSame($r, $testee->getRed());
         self::assertSame($g, $testee->getGreen());
         self::assertSame($b, $testee->getBlue());
+        self::assertEquals($opacity, $testee->getOpacity());
+        self::assertSame($alpha, $testee->getAlpha());
     }
 }

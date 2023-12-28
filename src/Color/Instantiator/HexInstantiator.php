@@ -6,6 +6,7 @@ namespace AlecRabbit\Color\Instantiator;
 
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IInstantiator;
+use AlecRabbit\Color\Exception\UnrecognizedColorString;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
 
@@ -168,6 +169,11 @@ class HexInstantiator extends AInstantiator implements IInstantiator
     {
         $color = self::normalize($color);
 
+        return self::canInstantiate($color);
+    }
+
+    protected static function canInstantiate(string $color): bool
+    {
         return self::isNamedColor($color) || self::isHexString($color);
     }
 
@@ -189,12 +195,23 @@ class HexInstantiator extends AInstantiator implements IInstantiator
             $color = self::NAMED_COLORS[$color];
         }
 
-        return
-            Hex::fromInteger(
-                hexdec(
-                    self::normalizeHexString($color)
-                )
+        if (self::isHexString($color)) {
+            return Hex::fromInteger(
+                self::extractValue($color)
             );
+        }
+
+        throw new UnrecognizedColorString(
+            sprintf(
+                'Unrecognized color string: "%s".',
+                $color
+            )
+        );
+    }
+
+    protected static function extractValue(mixed $color): int
+    {
+        return (int)hexdec(self::normalizeHexString($color));
     }
 
     protected static function normalizeHexString(string $hex): string
