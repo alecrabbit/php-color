@@ -55,7 +55,7 @@ class ToHSLAConverter extends AToConverter
         }
 
 
-        if ($color instanceof IRGBColor || $color instanceof IHexColor)    {
+        if ($color instanceof IRGBColor || $color instanceof IHexColor) {
             $hsl =
                 (new CoreConverter())->rgbToHsl(
                     $color->getRed(),

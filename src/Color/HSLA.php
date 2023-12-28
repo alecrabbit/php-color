@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color;
 
-use AlecRabbit\Color\A\AConvertableColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
 
 class HSLA extends HSL implements IHSLAColor
@@ -25,7 +24,7 @@ class HSLA extends HSL implements IHSLAColor
          * @noinspection PhpIncompatibleReturnTypeInspection
          * @psalm-suppress LessSpecificReturnStatement
          */
-        return AConvertableColor::fromString($color)->to(self::class);
+        return self::getFromString($color)->to(self::class);
     }
 
     public function toString(): string

@@ -80,6 +80,9 @@ final class CoreConverterTest extends TestCase
     {
         $converter = $this->getTesteeInstance();
 
-        self::assertEquals($expected, $converter->hslToRgb($incoming->hue, $incoming->saturation, $incoming->lightness));
+        self::assertEquals(
+            $expected,
+            $converter->hslToRgb($incoming->hue, $incoming->saturation, $incoming->lightness)
+        );
     }
 }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color;
 
-use AlecRabbit\Color\A\AConvertableColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
 
 use function abs;
@@ -43,7 +42,7 @@ class RGBA extends RGB implements IRGBAColor
          * @noinspection PhpIncompatibleReturnTypeInspection
          * @psalm-suppress LessSpecificReturnStatement
          */
-        return AConvertableColor::fromString($color)->to(IRGBAColor::class);
+        return self::getFromString($color)->to(IRGBAColor::class);
     }
 
     public function withRed(int $red): IRGBAColor

@@ -7,7 +7,6 @@ namespace AlecRabbit\Tests\Color\Unit;
 use AlecRabbit\Color\ColorRange;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IColorRange;
-use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Tests\TestCase\FactoryAwareTestCase;

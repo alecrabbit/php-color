@@ -10,7 +10,7 @@ use AlecRabbit\Color\Exception\ColorException;
 /**
  * Utility class for convenient color instantiation.
  *
- * @codeCoverageIgnore Coverage does not make sense.
+ * @codeCoverageIgnore
  */
 final class Color extends AConvertableColor
 {

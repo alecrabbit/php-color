@@ -12,7 +12,10 @@ use AlecRabbit\Color\Instantiator\RGBInstantiator;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\Wrapper;
 use AlecRabbit\Tests\TestCase\TestCase;
+use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
+use stdClass;
+use Traversable;
 
 final class WrapperTest extends TestCase
 {
@@ -25,12 +28,12 @@ final class WrapperTest extends TestCase
     }
 
     private function getTesteeInstance(
-        \Traversable $targets = null,
+        Traversable $targets = null,
         string $converter = null,
         string $instantiator = null,
     ): IWrapper {
         return new Wrapper(
-            targets: $targets ?? new \ArrayObject([RGB::class, IRGBColor::class]),
+            targets: $targets ?? new ArrayObject([RGB::class, IRGBColor::class]),
             converter: $converter ?? ToRGBConverter::class,
             instantiator: $instantiator ?? RGBInstantiator::class,
         );
@@ -39,7 +42,7 @@ final class WrapperTest extends TestCase
     #[Test]
     public function canGetTargets(): void
     {
-        $targets = new \ArrayObject([RGB::class, IRGBColor::class]);
+        $targets = new ArrayObject([RGB::class, IRGBColor::class]);
 
         $wrapper = $this->getTesteeInstance(
             targets: $targets,
@@ -79,7 +82,7 @@ final class WrapperTest extends TestCase
         $this->expectExceptionMessage('Targets must not be empty.');
 
         $this->getTesteeInstance(
-            targets: new \ArrayObject(),
+            targets: new ArrayObject(),
         );
     }
 
@@ -93,7 +96,7 @@ final class WrapperTest extends TestCase
         );
 
         $this->getTesteeInstance(
-            targets: new \ArrayObject([RGB::class, IRGBColor::class, 'invalid']),
+            targets: new ArrayObject([RGB::class, IRGBColor::class, 'invalid']),
         );
     }
 
@@ -106,7 +109,7 @@ final class WrapperTest extends TestCase
         );
 
         $this->getTesteeInstance(
-            targets: new \ArrayObject([IRGBColor::class, \stdClass::class]),
+            targets: new ArrayObject([IRGBColor::class, stdClass::class]),
         );
     }
 
@@ -119,9 +122,10 @@ final class WrapperTest extends TestCase
         );
 
         $this->getTesteeInstance(
-            converter: \stdClass::class,
+            converter: stdClass::class,
         );
     }
+
     #[Test]
     public function throwsIfInstantiatorStringIsNotAnInstantiatorSubclass(): void
     {
@@ -131,7 +135,7 @@ final class WrapperTest extends TestCase
         );
 
         $this->getTesteeInstance(
-            instantiator: \stdClass::class,
+            instantiator: stdClass::class,
         );
     }
 
@@ -147,6 +151,7 @@ final class WrapperTest extends TestCase
             converter: "nonexistent",
         );
     }
+
     #[Test]
     public function throwsIfInstantiatorClassStringRepresentsNonExistentClass(): void
     {
@@ -167,7 +172,7 @@ final class WrapperTest extends TestCase
         $this->expectExceptionMessage('Target must be a string. "stdClass" given.');
 
         $this->getTesteeInstance(
-            targets: new \ArrayObject([IRGBColor::class, new \stdClass()]),
+            targets: new ArrayObject([IRGBColor::class, new stdClass()]),
 
         );
     }

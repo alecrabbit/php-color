@@ -23,6 +23,5 @@ final class Package
             }
             InstantiatorFactory::register($item->getInstantiatorClass());
         }
-
     }
 }

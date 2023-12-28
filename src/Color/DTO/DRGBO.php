@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\DTO;
 
 /**
- * @codeCoverageIgnore Coverage does not make sense.
+ * @codeCoverageIgnore
  */
 final readonly class DRGBO
 {

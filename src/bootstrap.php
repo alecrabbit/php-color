@@ -31,27 +31,27 @@ use AlecRabbit\Color\Wrapper;
 
 Package::add(
     new Wrapper(
-        targets: new \ArrayObject([Hex::class, IHexColor::class]),
+        targets: new ArrayObject([Hex::class, IHexColor::class]),
         converter: ToHexConverter::class,
         instantiator: HexInstantiator::class,
     ),
     new Wrapper(
-        targets: new \ArrayObject([RGB::class, IRGBColor::class]),
+        targets: new ArrayObject([RGB::class, IRGBColor::class]),
         converter: ToRGBConverter::class,
         instantiator: RGBInstantiator::class,
     ),
     new Wrapper(
-        targets: new \ArrayObject([RGBA::class, IRGBAColor::class]),
+        targets: new ArrayObject([RGBA::class, IRGBAColor::class]),
         converter: ToRGBAConverter::class,
         instantiator: RGBInstantiator::class,
     ),
     new Wrapper(
-        targets: new \ArrayObject([HSL::class, IHSLColor::class]),
+        targets: new ArrayObject([HSL::class, IHSLColor::class]),
         converter: ToHSLConverter::class,
         instantiator: HSLInstantiator::class,
     ),
     new Wrapper(
-        targets: new \ArrayObject([HSLA::class, IHSLAColor::class]),
+        targets: new ArrayObject([HSLA::class, IHSLAColor::class]),
         converter: ToHSLAConverter::class,
         instantiator: HSLInstantiator::class,
     ),
@@ -73,6 +73,6 @@ $converters = [
 ];
 
 foreach ($converters as $toConverter => $fromConverters) {
-    ConverterRegistry::register($toConverter, new \ArrayObject($fromConverters));
+    ConverterRegistry::register($toConverter, new ArrayObject($fromConverters));
 }
 // @codeCoverageIgnoreEnd

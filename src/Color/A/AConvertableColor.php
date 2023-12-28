@@ -14,6 +14,11 @@ abstract class AConvertableColor implements IConvertableColor
 
     public static function fromString(string $color): IConvertableColor
     {
+        return self::getFromString($color);
+    }
+
+    protected static function getFromString(string $color): IConvertableColor
+    {
         return Instantiator::fromString($color);
     }
 

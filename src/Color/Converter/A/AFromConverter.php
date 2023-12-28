@@ -7,7 +7,7 @@ namespace AlecRabbit\Color\Converter\A;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IFromConverter;
 
-abstract class AFromConverter  implements IFromConverter
+abstract class AFromConverter implements IFromConverter
 {
     public function convert(IConvertableColor $color): IConvertableColor
     {

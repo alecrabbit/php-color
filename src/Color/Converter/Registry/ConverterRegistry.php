@@ -9,6 +9,7 @@ use AlecRabbit\Color\Contract\IConverterRegistry;
 use AlecRabbit\Color\Contract\IFromConverter;
 use AlecRabbit\Color\Contract\IToConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
+use Traversable;
 
 final class ConverterRegistry implements IConverterRegistry
 {
@@ -18,7 +19,7 @@ final class ConverterRegistry implements IConverterRegistry
     /**
      * @inheritDoc
      */
-    public static function register(string $toConverter, \Traversable $fromConverters): void
+    public static function register(string $toConverter, Traversable $fromConverters): void
     {
         self::assertToConverter($toConverter);
 

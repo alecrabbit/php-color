@@ -18,6 +18,7 @@ use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;
+use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 
 final class ConverterRegistryTest extends TestCase
@@ -52,7 +53,7 @@ final class ConverterRegistryTest extends TestCase
             Hex::class => FromRGBConverter::class,
         ];
 
-        ConverterRegistry::register(ToRGBAConverter::class, new \ArrayObject($converters));
+        ConverterRegistry::register(ToRGBAConverter::class, new ArrayObject($converters));
 
         self::assertInstanceOf(
             NoOpConverter::class,
@@ -88,7 +89,7 @@ final class ConverterRegistryTest extends TestCase
             'Converter must be instance of "AlecRabbit\Color\Contract\IToConverter". "invalid" given.'
         );
 
-        ConverterRegistry::register('invalid', new \ArrayObject([]));
+        ConverterRegistry::register('invalid', new ArrayObject([]));
     }
 
     #[Test]
@@ -103,7 +104,7 @@ final class ConverterRegistryTest extends TestCase
             'invalid' => NoOpConverter::class,
         ];
 
-        ConverterRegistry::register(ToRGBAConverter::class, new \ArrayObject($converters));
+        ConverterRegistry::register(ToRGBAConverter::class, new ArrayObject($converters));
     }
 
     #[Test]
@@ -118,7 +119,7 @@ final class ConverterRegistryTest extends TestCase
             IRGBAColor::class => 'invalid',
         ];
 
-        ConverterRegistry::register(ToRGBAConverter::class, new \ArrayObject($converters));
+        ConverterRegistry::register(ToRGBAConverter::class, new ArrayObject($converters));
     }
 
     #[Test]
@@ -133,7 +134,7 @@ final class ConverterRegistryTest extends TestCase
             IRGBAColor::class => 1,
         ];
 
-        ConverterRegistry::register(ToRGBAConverter::class, new \ArrayObject($converters));
+        ConverterRegistry::register(ToRGBAConverter::class, new ArrayObject($converters));
     }
 
     #[Test]
@@ -146,7 +147,7 @@ final class ConverterRegistryTest extends TestCase
             1 => NoOpConverter::class,
         ];
 
-        ConverterRegistry::register(ToRGBAConverter::class, new \ArrayObject($converters));
+        ConverterRegistry::register(ToRGBAConverter::class, new ArrayObject($converters));
     }
 
     protected function setUp(): void
