@@ -9,7 +9,6 @@ use AlecRabbit\Color\Contract\IColorRange;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\DTO\DHSLO;
-use AlecRabbit\Color\DTO\DRGBO;
 use AlecRabbit\Color\Gradient\A\AGradient;
 use AlecRabbit\Color\Util\Color;
 

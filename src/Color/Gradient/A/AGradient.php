@@ -9,7 +9,6 @@ use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IColorRange;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Gradient\Gradient;
 use AlecRabbit\Color\Util\Color;
 use Traversable;
 

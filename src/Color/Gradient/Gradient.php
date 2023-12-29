@@ -4,18 +4,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Gradient;
 
-use AlecRabbit\Color\Contract\Gradient\IGradient;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IColorRange;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\DTO\DRGBO;
-use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Gradient\A\AGradient;
 use AlecRabbit\Color\Util\Color;
-use Traversable;
-
-use function is_string;
 
 final readonly class Gradient extends AGradient
 {
@@ -48,7 +43,6 @@ final readonly class Gradient extends AGradient
         $this->bStep = ($end->getBlue() - $this->start->blue) / $count;
         $this->oStep = ($end->getOpacity() - $this->start->opacity) / $count;
     }
-
 
 
     private function toDTO(IColor|string $color): DRGBO

@@ -14,7 +14,6 @@ use AlecRabbit\Color\HSLA;
 use AlecRabbit\Tests\TestCase\FactoryAwareTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
-use Symfony\Component\VarDumper\Caster\ScalarStub;
 
 final class HSLAGradientTest extends FactoryAwareTestCase
 {

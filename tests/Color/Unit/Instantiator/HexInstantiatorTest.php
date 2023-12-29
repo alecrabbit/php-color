@@ -78,7 +78,9 @@ class HexInstantiatorTest extends TestCase
         $instantiator = $this->getTesteeInstance();
         $color = $instantiator->fromString($colorString);
         self::assertInstanceOf(Hex::class, $color);
-    }    #[Test]
+    }
+
+    #[Test]
     #[DataProvider('canNotInstantiateDataProvider')]
     public function canNotInstantiate(string $incoming): void
     {
