@@ -8,7 +8,7 @@ use AlecRabbit\Color\RGBA;
 
 require_once __DIR__ . '/../bootstrap.php';
 
-$source = 'hsla(360, 100%, 50%, 1)';
+$source = '#fff';
 
 $rgb = RGBA::fromString($source);
 $hsla = $rgb->to(IHSLAColor::class);

@@ -73,7 +73,7 @@ final readonly class HSLAGradient extends AGradient
         return Color::fromString(
             sprintf(
                 "hsla(%s, %.0f%%, %.0f%%, %.{$this->precision}f)",
-                ($this->start->hue + $this->hStep * $index) * 100,
+                (int)round($this->start->hue + $this->hStep * $index),
                 ($this->start->saturation + $this->sStep * $index) * 100,
                 ($this->start->lightness + $this->lStep * $index) * 100,
                 round($this->start->opacity + $this->oStep * $index, $this->precision),

@@ -11,10 +11,10 @@ use AlecRabbit\Color\Contract\IColorRange;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Gradient\HSLAGradient;
 use AlecRabbit\Color\HSLA;
-use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\FactoryAwareTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use Symfony\Component\VarDumper\Caster\ScalarStub;
 
 final class HSLAGradientTest extends FactoryAwareTestCase
 {
@@ -34,85 +34,155 @@ final class HSLAGradientTest extends FactoryAwareTestCase
             ],
             [
                 [
-                    RGBA::fromRGBO(0, 0, 0),
-                    RGBA::fromRGBO(255, 255, 255),
+                    HSLA::fromString('hsla(0, 0%, 0%, 1.0)'),
+                    HSLA::fromString('hsla(0, 0%, 100%, 1.0)'),
                 ],
                 ['#000', '#fff'],
             ],
             [
                 [
-                    RGBA::fromRGBO(0, 0, 0, 0),
-                    RGBA::fromRGBO(255, 255, 255, 1),
+                    HSLA::fromString('hsla(0, 0%, 0%, 0.0)'),
+                    HSLA::fromString('hsla(0, 0%, 100%, 1.0)'),
                 ],
                 ['rgba(0, 0, 0, 0)', 'rgba(255, 255, 255, 1)', 2],
             ],
             [
                 [
-                    RGBA::fromRGBO(0, 0, 0, 0),
-                    RGBA::fromRGBO(255, 255, 255, 1),
+                    HSLA::fromString('hsla(0, 0%, 0%, 0.0)'),
+                    HSLA::fromString('hsla(0, 0%, 100%, 1.0)'),
                 ],
                 ['rgba(0, 0, 0, 0)', 'rgba(255, 255, 255, 1)',],
             ],
             [
                 [
-                    RGBA::fromRGBO(0, 0, 0),
-                    RGBA::fromRGBO(128, 128, 128),
-                    RGBA::fromRGBO(255, 255, 255),
+                    HSLA::fromString('hsla(0, 0%, 0%, 1.0)'),
+                    HSLA::fromString('hsla(0, 0%, 50%, 1.0)'),
+                    HSLA::fromString('hsla(0, 0%, 100%, 1.0)'),
                 ],
                 ['#000', '#fff', 3],
             ],
             [
                 [
-                    RGBA::fromRGBO(0, 0, 0, 0),
-                    RGBA::fromRGBO(128, 128, 128, 0.5),
-                    RGBA::fromRGBO(255, 255, 255, 1),
+                    HSLA::fromString('hsla(0, 0%, 0%, 0.0)'),
+                    HSLA::fromString('hsla(180, 50%, 50%, 0.5)'),
+                    HSLA::fromString('hsla(360, 100%, 100%, 1.0)'),
                 ],
-                ['rgba(0, 0, 0, 0)', RGBA::fromRGBO(255, 255, 255, 1), 3],
+                [
+                    HSLA::fromString('hsla(0, 0%, 0%, 0.0)'),
+                    HSLA::fromString('hsla(360, 100%, 100%, 1.0)'),
+                    3
+                ],
             ],
             [
                 [
-                    RGBA::fromRGBO(174, 67, 18, 1),
-                    RGBA::fromRGBO(190, 54, 21, 1),
-                    RGBA::fromRGBO(206, 40, 24, 1),
-                    RGBA::fromRGBO(223, 27, 28, 1),
-                    RGBA::fromRGBO(239, 13, 31, 1),
-                    RGBA::fromRGBO(255, 0, 34, 1),
-
+                    HSLA::fromString('hsla(0, 100%, 50%, 1.0)'),
+                    HSLA::fromString('hsla(180, 100%, 50%, 1.0)'),
+                    HSLA::fromString('hsla(360, 100%, 50%, 1.0)'),
                 ],
-                [RGBA::fromRGBO(174, 67, 18, 1.0), '#ff0022', 6],
+                [
+                    HSLA::fromString('hsla(0, 100%, 50%)'),
+                    HSLA::fromString('hsla(360, 100%, 50%)'),
+                    3
+                ],
             ],
             [
                 [
-                    RGBA::fromRGBO(174, 67, 18, 0.0),
-                    RGBA::fromRGBO(190, 54, 21, 0.2),
-                    RGBA::fromRGBO(206, 40, 24, 0.4),
-                    RGBA::fromRGBO(223, 27, 28, 0.6),
-                    RGBA::fromRGBO(239, 13, 31, 0.8),
-                    RGBA::fromRGBO(255, 0, 34, 1),
-
+                    HSLA::fromString('hsla(0, 100%, 50%, 1.0)'),
+                    HSLA::fromString('hsla(120, 100%, 50%, 1.0)'),
+                    HSLA::fromString('hsla(240, 100%, 50%, 1.0)'),
+                    HSLA::fromString('hsla(360, 100%, 50%, 1.0)'),
                 ],
-                ['rgba(174, 67, 18, 0)', 'rgba(255, 0, 34, 1)', 6],
+                [
+                    HSLA::fromString('hsla(0, 100%, 50%)'),
+                    HSLA::fromString('hsla(360, 100%, 50%)'),
+                    4
+                ],
             ],
             [
                 [
-                    RGBA::fromRGBO(0, 25, 255, 1),
-                    RGBA::fromRGBO(0, 25, 255, 1),
+                    HSLA::fromString('hsla(0, 0%, 50%, 1)'),
+                    HSLA::fromString('hsla(5, 1%, 50%, 1)'),
+                    HSLA::fromString('hsla(9, 3%, 50%, 1)'),
+                    HSLA::fromString('hsla(14, 4%, 50%, 1)'),
+                    HSLA::fromString('hsla(19, 5%, 50%, 1)'),
+                    HSLA::fromString('hsla(24, 7%, 50%, 1)'),
+                    HSLA::fromString('hsla(28, 8%, 50%, 1)'),
+                    HSLA::fromString('hsla(33, 9%, 50%, 1)'),
+                    HSLA::fromString('hsla(38, 11%, 50%, 1)'),
+                    HSLA::fromString('hsla(43, 12%, 50%, 1)'),
+                    HSLA::fromString('hsla(47, 13%, 50%, 1)'),
+                    HSLA::fromString('hsla(52, 14%, 50%, 1)'),
+                    HSLA::fromString('hsla(57, 16%, 50%, 1)'),
+                    HSLA::fromString('hsla(62, 17%, 50%, 1)'),
+                    HSLA::fromString('hsla(66, 18%, 50%, 1)'),
+                    HSLA::fromString('hsla(71, 20%, 50%, 1)'),
+                    HSLA::fromString('hsla(76, 21%, 50%, 1)'),
+                    HSLA::fromString('hsla(81, 22%, 50%, 1)'),
+                    HSLA::fromString('hsla(85, 24%, 50%, 1)'),
+                    HSLA::fromString('hsla(90, 25%, 50%, 1)'),
+                    HSLA::fromString('hsla(95, 26%, 50%, 1)'),
+                    HSLA::fromString('hsla(99, 28%, 50%, 1)'),
+                    HSLA::fromString('hsla(104, 29%, 50%, 1)'),
+                    HSLA::fromString('hsla(109, 30%, 50%, 1)'),
+                    HSLA::fromString('hsla(114, 32%, 50%, 1)'),
+                    HSLA::fromString('hsla(118, 33%, 50%, 1)'),
+                    HSLA::fromString('hsla(123, 34%, 50%, 1)'),
+                    HSLA::fromString('hsla(128, 36%, 50%, 1)'),
+                    HSLA::fromString('hsla(133, 37%, 50%, 1)'),
+                    HSLA::fromString('hsla(137, 38%, 50%, 1)'),
+                    HSLA::fromString('hsla(142, 39%, 50%, 1)'),
+                    HSLA::fromString('hsla(147, 41%, 50%, 1)'),
+                    HSLA::fromString('hsla(152, 42%, 50%, 1)'),
+                    HSLA::fromString('hsla(156, 43%, 50%, 1)'),
+                    HSLA::fromString('hsla(161, 45%, 50%, 1)'),
+                    HSLA::fromString('hsla(166, 46%, 50%, 1)'),
+                    HSLA::fromString('hsla(171, 47%, 50%, 1)'),
+                    HSLA::fromString('hsla(175, 49%, 50%, 1)'),
+                    HSLA::fromString('hsla(180, 50%, 50%, 1)'),
+                    HSLA::fromString('hsla(185, 51%, 50%, 1)'),
+                    HSLA::fromString('hsla(189, 53%, 50%, 1)'),
+                    HSLA::fromString('hsla(194, 54%, 50%, 1)'),
+                    HSLA::fromString('hsla(199, 55%, 50%, 1)'),
+                    HSLA::fromString('hsla(204, 57%, 50%, 1)'),
+                    HSLA::fromString('hsla(208, 58%, 50%, 1)'),
+                    HSLA::fromString('hsla(213, 59%, 50%, 1)'),
+                    HSLA::fromString('hsla(218, 61%, 50%, 1)'),
+                    HSLA::fromString('hsla(223, 62%, 50%, 1)'),
+                    HSLA::fromString('hsla(227, 63%, 50%, 1)'),
+                    HSLA::fromString('hsla(232, 64%, 50%, 1)'),
+                    HSLA::fromString('hsla(237, 66%, 50%, 1)'),
+                    HSLA::fromString('hsla(242, 67%, 50%, 1)'),
+                    HSLA::fromString('hsla(246, 68%, 50%, 1)'),
+                    HSLA::fromString('hsla(251, 70%, 50%, 1)'),
+                    HSLA::fromString('hsla(256, 71%, 50%, 1)'),
+                    HSLA::fromString('hsla(261, 72%, 50%, 1)'),
+                    HSLA::fromString('hsla(265, 74%, 50%, 1)'),
+                    HSLA::fromString('hsla(270, 75%, 50%, 1)'),
+                    HSLA::fromString('hsla(275, 76%, 50%, 1)'),
+                    HSLA::fromString('hsla(279, 78%, 50%, 1)'),
+                    HSLA::fromString('hsla(284, 79%, 50%, 1)'),
+                    HSLA::fromString('hsla(289, 80%, 50%, 1)'),
+                    HSLA::fromString('hsla(294, 82%, 50%, 1)'),
+                    HSLA::fromString('hsla(298, 83%, 50%, 1)'),
+                    HSLA::fromString('hsla(303, 84%, 50%, 1)'),
+                    HSLA::fromString('hsla(308, 86%, 50%, 1)'),
+                    HSLA::fromString('hsla(313, 87%, 50%, 1)'),
+                    HSLA::fromString('hsla(317, 88%, 50%, 1)'),
+                    HSLA::fromString('hsla(322, 89%, 50%, 1)'),
+                    HSLA::fromString('hsla(327, 91%, 50%, 1)'),
+                    HSLA::fromString('hsla(332, 92%, 50%, 1)'),
+                    HSLA::fromString('hsla(336, 93%, 50%, 1)'),
+                    HSLA::fromString('hsla(341, 95%, 50%, 1)'),
+                    HSLA::fromString('hsla(346, 96%, 50%, 1)'),
+                    HSLA::fromString('hsla(351, 97%, 50%, 1)'),
+                    HSLA::fromString('hsla(355, 99%, 50%, 1)'),
+                    HSLA::fromString('hsla(360, 100%, 50%, 1)'),
                 ],
-                ['hsla(234, 100%, 50%, 1)', 'hsla(234, 100%, 50%, 1)', 2],
-            ],
-            [
                 [
-                    RGBA::fromRGBO(0, 25, 255, 1),
-                    RGBA::fromRGBO(0, 25, 255, 1),
+                    HSLA::fromString('hsla(0, 0%, 50%)'),
+                    HSLA::fromString('hsla(360, 100%, 50%)'),
+                    77,
                 ],
-                ['hsl(234, 100%, 50%)', 'hsl(234, 100%, 50%)', 2],
-            ],
-            [
-                [
-                    RGBA::fromRGBO(0, 25, 255, 1),
-                    RGBA::fromRGBO(255, 60, 0, 1),
-                ],
-                ['hsl(234, 100%, 50%)', 'hsl(14, 100%, 50%)', 2],
             ],
         ];
     }
@@ -122,7 +192,7 @@ final class HSLAGradientTest extends FactoryAwareTestCase
         yield from [
             [
                 [
-                    self::RESULT => RGBA::fromRGBO(255, 255, 255, 1),
+                    self::RESULT => HSLA::fromString('hsla(0, 0%, 100%, 1.0)'),
                 ],
                 [
                     self::ARGUMENTS => [1, '#000', '#fff', 2],
@@ -130,7 +200,7 @@ final class HSLAGradientTest extends FactoryAwareTestCase
             ],
             [
                 [
-                    self::RESULT => RGBA::fromRGBO(0, 0, 0, 1),
+                    self::RESULT => HSLA::fromString('hsla(0, 0%, 0%, 1.0)'),
                 ],
                 [
                     self::ARGUMENTS => [0, '#000', '#fff', 2],
@@ -138,7 +208,7 @@ final class HSLAGradientTest extends FactoryAwareTestCase
             ],
             [
                 [
-                    self::RESULT => RGBA::fromRGBO(255, 255, 255, 1),
+                    self::RESULT => HSLA::fromString('hsla(0, 0%, 100%, 1.0)'),
                 ],
                 [
                     self::ARGUMENTS => [99, '#000', '#fff', 100],
@@ -146,53 +216,10 @@ final class HSLAGradientTest extends FactoryAwareTestCase
             ],
             [
                 [
-                    self::RESULT => RGBA::fromRGBO(85, 85, 85, 1),
+                    self::RESULT => HSLA::fromString('hsla(0, 0%, 33%, 1.0)'),
                 ],
                 [
                     self::ARGUMENTS => [33, '#000', '#fff', 100],
-                ],
-            ],
-            [
-                [
-                    self::RESULT => RGBA::fromRGBO(31, 31, 31, 1),
-                ],
-                [
-                    self::ARGUMENTS => [12, '#000', '#fff', 100],
-                ],
-            ],
-            [
-                [
-                    self::RESULT => RGBA::fromRGBO(201, 201, 201, 1),
-                ],
-                [
-                    self::ARGUMENTS => [78, '#000', '#fff', 100],
-                ],
-            ],
-            [
-                [
-                    self::RESULT => RGBA::fromRGBO(255, 60, 0, 1),
-                ],
-                [
-                    self::ARGUMENTS => [1, 'hsl(234, 100%, 50%)', 'hsl(14, 100%, 50%)', 2],
-                ],
-            ],
-            [
-                [
-                    self::RESULT => RGBA::fromRGBO(255, 0, 34, 1),
-
-                ],
-                [
-                    self::ARGUMENTS => [5, RGBA::fromRGBO(174, 67, 18, 1.0), '#ff0022', 6],
-                ],
-
-            ],
-
-            [
-                [
-                    self::RESULT => RGBA::fromRGBO(255, 252, 244, 1),
-                ],
-                [
-                    self::ARGUMENTS => [478, 'hsl(45, 100%, 50%)', '#fff', 500],
                 ],
             ],
             [

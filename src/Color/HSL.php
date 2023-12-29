@@ -69,7 +69,7 @@ class HSL extends AConvertableColor implements IHSLColor
 
     protected static function refineHue(int $value): int
     {
-        return ($value % 360 + 360) % 360;
+        return $value === 360 ? 360 : ($value % 360 + 360) % 360;
     }
 
     protected static function refineValue(float $value): float
