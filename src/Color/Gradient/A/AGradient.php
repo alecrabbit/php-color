@@ -65,7 +65,7 @@ abstract readonly class AGradient implements IGradient
 
     abstract protected function getColorString(int $index): string;
 
-    protected function refineIndex(int $index): mixed
+    protected function refineIndex(int $index): int
     {
         return max(0, min($index, $this->count - 1));
     }
