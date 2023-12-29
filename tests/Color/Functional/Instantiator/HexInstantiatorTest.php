@@ -19,6 +19,7 @@ class HexInstantiatorTest extends TestCase
             // [(int)expected, (string)incoming]
             [0xff0000, '#ff0000'],
             [0xff0000, 'ff0000'],
+            [0xff00a0, 'fF00A0'],
             [0xffff00, '#ff0'],
             [0xffff00, 'ff0'],
             [0xfff5ee, 'seashell'],
@@ -31,9 +32,13 @@ class HexInstantiatorTest extends TestCase
             [0x0, '#000'],
             [0x0, '000'],
             [0x008080, 'teal'],
+            [0x008080, 'TeAl'],
             [0xffc0cb, 'PINK'],
+            [0xffc0cb, 'pInK'],
             [0x48D1CC, 'mediumTurquoise'],
-            [0x0f0e0d, '0f0e0d'],
+            [0x48D1CC, 'mediumturquoise'],
+            [0x0f0e0d, '0f0E0d'],
+            [0x0f0e5d, '0F0E5d'],
         ];
     }
 

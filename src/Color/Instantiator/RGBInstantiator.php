@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Instantiator;
 
 use AlecRabbit\Color\Contract\IConvertableColor;
-use AlecRabbit\Color\Contract\IInstantiator;
 use AlecRabbit\Color\Exception\UnrecognizedColorString;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
 use AlecRabbit\Color\RGB;
+
+use RuntimeException;
 
 use function str_starts_with;
 
@@ -21,10 +22,8 @@ class RGBInstantiator extends AInstantiator
         return str_starts_with($color, 'rgb(');
     }
 
-    public function fromString(string $color): IConvertableColor
+    protected function instantiate(string $color): ?IConvertableColor
     {
-        $color = self::normalize($color);
-
         if (self::canInstantiate($color) && preg_match(self::REGEXP_RGB, $color, $matches)) {
             return
                 RGB::fromRGB(
@@ -34,17 +33,6 @@ class RGBInstantiator extends AInstantiator
                 );
         }
 
-        throw new UnrecognizedColorString(
-            sprintf(
-                'Unrecognized color string: "%s".',
-                $color
-            )
-        );
-    }
-
-    protected function instantiate(string $color): ?IConvertableColor
-    {
-        // TODO: Implement instantiate() method.
-        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
+        return null;
     }
 }

@@ -7,7 +7,6 @@ namespace AlecRabbit\Color\Instantiator;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Exception\UnrecognizedColorString;
 use AlecRabbit\Color\HSL;
-use AlecRabbit\Color\HSLA;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
 
 class HSLInstantiator extends AInstantiator
@@ -15,16 +14,9 @@ class HSLInstantiator extends AInstantiator
     protected const REGEXP_HSL = '/^hsl\((\d+),\s*(\d+)%,\s*(\d+)%\)$/';
     protected const PRECISION = 2;
 
-    protected static function canInstantiate(string $color): bool
+    protected function instantiate(string $color): ?IConvertableColor
     {
-        return str_contains($color, 'hsl(');
-    }
-
-    public function fromString(string $color): IConvertableColor
-    {
-        $color = self::normalize($color);
-
-        if (self::canInstantiate($color)  && preg_match(self::REGEXP_HSL, $color, $matches)) {
+        if (self::canInstantiate($color) && preg_match(self::REGEXP_HSL, $color, $matches)) {
             return
                 HSL::fromHSL(
                     (int)$matches[1],
@@ -33,17 +25,11 @@ class HSLInstantiator extends AInstantiator
                 );
         }
 
-        throw new UnrecognizedColorString(
-            sprintf(
-                'Unrecognized color string: "%s".',
-                $color
-            )
-        );
+        return null;
     }
 
-    protected function instantiate(string $color): ?IConvertableColor
+    protected static function canInstantiate(string $color): bool
     {
-        // TODO: Implement instantiate() method.
-        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
+        return str_contains($color, 'hsl(');
     }
 }

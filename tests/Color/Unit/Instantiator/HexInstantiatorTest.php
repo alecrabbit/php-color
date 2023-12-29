@@ -18,6 +18,7 @@ class HexInstantiatorTest extends TestCase
         yield from [
             ['#ff0000'],
             ['ff0000'],
+            ['fF00A0'],
             ['#ff0'],
             ['ff0'],
             ['slategray'],

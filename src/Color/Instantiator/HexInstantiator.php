@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Instantiator;
 
 use AlecRabbit\Color\Contract\IConvertableColor;
-use AlecRabbit\Color\Contract\IInstantiator;
-use AlecRabbit\Color\Exception\UnrecognizedColorString;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
 
@@ -187,29 +185,20 @@ class HexInstantiator extends AInstantiator
         return (bool)preg_match(self::REGEXP_HEX, $color);
     }
 
-    public function fromString(string $color): IConvertableColor
+    protected function instantiate(string $color): ?IConvertableColor
     {
-        $color = self::normalize($color);
-
         if (self::isNamedColor($color)) {
             $color = self::NAMED_COLORS[$color];
         }
 
         if (self::isHexString($color)) {
-            return Hex::fromInteger(
-                self::extractValue($color)
-            );
+            return Hex::fromInteger(self::extractInteger($color));
         }
 
-        throw new UnrecognizedColorString(
-            sprintf(
-                'Unrecognized color string: "%s".',
-                $color
-            )
-        );
+        return null;
     }
 
-    protected static function extractValue(mixed $color): int
+    protected static function extractInteger(string $color): int
     {
         return (int)hexdec(self::normalizeHexString($color));
     }
@@ -223,11 +212,5 @@ class HexInstantiator extends AInstantiator
         }
 
         return $hex;
-    }
-
-    protected function instantiate(string $color): ?IConvertableColor
-    {
-        // TODO: Implement instantiate() method.
-        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
     }
 }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Instantiator;
 
 use AlecRabbit\Color\Contract\IConvertableColor;
-use AlecRabbit\Color\Contract\IInstantiator;
 use AlecRabbit\Color\Exception\UnrecognizedColorString;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
 use AlecRabbit\Color\RGBA;
@@ -16,15 +15,8 @@ class RGBAInstantiator extends AInstantiator
 {
     protected const REGEXP_RGBA = '/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)$/';
 
-    protected static function canInstantiate(string $color): bool
+    protected function instantiate(string $color): ?IConvertableColor
     {
-        return str_starts_with($color, 'rgba(');
-    }
-
-    public function fromString(string $color): IConvertableColor
-    {
-        $color = self::normalize($color);
-
         if (self::canInstantiate($color) && preg_match(self::REGEXP_RGBA, $color, $matches)) {
             return
                 RGBA::fromRGBO(
@@ -35,16 +27,11 @@ class RGBAInstantiator extends AInstantiator
                 );
         }
 
-        throw new UnrecognizedColorString(
-            sprintf(
-                'Unrecognized color string: "%s".',
-                $color
-            )
-        );
+        return null;
     }
-    protected function instantiate(string $color): ?IConvertableColor
+
+    protected static function canInstantiate(string $color): bool
     {
-        // TODO: Implement instantiate() method.
-        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
+        return str_starts_with($color, 'rgba(');
     }
 }
