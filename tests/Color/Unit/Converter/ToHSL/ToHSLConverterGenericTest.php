@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Color\Unit\Converter\ToHSL;
 
-use AlecRabbit\Color\Contract\IToConverter;
+use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Converter\ToHSL\ToHSLConverter;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
 use AlecRabbit\Color\HSL;

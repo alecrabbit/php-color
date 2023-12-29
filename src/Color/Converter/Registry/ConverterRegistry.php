@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Converter\Registry;
 
+use AlecRabbit\Color\Contract\Converter\IConverterRegistry;
+use AlecRabbit\Color\Contract\Converter\IFromConverter;
+use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IConvertableColor;
-use AlecRabbit\Color\Contract\IConverterRegistry;
-use AlecRabbit\Color\Contract\IFromConverter;
-use AlecRabbit\Color\Contract\IToConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use Traversable;
 

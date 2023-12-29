@@ -118,7 +118,7 @@ final class WrapperTest extends TestCase
     {
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
-            'Converter class must be a subclass of "AlecRabbit\Color\Contract\IToConverter". "stdClass" given.'
+            'Converter class must be a subclass of "AlecRabbit\Color\Contract\Converter\IToConverter". "stdClass" given.'
         );
 
         $this->getTesteeInstance(

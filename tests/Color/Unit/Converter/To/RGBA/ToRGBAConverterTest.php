@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit\Converter\To\RGBA;
 
 
+use AlecRabbit\Color\Contract\Converter\IConverterRegistry;
+use AlecRabbit\Color\Contract\Converter\IFromConverter;
+use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IConvertableColor;
-use AlecRabbit\Color\Contract\IConverterRegistry;
-use AlecRabbit\Color\Contract\IFromConverter;
-use AlecRabbit\Color\Contract\IToConverter;
 use AlecRabbit\Color\Converter\To\RGBA\ToRGBAConverter;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;

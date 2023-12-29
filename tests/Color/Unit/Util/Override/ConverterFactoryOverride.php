@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Color\Unit\Util\Override;
 
+use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\Factory\IConverterFactory;
-use AlecRabbit\Color\Contract\IToConverter;
 use RuntimeException;
 
 final class ConverterFactoryOverride implements IConverterFactory

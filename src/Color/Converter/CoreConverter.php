@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Converter;
 
-use AlecRabbit\Color\Contract\ICoreConverter;
+use AlecRabbit\Color\Contract\Converter\ICoreConverter;
 use AlecRabbit\Color\DTO\DHSL as HSL;
 use AlecRabbit\Color\DTO\DRGB as RGB;
 

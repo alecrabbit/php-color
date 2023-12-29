@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Contract\Factory;
 
+use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IConvertableColor;
-use AlecRabbit\Color\Contract\IToConverter;
 
 interface IConverterFactory
 {

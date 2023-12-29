@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit\Converter;
 
 
-use AlecRabbit\Color\Contract\ICoreConverter;
+use AlecRabbit\Color\Contract\Converter\ICoreConverter;
 use AlecRabbit\Color\Converter\CoreConverter;
 use AlecRabbit\Color\DTO\DHSL;
 use AlecRabbit\Color\DTO\DRGB;

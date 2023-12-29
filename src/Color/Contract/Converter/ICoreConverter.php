@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color\Contract;
+namespace AlecRabbit\Color\Contract\Converter;
 
 use AlecRabbit\Color\DTO\DHSL;
 use AlecRabbit\Color\DTO\DRGB;

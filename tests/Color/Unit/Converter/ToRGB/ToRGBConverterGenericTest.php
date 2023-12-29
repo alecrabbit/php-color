@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Color\Unit\Converter\ToRGB;
 
-use AlecRabbit\Color\Contract\IToConverter;
+use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Converter\ToRGB\ToRGBConverter;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
 use AlecRabbit\Color\Hex;

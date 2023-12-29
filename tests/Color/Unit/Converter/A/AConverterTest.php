@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Color\Unit\Converter\A;
 
-use AlecRabbit\Color\Contract\IToConverter;
+use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
 use AlecRabbit\Tests\Color\Unit\Converter\A\Override\AConvertableColorOverride;
 use AlecRabbit\Tests\Color\Unit\Converter\A\Override\AConverterOverride;

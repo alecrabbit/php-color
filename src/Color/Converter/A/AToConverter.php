@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Converter\A;
 
+use AlecRabbit\Color\Contract\Converter\IConverterRegistry;
+use AlecRabbit\Color\Contract\Converter\IFromConverter;
+use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IConvertableColor;
-use AlecRabbit\Color\Contract\IConverterRegistry;
-use AlecRabbit\Color\Contract\IFromConverter;
-use AlecRabbit\Color\Contract\IToConverter;
 use AlecRabbit\Color\Converter\Registry\ConverterRegistry;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
 

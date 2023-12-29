@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Functional\Converter\Registry;
 
 
-use AlecRabbit\Color\Contract\IConverterRegistry;
+use AlecRabbit\Color\Contract\Converter\IConverterRegistry;
 use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Contract\IRGBColor;
@@ -86,7 +86,7 @@ final class ConverterRegistryTest extends TestCase
     {
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
-            'Converter must be instance of "AlecRabbit\Color\Contract\IToConverter". "invalid" given.'
+            'Converter must be instance of "AlecRabbit\Color\Contract\Converter\IToConverter". "invalid" given.'
         );
 
         ConverterRegistry::register('invalid', new ArrayObject([]));
@@ -112,7 +112,7 @@ final class ConverterRegistryTest extends TestCase
     {
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
-            'Converter must be instance of "AlecRabbit\Color\Contract\IFromConverter". "invalid" given.'
+            'Converter must be instance of "AlecRabbit\Color\Contract\Converter\IFromConverter". "invalid" given.'
         );
 
         $converters = [
