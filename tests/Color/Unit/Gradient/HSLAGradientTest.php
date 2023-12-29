@@ -245,10 +245,7 @@ final class HSLAGradientTest extends FactoryAwareTestCase
             ],
             [
                 [
-                    self::EXCEPTION => [
-                        self::CLASS_ => InvalidArgument::class,
-                        self::MESSAGE => 'Index(15) must be less than count(12).',
-                    ],
+                    self::RESULT => HSLA::fromString('hsla(0, 0%, 100%, 1.0)'),
                 ],
                 [
                     self::ARGUMENTS => [15, '#000000', '#ffffff', 12],
@@ -256,10 +253,7 @@ final class HSLAGradientTest extends FactoryAwareTestCase
             ],
             [
                 [
-                    self::EXCEPTION => [
-                        self::CLASS_ => InvalidArgument::class,
-                        self::MESSAGE => 'Index must be greater than or equal 0.',
-                    ],
+                    self::RESULT => HSLA::fromString('hsla(0, 0%, 0%, 1.0)'),
                 ],
                 [
                     self::ARGUMENTS => [-1, '#000000', '#ffffff', 12],

@@ -48,30 +48,13 @@ abstract readonly class AGradient implements IGradient
         }
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** @inheritDoc */
+
     public function getOne(int $index): IColor
     {
-        $this->assertIndex($index);
-
-        return $this->createColor($index);
+        return $this->createColor($this->refineIndex($index));
     }
 
-    protected function assertIndex(int $index): void
-    {
-        match (true) {
-            $index < 0 => throw new InvalidArgument('Index must be greater than or equal 0.'),
-            $index >= $this->count => throw new InvalidArgument(
-                sprintf(
-                    'Index(%s) must be less than count(%s).',
-                    $index,
-                    $this->count
-                )
-            ),
-            default => null,
-        };
-    }
 
     protected function createColor(int $index): IConvertableColor
     {
@@ -81,6 +64,11 @@ abstract readonly class AGradient implements IGradient
     }
 
     abstract protected function getColorString(int $index): string;
+
+    protected function refineIndex(int $index): mixed
+    {
+        return max(0, min($index, $this->count - 1));
+    }
 
     public function getCount(): int
     {

@@ -214,10 +214,7 @@ final class RGBAGradientTest extends FactoryAwareTestCase
             ],
             [
                 [
-                    self::EXCEPTION => [
-                        self::CLASS_ => InvalidArgument::class,
-                        self::MESSAGE => 'Index(15) must be less than count(12).',
-                    ],
+                    self::RESULT => RGBA::fromRGBO(255, 255, 255, 1),
                 ],
                 [
                     self::ARGUMENTS => [15, '#000000', '#ffffff', 12],
@@ -225,10 +222,7 @@ final class RGBAGradientTest extends FactoryAwareTestCase
             ],
             [
                 [
-                    self::EXCEPTION => [
-                        self::CLASS_ => InvalidArgument::class,
-                        self::MESSAGE => 'Index must be greater than or equal 0.',
-                    ],
+                    self::RESULT => RGBA::fromRGBO(0, 0, 0, 1),
                 ],
                 [
                     self::ARGUMENTS => [-1, '#000000', '#ffffff', 12],
