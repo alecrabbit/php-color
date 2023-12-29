@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit\Converter\To\RGBA;
 
 
-use AlecRabbit\Color\Contract\Converter\IConverterRegistry;
+use AlecRabbit\Color\Contract\Converter\IRegistry;
 use AlecRabbit\Color\Contract\Converter\IFromConverter;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IConvertableColor;
@@ -25,16 +25,16 @@ final class ToRGBAConverterTest extends TestCase
     }
 
     private function getTesteeInstance(
-        ?IConverterRegistry $registry = null,
+        ?IRegistry $registry = null,
     ): IToConverter {
         return new ToRGBAConverter(
             registry: $registry ?? $this->getConverterRegistryMock(),
         );
     }
 
-    private function getConverterRegistryMock(): MockObject&IConverterRegistry
+    private function getConverterRegistryMock(): MockObject&IRegistry
     {
-        return $this->createMock(IConverterRegistry::class);
+        return $this->createMock(IRegistry::class);
     }
 
     #[Test]

@@ -7,7 +7,7 @@ namespace AlecRabbit\Color\Contract\Converter;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use Traversable;
 
-interface IConverterRegistry
+interface IRegistry
 {
     /**
      * @param class-string<IToConverter> $toConverter

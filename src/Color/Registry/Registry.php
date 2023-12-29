@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color\Converter\Registry;
+namespace AlecRabbit\Color\Registry;
 
-use AlecRabbit\Color\Contract\Converter\IConverterRegistry;
+use AlecRabbit\Color\Contract\Converter\IRegistry;
 use AlecRabbit\Color\Contract\Converter\IFromConverter;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use Traversable;
 
-final class ConverterRegistry implements IConverterRegistry
+final class Registry implements IRegistry
 {
     /** @var Array<class-string<IToConverter>, Array<class-string<IConvertableColor>,IFromConverter|class-string<IFromConverter>>> */
     private static array $fromConverters = [];

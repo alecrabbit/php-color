@@ -28,12 +28,14 @@ final class WrapperTest extends TestCase
     }
 
     private function getTesteeInstance(
-        Traversable $targets = null,
+        Traversable $to = null,
+        Traversable $from = null,
         string $converter = null,
         string $instantiator = null,
     ): IWrapper {
         return new Wrapper(
-            targets: $targets ?? new ArrayObject([RGB::class, IRGBColor::class]),
+            to: $to ?? new ArrayObject([RGB::class, IRGBColor::class]),
+            from: $from ?? new ArrayObject(),
             converter: $converter ?? ToRGBConverter::class,
             instantiator: $instantiator ?? RGBInstantiator::class,
         );
@@ -45,7 +47,7 @@ final class WrapperTest extends TestCase
         $targets = new ArrayObject([RGB::class, IRGBColor::class]);
 
         $wrapper = $this->getTesteeInstance(
-            targets: $targets,
+            to: $targets,
         );
 
         self::assertSame($targets, $wrapper->getTargets());
@@ -82,7 +84,7 @@ final class WrapperTest extends TestCase
         $this->expectExceptionMessage('Targets must not be empty.');
 
         $this->getTesteeInstance(
-            targets: new ArrayObject(),
+            to: new ArrayObject(),
         );
     }
 
@@ -96,7 +98,7 @@ final class WrapperTest extends TestCase
         );
 
         $this->getTesteeInstance(
-            targets: new ArrayObject([RGB::class, IRGBColor::class, 'invalid']),
+            to: new ArrayObject([RGB::class, IRGBColor::class, 'invalid']),
         );
     }
 
@@ -109,7 +111,7 @@ final class WrapperTest extends TestCase
         );
 
         $this->getTesteeInstance(
-            targets: new ArrayObject([IRGBColor::class, stdClass::class]),
+            to: new ArrayObject([IRGBColor::class, stdClass::class]),
         );
     }
 
@@ -172,7 +174,7 @@ final class WrapperTest extends TestCase
         $this->expectExceptionMessage('Target must be a string. "stdClass" given.');
 
         $this->getTesteeInstance(
-            targets: new ArrayObject([IRGBColor::class, new stdClass()]),
+            to: new ArrayObject([IRGBColor::class, new stdClass()]),
 
         );
     }

@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Converter\A;
 
-use AlecRabbit\Color\Contract\Converter\IConverterRegistry;
+use AlecRabbit\Color\Contract\Converter\IRegistry;
 use AlecRabbit\Color\Contract\Converter\IFromConverter;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IConvertableColor;
-use AlecRabbit\Color\Converter\Registry\ConverterRegistry;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
+use AlecRabbit\Color\Registry\Registry;
 
 abstract class AToConverter implements IToConverter
 {
     public function __construct(
-        private readonly IConverterRegistry $registry = new ConverterRegistry(),
+        private readonly IRegistry $registry = new Registry(),
     ) {
     }
 

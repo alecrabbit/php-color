@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Color\Functional\Converter\Registry;
+namespace AlecRabbit\Tests\Color\Functional\Registry;
 
 
-use AlecRabbit\Color\Contract\Converter\IConverterRegistry;
+use AlecRabbit\Color\Contract\Converter\IRegistry;
 use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Converter\From\NoOpConverter;
-use AlecRabbit\Color\Converter\Registry\ConverterRegistry;
 use AlecRabbit\Color\Converter\To\RGBA\From\FromRGBConverter;
 use AlecRabbit\Color\Converter\To\RGBA\ToRGBAConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Hex;
+use AlecRabbit\Color\Registry\Registry;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 
-final class ConverterRegistryTest extends TestCase
+final class RegistryTest extends TestCase
 {
     private const FROM_CONVERTERS = 'fromConverters';
     private static mixed $fromConverters = null;
@@ -31,12 +31,12 @@ final class ConverterRegistryTest extends TestCase
     {
         $registry = $this->getTesteeInstance();
 
-        self::assertInstanceOf(ConverterRegistry::class, $registry);
+        self::assertInstanceOf(Registry::class, $registry);
     }
 
-    private function getTesteeInstance(): IConverterRegistry
+    private function getTesteeInstance(): IRegistry
     {
-        return new ConverterRegistry();
+        return new Registry();
     }
 
     #[Test]
@@ -53,7 +53,7 @@ final class ConverterRegistryTest extends TestCase
             Hex::class => FromRGBConverter::class,
         ];
 
-        ConverterRegistry::register(ToRGBAConverter::class, new ArrayObject($converters));
+        Registry::register(ToRGBAConverter::class, new ArrayObject($converters));
 
         self::assertInstanceOf(
             NoOpConverter::class,
@@ -89,7 +89,7 @@ final class ConverterRegistryTest extends TestCase
             'Converter must be instance of "AlecRabbit\Color\Contract\Converter\IToConverter". "invalid" given.'
         );
 
-        ConverterRegistry::register('invalid', new ArrayObject([]));
+        Registry::register('invalid', new ArrayObject([]));
     }
 
     #[Test]
@@ -104,7 +104,7 @@ final class ConverterRegistryTest extends TestCase
             'invalid' => NoOpConverter::class,
         ];
 
-        ConverterRegistry::register(ToRGBAConverter::class, new ArrayObject($converters));
+        Registry::register(ToRGBAConverter::class, new ArrayObject($converters));
     }
 
     #[Test]
@@ -119,7 +119,7 @@ final class ConverterRegistryTest extends TestCase
             IRGBAColor::class => 'invalid',
         ];
 
-        ConverterRegistry::register(ToRGBAConverter::class, new ArrayObject($converters));
+        Registry::register(ToRGBAConverter::class, new ArrayObject($converters));
     }
 
     #[Test]
@@ -134,7 +134,7 @@ final class ConverterRegistryTest extends TestCase
             IRGBAColor::class => 1,
         ];
 
-        ConverterRegistry::register(ToRGBAConverter::class, new ArrayObject($converters));
+        Registry::register(ToRGBAConverter::class, new ArrayObject($converters));
     }
 
     #[Test]
@@ -147,7 +147,7 @@ final class ConverterRegistryTest extends TestCase
             1 => NoOpConverter::class,
         ];
 
-        ConverterRegistry::register(ToRGBAConverter::class, new ArrayObject($converters));
+        Registry::register(ToRGBAConverter::class, new ArrayObject($converters));
     }
 
     protected function setUp(): void
@@ -158,7 +158,7 @@ final class ConverterRegistryTest extends TestCase
 
     private static function storeRegistryState(): void
     {
-        self::$fromConverters = self::getPropertyValue(ConverterRegistry::class, self::FROM_CONVERTERS);
+        self::$fromConverters = self::getPropertyValue(Registry::class, self::FROM_CONVERTERS);
     }
 
     protected function tearDown(): void
@@ -169,7 +169,7 @@ final class ConverterRegistryTest extends TestCase
 
     private static function rollbackRegistryState(): void
     {
-        self::setPropertyValue(ConverterRegistry::class, self::FROM_CONVERTERS, self::$fromConverters);
+        self::setPropertyValue(Registry::class, self::FROM_CONVERTERS, self::$fromConverters);
     }
 
 

@@ -14,7 +14,10 @@ use Traversable;
 final readonly class Wrapper implements IWrapper
 {
     /** @var Traversable<IConvertableColor> */
-    private Traversable $targets;
+    private Traversable $to;
+
+    /** @var Traversable<IConvertableColor> */
+    private Traversable $from;
 
     /** @var class-string<IToConverter> */
     private string $converter;
@@ -23,26 +26,33 @@ final readonly class Wrapper implements IWrapper
     private string $instantiator;
 
     public function __construct(
-        Traversable $targets,
+        Traversable $to,
+        Traversable $from,
         string $converter,
         string $instantiator,
     ) {
-        self::assertTargets($targets);
+        self::assertTo($to);
+        self::assertFrom($from);
         self::assertConverter($converter);
         self::assertInstantiator($instantiator);
 
-        /** @var Traversable<IConvertableColor> $targets */
-        $this->targets = $targets;
+        /** @var Traversable<IConvertableColor> $to */
+        $this->to = $to;
+
+        /** @var Traversable<IConvertableColor> $from */
+        $this->from = $from;
+
         /** @var class-string<IToConverter> $converter */
         $this->converter = $converter;
+
         /** @var class-string<IInstantiator> $instantiator */
         $this->instantiator = $instantiator;
     }
 
-    private static function assertTargets(Traversable $targets): void
+    private static function assertTo(Traversable $to): void
     {
         $count = 0;
-        foreach ($targets as $target) {
+        foreach ($to as $target) {
             if (!is_string($target)) {
                 throw new InvalidArgument(
                     sprintf(
@@ -117,10 +127,15 @@ final readonly class Wrapper implements IWrapper
         }
     }
 
+    private static function assertFrom(Traversable $from): void
+    {
+        // TODO (2023-12-29 17:55) [Alec Rabbit]: implement
+    }
+
     /** @inheritDoc */
     public function getTargets(): Traversable
     {
-        return $this->targets;
+        return $this->to;
     }
 
     /** @inheritDoc */
