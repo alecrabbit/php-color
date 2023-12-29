@@ -11,7 +11,7 @@ use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
 
-class HSLAInstantiator extends AInstantiator implements IInstantiator
+class HSLAInstantiator extends AInstantiator
 {
     protected const REGEXP_HSLA = '/^hsla?\((\d+),\s*(\d+)%,\s*(\d+)%(?:,\s*([\d.]+))?\)$/';
     protected const PRECISION = 2;
@@ -24,6 +24,7 @@ class HSLAInstantiator extends AInstantiator implements IInstantiator
     public function fromString(string $color): IConvertableColor
     {
         $color = self::normalize($color);
+
         if (self::canInstantiate($color) && preg_match(self::REGEXP_HSLA, $color, $matches)) {
             return
                 HSLA::fromHSLA(
@@ -35,13 +36,17 @@ class HSLAInstantiator extends AInstantiator implements IInstantiator
                         : 1.0,
                 );
         }
-        // @codeCoverageIgnoreStart
+
         throw new UnrecognizedColorString(
             sprintf(
                 'Unrecognized color string: "%s".',
                 $color
             )
         );
-        // @codeCoverageIgnoreEnd
+    }
+    protected function instantiate(string $color): ?IConvertableColor
+    {
+        // TODO: Implement instantiate() method.
+        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
     }
 }

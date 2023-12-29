@@ -12,7 +12,7 @@ use AlecRabbit\Color\RGBA;
 
 use function str_starts_with;
 
-class RGBAInstantiator extends AInstantiator implements IInstantiator
+class RGBAInstantiator extends AInstantiator
 {
     protected const REGEXP_RGBA = '/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)$/';
 
@@ -41,5 +41,10 @@ class RGBAInstantiator extends AInstantiator implements IInstantiator
                 $color
             )
         );
+    }
+    protected function instantiate(string $color): ?IConvertableColor
+    {
+        // TODO: Implement instantiate() method.
+        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
     }
 }

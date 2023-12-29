@@ -12,7 +12,7 @@ use AlecRabbit\Color\RGB;
 
 use function str_starts_with;
 
-class RGBInstantiator extends AInstantiator implements IInstantiator
+class RGBInstantiator extends AInstantiator
 {
     protected const REGEXP_RGB = '/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/';
 
@@ -40,5 +40,11 @@ class RGBInstantiator extends AInstantiator implements IInstantiator
                 $color
             )
         );
+    }
+
+    protected function instantiate(string $color): ?IConvertableColor
+    {
+        // TODO: Implement instantiate() method.
+        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
     }
 }

@@ -18,7 +18,6 @@ class RGBAInstantiatorTest extends TestCase
 {
     public static function canNotInstantiateRGBDataProvider(): iterable
     {
-
         yield from [
             // [(int)expected, (string)incoming]
             [0xff0000, 'rgb(255, 0, 0)'],

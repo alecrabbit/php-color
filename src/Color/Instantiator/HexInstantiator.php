@@ -10,7 +10,7 @@ use AlecRabbit\Color\Exception\UnrecognizedColorString;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
 
-class HexInstantiator extends AInstantiator implements IInstantiator
+class HexInstantiator extends AInstantiator
 {
     protected const REGEXP_HEX = '/^#?(?:([a-f\d]{2}){3}|([a-f\d]){3})$/i';
 
@@ -223,5 +223,11 @@ class HexInstantiator extends AInstantiator implements IInstantiator
         }
 
         return $hex;
+    }
+
+    protected function instantiate(string $color): ?IConvertableColor
+    {
+        // TODO: Implement instantiate() method.
+        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
     }
 }

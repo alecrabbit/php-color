@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit\Instantiator;
 
 use AlecRabbit\Color\Contract\IInstantiator;
-use AlecRabbit\Color\HSL;
+use AlecRabbit\Color\Exception\UnrecognizedColorString;
 use AlecRabbit\Color\HSLA;
 use AlecRabbit\Color\Instantiator\HSLAInstantiator;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -14,7 +14,7 @@ use PHPUnit\Framework\Attributes\Test;
 
 class HSLAInstantiatorTest extends TestCase
 {
-    public static function canInstantiateHSLDataProvider(): iterable
+    public static function canNotInstantiateHSLDataProvider(): iterable
     {
         yield from [
             ['hsl(22, 100%, 50%)'],
@@ -39,9 +39,6 @@ class HSLAInstantiatorTest extends TestCase
     {
         yield from [
             ['hsla(56, 100%, 50%, 0)'],
-            ['hsl(22, 100%, 50%)'],
-            ['hsl(64, 12%, 14%)'],
-            ['hsl(0, 0%, 0%)'],
             ['hsla(56, 100%, 50%, 1)'],
             ['hsla(56, 100%, 0%, 0)'],
             ['hsla(22, 0%, 0%, 0)'],
@@ -61,6 +58,9 @@ class HSLAInstantiatorTest extends TestCase
             ['rgb(22, 22, 22)'],
             ['rgb(0, 0, 0)'],
             ['rgba(0, 2, 255, 1)'],
+            ['hsl(22, 100%, 50%)'],
+            ['hsl(64, 12%, 14%)'],
+            ['hsl(0, 0%, 0%)'],
             ['rgba(255, 11, 255, 0.1)'],
             ['rgb(23, 0, 255)'],
             ['rgb(213, 30, 25)'],
@@ -89,12 +89,22 @@ class HSLAInstantiatorTest extends TestCase
     }
 
     #[Test]
-    #[DataProvider('canInstantiateHSLDataProvider')]
-    public function canInstantiateHSL(string $colorString): void
+    #[DataProvider('canNotInstantiateHSLDataProvider')]
+    public function canNotInstantiateHSL(string $incoming): void
     {
+        $this->expectException(UnrecognizedColorString::class);
+        $this->expectExceptionMessage(
+            sprintf(
+                'Unrecognized color string: "%s".',
+                $incoming
+            )
+        );
+
         $instantiator = $this->getTesteeInstance();
-        $color = $instantiator->fromString($colorString);
-        self::assertInstanceOf(HSL::class, $color);
+
+        $instantiator->fromString($incoming);
+
+        self::fail(sprintf('Exception was not thrown. Color: "%s".', $incoming));
     }
 
     #[Test]

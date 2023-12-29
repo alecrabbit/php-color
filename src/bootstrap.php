@@ -22,6 +22,7 @@ use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
 use AlecRabbit\Color\Instantiator\HexInstantiator;
+use AlecRabbit\Color\Instantiator\HSLAInstantiator;
 use AlecRabbit\Color\Instantiator\HSLInstantiator;
 use AlecRabbit\Color\Instantiator\RGBAInstantiator;
 use AlecRabbit\Color\Instantiator\RGBInstantiator;
@@ -54,7 +55,7 @@ Package::add(
     new Wrapper(
         targets: new ArrayObject([HSLA::class, IHSLAColor::class]),
         converter: ToHSLAConverter::class,
-        instantiator: HSLInstantiator::class,
+        instantiator: HSLAInstantiator::class,
     ),
 );
 

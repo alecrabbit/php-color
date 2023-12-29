@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Color\Functional\Instantiator;
 
-use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Contract\IInstantiator;
+use AlecRabbit\Color\Exception\UnrecognizedColorString;
 use AlecRabbit\Color\Instantiator\HSLInstantiator;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -24,7 +24,7 @@ class HSLInstantiatorTest extends TestCase
         ];
     }
 
-    public static function canInstantiateHSLADataProvider(): iterable
+    public static function canNotInstantiateHSLADataProvider(): iterable
     {
         yield from [
             // [[(int)h, (float)s, (float)l, (float)o, (int)a]expected, (string)incoming]
@@ -60,18 +60,21 @@ class HSLInstantiatorTest extends TestCase
     }
 
     #[Test]
-    #[DataProvider('canInstantiateHSLADataProvider')]
-    public function canInstantiateHSLA(array $expected, string $incoming): void
+    #[DataProvider('canNotInstantiateHSLADataProvider')]
+    public function canInstantiateHSLA(array $_, string $incoming): void
     {
-        [$h, $s, $l, $o, $a] = $expected;
+        $this->expectException(UnrecognizedColorString::class);
+        $this->expectExceptionMessage(
+            sprintf(
+                'Unrecognized color string: "%s".',
+                $incoming
+            )
+        );
+
         $instantiator = $this->getTesteeInstance();
 
-        $color = $instantiator->fromString($incoming);
-        self::assertInstanceOf(IHSLAColor::class, $color);
-        self::assertSame($h, $color->getHue());
-        self::assertSame($s, $color->getSaturation());
-        self::assertSame($l, $color->getLightness());
-        self::assertSame($o, $color->getOpacity());
-        self::assertSame($a, $color->getAlpha());
+        $instantiator->fromString($incoming);
+
+        self::fail(sprintf('Exception was not thrown. Color: "%s".', $incoming));
     }
 }
