@@ -81,14 +81,9 @@ class RGBInstantiatorTest extends TestCase
                 $incoming
             )
         );
-        [$value, $opacity, $alpha] = $expected;
         $instantiator = $this->getTesteeInstance();
 
-        $color = $instantiator->fromString($incoming);
-        self::assertInstanceOf(IRGBAColor::class, $color);
-        self::assertSame($value, $color->getValue());
-        self::assertSame($opacity, $color->getOpacity());
-        self::assertSame($alpha, $color->getAlpha());
+        $instantiator->fromString($incoming);
     }
 
     #[Test]

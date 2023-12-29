@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Functional\Converter\To\RGBA\From;
 
 
+use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IFromConverter;
 use AlecRabbit\Color\Converter\To\RGBA\From\FromHSLConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
@@ -13,6 +14,7 @@ use AlecRabbit\Color\HSLA;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
 final class FromHSLConverterTest extends TestCase
@@ -58,20 +60,20 @@ final class FromHSLConverterTest extends TestCase
         return new FromHSLConverter();
     }
 
-//    #[Test]
-//    #[DataProvider('canConvertDataProvider')]
-//    public function canConvert(array $expected, IConvertableColor $input): void
-//    {
-//        $expectedException = $this->expectsException($expected);
-//
-//        $converter = $this->getTesteeInstance();
-//
-//        $result = $converter->convert($input);
-//
-//        if ($expectedException) {
-//            self::failTest($expectedException);
-//        }
-//
-//        self::assertEquals($expected[self::RESULT], $result);
-//    }
+    #[Test]
+    #[DataProvider('canConvertDataProvider')]
+    public function canConvert(array $expected, IConvertableColor $input): void
+    {
+        $expectedException = $this->expectsException($expected);
+
+        $converter = $this->getTesteeInstance();
+
+        $result = $converter->convert($input);
+
+        if ($expectedException) {
+            self::failTest($expectedException);
+        }
+
+        self::assertEquals($expected[self::RESULT], $result);
+    }
 }

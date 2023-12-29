@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Instantiator;
 
 use AlecRabbit\Color\Contract\IConvertableColor;
-use AlecRabbit\Color\Exception\UnrecognizedColorString;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
 use AlecRabbit\Color\RGBA;
 

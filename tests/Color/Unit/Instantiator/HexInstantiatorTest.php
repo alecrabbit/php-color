@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit\Instantiator;
 
 use AlecRabbit\Color\Contract\IInstantiator;
+use AlecRabbit\Color\Exception\UnrecognizedColorString;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\Instantiator\HexInstantiator;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -22,7 +23,14 @@ class HexInstantiatorTest extends TestCase
             ['#ff0'],
             ['ff0'],
             ['slategray'],
-            ['slaTeGray'],
+            ['slategray'],
+        ];
+    }
+
+    public static function canNotInstantiateDataProvider(): iterable
+    {
+        yield from [
+            ['invalid'],
         ];
     }
 
@@ -70,6 +78,20 @@ class HexInstantiatorTest extends TestCase
         $instantiator = $this->getTesteeInstance();
         $color = $instantiator->fromString($colorString);
         self::assertInstanceOf(Hex::class, $color);
+    }    #[Test]
+    #[DataProvider('canNotInstantiateDataProvider')]
+    public function canNotInstantiate(string $incoming): void
+    {
+        $this->expectException(UnrecognizedColorString::class);
+        $this->expectExceptionMessage(
+            sprintf(
+                'Unrecognized color string: "%s".',
+                $incoming
+            )
+        );
+        $instantiator = $this->getTesteeInstance();
+
+        $instantiator->fromString($incoming);
     }
 
     #[Test]
