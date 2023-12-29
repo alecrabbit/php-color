@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit;
 
 use AlecRabbit\Color\Contract\IRGBColor;
-use AlecRabbit\Color\Contract\IWrapper;
+use AlecRabbit\Color\Contract\Wrapper\IWrapper;
 use AlecRabbit\Color\Converter\ToRGB\ToRGBConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Instantiator\RGBInstantiator;
@@ -131,7 +131,7 @@ final class WrapperTest extends TestCase
     {
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
-            'Instantiator class must be a subclass of "AlecRabbit\Color\Contract\IInstantiator". "stdClass" given.'
+            'Instantiator class must be a subclass of "AlecRabbit\Color\Contract\Instantiator\IInstantiator". "stdClass" given.'
         );
 
         $this->getTesteeInstance(

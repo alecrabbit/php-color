@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Functional\Instantiator;
 
 use AlecRabbit\Color\Contract\IHSLAColor;
-use AlecRabbit\Color\Contract\IInstantiator;
+use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Exception\UnrecognizedColorString;
 use AlecRabbit\Color\Instantiator\HSLAInstantiator;
 use AlecRabbit\Tests\TestCase\TestCase;

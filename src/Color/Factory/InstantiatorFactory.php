@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Factory;
 
 use AlecRabbit\Color\Contract\Factory\IInstantiatorFactory;
-use AlecRabbit\Color\Contract\IInstantiator;
+use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Exception\InvalidArgument;
 
 class InstantiatorFactory implements IInstantiatorFactory

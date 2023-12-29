@@ -6,8 +6,8 @@ namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IConvertableColor;
-use AlecRabbit\Color\Contract\IInstantiator;
-use AlecRabbit\Color\Contract\IWrapper;
+use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
+use AlecRabbit\Color\Contract\Wrapper\IWrapper;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use Traversable;
 

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Instantiator\A;
 
 use AlecRabbit\Color\Contract\IConvertableColor;
-use AlecRabbit\Color\Contract\IInstantiator;
+use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Exception\UnrecognizedColorString;
 
 use function strtolower;

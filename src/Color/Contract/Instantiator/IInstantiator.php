@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color\Contract;
+namespace AlecRabbit\Color\Contract\Instantiator;
+
+use AlecRabbit\Color\Contract\IConvertableColor;
 
 interface IInstantiator
 {
