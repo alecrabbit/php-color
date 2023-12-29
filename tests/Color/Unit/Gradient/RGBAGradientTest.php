@@ -9,13 +9,13 @@ use AlecRabbit\Color\ColorRange;
 use AlecRabbit\Color\Contract\Gradient\IGradient;
 use AlecRabbit\Color\Contract\IColorRange;
 use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Gradient\Gradient;
+use AlecRabbit\Color\Gradient\RGBAGradient;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\FactoryAwareTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-final class GradientTest extends FactoryAwareTestCase
+final class RGBAGradientTest extends FactoryAwareTestCase
 {
     public static function canProduceGradientDataProvider(): iterable
     {
@@ -242,7 +242,7 @@ final class GradientTest extends FactoryAwareTestCase
     {
         $gradient = $this->getTesteeInstance();
 
-        self::assertInstanceOf(Gradient::class, $gradient);
+        self::assertInstanceOf(RGBAGradient::class, $gradient);
     }
 
     private function getTesteeInstance(
@@ -251,7 +251,7 @@ final class GradientTest extends FactoryAwareTestCase
         ?int $max = null,
         ?int $precision = null,
     ): IGradient {
-        return new Gradient(
+        return new RGBAGradient(
             range: $range ?? $this->getColorRange(),
             count: $count ?? 2,
             max: $max ?? 1000,

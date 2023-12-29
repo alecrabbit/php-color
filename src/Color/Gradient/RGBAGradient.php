@@ -6,18 +6,16 @@ namespace AlecRabbit\Color\Gradient;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IColorRange;
-use AlecRabbit\Color\Contract\IConvertableColor;
-use AlecRabbit\Color\Contract\IHSLAColor;
+use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Contract\Vector\IVector;
 use AlecRabbit\Color\Gradient\A\AGradient;
-use AlecRabbit\Color\Util\Color;
 use AlecRabbit\Color\Vector\Vector;
 
-final readonly class HSLAGradient extends AGradient
+final readonly class RGBAGradient extends AGradient
 {
-    private IVector $h;
-    private IVector $s;
-    private IVector $l;
+    private IVector $r;
+    private IVector $g;
+    private IVector $b;
     private IVector $o;
     private string $format;
 
@@ -35,29 +33,29 @@ final readonly class HSLAGradient extends AGradient
         );
 
         $count = $this->count - 1;
-        $start = $this->toHSLA($this->range->getStart());
-        $end = $this->toHSLA($this->range->getEnd());
+        $start = $this->toRGBA($this->range->getStart());
+        $end = $this->toRGBA($this->range->getEnd());
 
-        $this->h = Vector::create($start->getHue(), $end->getHue(), $count);
-        $this->s = Vector::create($start->getSaturation(), $end->getSaturation(), $count);
-        $this->l = Vector::create($start->getLightness(), $end->getLightness(), $count);
+        $this->r = Vector::create($start->getRed(), $end->getRed(), $count);
+        $this->g = Vector::create($start->getGreen(), $end->getGreen(), $count);
+        $this->b = Vector::create($start->getBlue(), $end->getBlue(), $count);
         $this->o = Vector::create($start->getOpacity(), $end->getOpacity(), $count);
 
-        $this->format = "hsla(%s, %.0f%%, %.0f%%, %.{$this->precision}f)";
+        $this->format = "rgba(%s, %s, %s, %.{$this->precision}f)";
     }
 
-    private function toHSLA(IColor|string $color): IHSLAColor
+    private function toRGBA(IColor|string $color): IRGBAColor
     {
-        return $this->ensureConvertable($color)->to(IHSLAColor::class);
+        return $this->ensureConvertable($color)->to(IRGBAColor::class);
     }
 
     protected function getColorString(int $index): string
     {
         return sprintf(
             $this->format,
-            (int)round($this->h->get($index)),
-            $this->s->get($index) * 100,
-            $this->l->get($index) * 100,
+            (int)round($this->r->get($index)),
+            (int)round($this->g->get($index)),
+            (int)round($this->b->get($index)),
             round($this->o->get($index), $this->precision),
         );
     }

@@ -73,6 +73,20 @@ abstract readonly class AGradient implements IGradient
         };
     }
 
+    protected function createColor(int $index): IConvertableColor
+    {
+        return Color::fromString(
+            $this->getColorString($index),
+        );
+    }
+
+    abstract protected function getColorString(int $index): string;
+
+    public function getCount(): int
+    {
+        return $this->count;
+    }
+
     protected function ensureConvertable(IColor|string $color): IConvertableColor
     {
         if ($color instanceof IConvertableColor) {
