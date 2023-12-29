@@ -13,10 +13,10 @@ use AlecRabbit\Color\Converter\From\NoOpConverter;
 use AlecRabbit\Color\Converter\Registry\ConverterRegistry;
 use AlecRabbit\Color\Converter\To\RGBA\From\FromHSLConverter;
 use AlecRabbit\Color\Converter\To\RGBA\From\FromRGBConverter;
+use AlecRabbit\Color\Converter\To\RGBA\ToRGBAConverter;
 use AlecRabbit\Color\Converter\ToHex\ToHexConverter;
 use AlecRabbit\Color\Converter\ToHSL\ToHSLAConverter;
 use AlecRabbit\Color\Converter\ToHSL\ToHSLConverter;
-use AlecRabbit\Color\Converter\ToRGB\ToRGBAConverter;
 use AlecRabbit\Color\Converter\ToRGB\ToRGBConverter;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
@@ -29,7 +29,7 @@ use AlecRabbit\Color\Instantiator\RGBInstantiator;
 use AlecRabbit\Color\Package;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
-use AlecRabbit\Color\Wrapper;
+use AlecRabbit\Color\Wrapper\Wrapper;
 
 Package::add(
     new Wrapper(
@@ -60,7 +60,7 @@ Package::add(
 );
 
 $converters = [
-    \AlecRabbit\Color\Converter\To\RGBA\ToRGBAConverter::class => [
+    ToRGBAConverter::class => [
         IRGBAColor::class => NoOpConverter::class,
         RGBA::class => NoOpConverter::class,
         IRGBColor::class => FromRGBConverter::class,
@@ -71,6 +71,24 @@ $converters = [
         HSL::class => FromHSLConverter::class,
         IHSLAColor::class => FromHSLConverter::class,
         HSLA::class => FromHSLConverter::class,
+    ],
+];
+// idea:
+$c = [
+    ToRGBAConverter::class => [
+        'to' => [RGBA::class, IRGBAColor::class],
+        'from' => [
+            IRGBAColor::class => NoOpConverter::class,
+            RGBA::class => NoOpConverter::class,
+            IRGBColor::class => FromRGBConverter::class,
+            RGB::class => FromRGBConverter::class,
+            IHexColor::class => FromRGBConverter::class,
+            Hex::class => FromRGBConverter::class,
+            IHSLColor::class => FromHSLConverter::class,
+            HSL::class => FromHSLConverter::class,
+            IHSLAColor::class => FromHSLConverter::class,
+            HSLA::class => FromHSLConverter::class,
+        ]
     ],
 ];
 

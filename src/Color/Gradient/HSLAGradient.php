@@ -6,11 +6,9 @@ namespace AlecRabbit\Color\Gradient;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IColorRange;
-use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Contract\Vector\IVector;
 use AlecRabbit\Color\Gradient\A\AGradient;
-use AlecRabbit\Color\Util\Color;
 use AlecRabbit\Color\Vector\Vector;
 
 final readonly class HSLAGradient extends AGradient

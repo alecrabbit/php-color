@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Color\Unit;
+namespace AlecRabbit\Tests\Color\Unit\Wrapper;
 
 use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Contract\Wrapper\IWrapper;
@@ -10,7 +10,7 @@ use AlecRabbit\Color\Converter\ToRGB\ToRGBConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Instantiator\RGBInstantiator;
 use AlecRabbit\Color\RGB;
-use AlecRabbit\Color\Wrapper;
+use AlecRabbit\Color\Wrapper\Wrapper;
 use AlecRabbit\Tests\TestCase\TestCase;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;

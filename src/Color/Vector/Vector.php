@@ -6,6 +6,8 @@ namespace AlecRabbit\Color\Vector;
 
 use AlecRabbit\Color\Contract\Vector\IVector;
 
+use function abs;
+
 final readonly class Vector implements IVector
 {
     public function __construct(
@@ -27,7 +29,7 @@ final readonly class Vector implements IVector
 
     private static function calculateStep(float|int $start, float|int $end, ?int $count): int|float
     {
-        return ($count === null || $count === 0) ? 0 : ($end - $start) / \abs($count);
+        return ($count === null || $count === 0) ? 0 : ($end - $start) / abs($count);
     }
 
     public function get(int|float $y = null): int|float

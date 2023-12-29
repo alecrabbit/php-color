@@ -9,7 +9,7 @@ use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Converter\ToHex\ToHexConverter;
 use AlecRabbit\Color\Converter\ToHSL\ToHSLAConverter;
 use AlecRabbit\Color\Converter\ToHSL\ToHSLConverter;
-use AlecRabbit\Color\Converter\ToRGB\ToRGBAConverter;
+use AlecRabbit\Color\Converter\To\RGBA\ToRGBAConverter;
 use AlecRabbit\Color\Converter\ToRGB\ToRGBConverter;
 use AlecRabbit\Color\Exception\ConverterUnavailable;
 use AlecRabbit\Color\Exception\InvalidArgument;

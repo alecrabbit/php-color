@@ -13,7 +13,7 @@ use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Converter\ToHex\ToHexConverter;
 use AlecRabbit\Color\Converter\ToHSL\ToHSLAConverter;
 use AlecRabbit\Color\Converter\ToHSL\ToHSLConverter;
-use AlecRabbit\Color\Converter\ToRGB\ToRGBAConverter;
+use AlecRabbit\Color\Converter\To\RGBA\ToRGBAConverter;
 use AlecRabbit\Color\Converter\ToRGB\ToRGBConverter;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
