@@ -4,8 +4,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Color\Unit;
 
+use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
+use AlecRabbit\Color\Hex;
+use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
+use AlecRabbit\Color\RGB;
+use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -54,6 +59,17 @@ class HSLATest extends TestCase
         ];
     }
 
+    public static function canBeCreatedFromDataProvider(): iterable
+    {
+        yield from [
+            [HSLA::fromHSLA(0, 0.3, 0, 0), HSLA::fromHSLA(0, 0.3, 0, 0),],
+            [HSLA::fromHSLA(0, 0, 0, 0), RGBA::fromRGBA(0, 0, 0, 0),],
+            [HSLA::fromHSLA(0, 0, 0, 255), Hex::fromInteger(0),],
+            [HSLA::fromHSLA(0, 0, 0, 255), RGB::fromRGB(0, 0, 0),],
+            [HSLA::fromHSLA(0, 0, 0, 255), HSL::fromHSL(0, 0, 0),],
+        ];
+    }
+
     public static function canBeConvertedToStringDataProvider(): iterable
     {
         foreach (self::canBeConvertedToStringDataFeeder() as $item) {
@@ -79,16 +95,16 @@ class HSLATest extends TestCase
         yield from [
             // (resulting), (incoming)[h, s, l, O]
             ['hsla(124, 0%, 50%, 1)', [124, 0.0, 0.5, 1]],
-//            ['hsla(0, 0%, 0%)', [0, 0, 0]],
-//            ['hsla(350, 20%, 0%)', [350, 0.2, 0]],
-//            ['hsla(350, 20%, 0%)', [350, 0.2, 0]],
-//            ['hsla(14, 0%, 100%)', [14, 0, 1]],
-//            ['hsla(114, 50%, 50%)', [114, 0.5, 0.5]],
-//            ['hsla(350, 50%, 50%)', [350, 0.5, 0.5]],
-//            ['hsla(123, 39%, 89%)', [123, 0.39, 0.89]],
-//            ['hsla(123, 30%, 92%)', [123, 0.3, 0.92]],
-//            ['hsla(350, 50%, 50%)', [710, 0.5, 0.5]],
-//            ['hsla(32, 34%, 100%)', [32, 0.34, 1]],
+            ['hsla(0, 0%, 0%, 1)', [0, 0, 0, 1]],
+            ['hsla(350, 20%, 0%, 1)', [350, 0.2, 0, 1]],
+            ['hsla(350, 20%, 0%, 1)', [350, 0.2, 0, 1]],
+            ['hsla(14, 0%, 100%, 1)', [14, 0, 1, 1]],
+            ['hsla(114, 50%, 50%, 1)', [114, 0.5, 0.5, 1]],
+            ['hsla(350, 50%, 50%, 1)', [350, 0.5, 0.5, 1]],
+            ['hsla(123, 39%, 89%, 1)', [123, 0.39, 0.89, 1]],
+            ['hsla(123, 30%, 92%, 1)', [123, 0.3, 0.92, 1]],
+            ['hsla(350, 50%, 50%, 1)', [710, 0.5, 0.5, 1]],
+            ['hsla(32, 34%, 100%, 1)', [32, 0.34, 1, 1]],
         ];
     }
 
@@ -127,6 +143,13 @@ class HSLATest extends TestCase
         self::assertSame($result, $testee->toString());
     }
 
+    #[Test]
+    #[DataProvider('canBeCreatedFromDataProvider')]
+    public function canBeCreatedFrom(IConvertableColor $expected, IConvertableColor $incoming): void
+    {
+        $testee = HSLA::from($incoming);
+        self::assertEquals($expected, $testee);
+    }
 
     #[Test]
     public function canBeModifiedWithHue(): void

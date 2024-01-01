@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Color\Unit;
 
+use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
+use AlecRabbit\Color\Hex;
+use AlecRabbit\Color\HSL;
+use AlecRabbit\Color\HSLA;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -159,6 +163,26 @@ class RGBATest extends TestCase
             [['rgba(0, 0, 0, 0.792)'], [256, -256, 256, 202,]],      // #15
             [['rgba(0, 0, 0, 0.792)'], [256, 256, -256, 202,]],      // #16
         ];
+    }
+
+    public static function canBeCreatedFromDataProvider(): iterable
+    {
+        yield from [
+            [RGBA::fromRGBA(0, 0, 0, 0), RGBA::fromRGBA(0, 0, 0, 0),],
+            [RGBA::fromRGBA(0, 20, 0, 0), RGBA::fromRGBA(0, 20, 0, 0),],
+            [RGBA::fromRGBA(0, 20, 0, 255), RGB::fromRGB(0, 20, 0),],
+            [RGBA::fromRGBA(0, 21, 0, 255), Hex::fromInteger(0x001500),],
+            [RGBA::fromRGBA(56, 52, 46, 255), HSLA::fromHSLA(34, 0.1, 0.2),],
+            [RGBA::fromRGBA(56, 52, 46, 255), HSL::fromHSL(34, 0.1, 0.2),],
+        ];
+    }
+
+    #[Test]
+    #[DataProvider('canBeCreatedFromDataProvider')]
+    public function canBeCreatedFrom(IConvertableColor $expected, IConvertableColor $incoming): void
+    {
+        $testee = RGBA::from($incoming);
+        self::assertEquals($expected, $testee);
     }
 
     #[Test]
