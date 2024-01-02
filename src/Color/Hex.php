@@ -22,12 +22,9 @@ class Hex extends ARGBValueColor implements IHexColor
         return parent::fromString($color)->to(self::class);
     }
 
-    public static function fromRGB(int $r, int $g, int $b): IHexColor
+    public static function fromInteger(int $value): IHexColor
     {
-        return
-            new self(
-                self::componentsToValue($r, $g, $b),
-            );
+        return new self(abs($value) & self::MAX);
     }
 
     public function toString(): string
@@ -37,27 +34,24 @@ class Hex extends ARGBValueColor implements IHexColor
 
     public function withRed(int $red): IHexColor
     {
-        return self::fromInteger(
-            self::componentsToValue($red, $this->getGreen(), $this->getBlue())
-        );
+        return self::fromRGB($red, $this->getGreen(), $this->getBlue());
     }
 
-    public static function fromInteger(int $value): IHexColor
+    public static function fromRGB(int $r, int $g, int $b): IHexColor
     {
-        return new self(abs($value) & self::MAX);
+        return
+            new self(
+                self::componentsToValue($r, $g, $b),
+            );
     }
 
     public function withGreen(int $green): IHexColor
     {
-        return self::fromInteger(
-            self::componentsToValue($this->getRed(), $green, $this->getBlue())
-        );
+        return self::fromRGB($this->getRed(), $green, $this->getBlue());
     }
 
     public function withBlue(int $blue): IHexColor
     {
-        return self::fromInteger(
-            self::componentsToValue($this->getRed(), $this->getGreen(), $blue)
-        );
+        return self::fromRGB($this->getRed(), $this->getGreen(), $blue);
     }
 }
