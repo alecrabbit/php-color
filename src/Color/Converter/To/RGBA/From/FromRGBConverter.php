@@ -7,6 +7,7 @@ namespace AlecRabbit\Color\Converter\To\RGBA\From;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IHasBlue;
 use AlecRabbit\Color\Contract\IHasGreen;
+use AlecRabbit\Color\Contract\IHasOpacity;
 use AlecRabbit\Color\Contract\IHasRed;
 use AlecRabbit\Color\Converter\A\AFromConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
@@ -29,7 +30,9 @@ class FromRGBConverter extends AFromConverter
 
     protected static function createColor(IConvertableColor $color): IConvertableColor
     {
+        $opacity = $color instanceof IHasOpacity ? $color->getOpacity() : 1.0;
+
         /** @var IHasRed&IHasGreen&IHasBlue $color */
-        return RGBA::fromRGBA($color->getRed(), $color->getGreen(), $color->getBlue());
+        return RGBA::fromRGBO($color->getRed(), $color->getGreen(), $color->getBlue(), $opacity);
     }
 }

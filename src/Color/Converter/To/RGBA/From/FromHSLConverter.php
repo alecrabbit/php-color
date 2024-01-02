@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Converter\To\RGBA\From;
 
 use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IHasOpacity;
 use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Converter\A\AFromConverter;
@@ -36,7 +37,7 @@ class FromHSLConverter extends AFromConverter
             $color->getLightness()
         );
 
-        $opacity = $color instanceof IHSLAColor ? $color->getOpacity() : 1.0;
+        $opacity = $color instanceof IHasOpacity ? $color->getOpacity() : 1.0;
 
         return
             RGBA::fromRGBO($rgb->red, $rgb->green, $rgb->blue, $opacity);
