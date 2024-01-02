@@ -10,9 +10,7 @@ use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Converter\From\NoOpConverter;
-use AlecRabbit\Color\Converter\To\RGBA\From\FromHSLConverter;
-use AlecRabbit\Color\Converter\To\RGBA\From\FromRGBConverter;
-use AlecRabbit\Color\Converter\To\RGBA\ToRGBAConverter;
+use AlecRabbit\Color\Converter\To;
 use AlecRabbit\Color\Converter\ToHex\ToHexConverter;
 use AlecRabbit\Color\Converter\ToHSL\ToHSLAConverter;
 use AlecRabbit\Color\Converter\ToHSL\ToHSLConverter;
@@ -41,13 +39,13 @@ Package::add(
     new Wrapper(
         to: new ArrayObject([RGB::class, IRGBColor::class]),
         from: new ArrayObject(),
-        converter: ToRGBConverter::class,
+        converter: To\RGB\ToRGBConverter::class,
         instantiator: RGBInstantiator::class,
     ),
     new Wrapper(
         to: new ArrayObject([RGBA::class, IRGBAColor::class]),
         from: new ArrayObject(),
-        converter: ToRGBAConverter::class,
+        converter: To\RGBA\ToRGBAConverter::class,
         instantiator: RGBAInstantiator::class,
     ),
     new Wrapper(
@@ -65,18 +63,31 @@ Package::add(
 );
 
 $converters = [
-    ToRGBAConverter::class => [
+    To\RGBA\ToRGBAConverter::class => [
         IRGBAColor::class => NoOpConverter::class,
         RGBA::class => NoOpConverter::class,
-        IRGBColor::class => FromRGBConverter::class,
-        RGB::class => FromRGBConverter::class,
-        IHexColor::class => FromRGBConverter::class,
-        Hex::class => FromRGBConverter::class,
-        IHSLColor::class => FromHSLConverter::class,
-        HSL::class => FromHSLConverter::class,
-        IHSLAColor::class => FromHSLConverter::class,
-        HSLA::class => FromHSLConverter::class,
+        IRGBColor::class => To\RGBA\From\FromRGBConverter::class,
+        RGB::class => To\RGBA\From\FromRGBConverter::class,
+        IHexColor::class => To\RGBA\From\FromRGBConverter::class,
+        Hex::class => To\RGBA\From\FromRGBConverter::class,
+        IHSLColor::class => To\RGBA\From\FromHSLConverter::class,
+        HSL::class => To\RGBA\From\FromHSLConverter::class,
+        IHSLAColor::class => To\RGBA\From\FromHSLConverter::class,
+        HSLA::class => To\RGBA\From\FromHSLConverter::class,
     ],
+    To\RGB\ToRGBConverter::class => [
+        IRGBColor::class => NoOpConverter::class,
+        RGB::class => NoOpConverter::class,
+        IRGBAColor::class => To\RGB\From\FromRGBConverter::class,
+        RGBA::class => To\RGB\From\FromRGBConverter::class,
+        IHexColor::class => To\RGB\From\FromRGBConverter::class,
+        Hex::class => To\RGB\From\FromRGBConverter::class,
+        IHSLColor::class => To\RGB\From\FromHSLConverter::class,
+        HSL::class => To\RGB\From\FromHSLConverter::class,
+        IHSLAColor::class => To\RGB\From\FromHSLConverter::class,
+        HSLA::class => To\RGB\From\FromHSLConverter::class,
+    ],
+
 ];
 // idea:
 //    new Wrapper(

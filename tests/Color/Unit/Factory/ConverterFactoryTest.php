@@ -9,7 +9,7 @@ use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Converter\ToHex\ToHexConverter;
 use AlecRabbit\Color\Converter\ToHSL\ToHSLAConverter;
 use AlecRabbit\Color\Converter\ToHSL\ToHSLConverter;
-use AlecRabbit\Color\Converter\To\RGBA\ToRGBAConverter;
+use AlecRabbit\Color\Converter\To;
 use AlecRabbit\Color\Converter\ToRGB\ToRGBConverter;
 use AlecRabbit\Color\Exception\ConverterUnavailable;
 use AlecRabbit\Color\Exception\InvalidArgument;
@@ -41,8 +41,8 @@ class ConverterFactoryTest extends TestCase
     {
         yield from [
             // (resulting)converter::class, (incoming)color::class
-            [ToRGBConverter::class, RGB::class],
-            [ToRGBAConverter::class, RGBA::class],
+            [To\RGB\ToRGBConverter::class, RGB::class],
+            [To\RGBA\ToRGBAConverter::class, RGBA::class],
             [ToHexConverter::class, Hex::class],
             [ToHSLConverter::class, HSL::class],
             [ToHSLAConverter::class, HSLA::class],
