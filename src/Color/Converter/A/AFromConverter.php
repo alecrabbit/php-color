@@ -9,6 +9,8 @@ use AlecRabbit\Color\Contract\IConvertableColor;
 
 abstract class AFromConverter implements IFromConverter
 {
+    abstract protected static function getSources(): iterable;
+
     public function convert(IConvertableColor $color): IConvertableColor
     {
         static::assertColor($color);

@@ -15,8 +15,15 @@ use AlecRabbit\Color\HSL;
 
 class FromHSLConverter extends AFromConverter
 {
-    protected static function assertColor(mixed $color): void
+    protected static function getSources(): iterable
     {
+        return [];
+    }
+
+    protected static function assertColor
+    (
+        mixed $color
+    ): void {
         match (true) {
             $color instanceof IHSLColor => null,
             default => throw new InvalidArgument(

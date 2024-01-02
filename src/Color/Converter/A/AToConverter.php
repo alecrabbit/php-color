@@ -18,6 +18,8 @@ abstract class AToConverter implements IToConverter
     ) {
     }
 
+    abstract protected static function getTargets(): iterable;
+
     public function convert(IConvertableColor $color): IConvertableColor
     {
         return $this->getFromConverter($color)->convert($color);

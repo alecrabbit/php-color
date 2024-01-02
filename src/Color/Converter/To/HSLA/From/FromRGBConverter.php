@@ -16,8 +16,15 @@ use AlecRabbit\Color\HSLA;
 
 class FromRGBConverter extends AFromConverter
 {
-    protected static function assertColor(mixed $color): void
+    protected static function getSources(): iterable
     {
+        return [];
+    }
+
+    protected static function assertColor
+    (
+        mixed $color
+    ): void {
         match (true) {
             $color instanceof IHasRed && $color instanceof IHasGreen && $color instanceof IHasBlue => null,
             default => throw new InvalidArgument(
