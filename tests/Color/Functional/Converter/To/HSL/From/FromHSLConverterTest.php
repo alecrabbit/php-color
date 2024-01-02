@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Color\Functional\Converter\To\HSLA\From;
+namespace AlecRabbit\Tests\Color\Functional\Converter\To\HSL\From;
 
 
 use AlecRabbit\Color\Contract\Converter\IFromConverter;
 use AlecRabbit\Color\Contract\IConvertableColor;
-use AlecRabbit\Color\Converter\To\HSLA\From\FromHSLConverter;
+use AlecRabbit\Color\Converter\To\HSL\From\FromHSLConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
@@ -33,13 +33,13 @@ final class FromHSLConverterTest extends TestCase
             ],
             [
                 [
-                    self::RESULT => HSLA::fromString('rgba(0, 0, 0)')
+                    self::RESULT => HSL::fromString('rgb(0, 0, 0)')
                 ],
                 HSL::fromString('rgb(0, 0, 0)'),
             ],
             [
                 [
-                    self::RESULT => HSLA::fromString('rgba(0, 0, 0, 0.5)')
+                    self::RESULT => HSL::fromString('rgba(0, 0, 0)')
                 ],
                 HSLA::fromString('hsla(0, 0%, 0%, 0.5)'),
             ],

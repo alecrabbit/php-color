@@ -7,7 +7,6 @@ namespace AlecRabbit\Tests\Color\Unit\Factory;
 use AlecRabbit\Color\Contract\Factory\IConverterFactory;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Converter\To;
-use AlecRabbit\Color\Converter\ToHSL\ToHSLConverter;
 use AlecRabbit\Color\Exception\ConverterUnavailable;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Factory\ConverterFactory;

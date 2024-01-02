@@ -13,7 +13,6 @@ use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
 use AlecRabbit\Color\RGB;
-use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;

@@ -9,9 +9,5 @@ use AlecRabbit\Color\Converter\A\AToConverter;
 
 class ToRGBConverter extends AToConverter
 {
-    /** @inheritDoc */
-    protected static function getTargetClass(): string
-    {
-        return IRGBColor::class;
-    }
+
 }

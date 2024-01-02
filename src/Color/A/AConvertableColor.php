@@ -27,11 +27,6 @@ abstract class AConvertableColor implements IConvertableColor
         return self::convert($color, static::class);
     }
 
-    public function to(string $class): IConvertableColor
-    {
-        return self::convert($this, $class);
-    }
-
     /**
      * @param IConvertableColor $color
      * @param class-string<IConvertableColor> $to
@@ -41,6 +36,11 @@ abstract class AConvertableColor implements IConvertableColor
     protected static function convert(IConvertableColor $color, string $to): IConvertableColor
     {
         return Converter::to($to)->convert($color);
+    }
+
+    public function to(string $class): IConvertableColor
+    {
+        return self::convert($this, $class);
     }
 
     abstract public function toString(): string;

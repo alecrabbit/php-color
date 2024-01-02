@@ -11,10 +11,8 @@ use AlecRabbit\Color\Contract\IHasOpacity;
 use AlecRabbit\Color\Contract\IHasSaturation;
 use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Converter\A\AFromConverter;
-use AlecRabbit\Color\Converter\CoreConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\HSLA;
-use AlecRabbit\Color\RGBA;
 
 class FromHSLConverter extends AFromConverter
 {

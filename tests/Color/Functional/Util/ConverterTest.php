@@ -11,7 +11,6 @@ use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Converter\To;
-use AlecRabbit\Color\Converter\ToHSL\ToHSLConverter;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;

@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Color\Unit\Wrapper;
 
 use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Contract\Wrapper\IWrapper;
-use AlecRabbit\Color\Converter\ToRGB\ToRGBConverter;
+use AlecRabbit\Color\Converter\To\RGB\ToRGBConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Instantiator\RGBInstantiator;
 use AlecRabbit\Color\RGB;
