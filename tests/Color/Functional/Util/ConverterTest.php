@@ -10,11 +10,8 @@ use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Contract\IRGBColor;
-use AlecRabbit\Color\Converter\ToHex\ToHexConverter;
-use AlecRabbit\Color\Converter\ToHSL\ToHSLAConverter;
-use AlecRabbit\Color\Converter\ToHSL\ToHSLConverter;
 use AlecRabbit\Color\Converter\To;
-use AlecRabbit\Color\Converter\ToRGB\ToRGBConverter;
+use AlecRabbit\Color\Converter\ToHSL\ToHSLConverter;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
@@ -47,8 +44,8 @@ class ConverterTest extends TestCase
             [To\RGBA\ToRGBAConverter::class, IRGBAColor::class],
             [ToHSLConverter::class, HSL::class],
             [ToHSLConverter::class, IHSLColor::class],
-            [ToHSLAConverter::class, HSLA::class],
-            [ToHSLAConverter::class, IHSLAColor::class],
+            [To\HSLA\ToHSLAConverter::class, HSLA::class],
+            [To\HSLA\ToHSLAConverter::class, IHSLAColor::class],
             [To\RGB\ToRGBConverter::class, RGB::class],
             [To\RGB\ToRGBConverter::class, IRGBColor::class],
         ];

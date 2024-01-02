@@ -6,7 +6,6 @@ namespace AlecRabbit\Tests\Color\Unit;
 
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IHSLColor;
-use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -70,22 +69,6 @@ class HSLTest extends TestCase
         }
     }
 
-    public static function canBeCreatedFromDataProvider(): iterable
-    {
-        yield from [
-            [HSL::fromHSL(0, 0, 0), RGBA::fromRGBA(0, 0, 0, 0),],
-            [HSL::fromHSL(36, 0.1, 0.2), RGBA::fromRGBA(56, 52, 46, 0),],
-//            [HSL::fromHSL(), Hex::fromInteger(0x23142),],
-        ];
-    }
-
-    #[Test]
-    #[DataProvider('canBeCreatedFromDataProvider')]
-    public function canBeCreatedFrom(IConvertableColor $expected, IConvertableColor $incoming): void
-    {
-        $testee = HSL::from($incoming);
-        self::assertEquals($expected, $testee);
-    }
     private static function canBeConvertedToStringDataFeeder(): iterable
     {
         yield from [
@@ -102,6 +85,23 @@ class HSLTest extends TestCase
             ['hsl(350, 50%, 50%)', [710, 0.5, 0.5]],
             ['hsl(32, 34%, 100%)', [32, 0.34, 1]],
         ];
+    }
+
+    public static function canBeCreatedFromDataProvider(): iterable
+    {
+        yield from [
+            [HSL::fromHSL(0, 0, 0), RGBA::fromRGBA(0, 0, 0, 0),],
+            [HSL::fromHSL(36, 0.1, 0.2), RGBA::fromRGBA(56, 52, 46, 0),],
+//            [HSL::fromHSL(), Hex::fromInteger(0x23142),],
+        ];
+    }
+
+    #[Test]
+    #[DataProvider('canBeCreatedFromDataProvider')]
+    public function canBeCreatedFrom(IConvertableColor $expected, IConvertableColor $incoming): void
+    {
+        $testee = HSL::from($incoming);
+        self::assertEquals($expected, $testee);
     }
 
     #[Test]

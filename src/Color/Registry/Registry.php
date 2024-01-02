@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Registry;
 
-use AlecRabbit\Color\Contract\Converter\IRegistry;
 use AlecRabbit\Color\Contract\Converter\IFromConverter;
+use AlecRabbit\Color\Contract\Converter\IRegistry;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Exception\InvalidArgument;
+use RuntimeException;
 use Traversable;
 
 final class Registry implements IRegistry
@@ -120,13 +121,13 @@ final class Registry implements IRegistry
     public function getToConverter(string $color): ?IToConverter
     {
         // TODO: Implement getToConverter() method.
-        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
+        throw new RuntimeException(__METHOD__ . ' Not implemented.');
     }
 
 
     public function getInstantiator(string $color): IInstantiator
     {
         // TODO: Implement getInstantiator() method.
-        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
+        throw new RuntimeException(__METHOD__ . ' Not implemented.');
     }
 }

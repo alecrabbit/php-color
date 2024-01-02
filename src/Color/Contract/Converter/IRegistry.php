@@ -6,7 +6,6 @@ namespace AlecRabbit\Color\Contract\Converter;
 
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
-use AlecRabbit\Color\Wrapper\Wrapper;
 use Traversable;
 
 interface IRegistry

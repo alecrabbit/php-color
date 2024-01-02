@@ -2,32 +2,32 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Color\Unit\Converter\To\RGBA;
+namespace AlecRabbit\Tests\Color\Unit\Converter\To\HSLA;
 
 
 use AlecRabbit\Color\Contract\Converter\IFromConverter;
 use AlecRabbit\Color\Contract\Converter\IRegistry;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IConvertableColor;
-use AlecRabbit\Color\Converter\To\RGBA\ToRGBAConverter;
+use AlecRabbit\Color\Converter\To\HSLA\ToHSLAConverter;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class ToRGBAConverterTest extends TestCase
+final class ToHSLAConverterTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
     {
         $toConverter = $this->getTesteeInstance();
 
-        self::assertInstanceOf(ToRGBAConverter::class, $toConverter);
+        self::assertInstanceOf(ToHSLAConverter::class, $toConverter);
     }
 
     private function getTesteeInstance(
         ?IRegistry $registry = null,
     ): IToConverter {
-        return new ToRGBAConverter(
+        return new ToHSLAConverter(
             registry: $registry ?? $this->getConverterRegistryMock(),
         );
     }
@@ -54,7 +54,7 @@ final class ToRGBAConverterTest extends TestCase
         $registry
             ->expects(self::once())
             ->method('getFromConverter')
-            ->with(ToRGBAConverter::class, self::stringContains('IConvertableColor'))
+            ->with(ToHSLAConverter::class, self::stringContains('IConvertableColor'))
             ->willReturn(
                 $fromConverter
             );

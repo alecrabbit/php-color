@@ -7,12 +7,10 @@ namespace AlecRabbit\Color\Converter\To\Hex\From;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IHasBlue;
 use AlecRabbit\Color\Contract\IHasGreen;
-use AlecRabbit\Color\Contract\IHasOpacity;
 use AlecRabbit\Color\Contract\IHasRed;
 use AlecRabbit\Color\Converter\A\AFromConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Hex;
-use AlecRabbit\Color\RGBA;
 
 class FromRGBConverter extends AFromConverter
 {

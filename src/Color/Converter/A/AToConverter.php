@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Converter\A;
 
-use AlecRabbit\Color\Contract\Converter\IRegistry;
 use AlecRabbit\Color\Contract\Converter\IFromConverter;
+use AlecRabbit\Color\Contract\Converter\IRegistry;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;

@@ -22,6 +22,11 @@ abstract class AConvertableColor implements IConvertableColor
         return Instantiator::fromString($color);
     }
 
+    public static function from(IConvertableColor $color): IConvertableColor
+    {
+        return self::convert($color, static::class);
+    }
+
     public function to(string $class): IConvertableColor
     {
         return self::convert($this, $class);
@@ -39,9 +44,4 @@ abstract class AConvertableColor implements IConvertableColor
     }
 
     abstract public function toString(): string;
-
-    public static function from(IConvertableColor $color): IConvertableColor
-    {
-        return self::convert($color, static::class);
-    }
 }

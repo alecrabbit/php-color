@@ -2,22 +2,25 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color\Converter\To\RGBA\From;
+namespace AlecRabbit\Color\Converter\To\HSLA\From;
 
 use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IHasBlue;
+use AlecRabbit\Color\Contract\IHasGreen;
 use AlecRabbit\Color\Contract\IHasOpacity;
-use AlecRabbit\Color\Contract\IHSLColor;
+use AlecRabbit\Color\Contract\IHasRed;
 use AlecRabbit\Color\Converter\A\AFromConverter;
 use AlecRabbit\Color\Converter\CoreConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
+use AlecRabbit\Color\HSLA;
 use AlecRabbit\Color\RGBA;
 
-class FromHSLConverter extends AFromConverter
+class FromRGBConverter extends AFromConverter
 {
     protected static function assertColor(mixed $color): void
     {
         match (true) {
-            $color instanceof IHSLColor => null,
+            $color instanceof IHasRed && $color instanceof IHasGreen && $color instanceof IHasBlue => null,
             default => throw new InvalidArgument(
                 sprintf(
                     'Unsupported color type "%s".',
@@ -29,16 +32,16 @@ class FromHSLConverter extends AFromConverter
 
     protected static function createColor(IConvertableColor $color): IConvertableColor
     {
-        /** @var IHSLColor $color */
-        $rgb = (new CoreConverter())->hslToRgb(
-            $color->getHue(),
-            $color->getSaturation(),
-            $color->getLightness()
-        );
+        /** @var IHasRed&IHasGreen&IHasBlue $color */
+        $hsl = (new CoreConverter())
+            ->rgbToHsl(
+                $color->getRed(),
+                $color->getGreen(),
+                $color->getBlue()
+            );
 
         $opacity = $color instanceof IHasOpacity ? $color->getOpacity() : 1.0;
 
-        return
-            RGBA::fromRGBO($rgb->red, $rgb->green, $rgb->blue, $opacity);
+        return HSLA::fromHSLA($hsl->hue, $hsl->saturation, $hsl->lightness, $opacity);
     }
 }

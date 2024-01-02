@@ -11,6 +11,9 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
+use function is_float;
+use function is_int;
+
 final class VectorTest extends TestCase
 {
 
@@ -73,11 +76,11 @@ final class VectorTest extends TestCase
 
         $result = $vector->get($index);
 
-        if (\is_int($expected)) {
+        if (is_int($expected)) {
             self::assertSame($expected, $result);
         }
 
-        if (\is_float($expected)) {
+        if (is_float($expected)) {
             self::assertEqualsWithDelta($expected, $result, self::FLOAT_EQUALITY_DELTA);
         }
     }

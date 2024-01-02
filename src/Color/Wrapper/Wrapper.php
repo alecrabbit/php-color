@@ -85,6 +85,11 @@ final readonly class Wrapper implements IWrapper
         }
     }
 
+    private static function assertFrom(Traversable $from): void
+    {
+        // TODO (2023-12-29 17:55) [Alec Rabbit]: implement
+    }
+
     private static function assertConverter(string $converter): void
     {
         if (!class_exists($converter)) {
@@ -125,11 +130,6 @@ final readonly class Wrapper implements IWrapper
                 )
             );
         }
-    }
-
-    private static function assertFrom(Traversable $from): void
-    {
-        // TODO (2023-12-29 17:55) [Alec Rabbit]: implement
     }
 
     /** @inheritDoc */

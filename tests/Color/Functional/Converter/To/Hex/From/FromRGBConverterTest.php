@@ -40,7 +40,7 @@ final class FromRGBConverterTest extends TestCase
             ],
             [
                 [
-                    self::RESULT =>  Hex::fromInteger(0),
+                    self::RESULT => Hex::fromInteger(0),
                 ],
                 RGB::fromString('rgb(0, 0, 0)'),
             ],
