@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Color\Unit\Vector;
+namespace AlecRabbit\Tests\Color\Unit\Gradient\Vector;
 
 
-use AlecRabbit\Color\Contract\Vector\IVector;
-use AlecRabbit\Color\Vector\Vector;
+use AlecRabbit\Color\Contract\Gradient\Vector\IVector;
+use AlecRabbit\Color\Gradient\Vector\Vector;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;

@@ -85,6 +85,29 @@ class HexTest extends TestCase
         ];
     }
 
+    public static function canBeCreatedFromRGBDataProvider(): iterable
+    {
+        foreach (self::canBeCreatedFromStringDataFeeder() as $item) {
+            [$resulting, $incoming] = $item;
+            yield [
+                [
+                    self::RESULT => [
+                        self::VALUE => $resulting[0],
+                        self::RED => $resulting[1],
+                        self::GREEN => $resulting[2],
+                        self::BLUE => $resulting[3],
+                        self::TO_STRING => $resulting[4],
+                    ]
+                ],
+                [
+                    self::RED => $resulting[1],
+                    self::GREEN => $resulting[2],
+                    self::BLUE => $resulting[3],
+                ]
+            ];
+        }
+    }
+
     #[Test]
     #[DataProvider('canBeCreatedFromIntegerDataProvider')]
     public function canBeCreatedFromInteger(array $expected, array $incoming): void
@@ -121,6 +144,25 @@ class HexTest extends TestCase
     private static function getTesteeFromString(string $value): IHexColor
     {
         return Hex::fromString($value);
+    }
+
+    #[Test]
+    #[DataProvider('canBeCreatedFromRGBDataProvider')]
+    public function canBeCreatedFromRGB(array $expected, array $incoming): void
+    {
+        $result = $expected[self::RESULT];
+
+        $testee = Hex::fromRGB(
+            $incoming[self::RED],
+            $incoming[self::GREEN],
+            $incoming[self::BLUE]
+        );
+
+        self::assertSame($result[self::RED], $testee->getRed());
+        self::assertSame($result[self::GREEN], $testee->getGreen());
+        self::assertSame($result[self::BLUE], $testee->getBlue());
+        self::assertSame($result[self::VALUE], $testee->getValue());
+        self::assertSame($result[self::TO_STRING], $testee->toString());
     }
 
     #[Test]

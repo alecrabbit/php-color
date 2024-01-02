@@ -41,7 +41,7 @@ class ConverterFactoryTest extends TestCase
             [To\RGB\ToRGBConverter::class, RGB::class],
             [To\RGBA\ToRGBAConverter::class, RGBA::class],
             [To\Hex\ToHexConverter::class, Hex::class],
-            [ToHSLConverter::class, HSL::class],
+            [To\HSL\ToHSLConverter::class, HSL::class],
             [To\HSLA\ToHSLAConverter::class, HSLA::class],
         ];
     }

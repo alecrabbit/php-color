@@ -48,7 +48,7 @@ Package::add(
     new Wrapper(
         to: new ArrayObject([HSL::class, IHSLColor::class]),
         from: new ArrayObject(),
-        converter: ToHSLConverter::class,
+        converter: To\HSL\ToHSLConverter::class,
         instantiator: HSLInstantiator::class,
     ),
     new Wrapper(
@@ -107,6 +107,18 @@ $converters = [
         RGB::class => To\HSLA\From\FromRGBConverter::class,
         IHSLColor::class => To\HSLA\From\FromHSLConverter::class,
         HSL::class => To\HSLA\From\FromHSLConverter::class,
+    ],
+    To\HSL\ToHSLConverter::class => [
+        IHSLColor::class => NoOpConverter::class,
+        HSL::class => NoOpConverter::class,
+        IHexColor::class => To\HSL\From\FromRGBConverter::class,
+        Hex::class => To\HSL\From\FromRGBConverter::class,
+        IRGBAColor::class => To\HSL\From\FromRGBConverter::class,
+        RGBA::class => To\HSL\From\FromRGBConverter::class,
+        IRGBColor::class => To\HSL\From\FromRGBConverter::class,
+        RGB::class => To\HSL\From\FromRGBConverter::class,
+        IHSLAColor::class => To\HSL\From\FromHSLConverter::class,
+        HSLA::class => To\HSL\From\FromHSLConverter::class,
     ],
 
 ];

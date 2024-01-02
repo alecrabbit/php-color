@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color\Vector;
+namespace AlecRabbit\Color\Gradient\Vector;
 
-use AlecRabbit\Color\Contract\Vector\IVector;
+use AlecRabbit\Color\Contract\Gradient\Vector\IVector;
 
 use function abs;
 
