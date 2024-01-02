@@ -95,12 +95,12 @@ final class Registry implements IRegistry
     /**
      * @inheritDoc
      */
-    public function getFromConverter(string $toConverter, string $color): ?IFromConverter
+    public function getFromConverter(string $to, string $source): ?IFromConverter
     {
-        self::assertToConverter($toConverter);
-        self::assertColor($color);
+        self::assertToConverter($to);
+        self::assertColor($source);
 
-        return $this->getRefinedFromConverter($toConverter, $color);
+        return $this->getRefinedFromConverter($to, $source);
     }
 
     private function getRefinedFromConverter(string $toConverter, string $color): ?IFromConverter
@@ -118,7 +118,7 @@ final class Registry implements IRegistry
         return $fromConverter;
     }
 
-    public function getToConverter(string $color): ?IToConverter
+    public function getToConverter(string $target): ?IToConverter
     {
         // TODO: Implement getToConverter() method.
         throw new RuntimeException(__METHOD__ . ' Not implemented.');
@@ -129,5 +129,12 @@ final class Registry implements IRegistry
     {
         // TODO: Implement getInstantiator() method.
         throw new RuntimeException(__METHOD__ . ' Not implemented.');
+    }
+
+    /** @inheritDoc */
+    public static function attach(string ...$class): void
+    {
+        // TODO: Implement register() method.
+        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
     }
 }

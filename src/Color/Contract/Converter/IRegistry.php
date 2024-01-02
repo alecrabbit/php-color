@@ -11,22 +11,28 @@ use Traversable;
 interface IRegistry
 {
     /**
+     * @deprecated
+     *
      * @param class-string<IToConverter> $toConverter
      * @param Traversable<class-string<IConvertableColor>, class-string<IFromConverter>> $fromConverters
      */
     public static function register(string $toConverter, Traversable $fromConverters): void;
-//    public static function register(Wrapper... $wrapper): void;
 
     /**
-     * @param class-string<IToConverter> $toConverter
-     * @param class-string<IConvertableColor> $color
+     * @param class-string<IToConverter|IFromConverter|IInstantiator> ...$class
      */
-    public function getFromConverter(string $toConverter, string $color): ?IFromConverter;
+    public static function attach(string ...$class): void;
 
     /**
-     * @param class-string<IConvertableColor> $color
+     * @param class-string<IToConverter> $to
+     * @param class-string<IConvertableColor> $source
      */
-    public function getToConverter(string $color): ?IToConverter;
+    public function getFromConverter(string $to, string $source): ?IFromConverter;
+
+    /**
+     * @param class-string<IConvertableColor> $target
+     */
+    public function getToConverter(string $target): ?IToConverter;
 
     public function getInstantiator(string $color): IInstantiator;
 }

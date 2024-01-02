@@ -25,15 +25,15 @@ abstract class AToConverter implements IToConverter
         return $this->getFromConverter($color)->convert($color);
     }
 
-    protected function getFromConverter(IConvertableColor $color): IFromConverter
+    protected function getFromConverter(IConvertableColor $source): IFromConverter
     {
         return
-            $this->registry->getFromConverter($this::class, $color::class)
+            $this->registry->getFromConverter($this::class, $source::class)
             ??
             throw new UnsupportedColorConversion(
                 sprintf(
                     'Conversion from "%s" is not supported by "%s".',
-                    $color::class,
+                    $source::class,
                     static::class
                 )
             );
