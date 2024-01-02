@@ -11,10 +11,8 @@ use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Converter\From\NoOpConverter;
 use AlecRabbit\Color\Converter\To;
-use AlecRabbit\Color\Converter\ToHex\ToHexConverter;
 use AlecRabbit\Color\Converter\ToHSL\ToHSLAConverter;
 use AlecRabbit\Color\Converter\ToHSL\ToHSLConverter;
-use AlecRabbit\Color\Converter\ToRGB\ToRGBConverter;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
@@ -33,7 +31,7 @@ Package::add(
     new Wrapper(
         to: new ArrayObject([Hex::class, IHexColor::class]),
         from: new ArrayObject(),
-        converter: ToHexConverter::class,
+        converter: To\Hex\ToHexConverter::class,
         instantiator: HexInstantiator::class,
     ),
     new Wrapper(
@@ -86,6 +84,18 @@ $converters = [
         HSL::class => To\RGB\From\FromHSLConverter::class,
         IHSLAColor::class => To\RGB\From\FromHSLConverter::class,
         HSLA::class => To\RGB\From\FromHSLConverter::class,
+    ],
+    To\Hex\ToHexConverter::class => [
+        IHexColor::class => NoOpConverter::class,
+        Hex::class => NoOpConverter::class,
+        IRGBAColor::class => To\Hex\From\FromRGBConverter::class,
+        RGBA::class => To\Hex\From\FromRGBConverter::class,
+        IRGBColor::class => To\Hex\From\FromRGBConverter::class,
+        RGB::class => To\Hex\From\FromRGBConverter::class,
+        IHSLColor::class => To\Hex\From\FromHSLConverter::class,
+        HSL::class => To\Hex\From\FromHSLConverter::class,
+        IHSLAColor::class => To\Hex\From\FromHSLConverter::class,
+        HSLA::class => To\Hex\From\FromHSLConverter::class,
     ],
 
 ];

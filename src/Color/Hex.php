@@ -52,4 +52,11 @@ class Hex extends ARGBValueColor implements IHexColor
             self::componentsToValue($this->getRed(), $this->getGreen(), $blue)
         );
     }
+
+    public static function fromRGB(int $r, int $g, int $b): IHexColor
+    {
+        return
+            new self(
+                self::componentsToValue($r, $g, $b),
+            );    }
 }

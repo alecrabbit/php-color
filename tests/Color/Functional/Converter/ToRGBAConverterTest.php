@@ -15,6 +15,9 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
+/**
+ * @deprecated
+ */
 class ToRGBAConverterTest extends TestCase
 {
     public static function canConvertFromHSLADataProvider(): iterable

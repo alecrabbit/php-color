@@ -41,8 +41,8 @@ class ConverterTest extends TestCase
     {
         yield from [
             // (resulting)class, (incoming)value
-            [ToHexConverter::class, Hex::class],
-            [ToHexConverter::class, IHexColor::class],
+            [To\Hex\ToHexConverter::class, Hex::class],
+            [To\Hex\ToHexConverter::class, IHexColor::class],
             [To\RGBA\ToRGBAConverter::class, RGBA::class],
             [To\RGBA\ToRGBAConverter::class, IRGBAColor::class],
             [ToHSLConverter::class, HSL::class],

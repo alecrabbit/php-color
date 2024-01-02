@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Color\Functional\Converter\To\RGBA\From;
+namespace AlecRabbit\Tests\Color\Functional\Converter\To\Hex\From;
 
 
 use AlecRabbit\Color\Contract\Converter\IFromConverter;
 use AlecRabbit\Color\Contract\IConvertableColor;
-use AlecRabbit\Color\Converter\To\RGBA\From\FromRGBConverter;
+use AlecRabbit\Color\Converter\To\RGBA\From\FromHSLConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
+use AlecRabbit\Color\HSLA;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-final class FromRGBConverterTest extends TestCase
+final class FromHSLConverterTest extends TestCase
 {
     public static function canConvertDataProvider(): iterable
     {
@@ -27,22 +27,22 @@ final class FromRGBConverterTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgument::class,
-                        self::MESSAGE => 'Unsupported color type "AlecRabbit\Color\HSL".',
+                        self::MESSAGE => 'Unsupported color type "AlecRabbit\Color\RGB".',
                     ],
-                ],
-                HSL::fromString('hsl(0, 0%, 0%)'),
-            ],
-            [
-                [
-                    self::RESULT => RGBA::fromString('rgb(0, 0, 0)')
                 ],
                 RGB::fromString('rgb(0, 0, 0)'),
             ],
             [
                 [
-                    self::RESULT => RGBA::fromString('rgb(0, 0, 0)')
+                    self::RESULT => RGBA::fromString('rgba(0, 0, 0)')
                 ],
-                Hex::fromInteger(0),
+                HSL::fromString('rgb(0, 0, 0)'),
+            ],
+            [
+                [
+                    self::RESULT => RGBA::fromString('rgba(0, 0, 0, 0.5)')
+                ],
+                HSLA::fromString('hsla(0, 0%, 0%, 0.5)'),
             ],
         ];
     }
@@ -52,12 +52,12 @@ final class FromRGBConverterTest extends TestCase
     {
         $converter = $this->getTesteeInstance();
 
-        self::assertInstanceOf(FromRGBConverter::class, $converter);
+        self::assertInstanceOf(FromHSLConverter::class, $converter);
     }
 
     private function getTesteeInstance(): IFromConverter
     {
-        return new FromRGBConverter();
+        return new FromHSLConverter();
     }
 
     #[Test]

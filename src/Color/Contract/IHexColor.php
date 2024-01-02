@@ -15,6 +15,8 @@ interface IHexColor extends IConvertableColor,
 {
     public static function fromInteger(int $value): IHexColor;
 
+    public static function fromRGB(int $r, int $g, int $b): IHexColor;
+
     public function withRed(int $red): IHexColor;
 
     public function withGreen(int $green): IHexColor;

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Color\Functional\Converter\To\RGBA\From;
+namespace AlecRabbit\Tests\Color\Functional\Converter\To\Hex\From;
 
 
 use AlecRabbit\Color\Contract\Converter\IFromConverter;
 use AlecRabbit\Color\Contract\IConvertableColor;
-use AlecRabbit\Color\Converter\To\RGBA\From\FromRGBConverter;
+use AlecRabbit\Color\Converter\To\Hex\From\FromRGBConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
@@ -34,15 +34,15 @@ final class FromRGBConverterTest extends TestCase
             ],
             [
                 [
-                    self::RESULT => RGBA::fromString('rgb(0, 0, 0)')
+                    self::RESULT => Hex::fromInteger(0),
                 ],
-                RGB::fromString('rgb(0, 0, 0)'),
+                RGBA::fromString('rgb(0, 0, 0)'),
             ],
             [
                 [
-                    self::RESULT => RGBA::fromString('rgb(0, 0, 0)')
+                    self::RESULT =>  Hex::fromInteger(0),
                 ],
-                Hex::fromInteger(0),
+                RGB::fromString('rgb(0, 0, 0)'),
             ],
         ];
     }
