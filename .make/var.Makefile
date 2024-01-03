@@ -16,7 +16,7 @@ _FILES = \
 	-f docker-compose.dev.${_DC_EXTENSION} \
 
 PROJECT_NAME=php-color
-PROJECT_SHORT_TITLE=🌈
+PROJECT_SHORT_TITLE=🎨
 
 # ------------------------------------------------------------------------------
 # Your variables here
