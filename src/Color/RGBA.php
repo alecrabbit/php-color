@@ -72,7 +72,7 @@ class RGBA extends RGB implements IRGBAColor
     {
         return
             sprintf(
-                static::FORMAT_RGBA,
+                (string)static::FORMAT_RGBA,
                 $this->getRed(),
                 $this->getGreen(),
                 $this->getBlue(),

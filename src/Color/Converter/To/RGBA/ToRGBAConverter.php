@@ -11,8 +11,8 @@ use AlecRabbit\Color\RGBA;
 class ToRGBAConverter extends AToConverter
 {
     /** @inheritDoc */
-    public static function getTargets(): iterable
+    public static function getTargets(): \Traversable
     {
-        return [RGBA::class, IRGBAColor::class];
+        return new \ArrayObject([RGBA::class, IRGBAColor::class]);
     }
 }

@@ -14,10 +14,10 @@ use Traversable;
 final readonly class Wrapper implements IWrapper
 {
     /** @var Traversable<IConvertableColor> */
-    private Traversable $to;
+    private Traversable $targets;
 
     /** @var Traversable<IConvertableColor> */
-    private Traversable $from;
+    private Traversable $sources;
 
     /** @var class-string<IToConverter> */
     private string $converter;
@@ -31,16 +31,20 @@ final readonly class Wrapper implements IWrapper
         string $converter,
         string $instantiator,
     ) {
+        self::assertConverter($converter);
+        
+        /** @var class-string<IToConverter> $converter */
+        $to = $converter::getTargets();
+        
         self::assertTo($to);
         self::assertFrom($from);
-        self::assertConverter($converter);
         self::assertInstantiator($instantiator);
 
         /** @var Traversable<IConvertableColor> $to */
-        $this->to = $to;
+        $this->targets = $to;
 
         /** @var Traversable<IConvertableColor> $from */
-        $this->from = $from;
+        $this->sources = $from;
 
         /** @var class-string<IToConverter> $converter */
         $this->converter = $converter;
@@ -135,7 +139,7 @@ final readonly class Wrapper implements IWrapper
     /** @inheritDoc */
     public function getTargets(): Traversable
     {
-        return $this->to;
+        return $this->targets;
     }
 
     /** @inheritDoc */

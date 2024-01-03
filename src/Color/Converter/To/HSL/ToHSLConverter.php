@@ -11,8 +11,8 @@ use AlecRabbit\Color\HSL;
 class ToHSLConverter extends AToConverter
 {
     /** @inheritDoc */
-    public static function getTargets(): iterable
+    public static function getTargets(): \Traversable
     {
-        return [HSL::class, IHSLColor::class];
+        return new \ArrayObject([HSL::class, IHSLColor::class]);
     }
 }

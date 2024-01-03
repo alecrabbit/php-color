@@ -11,8 +11,8 @@ use AlecRabbit\Color\HSLA;
 class ToHSLAConverter extends AToConverter
 {
     /** @inheritDoc */
-    public static function getTargets(): iterable
+    public static function getTargets(): \Traversable
     {
-        return [HSLA::class, IHSLAColor::class];
+        return new \ArrayObject([HSLA::class, IHSLAColor::class]);
     }
 }

@@ -11,8 +11,8 @@ use AlecRabbit\Color\RGB;
 class ToRGBConverter extends AToConverter
 {
     /** @inheritDoc */
-    public static function getTargets(): iterable
+    public static function getTargets(): \Traversable
     {
-        return [RGB::class, IRGBColor::class];
+        return new \ArrayObject([RGB::class, IRGBColor::class]);
     }
 }

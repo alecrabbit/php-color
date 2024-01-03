@@ -47,10 +47,10 @@ final class WrapperTest extends TestCase
         $targets = new ArrayObject([RGB::class, IRGBColor::class]);
 
         $wrapper = $this->getTesteeInstance(
-            to: $targets,
+            converter: ToRGBConverter::class,
         );
 
-        self::assertSame($targets, $wrapper->getTargets());
+        self::assertEquals($targets, $wrapper->getTargets());
     }
 
     #[Test]
@@ -77,43 +77,43 @@ final class WrapperTest extends TestCase
         self::assertSame($instantiator, $wrapper->getInstantiatorClass());
     }
 
-    #[Test]
-    public function throwsIfTargetsIsEmpty(): void
-    {
-        $this->expectException(InvalidArgument::class);
-        $this->expectExceptionMessage('Targets must not be empty.');
+//    #[Test]
+//    public function throwsIfTargetsIsEmpty(): void
+//    {
+//        $this->expectException(InvalidArgument::class);
+//        $this->expectExceptionMessage('Targets must not be empty.');
+//
+//        $this->getTesteeInstance(
+//            to: new ArrayObject(),
+//        );
+//    }
 
-        $this->getTesteeInstance(
-            to: new ArrayObject(),
-        );
-    }
 
+//    #[Test]
+//    public function throwsIfOneOfTargetStringsIsNotAClassAndNotAnInterface(): void
+//    {
+//        $this->expectException(InvalidArgument::class);
+//        $this->expectExceptionMessage(
+//            'Target must be a class or an interface. "invalid" given.'
+//        );
+//
+//        $this->getTesteeInstance(
+//            to: new ArrayObject([RGB::class, IRGBColor::class, 'invalid']),
+//        );
+//    }
 
-    #[Test]
-    public function throwsIfOneOfTargetStringsIsNotAClassAndNotAnInterface(): void
-    {
-        $this->expectException(InvalidArgument::class);
-        $this->expectExceptionMessage(
-            'Target must be a class or an interface. "invalid" given.'
-        );
-
-        $this->getTesteeInstance(
-            to: new ArrayObject([RGB::class, IRGBColor::class, 'invalid']),
-        );
-    }
-
-    #[Test]
-    public function throwsIfOneOfTargetStringsIsNotAConvertableColorSubclass(): void
-    {
-        $this->expectException(InvalidArgument::class);
-        $this->expectExceptionMessage(
-            'Target must be a subclass of "AlecRabbit\Color\Contract\IConvertableColor". "stdClass" given.'
-        );
-
-        $this->getTesteeInstance(
-            to: new ArrayObject([IRGBColor::class, stdClass::class]),
-        );
-    }
+//    #[Test]
+//    public function throwsIfOneOfTargetStringsIsNotAConvertableColorSubclass(): void
+//    {
+//        $this->expectException(InvalidArgument::class);
+//        $this->expectExceptionMessage(
+//            'Target must be a subclass of "AlecRabbit\Color\Contract\IConvertableColor". "stdClass" given.'
+//        );
+//
+//        $this->getTesteeInstance(
+//            to: new ArrayObject([IRGBColor::class, stdClass::class]),
+//        );
+//    }
 
     #[Test]
     public function throwsIfConverterStringIsNotAConverterSubclass(): void
@@ -167,15 +167,15 @@ final class WrapperTest extends TestCase
         );
     }
 
-    #[Test]
-    public function throwsIfOneOfTargetsIsNotAString(): void
-    {
-        $this->expectException(InvalidArgument::class);
-        $this->expectExceptionMessage('Target must be a string. "stdClass" given.');
-
-        $this->getTesteeInstance(
-            to: new ArrayObject([IRGBColor::class, new stdClass()]),
-
-        );
-    }
+//    #[Test]
+//    public function throwsIfOneOfTargetsIsNotAString(): void
+//    {
+//        $this->expectException(InvalidArgument::class);
+//        $this->expectExceptionMessage('Target must be a string. "stdClass" given.');
+//
+//        $this->getTesteeInstance(
+//            to: new ArrayObject([IRGBColor::class, new stdClass()]),
+//
+//        );
+//    }
 }

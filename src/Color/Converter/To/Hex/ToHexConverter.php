@@ -11,8 +11,8 @@ use AlecRabbit\Color\Hex;
 class ToHexConverter extends AToConverter
 {
     /** @inheritDoc */
-    public static function getTargets(): iterable
+    public static function getTargets(): \Traversable
     {
-        return [Hex::class, IHexColor::class];
+        return new \ArrayObject([Hex::class, IHexColor::class]);
     }
 }

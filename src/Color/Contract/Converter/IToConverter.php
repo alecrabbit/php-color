@@ -9,9 +9,9 @@ use AlecRabbit\Color\Contract\IConvertableColor;
 interface IToConverter
 {
     /**
-     * @return iterable<class-string<IConvertableColor>>
+     * @return \Traversable<class-string<IConvertableColor>>
      */
-    public static function getTargets(): iterable;
+    public static function getTargets(): \Traversable;
 
     public function convert(IConvertableColor $color): IConvertableColor;
 }

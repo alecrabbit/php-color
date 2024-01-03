@@ -24,12 +24,12 @@ class Hex extends ARGBValueColor implements IHexColor
 
     public static function fromInteger(int $value): IHexColor
     {
-        return new self(abs($value) & static::MAX);
+        return new self(abs($value) & (int)static::MAX);
     }
 
     public function toString(): string
     {
-        return sprintf(static::FORMAT_HEX, $this->getValue());
+        return sprintf((string)static::FORMAT_HEX, $this->getValue());
     }
 
     public function withRed(int $red): IHexColor

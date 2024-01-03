@@ -19,7 +19,7 @@ abstract class AToConverter implements IToConverter
     }
 
     /** @inheritDoc */
-    abstract public static function getTargets(): iterable;
+    abstract public static function getTargets(): \Traversable;
 
     public function convert(IConvertableColor $color): IConvertableColor
     {
