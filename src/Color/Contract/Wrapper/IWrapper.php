@@ -12,7 +12,7 @@ use Traversable;
 interface IWrapper
 {
     /**
-     * @return Traversable<IConvertableColor>
+     * @return Traversable<class-string<IConvertableColor>>
      */
     public function getTargets(): Traversable;
 
