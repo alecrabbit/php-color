@@ -270,14 +270,18 @@ final class RGBAGradientTest extends FactoryAwareTestCase
             end: array_shift($incoming),
         );
 
-        $generator = $this->getTesteeInstance(
+        $count = array_shift($incoming) ?? 2;
+
+        $gradient = $this->getTesteeInstance(
             range: $colorRange,
-            count: array_shift($incoming),
+            count: $count,
         );
 
-        $result = $generator->unwrap();
+        $result = iterator_to_array($gradient->unwrap());
 
-        self::assertEquals($expected, iterator_to_array($result));
+        self::assertEquals($expected, $result);
+        self::assertCount($count, $result);
+        self::assertEquals($count, $gradient->getCount());
     }
 
     #[Test]
@@ -286,7 +290,7 @@ final class RGBAGradientTest extends FactoryAwareTestCase
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage('Number of colors must be less than 5.');
 
-        $generator = $this->getTesteeInstance(
+        $gradient = $this->getTesteeInstance(
             count: 6,
             max: 5,
         );
@@ -300,11 +304,11 @@ final class RGBAGradientTest extends FactoryAwareTestCase
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage('Number of colors must be greater than 2.');
 
-        $generator = $this->getTesteeInstance(
+        $gradient = $this->getTesteeInstance(
             count: 1,
         );
 
-        $generator->getOne(1);
+        $gradient->getOne(1);
 
         self::fail('Exception was not thrown.');
     }
@@ -329,12 +333,12 @@ final class RGBAGradientTest extends FactoryAwareTestCase
             end: array_shift($args),
         );
 
-        $generator = $this->getTesteeInstance(
+        $gradient = $this->getTesteeInstance(
             range: $colorRange,
             count: array_shift($args),
         );
 
-        $result = $generator->getOne($index);
+        $result = $gradient->getOne($index);
 
         if ($expectedException) {
             self::fail(
