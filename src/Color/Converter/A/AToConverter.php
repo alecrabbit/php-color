@@ -10,6 +10,7 @@ use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
 use AlecRabbit\Color\Registry\Registry;
+use Traversable;
 
 abstract class AToConverter implements IToConverter
 {
@@ -19,7 +20,7 @@ abstract class AToConverter implements IToConverter
     }
 
     /** @inheritDoc */
-    abstract public static function getTargets(): \Traversable;
+    abstract public static function getTargets(): Traversable;
 
     public function convert(IConvertableColor $color): IConvertableColor
     {

@@ -32,10 +32,10 @@ final readonly class Wrapper implements IWrapper
         Traversable $from,
     ) {
         self::assertConverter($converter);
-        
+
         /** @var class-string<IToConverter> $converter */
         $to = $converter::getTargets();
-        
+
         self::assertTo($to);
         self::assertFrom($from);
         self::assertInstantiator($instantiator);
@@ -51,6 +51,33 @@ final readonly class Wrapper implements IWrapper
 
         /** @var class-string<IInstantiator> $instantiator */
         $this->instantiator = $instantiator;
+    }
+
+    private static function assertConverter(string $converter): void
+    {
+        if (!class_exists($converter)) {
+            throw new InvalidArgument(
+                sprintf(
+                    'Converter class "%s" does no exist.',
+                    $converter
+                )
+            );
+        }
+        if (!is_subclass_of($converter, IToConverter::class)) {
+            throw new InvalidArgument(
+                sprintf(
+                    'Converter class must be a subclass of "%s". "%s" given.',
+                    IToConverter::class,
+                    $converter,
+                )
+            );
+        }
+    }
+
+    /** @inheritDoc */
+    public function getTargets(): Traversable
+    {
+        return $this->targets;
     }
 
     private static function assertTo(Traversable $to): void
@@ -125,7 +152,7 @@ final readonly class Wrapper implements IWrapper
                     )
                 );
             }
-            if(!is_subclass_of($source, IConvertableColor::class)) {
+            if (!is_subclass_of($source, IConvertableColor::class)) {
                 throw new InvalidArgument(
                     sprintf(
                         'Source must be a subclass of "%s". "%s" given.',
@@ -134,27 +161,6 @@ final readonly class Wrapper implements IWrapper
                     )
                 );
             }
-        }
-    }
-
-    private static function assertConverter(string $converter): void
-    {
-        if (!class_exists($converter)) {
-            throw new InvalidArgument(
-                sprintf(
-                    'Converter class "%s" does no exist.',
-                    $converter
-                )
-            );
-        }
-        if (!is_subclass_of($converter, IToConverter::class)) {
-            throw new InvalidArgument(
-                sprintf(
-                    'Converter class must be a subclass of "%s". "%s" given.',
-                    IToConverter::class,
-                    $converter,
-                )
-            );
         }
     }
 
@@ -177,12 +183,6 @@ final readonly class Wrapper implements IWrapper
                 )
             );
         }
-    }
-
-    /** @inheritDoc */
-    public function getTargets(): Traversable
-    {
-        return $this->targets;
     }
 
     /** @inheritDoc */

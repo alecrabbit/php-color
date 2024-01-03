@@ -9,6 +9,7 @@ use AlecRabbit\Color\Contract\Converter\IRegistry;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
+use AlecRabbit\Color\Contract\Wrapper\IWrapper;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use RuntimeException;
 use Traversable;
@@ -92,6 +93,13 @@ final class Registry implements IRegistry
         };
     }
 
+    /** @inheritDoc */
+    public static function attach(IWrapper ...$wrappers): void
+    {
+        // TODO: Implement register() method.
+        throw new RuntimeException(__METHOD__ . ' Not implemented.');
+    }
+
     /**
      * @inheritDoc
      */
@@ -124,17 +132,9 @@ final class Registry implements IRegistry
         throw new RuntimeException(__METHOD__ . ' Not implemented.');
     }
 
-
     public function getInstantiator(string $color): IInstantiator
     {
         // TODO: Implement getInstantiator() method.
         throw new RuntimeException(__METHOD__ . ' Not implemented.');
-    }
-
-    /** @inheritDoc */
-    public static function attach(string ...$class): void
-    {
-        // TODO: Implement register() method.
-        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
     }
 }
