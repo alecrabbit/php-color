@@ -13,6 +13,8 @@ interface IRGBColor extends IConvertableColor,
                             IModifiableWithGreen,
                             IModifiableWithBlue
 {
+    public const FORMAT_RGB = 'rgb(%d, %d, %d)';
+
     public static function fromRGB(int $r, int $g, int $b): IRGBColor;
 
     public function withRed(int $red): IRGBColor;

@@ -30,7 +30,7 @@ class HSL extends AConvertableColor implements IHSLColor
     {
         return
             sprintf(
-                self::FORMAT_HSL,
+                static::FORMAT_HSL,
                 $this->hue,
                 round($this->saturation * 100),
                 round($this->lightness * 100),

@@ -6,6 +6,8 @@ namespace AlecRabbit\Color\Contract;
 
 interface IHSLAColor extends IHSLColor, IHasAlpha, IHasOpacity
 {
+    public const FORMAT_HSLA = 'hsla(%d, %s%%, %s%%, %s)';
+
     public static function fromHSLA(
         int $hue,
         float $saturation = 1.0,

@@ -31,7 +31,7 @@ class HSLA extends HSL implements IHSLAColor
     {
         return
             sprintf(
-                self::FORMAT_HSLA,
+                static::FORMAT_HSLA,
                 $this->hue,
                 round($this->saturation * 100),
                 round($this->lightness * 100),

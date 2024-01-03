@@ -48,7 +48,7 @@ class RGB extends ARGBValueColor implements IRGBColor
     {
         return
             sprintf(
-                self::FORMAT_RGB,
+                static::FORMAT_RGB,
                 $this->getRed(),
                 $this->getGreen(),
                 $this->getBlue(),

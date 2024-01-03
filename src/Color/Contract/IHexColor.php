@@ -13,6 +13,8 @@ interface IHexColor extends IConvertableColor,
                             IModifiableWithGreen,
                             IModifiableWithBlue
 {
+    public const FORMAT_HEX = '#%06x';
+
     public static function fromInteger(int $value): IHexColor;
 
     public static function fromRGB(int $r, int $g, int $b): IHexColor;
