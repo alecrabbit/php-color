@@ -9,7 +9,9 @@ use AlecRabbit\Color\Contract\Converter\IFromConverter;
 use AlecRabbit\Color\Contract\Converter\IRegistry;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Converter\To\HSLA\ToHSLAConverter;
+use AlecRabbit\Color\HSLA;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -35,6 +37,17 @@ final class ToHSLAConverterTest extends TestCase
     private function getConverterRegistryMock(): MockObject&IRegistry
     {
         return $this->createMock(IRegistry::class);
+    }
+
+    #[Test]
+    public function canGetTargets(): void
+    {
+        $class = ToHSLAConverter::class;
+        $targets = $class::getTargets();
+
+        self::assertCount(2, $targets);
+        self::assertContains(IHSLAColor::class, $targets);
+        self::assertContains(HSLA::class, $targets);
     }
 
     #[Test]

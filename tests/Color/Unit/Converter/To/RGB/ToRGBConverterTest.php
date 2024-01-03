@@ -9,7 +9,9 @@ use AlecRabbit\Color\Contract\Converter\IFromConverter;
 use AlecRabbit\Color\Contract\Converter\IRegistry;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Converter\To\RGB\ToRGBConverter;
+use AlecRabbit\Color\RGB;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -76,5 +78,16 @@ final class ToRGBConverterTest extends TestCase
     private function getFromConverterMock(): MockObject&IFromConverter
     {
         return $this->createMock(IFromConverter::class);
+    }
+
+    #[Test]
+    public function canGetTargets(): void
+    {
+        $class = ToRGBConverter::class;
+        $targets = $class::getTargets();
+
+        self::assertCount(2, $targets);
+        self::assertContains(IRGBColor::class, $targets);
+        self::assertContains(RGB::class, $targets);
     }
 }

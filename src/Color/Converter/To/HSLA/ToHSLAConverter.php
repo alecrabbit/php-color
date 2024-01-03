@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Converter\To\HSLA;
 
+use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Converter\A\AToConverter;
+use AlecRabbit\Color\HSLA;
 
 class ToHSLAConverter extends AToConverter
 {
-    protected static function getTargets(): iterable
+    /** @inheritDoc */
+    public static function getTargets(): iterable
     {
-        return [];
+        return [HSLA::class, IHSLAColor::class];
     }
 }

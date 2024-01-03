@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Converter\To\RGB;
 
+use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Converter\A\AToConverter;
+use AlecRabbit\Color\RGB;
 
 class ToRGBConverter extends AToConverter
 {
-    protected static function getTargets(): iterable
+    /** @inheritDoc */
+    public static function getTargets(): iterable
     {
-        return [];
+        return [RGB::class, IRGBColor::class];
     }
 }

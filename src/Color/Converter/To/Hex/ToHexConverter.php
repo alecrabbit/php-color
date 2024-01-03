@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Converter\To\Hex;
 
+use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Converter\A\AToConverter;
+use AlecRabbit\Color\Hex;
 
 class ToHexConverter extends AToConverter
 {
-    protected static function getTargets(): iterable
+    /** @inheritDoc */
+    public static function getTargets(): iterable
     {
-        return [];
+        return [Hex::class, IHexColor::class];
     }
 }
