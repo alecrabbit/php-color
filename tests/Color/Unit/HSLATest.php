@@ -75,28 +75,28 @@ class HSLATest extends TestCase
 
     public static function canBeConvertedToStringDataProvider(): iterable
     {
-        foreach (self::canBeConvertedToStringDataFeeder() as $item) {
-            [$resulting, $incoming] = $item;
+        foreach (self::stringAndHSLODataFeeder() as $item) {
+            [$left, $right] = $item;
             yield [
                 [
-                    self::RESULT => $resulting,
+                    self::RESULT => $left,
                 ],
                 [
                     self::VALUE => [
-                        self::HUE => $incoming[0],
-                        self::SATURATION => $incoming[1],
-                        self::LIGHTNESS => $incoming[2],
-                        self::OPACITY => $incoming[3],
+                        self::HUE => $right[0],
+                        self::SATURATION => $right[1],
+                        self::LIGHTNESS => $right[2],
+                        self::OPACITY => $right[3],
                     ],
                 ]
             ];
         }
     }
 
-    private static function canBeConvertedToStringDataFeeder(): iterable
+    private static function stringAndHSLODataFeeder(): iterable
     {
         yield from [
-            // (resulting), (incoming)[h, s, l, O]
+            // (left), (right)[h, s, l, O]
             ['hsla(124, 0%, 50%, 1)', [124, 0.0, 0.5, 1]],
             ['hsla(0, 0%, 0%, 1)', [0, 0, 0, 1]],
             ['hsla(350, 20%, 0%, 1)', [350, 0.2, 0, 1]],
@@ -112,19 +112,19 @@ class HSLATest extends TestCase
 
     public static function canBeCreatedFromStringDataProvider(): iterable
     {
-        foreach (self::canBeConvertedToStringDataFeeder() as $item) {
-            [$resulting, $incoming] = $item;
+        foreach (self::stringAndHSLODataFeeder() as $item) {
+            [$left, $right] = $item;
             yield [
                 [
                     self::RESULT => [
-                        self::HUE => $incoming[0],
-                        self::SATURATION => $incoming[1],
-                        self::LIGHTNESS => $incoming[2],
-                        self::OPACITY => $incoming[3],
+                        self::HUE => $right[0],
+                        self::SATURATION => $right[1],
+                        self::LIGHTNESS => $right[2],
+                        self::OPACITY => $right[3],
                     ],
                 ],
                 [
-                    self::VALUE => $resulting,
+                    self::VALUE => $left,
                 ]
             ];
         }

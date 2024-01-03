@@ -121,20 +121,20 @@ class RGBATest extends TestCase
 
     public static function canBeConvertedToStringDataProvider(): iterable
     {
-        foreach (self::canBeConvertedToStringDataFeeder() as $item) {
-            [$resulting, $incoming] = $item;
+        foreach (self::stringAndRGBADataFeeder() as $item) {
+            [$left, $right] = $item;
             yield [
                 [
                     self::RESULT => [
-                        self::VALUE => $resulting[0],
+                        self::VALUE => $left[0],
                     ]
                 ],
                 [
                     self::VALUE => [
-                        self::RED => $incoming[0],
-                        self::GREEN => $incoming[1],
-                        self::BLUE => $incoming[2],
-                        self::ALPHA => $incoming[3],
+                        self::RED => $right[0],
+                        self::GREEN => $right[1],
+                        self::BLUE => $right[2],
+                        self::ALPHA => $right[3],
                     ],
                 ]
             ];
@@ -162,10 +162,10 @@ class RGBATest extends TestCase
         self::assertSame($o, $testee->getOpacity());
     }
 
-    private static function canBeConvertedToStringDataFeeder(): iterable
+    private static function stringAndRGBADataFeeder(): iterable
     {
         yield from [
-            // (resulting)[string], (incoming)[r, g, b, alpha,]
+            // (left)[string], (right)[r, g, b, alpha,]
             [['rgba(254, 32, 22, 0.086)'], [254, 32, 22, 22,]],      // #0
             [['rgba(254, 32, 22, 1)'], [254, 32, 22, 255,]],         // #1
             [['rgba(254, 32, 22, 0)'], [254, 32, 22, 0,]],           // #2
