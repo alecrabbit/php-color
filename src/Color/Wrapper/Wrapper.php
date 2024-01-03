@@ -26,10 +26,9 @@ final readonly class Wrapper implements IWrapper
     private string $instantiator;
 
     public function __construct(
-        Traversable $to,
-        Traversable $from,
-        string $converter,
         string $instantiator,
+        string $converter,
+        Traversable $from,
     ) {
         self::assertConverter($converter);
         
