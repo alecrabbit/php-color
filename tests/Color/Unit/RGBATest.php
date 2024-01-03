@@ -140,6 +140,27 @@ class RGBATest extends TestCase
             ];
         }
     }
+    public static function canBeInstantiatedFromStringDataProvider(): iterable
+    {
+        yield from [
+            ['rgb(0, 0, 0)', 0, 0, 0, 1.0],
+            ['rgba(0, 0, 0, 1.0)', 0, 0, 0, 1.0],
+            ['rgba(0, 12, 33, 0.333)', 0, 12, 33, 0.329],
+            ['rgba(0, 0, 1, 1.0)', 0, 0, 1, 1.0],
+            ['rgb(0, 12, 1)', 0, 12, 1, 1.0],
+        ];
+    }
+
+    #[Test]
+    #[DataProvider('canBeInstantiatedFromStringDataProvider')]
+    public function canBeInstantiatedFromString(string $color, int $r, int $g, int $b, float $o): void
+    {
+        $testee = RGBA::fromString($color);
+        self::assertSame($r, $testee->getRed());
+        self::assertSame($g, $testee->getGreen());
+        self::assertSame($b, $testee->getBlue());
+        self::assertSame($o, $testee->getOpacity());
+    }
 
     private static function canBeConvertedToStringDataFeeder(): iterable
     {

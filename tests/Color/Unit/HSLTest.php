@@ -47,6 +47,9 @@ class HSLTest extends TestCase
             [[14, 0.0, 1.0], [14, 0, 2]],
             [[114, 0.5, 0.5,], [114, 0.5, 0.5]],
             [[359, 0.5, 0.5,], [-1, 0.5, 0.5]],
+            [[350, 0.5, 0.5,], [710, 0.5, 0.5]],
+            [[305, 0.5, 0.5,], [2345345, 0.5, 0.5]],
+            [[305, 1.0, 1.0,], [2345345, 15, 15]],
         ];
     }
 
@@ -82,9 +85,27 @@ class HSLTest extends TestCase
             ['hsl(350, 50%, 50%)', [350, 0.5, 0.5]],
             ['hsl(123, 39%, 89%)', [123, 0.39, 0.89]],
             ['hsl(123, 30%, 92%)', [123, 0.3, 0.92]],
-            ['hsl(350, 50%, 50%)', [710, 0.5, 0.5]],
             ['hsl(32, 34%, 100%)', [32, 0.34, 1]],
         ];
+    }
+
+    public static function canBeCreatedFromStringDataProvider(): iterable
+    {
+        foreach (self::canBeConvertedToStringDataFeeder() as $item) {
+            [$resulting, $incoming] = $item;
+            yield [
+                [
+                    self::RESULT => [
+                        self::HUE => $incoming[0],
+                        self::SATURATION => $incoming[1],
+                        self::LIGHTNESS => $incoming[2],
+                    ],
+                ],
+                [
+                    self::VALUE => $resulting,
+                ]
+            ];
+        }
     }
 
     public static function canBeCreatedFromDataProvider(): iterable
@@ -136,6 +157,22 @@ class HSLTest extends TestCase
         self::assertSame($result, $testee->toString());
     }
 
+    #[Test]
+    #[DataProvider('canBeCreatedFromStringDataProvider')]
+    public function canBeCreatedFromString(array $expected, array $incoming): void
+    {
+        $result = $expected[self::RESULT];
+        $hsl = $incoming[self::VALUE];
+        $testee = self::getTesteeFromString($hsl);
+        self::assertEquals($result[self::HUE], $testee->getHue());
+        self::assertEquals($result[self::SATURATION], $testee->getSaturation());
+        self::assertEquals($result[self::LIGHTNESS], $testee->getLightness());
+    }
+
+    private static function getTesteeFromString(string $hsl): IHSLColor
+    {
+        return HSL::fromString($hsl);
+    }
 
     #[Test]
     public function canBeModifiedWithHue(): void

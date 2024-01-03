@@ -82,7 +82,9 @@ abstract readonly class AGradient implements IGradient
         }
 
         if (!is_string($color)) {
+            // @codeCoverageIgnoreStart
             $color = $color->toString();
+            // @codeCoverageIgnoreEnd
         }
 
         return Color::fromString($color);

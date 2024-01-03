@@ -56,6 +56,9 @@ class HSLATest extends TestCase
             [[359, 0.5, 0.5, 1.0, 255], [-1, 0.5, 0.5, 2]],
             [[359, 0.5, 0.5, 0.0, 0], [-1, 0.5, 0.5, -1]],
             [[359, 0.0, 0.5, 0.0, 0], [-1, -0.5, 0.5, -1]],
+            [[350, 0.5, 0.5, 1.0, 255], [710, 0.5, 0.5, 1.0]],
+            [[305, 0.5, 0.5, 1.0, 255], [2345345, 0.5, 0.5, 1.0]],
+            [[305, 1.0, 1.0, 1.0, 255], [2345345, 15, 15, 1.0]],
         ];
     }
 
@@ -103,11 +106,46 @@ class HSLATest extends TestCase
             ['hsla(350, 50%, 50%, 1)', [350, 0.5, 0.5, 1]],
             ['hsla(123, 39%, 89%, 1)', [123, 0.39, 0.89, 1]],
             ['hsla(123, 30%, 92%, 1)', [123, 0.3, 0.92, 1]],
-            ['hsla(350, 50%, 50%, 1)', [710, 0.5, 0.5, 1]],
             ['hsla(32, 34%, 100%, 1)', [32, 0.34, 1, 1]],
         ];
     }
 
+    public static function canBeCreatedFromStringDataProvider(): iterable
+    {
+        foreach (self::canBeConvertedToStringDataFeeder() as $item) {
+            [$resulting, $incoming] = $item;
+            yield [
+                [
+                    self::RESULT => [
+                        self::HUE => $incoming[0],
+                        self::SATURATION => $incoming[1],
+                        self::LIGHTNESS => $incoming[2],
+                        self::OPACITY => $incoming[3],
+                    ],
+                ],
+                [
+                    self::VALUE => $resulting,
+                ]
+            ];
+        }
+    }
+
+    #[Test]
+    #[DataProvider('canBeCreatedFromStringDataProvider')]
+    public function canBeCreatedFromString(array $expected, array $incoming): void
+    {
+        $result = $expected[self::RESULT];
+        $hsla = $incoming[self::VALUE];
+        $testee = self::getTesteeFromString($hsla);
+        self::assertEquals($result[self::HUE], $testee->getHue());
+        self::assertEquals($result[self::SATURATION], $testee->getSaturation());
+        self::assertEquals($result[self::LIGHTNESS], $testee->getLightness());
+        self::assertEquals($result[self::OPACITY], $testee->getOpacity());
+    }
+    private static function getTesteeFromString(string $hsla): IHSLAColor
+    {
+        return HSLA::fromString($hsla);
+    }
     #[Test]
     #[DataProvider('canBeCreatedFromHSLADataProvider')]
     public function canBeCreatedFromHSLA(array $expected, array $incoming): void
