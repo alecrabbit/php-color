@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Contract\Wrapper;
 
+use AlecRabbit\Color\Contract\Converter\IFromConverter;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
@@ -15,6 +16,11 @@ interface IWrapper
      * @return Traversable<class-string<IConvertableColor>>
      */
     public function getTargets(): Traversable;
+
+    /**
+     * @return Traversable<class-string<IConvertableColor>, class-string<IFromConverter>>
+     */
+    public function getSources(): Traversable;
 
     /**
      * @return class-string<IToConverter>

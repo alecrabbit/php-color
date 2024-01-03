@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Wrapper;
 
+use AlecRabbit\Color\Contract\Converter\IFromConverter;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
@@ -90,7 +91,50 @@ final readonly class Wrapper implements IWrapper
 
     private static function assertFrom(Traversable $from): void
     {
-        // TODO (2023-12-29 17:55) [Alec Rabbit]: implement
+        foreach ($from as $source => $converter) {
+            if (!is_string($source)) {
+                throw new InvalidArgument(
+                    sprintf(
+                        'Source must be a string. "%s" given.',
+                        get_debug_type($source)
+                    )
+                );
+            }
+            if (!is_string($converter)) {
+                throw new InvalidArgument(
+                    sprintf(
+                        'Source converter must be a string. "%s" given.',
+                        get_debug_type($converter)
+                    )
+                );
+            }
+            if (!class_exists($converter)) {
+                throw new InvalidArgument(
+                    sprintf(
+                        'Source must be a class-string. "%s" given.',
+                        $converter
+                    )
+                );
+            }
+            if (!is_subclass_of($converter, IFromConverter::class)) {
+                throw new InvalidArgument(
+                    sprintf(
+                        'Source converter must be a subclass of "%s". "%s" given.',
+                        IFromConverter::class,
+                        $converter
+                    )
+                );
+            }
+            if(!is_subclass_of($source, IConvertableColor::class)) {
+                throw new InvalidArgument(
+                    sprintf(
+                        'Source must be a subclass of "%s". "%s" given.',
+                        IConvertableColor::class,
+                        $source
+                    )
+                );
+            }
+        }
     }
 
     private static function assertConverter(string $converter): void
@@ -151,5 +195,11 @@ final readonly class Wrapper implements IWrapper
     public function getInstantiatorClass(): string
     {
         return $this->instantiator;
+    }
+
+    /** @inheritDoc */
+    public function getSources(): Traversable
+    {
+        return $this->sources;
     }
 }
