@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 // @codeCoverageIgnoreStart
 
+use AlecRabbit\Color\Contract\IHex8Color;
 use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Contract\IHSLColor;
@@ -11,9 +12,12 @@ use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Converter\From\NoOpConverter;
 use AlecRabbit\Color\Converter\To;
+use AlecRabbit\Color\Factory\InstantiatorFactory;
 use AlecRabbit\Color\Hex;
+use AlecRabbit\Color\Hex8;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
+use AlecRabbit\Color\Instantiator\Hex8Instantiator;
 use AlecRabbit\Color\Instantiator\HexInstantiator;
 use AlecRabbit\Color\Instantiator\HSLAInstantiator;
 use AlecRabbit\Color\Instantiator\HSLInstantiator;
@@ -39,6 +43,24 @@ Package::add(
             HSL::class => To\Hex\From\FromHSLConverter::class,
             IHSLAColor::class => To\Hex\From\FromHSLConverter::class,
             HSLA::class => To\Hex\From\FromHSLConverter::class,
+        ]),
+    ),
+    new Wrapper(
+        instantiator: Hex8Instantiator::class,
+        converter: To\Hex8\ToHex8Converter::class,
+        from: new ArrayObject([
+            IHex8Color::class => NoOpConverter::class,
+            Hex8::class => NoOpConverter::class,
+            IHexColor::class => To\Hex8\From\FromRGBConverter::class,
+            Hex::class => To\Hex8\From\FromRGBConverter::class,
+            IRGBAColor::class => To\Hex8\From\FromRGBConverter::class,
+            RGBA::class => To\Hex8\From\FromRGBConverter::class,
+            IRGBColor::class => To\Hex8\From\FromRGBConverter::class,
+            RGB::class => To\Hex8\From\FromRGBConverter::class,
+            IHSLColor::class => To\Hex8\From\FromHSLConverter::class,
+            HSL::class => To\Hex8\From\FromHSLConverter::class,
+            IHSLAColor::class => To\Hex8\From\FromHSLConverter::class,
+            HSLA::class => To\Hex8\From\FromHSLConverter::class,
         ]),
     ),
     new Wrapper(
