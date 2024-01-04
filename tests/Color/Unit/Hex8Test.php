@@ -343,5 +343,53 @@ class Hex8Test extends TestCase
         self::assertSame(0x00, $testee->getBlue());
         self::assertSame(0xFF, $modifiedBlue->getBlue());
     }
+    #[Test]
+    public function canBeModifiedWithRed(): void
+    {
+        $original = Hex8::fromRGBA(0x00, 0x00, 0x00);
+        $modified = $original->withRed(0xFF);
+        self::assertSame(0xFF, $modified->getRed());
+        self::assertSame(0x00, $original->getRed());
+        self::assertNotSame($original, $modified);
+    }
 
+    #[Test]
+    public function canBeModifiedWithGreen(): void
+    {
+        $original = Hex8::fromRGBA(0x00, 0x00, 0x00);
+        $modified = $original->withGreen(0xFF);
+        self::assertSame(0xFF, $modified->getGreen());
+        self::assertSame(0x00, $original->getGreen());
+        self::assertNotSame($original, $modified);
+    }
+
+    #[Test]
+    public function canBeModifiedWithBlue(): void
+    {
+        $original = Hex8::fromRGBA(0x00, 0x00, 0x00);
+        $modified = $original->withBlue(0xFF);
+        self::assertSame(0xFF, $modified->getBlue());
+        self::assertSame(0x00, $original->getBlue());
+        self::assertNotSame($original, $modified);
+    }
+
+    #[Test]
+    public function canBeModifiedWithAlpha(): void
+    {
+        $original = Hex8::fromRGBA(0x00, 0x00, 0x00, 0x00);
+        $modified = $original->withAlpha(0xFF);
+        self::assertSame(0xFF, $modified->getAlpha());
+        self::assertSame(0x00, $original->getAlpha());
+        self::assertNotSame($original, $modified);
+    }
+
+    #[Test]
+    public function canBeModifiedWithOpacity(): void
+    {
+        $original = Hex8::fromRGBA(0x00, 0x00, 0x00, 0xFF);
+        $modified = $original->withOpacity(0.5);
+        self::assertEquals(0.498, $modified->getOpacity());
+        self::assertEquals(1.0, $original->getOpacity());
+        self::assertNotSame($original, $modified);
+    }
 }
