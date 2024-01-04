@@ -19,7 +19,7 @@ class Hex extends ARGBValueColor implements IHexColor
          * @noinspection PhpIncompatibleReturnTypeInspection
          * @psalm-suppress LessSpecificReturnStatement
          */
-        return parent::fromString($color)->to(self::class);
+        return self::getFromString($color)->to(IHexColor::class);
     }
 
     public static function fromInteger(int $value): IHexColor

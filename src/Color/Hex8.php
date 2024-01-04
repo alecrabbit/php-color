@@ -28,29 +28,12 @@ class Hex8 extends Hex implements IHex8Color
          * @noinspection PhpIncompatibleReturnTypeInspection
          * @psalm-suppress LessSpecificReturnStatement
          */
-        return parent::fromString($color)->to(self::class);
+        return self::getFromString($color)->to(IHex8Color::class);
     }
 
     public static function fromInteger(int $value): IHex8Color
     {
         return new self((abs($value) & (int)static::MAX) >> 8, $value & 0x000000FF);
-    }
-
-    public static function fromRGBA(int $r, int $g, int $b, int $alpha = 0xFF): IHex8Color
-    {
-        return
-            new self(
-                self::componentsToValue($r, $g, $b),
-                (abs($alpha) & self::COMPONENT)
-            );
-    }
-
-    public static function fromRGBO(int $r, int $g, int $b, float $opacity = 1.0): IHex8Color
-    {
-        $alpha = (int)(abs($opacity) * self::COMPONENT) & self::COMPONENT;
-
-        return
-            self::fromRGBA($r, $g, $b, $alpha);
     }
 
     public function toString(): string
@@ -94,13 +77,30 @@ class Hex8 extends Hex implements IHex8Color
 
     public function withAlpha(int $alpha): IHex8Color
     {
-        // TODO: Implement withAlpha() method.
-        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
+        return
+            self::fromRGBA($this->getRed(), $this->getGreen(), $this->getBlue(), $alpha);
+    }
+
+    public static function fromRGBA(int $r, int $g, int $b, int $alpha = 0xFF): IHex8Color
+    {
+        return
+            new self(
+                self::componentsToValue($r, $g, $b),
+                (abs($alpha) & self::COMPONENT)
+            );
     }
 
     public function withOpacity(float $opacity): IHex8Color
     {
-        // TODO: Implement withOpacity() method.
-        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
+        return
+            self::fromRGBO($this->getRed(), $this->getGreen(), $this->getBlue(), $opacity);
+    }
+
+    public static function fromRGBO(int $r, int $g, int $b, float $opacity = 1.0): IHex8Color
+    {
+        $alpha = (int)(abs($opacity) * self::COMPONENT) & self::COMPONENT;
+
+        return
+            self::fromRGBA($r, $g, $b, $alpha);
     }
 }
