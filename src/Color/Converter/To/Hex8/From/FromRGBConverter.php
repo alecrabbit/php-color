@@ -8,11 +8,9 @@ use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\IHasAlpha;
 use AlecRabbit\Color\Contract\IHasBlue;
 use AlecRabbit\Color\Contract\IHasGreen;
-use AlecRabbit\Color\Contract\IHasOpacity;
 use AlecRabbit\Color\Contract\IHasRed;
 use AlecRabbit\Color\Converter\A\AFromConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\Hex8;
 
 class FromRGBConverter extends AFromConverter
@@ -22,10 +20,8 @@ class FromRGBConverter extends AFromConverter
         return [];
     }
 
-    protected static function assertColor
-    (
-        mixed $color
-    ): void {
+    protected static function assertColor(mixed $color): void
+    {
         match (true) {
             $color instanceof IHasRed && $color instanceof IHasGreen && $color instanceof IHasBlue => null,
             default => throw new InvalidArgument(

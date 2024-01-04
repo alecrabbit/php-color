@@ -12,7 +12,6 @@ use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Converter\From\NoOpConverter;
 use AlecRabbit\Color\Converter\To;
-use AlecRabbit\Color\Factory\InstantiatorFactory;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\Hex8;
 use AlecRabbit\Color\HSL;

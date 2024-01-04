@@ -18,10 +18,8 @@ class FromHSLConverter extends AFromConverter
         return [];
     }
 
-    protected static function assertColor
-    (
-        mixed $color
-    ): void {
+    protected static function assertColor(mixed $color): void
+    {
         match (true) {
             $color instanceof IHSLColor => null,
             default => throw new InvalidArgument(

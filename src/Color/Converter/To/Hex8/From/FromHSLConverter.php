@@ -10,7 +10,6 @@ use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Converter\A\AFromConverter;
 use AlecRabbit\Color\Converter\CoreConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\Hex8;
 
 class FromHSLConverter extends AFromConverter
@@ -20,10 +19,8 @@ class FromHSLConverter extends AFromConverter
         return [];
     }
 
-    protected static function assertColor
-    (
-        mixed $color
-    ): void {
+    protected static function assertColor(mixed $color): void
+    {
         match (true) {
             $color instanceof IHSLColor => null,
             default => throw new InvalidArgument(
