@@ -7,6 +7,7 @@ namespace AlecRabbit\Tests\Color\Functional\Instantiator;
 use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Exception\UnrecognizedColorString;
+use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\Instantiator\HSLInstantiator;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -21,7 +22,9 @@ class HSLInstantiatorTest extends TestCase
             [[22, 1.0, 0.5], 'hsl(22, 100%, 50%)'],
             [[64, 0.12, 0.14], 'hsl(64, 12%, 14%)'],
             [[0, 0.0, 0.0], 'hsl(0, 0%, 0%)'],
+            [[0, 0.0, 0.0], 'hsl(0 0% 0%)'],
             [[360, 1.0, 0.5], 'hsl(360, 100%, 50%)'],
+            [[360, 1.0, 0.5], 'hsl(360 100% 50%)'],
         ];
     }
 
@@ -32,6 +35,7 @@ class HSLInstantiatorTest extends TestCase
             [[56, 1.0, 0.5, 1.0, 255], 'hsla(56, 100%, 50%, 1)'],
             [[56, 1.0, 0.5, 0.0, 0], 'hsla(56, 100%, 50%, 0)'],
             [[56, 1.0, 0.0, 0.0, 0], 'hsla(56, 100%, 0%, 0)'],
+            [[56, 1.0, 0.0, 0.0, 0], 'hsl(56 100% 0% / 0)'],
             [[22, 0.0, 0.0, 0.0, 0], 'hsla(22, 0%, 0%, 0)'],
             [[33, 0.24, 0.47, 1.0, 255], 'hsla(33, 24%, 47%, 1)'],
             [[2, 0.79, 0.47, 0.0, 0], 'hsla(2, 79%, 47%, 0)'],
@@ -49,7 +53,7 @@ class HSLInstantiatorTest extends TestCase
         $instantiator = $this->getTesteeInstance();
 
         $color = $instantiator->fromString($incoming);
-        self::assertInstanceOf(IHSLColor::class, $color);
+        self::assertInstanceOf(HSL::class, $color);
         self::assertSame($h, $color->getHue());
         self::assertSame($s, $color->getSaturation());
         self::assertSame($l, $color->getLightness());

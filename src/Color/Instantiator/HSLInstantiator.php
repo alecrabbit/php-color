@@ -10,12 +10,12 @@ use AlecRabbit\Color\Instantiator\A\AInstantiator;
 
 class HSLInstantiator extends AInstantiator
 {
-    protected const REGEXP_HSL = '/^hsl\((\d+),\s*(\d+)%,\s*(\d+)%\)$/';
+    protected const REGEXP_HSLA = '/^hsla?\((\d+)(?:,\s*|\s*)(\d+)%(?:,\s*|\s*)(\d+)%(?:(?:,\s*|\s\/\s)(?:([\d.]+)|(\d+)%))?\)$/';
     protected const PRECISION = 2;
 
     protected function instantiate(string $color): ?IConvertableColor
     {
-        if (self::canInstantiate($color) && preg_match(self::REGEXP_HSL, $color, $matches)) {
+        if (self::canInstantiate($color) && preg_match(self::REGEXP_HSLA, $color, $matches)) {
             return
                 HSL::fromHSL(
                     (int)$matches[1],
@@ -29,6 +29,6 @@ class HSLInstantiator extends AInstantiator
 
     protected static function canInstantiate(string $color): bool
     {
-        return str_contains($color, 'hsl(');
+        return str_starts_with($color, 'hsl(') && !str_contains($color, '/');
     }
 }
