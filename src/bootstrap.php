@@ -32,8 +32,6 @@ Package::add(
         instantiator: HexInstantiator::class,
         converter: To\Hex\ToHexConverter::class,
         from: new ArrayObject([
-            IHexColor::class => NoOpConverter::class,
-            Hex::class => NoOpConverter::class,
             IRGBAColor::class => To\Hex\From\FromRGBConverter::class,
             RGBA::class => To\Hex\From\FromRGBConverter::class,
             IRGBColor::class => To\Hex\From\FromRGBConverter::class,
@@ -48,8 +46,6 @@ Package::add(
         instantiator: Hex8Instantiator::class,
         converter: To\Hex8\ToHex8Converter::class,
         from: new ArrayObject([
-            IHex8Color::class => NoOpConverter::class,
-            Hex8::class => NoOpConverter::class,
             IHexColor::class => To\Hex8\From\FromRGBConverter::class,
             Hex::class => To\Hex8\From\FromRGBConverter::class,
             IRGBAColor::class => To\Hex8\From\FromRGBConverter::class,
@@ -66,8 +62,6 @@ Package::add(
         instantiator: RGBInstantiator::class,
         converter: To\RGB\ToRGBConverter::class,
         from: new ArrayObject([
-            IRGBColor::class => NoOpConverter::class,
-            RGB::class => NoOpConverter::class,
             IRGBAColor::class => To\RGB\From\FromRGBConverter::class,
             RGBA::class => To\RGB\From\FromRGBConverter::class,
             IHexColor::class => To\RGB\From\FromRGBConverter::class,
@@ -82,8 +76,6 @@ Package::add(
         instantiator: RGBAInstantiator::class,
         converter: To\RGBA\ToRGBAConverter::class,
         from: new ArrayObject([
-            IRGBAColor::class => NoOpConverter::class,
-            RGBA::class => NoOpConverter::class,
             IRGBColor::class => To\RGBA\From\FromRGBConverter::class,
             RGB::class => To\RGBA\From\FromRGBConverter::class,
             IHexColor::class => To\RGBA\From\FromRGBConverter::class,
@@ -98,8 +90,6 @@ Package::add(
         instantiator: HSLInstantiator::class,
         converter: To\HSL\ToHSLConverter::class,
         from: new ArrayObject([
-            IHSLColor::class => NoOpConverter::class,
-            HSL::class => NoOpConverter::class,
             IHexColor::class => To\HSL\From\FromRGBConverter::class,
             Hex::class => To\HSL\From\FromRGBConverter::class,
             IRGBAColor::class => To\HSL\From\FromRGBConverter::class,
@@ -114,8 +104,6 @@ Package::add(
         instantiator: HSLAInstantiator::class,
         converter: To\HSLA\ToHSLAConverter::class,
         from: new ArrayObject([
-            IHSLAColor::class => NoOpConverter::class,
-            HSLA::class => NoOpConverter::class,
             IHexColor::class => To\HSLA\From\FromRGBConverter::class,
             Hex::class => To\HSLA\From\FromRGBConverter::class,
             IRGBAColor::class => To\HSLA\From\FromRGBConverter::class,

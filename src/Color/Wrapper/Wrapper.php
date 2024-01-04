@@ -9,6 +9,7 @@ use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Contract\Wrapper\IWrapper;
+use AlecRabbit\Color\Converter\From\NoOpConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use Traversable;
 
@@ -17,7 +18,7 @@ final readonly class Wrapper implements IWrapper
     /** @var Traversable<class-string<IConvertableColor>> */
     private Traversable $targets;
 
-    /** @var Traversable<class-string<IConvertableColor>> */
+    /** @var Traversable<class-string<IConvertableColor>, class-string<IFromConverter>> */
     private Traversable $sources;
 
     /** @var class-string<IToConverter> */
@@ -43,8 +44,7 @@ final readonly class Wrapper implements IWrapper
         /** @var Traversable<class-string<IConvertableColor>> $to */
         $this->targets = $to;
 
-        /** @var Traversable<class-string<IConvertableColor>> $from */
-        $this->sources = $from;
+        $this->sources = $this->refineFrom($from);
 
         /** @var class-string<IToConverter> $converter */
         $this->converter = $converter;
@@ -119,48 +119,8 @@ final readonly class Wrapper implements IWrapper
     private static function assertFrom(Traversable $from): void
     {
         foreach ($from as $source => $converter) {
-            if (!is_string($source)) {
-                throw new InvalidArgument(
-                    sprintf(
-                        'Source must be a string. "%s" given.',
-                        get_debug_type($source)
-                    )
-                );
-            }
-            if (!is_string($converter)) {
-                throw new InvalidArgument(
-                    sprintf(
-                        'Source converter must be a string. "%s" given.',
-                        get_debug_type($converter)
-                    )
-                );
-            }
-            if (!class_exists($converter)) {
-                throw new InvalidArgument(
-                    sprintf(
-                        'Source must be a class-string. "%s" given.',
-                        $converter
-                    )
-                );
-            }
-            if (!is_subclass_of($converter, IFromConverter::class)) {
-                throw new InvalidArgument(
-                    sprintf(
-                        'Source converter must be a subclass of "%s". "%s" given.',
-                        IFromConverter::class,
-                        $converter
-                    )
-                );
-            }
-            if (!is_subclass_of($source, IConvertableColor::class)) {
-                throw new InvalidArgument(
-                    sprintf(
-                        'Source must be a subclass of "%s". "%s" given.',
-                        IConvertableColor::class,
-                        $source
-                    )
-                );
-            }
+            self::assertFromConverter($converter);
+            self::assertSource($source);
         }
     }
 
@@ -180,6 +140,67 @@ final readonly class Wrapper implements IWrapper
                     'Instantiator class must be a subclass of "%s". "%s" given.',
                     IInstantiator::class,
                     $instantiator,
+                )
+            );
+        }
+    }
+
+    /**
+     * @return Traversable<class-string<IConvertableColor>, class-string<IFromConverter>>
+     */
+    private function refineFrom(Traversable $from): Traversable
+    {
+        yield from $from;
+        foreach ($this->targets as $target) {
+            yield $target => NoOpConverter::class;
+        }
+    }
+
+    private static function assertFromConverter(mixed $converter): void
+    {
+        if (!is_string($converter)) {
+            throw new InvalidArgument(
+                sprintf(
+                    'Source converter must be a string. "%s" given.',
+                    get_debug_type($converter)
+                )
+            );
+        }
+        if (!class_exists($converter)) {
+            throw new InvalidArgument(
+                sprintf(
+                    'Source must be a class-string. "%s" given.',
+                    $converter
+                )
+            );
+        }
+        if (!is_subclass_of($converter, IFromConverter::class)) {
+            throw new InvalidArgument(
+                sprintf(
+                    'Source converter must be a subclass of "%s". "%s" given.',
+                    IFromConverter::class,
+                    $converter
+                )
+            );
+        }
+    }
+
+    private static function assertSource(mixed $source): void
+    {
+        if (!is_string($source)) {
+            throw new InvalidArgument(
+                sprintf(
+                    'Source must be a string. "%s" given.',
+                    get_debug_type($source)
+                )
+            );
+        }
+        if (!is_subclass_of($source, IConvertableColor::class)) {
+            throw new InvalidArgument(
+                sprintf(
+                    'Source must be a subclass of "%s". "%s" given.',
+                    IConvertableColor::class,
+                    $source
                 )
             );
         }
