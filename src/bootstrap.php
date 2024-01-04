@@ -10,7 +10,6 @@ use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Contract\IRGBColor;
-use AlecRabbit\Color\Converter\From\NoOpConverter;
 use AlecRabbit\Color\Converter\To;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\Hex8;
@@ -66,6 +65,8 @@ Package::add(
             RGBA::class => To\RGB\From\FromRGBConverter::class,
             IHexColor::class => To\RGB\From\FromRGBConverter::class,
             Hex::class => To\RGB\From\FromRGBConverter::class,
+            IHex8Color::class => To\RGB\From\FromRGBConverter::class,
+            Hex8::class => To\RGB\From\FromRGBConverter::class,
             IHSLColor::class => To\RGB\From\FromHSLConverter::class,
             HSL::class => To\RGB\From\FromHSLConverter::class,
             IHSLAColor::class => To\RGB\From\FromHSLConverter::class,
@@ -80,6 +81,8 @@ Package::add(
             RGB::class => To\RGBA\From\FromRGBConverter::class,
             IHexColor::class => To\RGBA\From\FromRGBConverter::class,
             Hex::class => To\RGBA\From\FromRGBConverter::class,
+            IHex8Color::class => To\RGBA\From\FromRGBConverter::class,
+            Hex8::class => To\RGBA\From\FromRGBConverter::class,
             IHSLColor::class => To\RGBA\From\FromHSLConverter::class,
             HSL::class => To\RGBA\From\FromHSLConverter::class,
             IHSLAColor::class => To\RGBA\From\FromHSLConverter::class,
@@ -92,6 +95,8 @@ Package::add(
         from: new ArrayObject([
             IHexColor::class => To\HSL\From\FromRGBConverter::class,
             Hex::class => To\HSL\From\FromRGBConverter::class,
+            IHex8Color::class => To\HSL\From\FromRGBConverter::class,
+            Hex8::class => To\HSL\From\FromRGBConverter::class,
             IRGBAColor::class => To\HSL\From\FromRGBConverter::class,
             RGBA::class => To\HSL\From\FromRGBConverter::class,
             IRGBColor::class => To\HSL\From\FromRGBConverter::class,
@@ -106,6 +111,8 @@ Package::add(
         from: new ArrayObject([
             IHexColor::class => To\HSLA\From\FromRGBConverter::class,
             Hex::class => To\HSLA\From\FromRGBConverter::class,
+            IHex8Color::class => To\HSLA\From\FromRGBConverter::class,
+            Hex8::class => To\HSLA\From\FromRGBConverter::class,
             IRGBAColor::class => To\HSLA\From\FromRGBConverter::class,
             RGBA::class => To\HSLA\From\FromRGBConverter::class,
             IRGBColor::class => To\HSLA\From\FromRGBConverter::class,
