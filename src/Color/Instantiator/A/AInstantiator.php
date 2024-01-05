@@ -43,4 +43,11 @@ abstract class AInstantiator implements IInstantiator
     }
 
     abstract protected function instantiate(string $color): ?IColor;
+
+    /** @inheritDoc */
+    public static function instantiates(): string
+    {
+        // TODO: Implement instantiates() method.
+        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
+    }
 }

@@ -17,7 +17,7 @@ class CoreConverter implements ICoreConverter
     ) {
     }
 
-    public function hslToRgb(int $hue, float $saturation, float $lightness): RGB
+    public function hslToRgb(int $hue, float $saturation, float $lightness, float $alpha = 1.0): RGB
     {
         $h = $hue / 360;
         $c = (1 - abs(2 * $lightness - 1)) * $saturation;
@@ -41,10 +41,11 @@ class CoreConverter implements ICoreConverter
                 (int)round(($r + $m) * 255),
                 (int)round(($g + $m) * 255),
                 (int)round(($b + $m) * 255),
+                round($alpha, $this->precision),
             );
     }
 
-    public function rgbToHsl(int $red, int $green, int $blue): HSL
+    public function rgbToHsl(int $red, int $green, int $blue, float $alpha = 1.0): HSL
     {
         $r = $red / 255;
         $g = $green / 255;
@@ -75,6 +76,7 @@ class CoreConverter implements ICoreConverter
             (int)round($h * 360),
             round($s, $this->precision),
             round($l, $this->precision),
+            round($alpha, $this->precision),
         );
     }
 }

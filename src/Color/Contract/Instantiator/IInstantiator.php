@@ -10,5 +10,10 @@ interface IInstantiator
 {
     public static function isSupported(string $color): bool;
 
+    /**
+     * @return class-string<IColor>
+     */
+    public static function instantiates(): string;
+
     public function fromString(string $color): IColor;
 }
