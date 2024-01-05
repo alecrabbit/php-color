@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color\DTO;
+namespace AlecRabbit\Color\Model\DTO;
 
-use AlecRabbit\Color\Contract\DTO\IColorDTO;
+use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
 
 /**
  * @codeCoverageIgnore

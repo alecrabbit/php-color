@@ -9,6 +9,7 @@ use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
+use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelRGB;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
@@ -366,5 +367,19 @@ class RGBATest extends TestCase
         $testee = RGBA::fromRGBA(0x00, 0x00, 0x00);
 
         self::assertInstanceOf(ModelRGB::class, $testee->getColorModel());
+    }
+
+    #[Test]
+    public function canToDTO(): void
+    {
+        $testee = RGBA::fromRGBO(0x01, 0x02, 0x03, 0.5);
+
+        $dto = $testee->toDTO();
+
+        self::assertInstanceOf(DRGB::class, $dto);
+        self::assertSame(1, $dto->red);
+        self::assertSame(2, $dto->green);
+        self::assertSame(3, $dto->blue);
+        self::assertSame(0.498, $dto->alpha);
     }
 }

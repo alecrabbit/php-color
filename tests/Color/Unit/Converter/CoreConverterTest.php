@@ -7,8 +7,8 @@ namespace AlecRabbit\Tests\Color\Unit\Converter;
 
 use AlecRabbit\Color\Contract\Converter\ICoreConverter;
 use AlecRabbit\Color\Converter\CoreConverter;
-use AlecRabbit\Color\DTO\DHSL;
-use AlecRabbit\Color\DTO\DRGB;
+use AlecRabbit\Color\Model\DTO\DHSL;
+use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;

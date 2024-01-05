@@ -7,6 +7,7 @@ namespace AlecRabbit\Tests\Color\Unit;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\HSL;
+use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\ModelHSL;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -222,10 +223,11 @@ class HSLTest extends TestCase
         self::assertSame(0.24, $modified->getLightness());
         self::assertNotSame($original, $modified);
     }
+
     #[Test]
     public function canGetColorModel(): void
     {
-        $testee =self::getTesteeFromHSL(
+        $testee = self::getTesteeFromHSL(
             [
                 self::HUE => 0,
                 self::SATURATION => 0,
@@ -234,5 +236,25 @@ class HSLTest extends TestCase
         );
 
         self::assertInstanceOf(ModelHSL::class, $testee->getColorModel());
+    }
+
+    #[Test]
+    public function canToDTO(): void
+    {
+        $testee = self::getTesteeFromHSL(
+            [
+                self::HUE => 1,
+                self::SATURATION => 0.1,
+                self::LIGHTNESS => 0.2,
+            ]
+        );
+
+        $dto = $testee->toDTO();
+
+        self::assertInstanceOf(DHSL::class, $dto);
+        self::assertSame(1, $dto->hue);
+        self::assertSame(0.1, $dto->saturation);
+        self::assertSame(0.2, $dto->lightness);
+        self::assertSame(1.0, $dto->alpha);
     }
 }

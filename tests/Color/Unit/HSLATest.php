@@ -9,6 +9,7 @@ use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
+use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\ModelHSL;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
@@ -290,5 +291,26 @@ class HSLATest extends TestCase
         );
 
         self::assertInstanceOf(ModelHSL::class, $testee->getColorModel());
+    }
+
+    #[Test]
+    public function canToDTO(): void
+    {
+        $testee = self::getTesteeFromHSLA(
+            [
+                self::HUE => 3,
+                self::SATURATION => 0.1,
+                self::LIGHTNESS => 0.2,
+                self::OPACITY => 0,
+            ]
+        );
+
+        $dto = $testee->toDTO();
+
+        self::assertInstanceOf(DHSL::class, $dto);
+        self::assertSame(3, $dto->hue);
+        self::assertSame(0.1, $dto->saturation);
+        self::assertSame(0.2, $dto->lightness);
+        self::assertSame(0.0, $dto->alpha);
     }
 }

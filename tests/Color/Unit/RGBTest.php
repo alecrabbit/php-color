@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit;
 
 use AlecRabbit\Color\Contract\IRGBColor;
+use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelRGB;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -203,5 +204,19 @@ class RGBTest extends TestCase
         $testee = RGB::fromRGB(0x00, 0x00, 0x00);
 
         self::assertInstanceOf(ModelRGB::class, $testee->getColorModel());
+    }
+
+    #[Test]
+    public function canToDTO(): void
+    {
+        $testee = RGB::fromRGB(0x01, 0x02, 0x03);
+
+        $dto = $testee->toDTO();
+
+        self::assertInstanceOf(DRGB::class, $dto);
+        self::assertSame(1, $dto->red);
+        self::assertSame(2, $dto->green);
+        self::assertSame(3, $dto->blue);
+        self::assertSame(1.0, $dto->alpha);
     }
 }

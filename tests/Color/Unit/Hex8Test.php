@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Color\Unit;
 
 use AlecRabbit\Color\Contract\IHex8Color;
 use AlecRabbit\Color\Hex8;
+use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelRGB;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -445,5 +446,19 @@ class Hex8Test extends TestCase
         $testee = self::getTesteeFromInteger(0x000000);
 
         self::assertInstanceOf(ModelRGB::class, $testee->getColorModel());
+    }
+
+    #[Test]
+    public function canToDTO(): void
+    {
+        $testee = self::getTesteeFromInteger(0x01020300);
+
+        $dto = $testee->toDTO();
+
+        self::assertInstanceOf(DRGB::class, $dto);
+        self::assertSame(1, $dto->red);
+        self::assertSame(2, $dto->green);
+        self::assertSame(3, $dto->blue);
+        self::assertSame(0.0, $dto->alpha);
     }
 }

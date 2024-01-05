@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\A\AColor;
-use AlecRabbit\Color\Contract\DTO\IColorDTO;
 use AlecRabbit\Color\Contract\IHasOpacity;
 use AlecRabbit\Color\Contract\IHSLColor;
-use AlecRabbit\Color\DTO\DHSL;
+use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
+use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\ModelHSL;
 
 class HSL extends AColor implements IHSLColor
