@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Contract;
 
-interface IConvertableColor extends IColor
+interface IConvertableColor extends IColor, \Stringable
 {
     public static function from(IConvertableColor $color): IConvertableColor;
 

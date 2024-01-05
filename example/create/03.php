@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../bootstrap.php';
 
-$hex = \AlecRabbit\Color\Hex::fromInteger(0x112233);
+$hex = \AlecRabbit\Color\Hex::fromInteger(0x1122ffffff);
 
 $hex8 = \AlecRabbit\Color\Hex8::from($hex);
 

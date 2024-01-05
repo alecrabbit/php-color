@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Contract;
 
 interface IHex8Color extends IHexColor,
+                             IHasValue8,
                              IHasAlpha,
                              IHasOpacity,
                              IModifiableWithAlpha,

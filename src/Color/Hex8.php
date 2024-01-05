@@ -11,7 +11,8 @@ use function sprintf;
 
 class Hex8 extends Hex implements IHex8Color
 {
-    protected const MAX8 = 0xFFFFFF00;
+    protected const MAX8 = 0xFFFFFFFF;
+    protected const MAX8_NO_ALPHA = 0xFFFFFF00;
     protected const PRECISION = 3;
 
     protected function __construct(
@@ -33,7 +34,7 @@ class Hex8 extends Hex implements IHex8Color
 
     public static function fromInteger(int $value): IHex8Color
     {
-        return new self((abs($value) & (int)static::MAX8) >> 8, $value & 0x000000FF);
+        return new self((abs($value) & (int)static::MAX8_NO_ALPHA) >> 8, $value & 0x000000FF);
     }
 
     public function toString(): string
@@ -102,5 +103,10 @@ class Hex8 extends Hex implements IHex8Color
 
         return
             self::fromRGBA($r, $g, $b, $alpha);
+    }
+
+    public function getValue8(): int
+    {
+        return $this->getValue() << 8 | $this->getAlpha();
     }
 }

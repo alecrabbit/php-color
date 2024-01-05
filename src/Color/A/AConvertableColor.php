@@ -44,4 +44,9 @@ abstract class AConvertableColor implements IConvertableColor
     }
 
     abstract public function toString(): string;
+
+    public function __toString(): string
+    {
+        return $this->toString();
+    }
 }
