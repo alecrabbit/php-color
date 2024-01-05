@@ -9,6 +9,8 @@ use AlecRabbit\Color\Contract\Converter\IRegistry;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
+use AlecRabbit\Color\Contract\Model\Converter\IModelConverter;
+use AlecRabbit\Color\Contract\Model\IColorModel;
 use AlecRabbit\Color\Contract\Wrapper\IWrapper;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use RuntimeException;
@@ -94,7 +96,7 @@ final class Registry implements IRegistry
     }
 
     /** @inheritDoc */
-    public static function attach(IWrapper ...$wrappers): void
+    public static function attach(string ...$classes): void
     {
         // TODO: Implement register() method.
         throw new RuntimeException(__METHOD__ . ' Not implemented.');
@@ -136,5 +138,14 @@ final class Registry implements IRegistry
     {
         // TODO: Implement getInstantiator() method.
         throw new RuntimeException(__METHOD__ . ' Not implemented.');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getModelConverter(IColorModel $from, IColorModel $to): IModelConverter
+    {
+        // TODO: Implement getModelConverter() method.
+        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
     }
 }

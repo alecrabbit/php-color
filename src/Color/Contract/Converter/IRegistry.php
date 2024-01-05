@@ -6,7 +6,10 @@ namespace AlecRabbit\Color\Contract\Converter;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
+use AlecRabbit\Color\Contract\Model\Converter\IModelConverter;
+use AlecRabbit\Color\Contract\Model\IColorModel;
 use AlecRabbit\Color\Contract\Wrapper\IWrapper;
+use AlecRabbit\Color\Exception\UnsupportedColorConversion;
 use Traversable;
 
 interface IRegistry
@@ -20,15 +23,20 @@ interface IRegistry
     public static function register(string $toConverter, Traversable $fromConverters): void;
 
     /**
-     * @param IWrapper ...$wrappers
+     * @param class-string<IInstantiator|IModelConverter|IToConverter> ...$classes
      */
-    public static function attach(IWrapper ...$wrappers): void;
+    public static function attach(string ...$classes): void;
 
     /**
      * @param class-string<IToConverter> $to
      * @param class-string<IColor> $source
      */
     public function getFromConverter(string $to, string $source): ?IFromConverter;
+
+    /**
+     * @throws UnsupportedColorConversion
+     */
+    public function getModelConverter(IColorModel $from, IColorModel $to): IModelConverter;
 
     /**
      * @param class-string<IColor> $target
