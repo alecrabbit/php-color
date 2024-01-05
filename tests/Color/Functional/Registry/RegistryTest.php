@@ -97,7 +97,7 @@ final class RegistryTest extends TestCase
     {
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
-            'Color must be instance of "AlecRabbit\Color\Contract\IConvertableColor". "invalid" given.'
+            'Color must be instance of "AlecRabbit\Color\Contract\IColor". "invalid" given.'
         );
 
         $converters = [

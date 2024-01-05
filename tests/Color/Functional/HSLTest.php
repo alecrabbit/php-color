@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Color\Functional;
 
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\RGBA;
@@ -152,7 +152,7 @@ class HSLTest extends TestCase
 
     #[Test]
     #[DataProvider('canBeCreatedFromDataProvider')]
-    public function canBeCreatedFrom(IConvertableColor $expected, IConvertableColor $incoming): void
+    public function canBeCreatedFrom(IColor $expected, IColor $incoming): void
     {
         $testee = HSL::from($incoming);
         self::assertEquals($expected, $testee);

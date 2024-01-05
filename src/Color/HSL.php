@@ -4,16 +4,22 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color;
 
-use AlecRabbit\Color\A\AConvertableColor;
+use AlecRabbit\Color\A\AColor;
 use AlecRabbit\Color\Contract\IHSLColor;
+use AlecRabbit\Color\Contract\Model\IColorModel;
+use AlecRabbit\Color\Model\HSL\ModelHSL;
+use RuntimeException;
 
-class HSL extends AConvertableColor implements IHSLColor
+class HSL extends AColor implements IHSLColor
 {
     protected function __construct(
         protected int $hue,
         protected float $saturation,
         protected float $lightness,
     ) {
+        parent::__construct(
+            colorModel: new ModelHSL(),
+        );
     }
 
     /** @psalm-suppress MoreSpecificReturnType */
@@ -86,4 +92,6 @@ class HSL extends AConvertableColor implements IHSLColor
     {
         return self::fromHSL($this->hue, $this->saturation, $lightness);
     }
+
+
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Color\Functional\Util;
 
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
@@ -49,7 +49,7 @@ class ColorTest extends TestCase
         self::assertInstanceOf($expectedClass, $testee);
     }
 
-    private static function getTesteeFromString(string $value): IConvertableColor
+    private static function getTesteeFromString(string $value): IColor
     {
         return Color::fromString($value);
     }

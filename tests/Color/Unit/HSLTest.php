@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Color\Unit;
 
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\HSL;
+use AlecRabbit\Color\Model\HSL\ModelHSL;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -119,7 +120,7 @@ class HSLTest extends TestCase
 
     #[Test]
     #[DataProvider('canBeCreatedFromDataProvider')]
-    public function canBeCreatedFrom(IConvertableColor $expected, IConvertableColor $incoming): void
+    public function canBeCreatedFrom(IColor $expected, IColor $incoming): void
     {
         $testee = HSL::from($incoming);
         self::assertEquals($expected, $testee);
@@ -221,5 +222,17 @@ class HSLTest extends TestCase
         self::assertSame(0.24, $modified->getLightness());
         self::assertNotSame($original, $modified);
     }
+    #[Test]
+    public function canGetColorModel(): void
+    {
+        $testee =self::getTesteeFromHSL(
+            [
+                self::HUE => 0,
+                self::SATURATION => 0,
+                self::LIGHTNESS => 0,
+            ]
+        );
 
+        self::assertInstanceOf(ModelHSL::class, $testee->getColorModel());
+    }
 }

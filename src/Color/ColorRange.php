@@ -4,24 +4,24 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color;
 
-use AlecRabbit\Color\Contract\IColor;
+use AlecRabbit\Color\Contract\IUnconvertibleColor;
 use AlecRabbit\Color\Contract\IColorRange;
 
 
 final readonly class ColorRange implements IColorRange
 {
     public function __construct(
-        private IColor|string $start,
-        private IColor|string $end,
+        private IUnconvertibleColor|string $start,
+        private IUnconvertibleColor|string $end,
     ) {
     }
 
-    public function getStart(): IColor|string
+    public function getStart(): IUnconvertibleColor|string
     {
         return $this->start;
     }
 
-    public function getEnd(): IColor|string
+    public function getEnd(): IUnconvertibleColor|string
     {
         return $this->end;
     }

@@ -6,7 +6,7 @@ namespace AlecRabbit\Color\Wrapper;
 
 use AlecRabbit\Color\Contract\Converter\IFromConverter;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Contract\Wrapper\IWrapper;
 use AlecRabbit\Color\Converter\From\NoOpConverter;
@@ -15,10 +15,10 @@ use Traversable;
 
 final readonly class Wrapper implements IWrapper
 {
-    /** @var Traversable<class-string<IConvertableColor>> */
+    /** @var Traversable<class-string<IColor>> */
     private Traversable $targets;
 
-    /** @var Traversable<class-string<IConvertableColor>, class-string<IFromConverter>> */
+    /** @var Traversable<class-string<IColor>, class-string<IFromConverter>> */
     private Traversable $sources;
 
     /** @var class-string<IToConverter> */
@@ -41,7 +41,7 @@ final readonly class Wrapper implements IWrapper
         self::assertFrom($from);
         self::assertInstantiator($instantiator);
 
-        /** @var Traversable<class-string<IConvertableColor>> $to */
+        /** @var Traversable<class-string<IColor>> $to */
         $this->targets = $to;
 
         $this->sources = $this->refineFrom($from);
@@ -100,11 +100,11 @@ final readonly class Wrapper implements IWrapper
                     )
                 );
             }
-            if (!is_subclass_of($target, IConvertableColor::class)) {
+            if (!is_subclass_of($target, IColor::class)) {
                 throw new InvalidArgument(
                     sprintf(
                         'Target must be a subclass of "%s". "%s" given.',
-                        IConvertableColor::class,
+                        IColor::class,
                         $target
                     )
                 );
@@ -121,38 +121,6 @@ final readonly class Wrapper implements IWrapper
         foreach ($from as $source => $converter) {
             self::assertFromConverter($converter);
             self::assertSource($source);
-        }
-    }
-
-    private static function assertInstantiator(string $instantiator): void
-    {
-        if (!class_exists($instantiator)) {
-            throw new InvalidArgument(
-                sprintf(
-                    'Instantiator class "%s" does no exist.',
-                    $instantiator
-                )
-            );
-        }
-        if (!is_subclass_of($instantiator, IInstantiator::class)) {
-            throw new InvalidArgument(
-                sprintf(
-                    'Instantiator class must be a subclass of "%s". "%s" given.',
-                    IInstantiator::class,
-                    $instantiator,
-                )
-            );
-        }
-    }
-
-    /**
-     * @return Traversable<class-string<IConvertableColor>, class-string<IFromConverter>>
-     */
-    private function refineFrom(Traversable $from): Traversable
-    {
-        yield from $from;
-        foreach ($this->targets as $target) {
-            yield $target => NoOpConverter::class;
         }
     }
 
@@ -195,14 +163,46 @@ final readonly class Wrapper implements IWrapper
                 )
             );
         }
-        if (!is_subclass_of($source, IConvertableColor::class)) {
+        if (!is_subclass_of($source, IColor::class)) {
             throw new InvalidArgument(
                 sprintf(
                     'Source must be a subclass of "%s". "%s" given.',
-                    IConvertableColor::class,
+                    IColor::class,
                     $source
                 )
             );
+        }
+    }
+
+    private static function assertInstantiator(string $instantiator): void
+    {
+        if (!class_exists($instantiator)) {
+            throw new InvalidArgument(
+                sprintf(
+                    'Instantiator class "%s" does no exist.',
+                    $instantiator
+                )
+            );
+        }
+        if (!is_subclass_of($instantiator, IInstantiator::class)) {
+            throw new InvalidArgument(
+                sprintf(
+                    'Instantiator class must be a subclass of "%s". "%s" given.',
+                    IInstantiator::class,
+                    $instantiator,
+                )
+            );
+        }
+    }
+
+    /**
+     * @return Traversable<class-string<IColor>, class-string<IFromConverter>>
+     */
+    private function refineFrom(Traversable $from): Traversable
+    {
+        yield from $from;
+        foreach ($this->targets as $target) {
+            yield $target => NoOpConverter::class;
         }
     }
 

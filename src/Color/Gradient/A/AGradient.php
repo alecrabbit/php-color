@@ -5,13 +5,15 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Gradient\A;
 
 use AlecRabbit\Color\Contract\Gradient\IGradient;
-use AlecRabbit\Color\Contract\IColor;
+use AlecRabbit\Color\Contract\IUnconvertibleColor;
 use AlecRabbit\Color\Contract\IColorRange;
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Util\Color;
 use Traversable;
 
+
+// TODO (2024-01-05 14:23) [Alec Rabbit]: Gradient should work with IColor only, IUnconvertibleColor is not needed
 abstract readonly class AGradient implements IGradient
 {
     protected const MAX = 1000;
@@ -50,13 +52,13 @@ abstract readonly class AGradient implements IGradient
 
     /** @inheritDoc */
 
-    public function getOne(int $index): IColor
+    public function getOne(int $index): IUnconvertibleColor
     {
         return $this->createColor($this->refineIndex($index));
     }
 
 
-    protected function createColor(int $index): IConvertableColor
+    protected function createColor(int $index): IColor
     {
         return Color::fromString(
             $this->getColorString($index),
@@ -75,9 +77,9 @@ abstract readonly class AGradient implements IGradient
         return $this->count;
     }
 
-    protected function ensureConvertable(IColor|string $color): IConvertableColor
+    protected function ensureConvertable(IUnconvertibleColor|string $color): IColor
     {
-        if ($color instanceof IConvertableColor) {
+        if ($color instanceof IColor) {
             return $color;
         }
 

@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Color\Unit;
 
 use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Hex;
+use AlecRabbit\Color\Model\RGB\ModelRGB;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -182,6 +183,13 @@ class HexTest extends TestCase
         self::assertNotSame($testee, $modifiedBlue);
         self::assertSame(0x00, $testee->getBlue());
         self::assertSame(0xFF, $modifiedBlue->getBlue());
+    }
+    #[Test]
+    public function canGetColorModel(): void
+    {
+        $testee = self::getTesteeFromInteger(0x000000);
+
+        self::assertInstanceOf(ModelRGB::class, $testee->getColorModel());
     }
 
 }

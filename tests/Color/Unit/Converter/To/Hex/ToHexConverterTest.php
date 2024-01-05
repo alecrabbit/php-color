@@ -8,7 +8,7 @@ namespace AlecRabbit\Tests\Color\Unit\Converter\To\Hex;
 use AlecRabbit\Color\Contract\Converter\IFromConverter;
 use AlecRabbit\Color\Contract\Converter\IRegistry;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Converter\To\Hex\ToHexConverter;
 use AlecRabbit\Color\Hex;
@@ -56,7 +56,7 @@ final class ToHexConverterTest extends TestCase
         $registry
             ->expects(self::once())
             ->method('getFromConverter')
-            ->with(ToHexConverter::class, self::stringContains('IConvertableColor'))
+            ->with(ToHexConverter::class, self::stringContains('IColor'))
             ->willReturn(
                 $fromConverter
             );
@@ -70,9 +70,9 @@ final class ToHexConverterTest extends TestCase
         self::assertSame($expected, $result);
     }
 
-    private function getConvertableColorMock(): MockObject&IConvertableColor
+    private function getConvertableColorMock(): MockObject&IColor
     {
-        return $this->createMock(IConvertableColor::class);
+        return $this->createMock(IColor::class);
     }
 
     private function getFromConverterMock(): MockObject&IFromConverter

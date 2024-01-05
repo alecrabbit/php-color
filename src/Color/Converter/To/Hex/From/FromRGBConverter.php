@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Converter\To\Hex\From;
 
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHasBlue;
 use AlecRabbit\Color\Contract\IHasGreen;
 use AlecRabbit\Color\Contract\IHasRed;
@@ -32,7 +32,7 @@ class FromRGBConverter extends AFromConverter
         };
     }
 
-    protected static function createColor(IConvertableColor $color): IConvertableColor
+    protected static function createColor(IColor $color): IColor
     {
         /** @var IHasRed&IHasGreen&IHasBlue $color */
         return Hex::fromRGB($color->getRed(), $color->getGreen(), $color->getBlue());

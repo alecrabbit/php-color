@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Converter\To\HSLA\From;
 
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHasHue;
 use AlecRabbit\Color\Contract\IHasLightness;
 use AlecRabbit\Color\Contract\IHasOpacity;
@@ -34,7 +34,7 @@ class FromHSLConverter extends AFromConverter
         };
     }
 
-    protected static function createColor(IConvertableColor $color): IConvertableColor
+    protected static function createColor(IColor $color): IColor
     {
         $opacity = $color instanceof IHasOpacity ? $color->getOpacity() : 1.0;
 

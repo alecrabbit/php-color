@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Color\Functional\Converter\To\RGBA\From;
 
 
 use AlecRabbit\Color\Contract\Converter\IFromConverter;
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Converter\To\RGBA\From\FromRGBConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Hex;
@@ -62,7 +62,7 @@ final class FromRGBConverterTest extends TestCase
 
     #[Test]
     #[DataProvider('canConvertDataProvider')]
-    public function canConvert(array $expected, IConvertableColor $input): void
+    public function canConvert(array $expected, IColor $input): void
     {
         $expectedException = $this->expectsException($expected);
 

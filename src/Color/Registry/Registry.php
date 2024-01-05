@@ -7,7 +7,7 @@ namespace AlecRabbit\Color\Registry;
 use AlecRabbit\Color\Contract\Converter\IFromConverter;
 use AlecRabbit\Color\Contract\Converter\IRegistry;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Contract\Wrapper\IWrapper;
 use AlecRabbit\Color\Exception\InvalidArgument;
@@ -16,7 +16,7 @@ use Traversable;
 
 final class Registry implements IRegistry
 {
-    /** @var Array<class-string<IToConverter>, Array<class-string<IConvertableColor>,IFromConverter|class-string<IFromConverter>>> */
+    /** @var Array<class-string<IToConverter>, Array<class-string<IColor>,IFromConverter|class-string<IFromConverter>>> */
     private static array $fromConverters = [];
 
     /**
@@ -28,7 +28,7 @@ final class Registry implements IRegistry
 
         /**
          * @var class-string<IToConverter> $toConverter
-         * @var class-string<IConvertableColor> $color
+         * @var class-string<IColor> $color
          * @var class-string<IFromConverter> $fromConverter
          */
         foreach ($fromConverters as $color => $fromConverter) {
@@ -62,10 +62,10 @@ final class Registry implements IRegistry
                     get_debug_type($color)
                 )
             ),
-            !is_subclass_of($color, IConvertableColor::class) => throw new InvalidArgument(
+            !is_subclass_of($color, IColor::class) => throw new InvalidArgument(
                 sprintf(
                     'Color must be instance of "%s". "%s" given.',
-                    IConvertableColor::class,
+                    IColor::class,
                     $color
                 )
             ),
@@ -115,7 +115,7 @@ final class Registry implements IRegistry
     {
         /**
          * @var class-string<IToConverter> $toConverter
-         * @var class-string<IConvertableColor> $color
+         * @var class-string<IColor> $color
          * @var null|IFromConverter|class-string<IFromConverter> $fromConverter
          */
         $fromConverter = self::$fromConverters[$toConverter][$color] ?? null;

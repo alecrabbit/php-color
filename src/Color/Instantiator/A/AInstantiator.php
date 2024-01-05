@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Instantiator\A;
 
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Exception\UnrecognizedColorString;
 
@@ -27,7 +27,7 @@ abstract class AInstantiator implements IInstantiator
 
     abstract protected static function canInstantiate(string $color): bool;
 
-    public function fromString(string $color): IConvertableColor
+    public function fromString(string $color): IColor
     {
         $color = self::normalize($color);
 
@@ -42,5 +42,5 @@ abstract class AInstantiator implements IInstantiator
             );
     }
 
-    abstract protected function instantiate(string $color): ?IConvertableColor;
+    abstract protected function instantiate(string $color): ?IColor;
 }

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\A;
 
-abstract class ARGBValueColor extends AConvertableColor
+use AlecRabbit\Color\Model\RGB\ModelRGB;
+
+abstract class ARGBValueColor extends AColor
 {
     protected const MAX = 0xFFFFFF;
     protected const RED = 0xFF0000;
@@ -14,6 +16,9 @@ abstract class ARGBValueColor extends AConvertableColor
     protected function __construct(
         protected readonly int $value,
     ) {
+        parent::__construct(
+            colorModel: new ModelRGB(),
+        );
     }
 
     protected static function componentsToValue(int $r, int $g, int $b): int

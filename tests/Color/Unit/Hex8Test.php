@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Color\Unit;
 
 use AlecRabbit\Color\Contract\IHex8Color;
 use AlecRabbit\Color\Hex8;
+use AlecRabbit\Color\Model\RGB\ModelRGB;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -436,5 +437,13 @@ class Hex8Test extends TestCase
         self::assertSame($expected[self::VALUE_8], $testee->getValue8());
         self::assertSame($expected[self::TO_STRING], $testee->toString());
         self::assertSame($expected[self::TO_STRING], (string)$testee);
+    }
+
+    #[Test]
+    public function canGetColorModel(): void
+    {
+        $testee = self::getTesteeFromInteger(0x000000);
+
+        self::assertInstanceOf(ModelRGB::class, $testee->getColorModel());
     }
 }

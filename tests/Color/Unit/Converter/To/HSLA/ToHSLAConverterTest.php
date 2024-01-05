@@ -8,7 +8,7 @@ namespace AlecRabbit\Tests\Color\Unit\Converter\To\HSLA;
 use AlecRabbit\Color\Contract\Converter\IFromConverter;
 use AlecRabbit\Color\Contract\Converter\IRegistry;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Converter\To\HSLA\ToHSLAConverter;
 use AlecRabbit\Color\HSLA;
@@ -67,7 +67,7 @@ final class ToHSLAConverterTest extends TestCase
         $registry
             ->expects(self::once())
             ->method('getFromConverter')
-            ->with(ToHSLAConverter::class, self::stringContains('IConvertableColor'))
+            ->with(ToHSLAConverter::class, self::stringContains('IColor'))
             ->willReturn(
                 $fromConverter
             );
@@ -81,9 +81,9 @@ final class ToHSLAConverterTest extends TestCase
         self::assertSame($expected, $result);
     }
 
-    private function getConvertableColorMock(): MockObject&IConvertableColor
+    private function getConvertableColorMock(): MockObject&IColor
     {
-        return $this->createMock(IConvertableColor::class);
+        return $this->createMock(IColor::class);
     }
 
     private function getFromConverterMock(): MockObject&IFromConverter

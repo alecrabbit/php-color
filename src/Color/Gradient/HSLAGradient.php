@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Gradient;
 
 use AlecRabbit\Color\Contract\Gradient\Vector\IVector;
-use AlecRabbit\Color\Contract\IColor;
+use AlecRabbit\Color\Contract\IUnconvertibleColor;
 use AlecRabbit\Color\Contract\IColorRange;
 use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Gradient\A\AGradient;
@@ -44,7 +44,7 @@ final readonly class HSLAGradient extends AGradient
         $this->format = "hsla(%s, %.0f%%, %.0f%%, %.{$this->precision}f)";
     }
 
-    private function toHSLA(IColor|string $color): IHSLAColor
+    private function toHSLA(IUnconvertibleColor|string $color): IHSLAColor
     {
         return $this->ensureConvertable($color)->to(IHSLAColor::class);
     }

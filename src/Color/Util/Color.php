@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Util;
 
-use AlecRabbit\Color\A\AConvertableColor;
+use AlecRabbit\Color\A\AColor;
+use AlecRabbit\Color\Contract\Model\IColorModel;
 use AlecRabbit\Color\Exception\ColorException;
 
 /**
@@ -12,7 +13,7 @@ use AlecRabbit\Color\Exception\ColorException;
  *
  * @codeCoverageIgnore
  */
-final class Color extends AConvertableColor
+final class Color extends AColor
 {
     private function __construct()
     {
@@ -20,6 +21,11 @@ final class Color extends AConvertableColor
     }
 
     public function toString(): string
+    {
+        throw new ColorException('Can not be called.');
+    }
+
+    public function getColorModel(): IColorModel
     {
         throw new ColorException('Can not be called.');
     }

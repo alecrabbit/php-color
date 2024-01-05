@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit\Factory;
 
 use AlecRabbit\Color\Contract\Factory\IConverterFactory;
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Converter\To;
 use AlecRabbit\Color\Exception\ConverterUnavailable;
 use AlecRabbit\Color\Exception\InvalidArgument;
@@ -76,7 +76,7 @@ class ConverterFactoryTest extends TestCase
             sprintf(
                 'Class "%s" is not a "%s" subclass.',
                 $class,
-                IConvertableColor::class
+                IColor::class
             )
         );
         $converterFactory = self::getTestee();

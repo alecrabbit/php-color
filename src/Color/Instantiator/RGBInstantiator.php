@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Instantiator;
 
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
 use AlecRabbit\Color\RGB;
 
@@ -14,7 +14,7 @@ class RGBInstantiator extends AInstantiator
 {
     protected const REGEXP_RGB = '/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/';
 
-    protected function instantiate(string $color): ?IConvertableColor
+    protected function instantiate(string $color): ?IColor
     {
         if (self::canInstantiate($color) && preg_match(self::REGEXP_RGB, $color, $matches)) {
             return

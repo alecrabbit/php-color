@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Color\Functional\Converter\To\HSL;
 
 
 use AlecRabbit\Color\Contract\Converter\IToConverter;
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Converter\To\HSL\ToHSLConverter;
 use AlecRabbit\Color\HSL;
@@ -45,7 +45,7 @@ final class ToHSLConverterTest extends TestCase
 
     #[Test]
     #[DataProvider('canConvertDataProvider')]
-    public function canConvert(IHSLColor $expected, IConvertableColor $incoming): void
+    public function canConvert(IHSLColor $expected, IColor $incoming): void
     {
         $toConverter = $this->getTesteeInstance();
 

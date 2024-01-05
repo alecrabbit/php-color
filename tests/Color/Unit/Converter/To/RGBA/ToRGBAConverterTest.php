@@ -8,7 +8,7 @@ namespace AlecRabbit\Tests\Color\Unit\Converter\To\RGBA;
 use AlecRabbit\Color\Contract\Converter\IFromConverter;
 use AlecRabbit\Color\Contract\Converter\IRegistry;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Converter\To\RGBA\ToRGBAConverter;
 use AlecRabbit\Color\RGBA;
@@ -56,7 +56,7 @@ final class ToRGBAConverterTest extends TestCase
         $registry
             ->expects(self::once())
             ->method('getFromConverter')
-            ->with(ToRGBAConverter::class, self::stringContains('IConvertableColor'))
+            ->with(ToRGBAConverter::class, self::stringContains('IColor'))
             ->willReturn(
                 $fromConverter
             );
@@ -70,9 +70,9 @@ final class ToRGBAConverterTest extends TestCase
         self::assertSame($expected, $result);
     }
 
-    private function getConvertableColorMock(): MockObject&IConvertableColor
+    private function getConvertableColorMock(): MockObject&IColor
     {
-        return $this->createMock(IConvertableColor::class);
+        return $this->createMock(IColor::class);
     }
 
     private function getFromConverterMock(): MockObject&IFromConverter

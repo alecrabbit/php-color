@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Contract\Converter;
 
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Contract\Wrapper\IWrapper;
 use Traversable;
@@ -13,7 +13,7 @@ interface IRegistry
 {
     /**
      * @param class-string<IToConverter> $toConverter
-     * @param Traversable<class-string<IConvertableColor>, class-string<IFromConverter>> $fromConverters
+     * @param Traversable<class-string<IColor>, class-string<IFromConverter>> $fromConverters
      * @deprecated
      *
      */
@@ -26,12 +26,12 @@ interface IRegistry
 
     /**
      * @param class-string<IToConverter> $to
-     * @param class-string<IConvertableColor> $source
+     * @param class-string<IColor> $source
      */
     public function getFromConverter(string $to, string $source): ?IFromConverter;
 
     /**
-     * @param class-string<IConvertableColor> $target
+     * @param class-string<IColor> $target
      */
     public function getToConverter(string $target): ?IToConverter;
 

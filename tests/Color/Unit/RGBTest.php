@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit;
 
 use AlecRabbit\Color\Contract\IRGBColor;
+use AlecRabbit\Color\Model\RGB\ModelRGB;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -194,5 +195,13 @@ class RGBTest extends TestCase
         self::assertSame($r, $testee->getRed());
         self::assertSame($g, $testee->getGreen());
         self::assertSame($b, $testee->getBlue());
+    }
+
+    #[Test]
+    public function canGetColorModel(): void
+    {
+        $testee = RGB::fromRGB(0x00, 0x00, 0x00);
+
+        self::assertInstanceOf(ModelRGB::class, $testee->getColorModel());
     }
 }

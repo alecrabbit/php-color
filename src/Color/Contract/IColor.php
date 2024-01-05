@@ -4,9 +4,17 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Contract;
 
-interface IColor
-{
-    public static function fromString(string $color): IColor;
+use AlecRabbit\Color\Contract\Model\IColorModel;
+use Stringable;
 
-    public function toString(): string;
+interface IColor extends IUnconvertibleColor, Stringable
+{
+    public static function from(IColor $color): IColor;
+
+    /**
+     * @param class-string<IColor> $class
+     */
+    public function to(string $class): IColor;
+
+    public function getColorModel(): IColorModel;
 }

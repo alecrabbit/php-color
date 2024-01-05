@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Converter\To\Hex8\From;
 
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHasAlpha;
 use AlecRabbit\Color\Contract\IHasBlue;
 use AlecRabbit\Color\Contract\IHasGreen;
@@ -33,7 +33,7 @@ class FromRGBConverter extends AFromConverter
         };
     }
 
-    protected static function createColor(IConvertableColor $color): IConvertableColor
+    protected static function createColor(IColor $color): IColor
     {
         $alpha = $color instanceof IHasAlpha ? $color->getAlpha() : 0xff;
 

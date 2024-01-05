@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Color\Unit;
 
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
+use AlecRabbit\Color\Model\RGB\ModelRGB;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -140,27 +141,6 @@ class RGBATest extends TestCase
             ];
         }
     }
-    public static function canBeInstantiatedFromStringDataProvider(): iterable
-    {
-        yield from [
-            ['rgb(0, 0, 0)', 0, 0, 0, 1.0],
-            ['rgba(0, 0, 0, 1.0)', 0, 0, 0, 1.0],
-            ['rgba(0, 12, 33, 0.333)', 0, 12, 33, 0.329],
-            ['rgba(0, 0, 1, 1.0)', 0, 0, 1, 1.0],
-            ['rgb(0, 12, 1)', 0, 12, 1, 1.0],
-        ];
-    }
-
-    #[Test]
-    #[DataProvider('canBeInstantiatedFromStringDataProvider')]
-    public function canBeInstantiatedFromString(string $color, int $r, int $g, int $b, float $o): void
-    {
-        $testee = RGBA::fromString($color);
-        self::assertSame($r, $testee->getRed());
-        self::assertSame($g, $testee->getGreen());
-        self::assertSame($b, $testee->getBlue());
-        self::assertSame($o, $testee->getOpacity());
-    }
 
     private static function stringAndRGBADataFeeder(): iterable
     {
@@ -186,6 +166,17 @@ class RGBATest extends TestCase
         ];
     }
 
+    public static function canBeInstantiatedFromStringDataProvider(): iterable
+    {
+        yield from [
+            ['rgb(0, 0, 0)', 0, 0, 0, 1.0],
+            ['rgba(0, 0, 0, 1.0)', 0, 0, 0, 1.0],
+            ['rgba(0, 12, 33, 0.333)', 0, 12, 33, 0.329],
+            ['rgba(0, 0, 1, 1.0)', 0, 0, 1, 1.0],
+            ['rgb(0, 12, 1)', 0, 12, 1, 1.0],
+        ];
+    }
+
     public static function canBeCreatedFromDataProvider(): iterable
     {
         yield from [
@@ -199,8 +190,19 @@ class RGBATest extends TestCase
     }
 
     #[Test]
+    #[DataProvider('canBeInstantiatedFromStringDataProvider')]
+    public function canBeInstantiatedFromString(string $color, int $r, int $g, int $b, float $o): void
+    {
+        $testee = RGBA::fromString($color);
+        self::assertSame($r, $testee->getRed());
+        self::assertSame($g, $testee->getGreen());
+        self::assertSame($b, $testee->getBlue());
+        self::assertSame($o, $testee->getOpacity());
+    }
+
+    #[Test]
     #[DataProvider('canBeCreatedFromDataProvider')]
-    public function canBeCreatedFrom(IConvertableColor $expected, IConvertableColor $incoming): void
+    public function canBeCreatedFrom(IColor $expected, IColor $incoming): void
     {
         $testee = RGBA::from($incoming);
         self::assertEquals($expected, $testee);
@@ -358,4 +360,11 @@ class RGBATest extends TestCase
         self::assertNotSame($testee, $testee->to(RGB::class));
     }
 
+    #[Test]
+    public function canGetColorModel(): void
+    {
+        $testee = RGBA::fromRGBA(0x00, 0x00, 0x00);
+
+        self::assertInstanceOf(ModelRGB::class, $testee->getColorModel());
+    }
 }

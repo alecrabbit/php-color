@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Color\Functional\Converter\To\RGBA;
 
 
 use AlecRabbit\Color\Contract\Converter\IToConverter;
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Converter\To\RGBA\ToRGBAConverter;
 use AlecRabbit\Color\Hex;
@@ -48,7 +48,7 @@ final class ToRGBAConverterTest extends TestCase
 
     #[Test]
     #[DataProvider('canConvertDataProvider')]
-    public function canConvert(IRGBAColor $expected, IConvertableColor $incoming): void
+    public function canConvert(IRGBAColor $expected, IColor $incoming): void
     {
         $toConverter = $this->getTesteeInstance();
 

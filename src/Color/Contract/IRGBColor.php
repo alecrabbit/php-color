@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Contract;
 
-interface IRGBColor extends IConvertableColor,
+interface IRGBColor extends IColor,
                             IHasValue,
                             IHasRed,
                             IHasGreen,

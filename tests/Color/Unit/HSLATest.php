@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Color\Unit;
 
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
+use AlecRabbit\Color\Model\HSL\ModelHSL;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -142,10 +143,12 @@ class HSLATest extends TestCase
         self::assertEquals($result[self::LIGHTNESS], $testee->getLightness());
         self::assertEquals($result[self::OPACITY], $testee->getOpacity());
     }
+
     private static function getTesteeFromString(string $hsla): IHSLAColor
     {
         return HSLA::fromString($hsla);
     }
+
     #[Test]
     #[DataProvider('canBeCreatedFromHSLADataProvider')]
     public function canBeCreatedFromHSLA(array $expected, array $incoming): void
@@ -183,7 +186,7 @@ class HSLATest extends TestCase
 
     #[Test]
     #[DataProvider('canBeCreatedFromDataProvider')]
-    public function canBeCreatedFrom(IConvertableColor $expected, IConvertableColor $incoming): void
+    public function canBeCreatedFrom(IColor $expected, IColor $incoming): void
     {
         $testee = HSLA::from($incoming);
         self::assertEquals($expected, $testee);
@@ -274,4 +277,18 @@ class HSLATest extends TestCase
         self::assertNotSame($original, $modified);
     }
 
+    #[Test]
+    public function canGetColorModel(): void
+    {
+        $testee = self::getTesteeFromHSLA(
+            [
+                self::HUE => 0,
+                self::SATURATION => 0,
+                self::LIGHTNESS => 0,
+                self::OPACITY => 0,
+            ]
+        );
+
+        self::assertInstanceOf(ModelHSL::class, $testee->getColorModel());
+    }
 }
