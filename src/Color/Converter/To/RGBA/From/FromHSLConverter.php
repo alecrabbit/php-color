@@ -7,19 +7,13 @@ namespace AlecRabbit\Color\Converter\To\RGBA\From;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHasOpacity;
 use AlecRabbit\Color\Contract\IHSLColor;
-use AlecRabbit\Color\Contract\Model\IColorModel;
-use AlecRabbit\Color\Converter\A\AFromConverter;
+use AlecRabbit\Color\Converter\A\AFromHSLConverter;
 use AlecRabbit\Color\Converter\CoreConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Model\HSL\ModelHSL;
 use AlecRabbit\Color\RGBA;
 
-class FromHSLConverter extends AFromConverter
+class FromHSLConverter extends AFromHSLConverter
 {
-    public static function getColorModel(): IColorModel
-    {
-        return new ModelHSL();
-    }
 
     protected static function assertColor(mixed $color): void
     {
