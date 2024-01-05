@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color\Model\RGB;
+namespace AlecRabbit\Color\Model;
 
 use AlecRabbit\Color\Contract\Model\IModelRGB;
 

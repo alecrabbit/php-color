@@ -6,8 +6,8 @@ namespace AlecRabbit\Color\A;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Model\IColorModel;
+use AlecRabbit\Color\Util\Color;
 use AlecRabbit\Color\Util\Converter;
-use AlecRabbit\Color\Util\Instantiator;
 
 abstract class AColor implements IColor
 {
@@ -25,7 +25,7 @@ abstract class AColor implements IColor
 
     protected static function getFromString(string $color): IColor
     {
-        return Instantiator::fromString($color);
+        return Color::fromString($color);
     }
 
     public static function from(IColor $color): IColor

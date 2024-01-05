@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Color\Unit;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\HSL;
-use AlecRabbit\Color\Model\HSL\ModelHSL;
+use AlecRabbit\Color\Model\ModelHSL;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;

@@ -32,10 +32,10 @@ final class Converter
      */
     public static function to(string $class): IToConverter
     {
-        return self::getFactory()->make($class);
+        return self::getConverterFactory()->make($class);
     }
 
-    private static function getFactory(): IConverterFactory
+    private static function getConverterFactory(): IConverterFactory
     {
         if (self::$factory === null) {
             self::$factory = self::createFactory();

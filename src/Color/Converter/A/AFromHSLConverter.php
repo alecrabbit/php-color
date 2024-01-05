@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Converter\A;
 
 use AlecRabbit\Color\Contract\Model\IColorModel;
-use AlecRabbit\Color\Model\HSL\ModelHSL;
+use AlecRabbit\Color\Model\ModelHSL;
 
 abstract class AFromHSLConverter extends AFromConverter
 {

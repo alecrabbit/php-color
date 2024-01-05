@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\A\AColor;
+use AlecRabbit\Color\Contract\DTO\IColorDTO;
+use AlecRabbit\Color\Contract\IHasOpacity;
 use AlecRabbit\Color\Contract\IHSLColor;
-use AlecRabbit\Color\Model\HSL\ModelHSL;
+use AlecRabbit\Color\DTO\DHSL;
+use AlecRabbit\Color\Model\ModelHSL;
 
 class HSL extends AColor implements IHSLColor
 {
@@ -19,7 +22,15 @@ class HSL extends AColor implements IHSLColor
             colorModel: new ModelHSL(),
         );
     }
-
+    public function toDTO(): IColorDTO
+    {
+        return new DHSL(
+            hue: $this->getHue(),
+            saturation: $this->getSaturation(),
+            lightness: $this->getLightness(),
+            alpha: $this instanceof IHasOpacity ? $this->getOpacity() : 1.0,
+        );
+    }
     /** @psalm-suppress MoreSpecificReturnType */
     public static function fromString(string $color): IHSLColor
     {

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit;
 
 use AlecRabbit\Color\Contract\IRGBColor;
-use AlecRabbit\Color\Model\RGB\ModelRGB;
+use AlecRabbit\Color\Model\ModelRGB;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;

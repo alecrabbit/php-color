@@ -9,7 +9,7 @@ use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
-use AlecRabbit\Color\Model\HSL\ModelHSL;
+use AlecRabbit\Color\Model\ModelHSL;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;

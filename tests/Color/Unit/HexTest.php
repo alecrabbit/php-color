@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Color\Unit;
 
 use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Hex;
-use AlecRabbit\Color\Model\RGB\ModelRGB;
+use AlecRabbit\Color\Model\ModelRGB;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;

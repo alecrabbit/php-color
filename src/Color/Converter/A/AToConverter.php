@@ -34,7 +34,7 @@ abstract class AToConverter implements IToConverter
 //                from: $color->getColorModel(),
 //                to: $this->getColorModel()
 //            )
-//                ->toDTO($color)
+//                ->convert($color)
 //        );
 //    }
 //
