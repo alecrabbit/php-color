@@ -12,7 +12,7 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-class Hex8Test extends TestCase
+final class Hex8Test extends TestCase
 {
     public static function canBeCreatedFromIntegerDataProvider(): iterable
     {

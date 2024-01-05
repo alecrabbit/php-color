@@ -9,7 +9,7 @@ use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
 use AlecRabbit\Color\Contract\Model\IColorModel;
 use RuntimeException;
 
-class AConvertableColorOverride extends AColor
+final class AConvertableColorOverride extends AColor
 {
     public function toString(): string
     {

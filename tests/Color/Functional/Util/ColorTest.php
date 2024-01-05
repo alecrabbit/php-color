@@ -15,7 +15,7 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-class ColorTest extends TestCase
+final class ColorTest extends TestCase
 {
     public static function canCreateColorFromStringDataProvider(): iterable
     {

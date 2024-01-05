@@ -12,7 +12,7 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-class HSLAInstantiatorTest extends TestCase
+final class HSLAInstantiatorTest extends TestCase
 {
     public static function canNotInstantiateHSLDataProvider(): iterable
     {

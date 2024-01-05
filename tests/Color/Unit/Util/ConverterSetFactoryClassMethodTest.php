@@ -11,7 +11,7 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;
 
-class ConverterSetFactoryClassMethodTest extends TestCase
+final class ConverterSetFactoryClassMethodTest extends TestCase
 {
     private string $factoryClass;
 

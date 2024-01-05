@@ -21,7 +21,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;
 
-class ConverterFactoryTest extends TestCase
+final class ConverterFactoryTest extends TestCase
 {
     public static function canMakeCorrespondingConverterDataProvider(): iterable
     {

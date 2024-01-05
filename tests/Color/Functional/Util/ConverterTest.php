@@ -21,7 +21,7 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-class ConverterTest extends TestCase
+final class ConverterTest extends TestCase
 {
     public static function canGetConverterFromClassStringDataProvider(): iterable
     {

@@ -11,7 +11,7 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;
 
-class InstantiatorSetFactoryClassMethodTest extends TestCase
+final class InstantiatorSetFactoryClassMethodTest extends TestCase
 {
     private string $factoryClass;
 

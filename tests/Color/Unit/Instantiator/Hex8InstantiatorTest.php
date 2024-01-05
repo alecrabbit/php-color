@@ -12,7 +12,7 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-class Hex8InstantiatorTest extends TestCase
+final class Hex8InstantiatorTest extends TestCase
 {
     public static function canInstantiateDataProvider(): iterable
     {

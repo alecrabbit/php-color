@@ -17,7 +17,7 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-class RGBATest extends TestCase
+final class RGBATest extends TestCase
 {
     public static function canBeCreatedFromRGBADataProvider(): iterable
     {

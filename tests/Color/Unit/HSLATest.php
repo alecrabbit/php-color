@@ -17,7 +17,7 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-class HSLATest extends TestCase
+final class HSLATest extends TestCase
 {
     public static function canBeCreatedFromHSLADataProvider(): iterable
     {

@@ -16,7 +16,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;
 
-class InstantiatorFactoryTest extends TestCase
+final class InstantiatorFactoryTest extends TestCase
 {
     public static function canProvideInstantiatorDataProvider(): iterable
     {

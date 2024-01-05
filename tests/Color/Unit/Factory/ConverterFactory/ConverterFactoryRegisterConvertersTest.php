@@ -12,7 +12,7 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;
 
-class ConverterFactoryRegisterConvertersTest extends TestCase
+final class ConverterFactoryRegisterConvertersTest extends TestCase
 {
     private array $registeredConverters;
 

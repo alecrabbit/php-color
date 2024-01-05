@@ -12,7 +12,7 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-class HSLTest extends TestCase
+final class HSLTest extends TestCase
 {
     public static function canBeCreatedFromHSLDataProvider(): iterable
     {

@@ -11,7 +11,7 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-class HexInstantiatorTest extends TestCase
+final class HexInstantiatorTest extends TestCase
 {
     public static function canInstantiateDataProvider(): iterable
     {
