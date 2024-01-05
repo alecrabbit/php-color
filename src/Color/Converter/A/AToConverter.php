@@ -24,8 +24,9 @@ abstract class AToConverter implements IToConverter
     /** @inheritDoc */
     abstract public static function getTargets(): Traversable;
 
-    protected function fromDTO(IColorDTO $dto): IColor
+    public function convert(IColor $color): IColor
     {
+        return $this->getFromConverter($color)->convert($color);
     }
 
 //    /**
@@ -39,11 +40,6 @@ abstract class AToConverter implements IToConverter
 //        )
 //            ->convert($color->toDTO()));
 //    }
-
-    public function convert(IColor $color): IColor
-    {
-        return $this->getFromConverter($color)->convert($color);
-    }
 
     protected function getFromConverter(IColor $source): IFromConverter
     {
@@ -59,9 +55,7 @@ abstract class AToConverter implements IToConverter
             );
     }
 
-    protected function getColorModel(): IColorModel
-    {
+    abstract protected function fromDTO(IColorDTO $dto): IColor;
 
-    }
-
+    abstract protected function getTargetColorModel(): IColorModel;
 }
