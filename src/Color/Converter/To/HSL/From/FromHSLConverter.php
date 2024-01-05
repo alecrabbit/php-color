@@ -9,15 +9,17 @@ use AlecRabbit\Color\Contract\IHasHue;
 use AlecRabbit\Color\Contract\IHasLightness;
 use AlecRabbit\Color\Contract\IHasSaturation;
 use AlecRabbit\Color\Contract\IHSLColor;
+use AlecRabbit\Color\Contract\Model\IColorModel;
 use AlecRabbit\Color\Converter\A\AFromConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\HSL;
+use AlecRabbit\Color\Model\HSL\ModelHSL;
 
 class FromHSLConverter extends AFromConverter
 {
-    protected static function getSources(): iterable
+    public static function getColorModel(): IColorModel
     {
-        return [];
+        return new ModelHSL();
     }
 
     protected static function assertColor(mixed $color): void

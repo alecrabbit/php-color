@@ -6,9 +6,7 @@ namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\A\AColor;
 use AlecRabbit\Color\Contract\IHSLColor;
-use AlecRabbit\Color\Contract\Model\IColorModel;
 use AlecRabbit\Color\Model\HSL\ModelHSL;
-use RuntimeException;
 
 class HSL extends AColor implements IHSLColor
 {

@@ -8,17 +8,12 @@ use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHasBlue;
 use AlecRabbit\Color\Contract\IHasGreen;
 use AlecRabbit\Color\Contract\IHasRed;
-use AlecRabbit\Color\Converter\A\AFromConverter;
+use AlecRabbit\Color\Converter\A\AFromRGBConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\RGB;
 
-class FromRGBConverter extends AFromConverter
+class FromRGBConverter extends AFromRGBConverter
 {
-    protected static function getSources(): iterable
-    {
-        return [];
-    }
-
     protected static function assertColor(mixed $color): void
     {
         match (true) {

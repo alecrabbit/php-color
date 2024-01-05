@@ -7,16 +7,18 @@ namespace AlecRabbit\Color\Converter\To\Hex8\From;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHasAlpha;
 use AlecRabbit\Color\Contract\IHSLColor;
+use AlecRabbit\Color\Contract\Model\IColorModel;
 use AlecRabbit\Color\Converter\A\AFromConverter;
 use AlecRabbit\Color\Converter\CoreConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Hex8;
+use AlecRabbit\Color\Model\HSL\ModelHSL;
 
 class FromHSLConverter extends AFromConverter
 {
-    protected static function getSources(): iterable
+    public static function getColorModel(): IColorModel
     {
-        return [];
+        return new ModelHSL();
     }
 
     protected static function assertColor(mixed $color): void

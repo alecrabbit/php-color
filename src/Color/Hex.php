@@ -6,9 +6,6 @@ namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\A\ARGBValueColor;
 use AlecRabbit\Color\Contract\IHexColor;
-use AlecRabbit\Color\Contract\Model\IColorModel;
-
-use RuntimeException;
 
 use function abs;
 use function sprintf;
@@ -58,5 +55,5 @@ class Hex extends ARGBValueColor implements IHexColor
         return self::fromRGB($this->getRed(), $this->getGreen(), $blue);
     }
 
-    
+
 }

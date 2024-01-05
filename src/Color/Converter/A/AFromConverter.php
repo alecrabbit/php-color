@@ -6,10 +6,11 @@ namespace AlecRabbit\Color\Converter\A;
 
 use AlecRabbit\Color\Contract\Converter\IFromConverter;
 use AlecRabbit\Color\Contract\IColor;
+use AlecRabbit\Color\Contract\Model\IColorModel;
 
 abstract class AFromConverter implements IFromConverter
 {
-    abstract protected static function getSources(): iterable;
+    abstract public static function getColorModel(): IColorModel;
 
     public function convert(IColor $color): IColor
     {

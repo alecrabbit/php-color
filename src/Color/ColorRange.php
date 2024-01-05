@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color;
 
-use AlecRabbit\Color\Contract\IUnconvertibleColor;
 use AlecRabbit\Color\Contract\IColorRange;
+use AlecRabbit\Color\Contract\IUnconvertibleColor;
 
 
 final readonly class ColorRange implements IColorRange

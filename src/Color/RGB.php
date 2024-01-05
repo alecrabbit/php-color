@@ -6,9 +6,6 @@ namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\A\ARGBValueColor;
 use AlecRabbit\Color\Contract\IRGBColor;
-use AlecRabbit\Color\Contract\Model\IColorModel;
-
-use RuntimeException;
 
 use function sprintf;
 
@@ -58,5 +55,5 @@ class RGB extends ARGBValueColor implements IRGBColor
             );
     }
 
-    
+
 }

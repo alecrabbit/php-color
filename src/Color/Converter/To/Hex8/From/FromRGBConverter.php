@@ -9,16 +9,13 @@ use AlecRabbit\Color\Contract\IHasAlpha;
 use AlecRabbit\Color\Contract\IHasBlue;
 use AlecRabbit\Color\Contract\IHasGreen;
 use AlecRabbit\Color\Contract\IHasRed;
-use AlecRabbit\Color\Converter\A\AFromConverter;
+use AlecRabbit\Color\Converter\A\AFromRGBConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Hex8;
 
-class FromRGBConverter extends AFromConverter
+class FromRGBConverter extends AFromRGBConverter
 {
-    protected static function getSources(): iterable
-    {
-        return [];
-    }
+
 
     protected static function assertColor(mixed $color): void
     {
