@@ -27,6 +27,26 @@ abstract class AToConverter implements IToConverter
         return $this->getFromConverter($color)->convert($color);
     }
 
+//    public function convert(IColor $color): IColor
+//    {
+//        return $this->fromDTO(
+//            $this->getModelConverter(
+//                from: $color->getColorModel(),
+//                to: $this->getColorModel()
+//            )
+//                ->toDTO($color)
+//        );
+//    }
+//
+//    /**
+//     * @throws UnsupportedColorConversion
+//     */
+//    protected function getFromConverter(IColorModel $from, IColorModel $to): IFromConverter
+//    {
+//        return
+//            $this->registry->getModelConverter($from, $to)
+//    }
+
     protected function getFromConverter(IColor $source): IFromConverter
     {
         return
