@@ -22,15 +22,7 @@ class HSL extends AColor implements IHSLColor
             colorModel: new ModelHSL(),
         );
     }
-    public function toDTO(): IColorDTO
-    {
-        return new DHSL(
-            hue: $this->getHue(),
-            saturation: $this->getSaturation(),
-            lightness: $this->getLightness(),
-            alpha: $this instanceof IHasOpacity ? $this->getOpacity() : 1.0,
-        );
-    }
+
     /** @psalm-suppress MoreSpecificReturnType */
     public static function fromString(string $color): IHSLColor
     {
@@ -41,15 +33,14 @@ class HSL extends AColor implements IHSLColor
         return self::getFromString($color)->to(self::class);
     }
 
-    public function toString(): string
+    public function toDTO(): IColorDTO
     {
-        return
-            sprintf(
-                (string)static::FORMAT_HSL,
-                $this->hue,
-                round($this->saturation * 100),
-                round($this->lightness * 100),
-            );
+        return new DHSL(
+            hue: $this->getHue(),
+            saturation: $this->getSaturation(),
+            lightness: $this->getLightness(),
+            alpha: $this instanceof IHasOpacity ? $this->getOpacity() : 1.0,
+        );
     }
 
     public function getHue(): int
@@ -65,6 +56,17 @@ class HSL extends AColor implements IHSLColor
     public function getLightness(): float
     {
         return $this->lightness;
+    }
+
+    public function toString(): string
+    {
+        return
+            sprintf(
+                (string)static::FORMAT_HSL,
+                $this->hue,
+                round($this->saturation * 100),
+                round($this->lightness * 100),
+            );
     }
 
     public function withHue(int $hue): IHSLColor

@@ -8,7 +8,6 @@ use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Contract\Model\Converter\IModelConverter;
 use AlecRabbit\Color\Contract\Model\IColorModel;
-use AlecRabbit\Color\Contract\Wrapper\IWrapper;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
 use Traversable;
 

@@ -89,23 +89,6 @@ final class HSLTest extends TestCase
         ];
     }
 
-    private static function canBeCreatedFromStringDataFeeder(): iterable
-    {
-        yield from [
-            // (left)[h, s, l], (right)[h, s, l]
-            ['hsl(124 0% 50%)', [124, 0.0, 0.5]],
-            ['hsl(0, 0%, 0%)', [0, 0, 0]],
-            ['hsl(350, 20%, 0%)', [350, 0.2, 0]],
-            ['hsl(350, 20%, 0%)', [350, 0.2, 0]],
-            ['hsl(14, 0%, 100%)', [14, 0, 1]],
-            ['hsl(114, 50%, 50%)', [114, 0.5, 0.5]],
-            ['hsl(350, 50%, 50%)', [350, 0.5, 0.5]],
-            ['hsl(123, 39%, 89%)', [123, 0.39, 0.89]],
-            ['hsl(123, 30%, 92%)', [123, 0.3, 0.92]],
-            ['hsl(32, 34%, 100%)', [32, 0.34, 1]],
-        ];
-    }
-
     public static function canBeCreatedFromStringDataProvider(): iterable
     {
         foreach (self::canBeConvertedToStringDataFeeder() as $item) {
@@ -139,6 +122,23 @@ final class HSLTest extends TestCase
                 ]
             ];
         }
+    }
+
+    private static function canBeCreatedFromStringDataFeeder(): iterable
+    {
+        yield from [
+            // (left)[h, s, l], (right)[h, s, l]
+            ['hsl(124 0% 50%)', [124, 0.0, 0.5]],
+            ['hsl(0, 0%, 0%)', [0, 0, 0]],
+            ['hsl(350, 20%, 0%)', [350, 0.2, 0]],
+            ['hsl(350, 20%, 0%)', [350, 0.2, 0]],
+            ['hsl(14, 0%, 100%)', [14, 0, 1]],
+            ['hsl(114, 50%, 50%)', [114, 0.5, 0.5]],
+            ['hsl(350, 50%, 50%)', [350, 0.5, 0.5]],
+            ['hsl(123, 39%, 89%)', [123, 0.39, 0.89]],
+            ['hsl(123, 30%, 92%)', [123, 0.3, 0.92]],
+            ['hsl(32, 34%, 100%)', [32, 0.34, 1]],
+        ];
     }
 
     public static function canBeCreatedFromDataProvider(): iterable

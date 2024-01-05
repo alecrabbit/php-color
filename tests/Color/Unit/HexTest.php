@@ -185,6 +185,7 @@ final class HexTest extends TestCase
         self::assertSame(0x00, $testee->getBlue());
         self::assertSame(0xFF, $modifiedBlue->getBlue());
     }
+
     #[Test]
     public function canGetColorModel(): void
     {

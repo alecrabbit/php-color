@@ -43,13 +43,6 @@ abstract class ARGBValueColor extends AColor
         );
     }
 
-    abstract public function toString(): string;
-
-    public function getValue(): int
-    {
-        return $this->value;
-    }
-
     public function getRed(): int
     {
         return (self::RED & $this->value) >> 16;
@@ -63,5 +56,12 @@ abstract class ARGBValueColor extends AColor
     public function getBlue(): int
     {
         return (self::BLUE & $this->value) >> 0;
+    }
+
+    abstract public function toString(): string;
+
+    public function getValue(): int
+    {
+        return $this->value;
     }
 }

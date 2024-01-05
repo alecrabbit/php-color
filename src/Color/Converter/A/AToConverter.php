@@ -33,10 +33,13 @@ abstract class AToConverter implements IToConverter
         return $this->fromDTO($this->getModelConverter($color)->convert($color->toDTO()));
     }
 
+    abstract protected function fromDTO(IColorDTO $dto): IColor;
+
     public function convert(IColor $color): IColor
     {
         return $this->doConvertOld($color);
     }
+
     protected function doConvertOld(IColor $color): IColor
     {
         return $this->getFromConverter($color)->convert($color);
@@ -65,6 +68,4 @@ abstract class AToConverter implements IToConverter
     }
 
     abstract protected function getTargetColorModel(): IColorModel;
-
-    abstract protected function fromDTO(IColorDTO $dto): IColor;
 }

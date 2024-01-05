@@ -309,7 +309,7 @@ final class HSLAGradientTest extends FactoryAwareTestCase
         );
 
         $result = iterator_to_array($gradient->unwrap());
-        
+
         self::assertEquals($expected, $result);
         self::assertCount($count, $result);
         self::assertEquals($count, $gradient->getCount());
