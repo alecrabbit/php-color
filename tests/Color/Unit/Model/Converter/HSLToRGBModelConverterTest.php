@@ -6,8 +6,8 @@ namespace AlecRabbit\Tests\Color\Unit\Model\Converter;
 
 
 use AlecRabbit\Color\Exception\InvalidArgument;
+use AlecRabbit\Color\Model\Contract\Converter\Core\ICoreConverter;
 use AlecRabbit\Color\Model\Converter\HSLToRGBModelConverter;
-use AlecRabbit\Color\Model\Core\Contract\ICoreConverter;
 use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelHSL;

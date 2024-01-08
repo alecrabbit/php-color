@@ -9,7 +9,7 @@ use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Converter\A\AFromHSLConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Hex;
-use AlecRabbit\Color\Model\Core\CoreConverter;
+use AlecRabbit\Color\Model\Converter\Core\CoreConverter;
 
 class FromHSLConverter extends AFromHSLConverter
 {

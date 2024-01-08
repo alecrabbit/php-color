@@ -11,7 +11,7 @@ use AlecRabbit\Color\Contract\IHasRed;
 use AlecRabbit\Color\Converter\A\AFromRGBConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\HSL;
-use AlecRabbit\Color\Model\Core\CoreConverter;
+use AlecRabbit\Color\Model\Converter\Core\CoreConverter;
 
 class FromRGBConverter extends AFromRGBConverter
 {

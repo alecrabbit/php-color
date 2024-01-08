@@ -6,9 +6,9 @@ namespace AlecRabbit\Color\Model\Converter;
 
 use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
 use AlecRabbit\Color\Contract\Model\IColorModel;
+use AlecRabbit\Color\Model\Contract\Converter\Core\ICoreConverter;
 use AlecRabbit\Color\Model\Converter\A\AModelConverter;
-use AlecRabbit\Color\Model\Core\Contract\ICoreConverter;
-use AlecRabbit\Color\Model\Core\CoreConverter;
+use AlecRabbit\Color\Model\Converter\Core\CoreConverter;
 use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\ModelHSL;
 use AlecRabbit\Color\Model\ModelRGB;
