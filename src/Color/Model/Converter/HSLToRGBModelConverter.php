@@ -13,6 +13,7 @@ use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\ModelHSL;
 use AlecRabbit\Color\Model\ModelRGB;
 
+/** @internal */
 final class HSLToRGBModelConverter implements IModelConverter
 {
     public static function to(): IColorModel

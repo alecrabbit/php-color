@@ -7,6 +7,7 @@ namespace AlecRabbit\Color\Model\DTO;
 use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
 
 /**
+ * @internal
  * @codeCoverageIgnore
  */
 final readonly class DRGB implements IColorDTO

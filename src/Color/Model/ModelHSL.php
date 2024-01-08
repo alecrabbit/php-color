@@ -6,6 +6,7 @@ namespace AlecRabbit\Color\Model;
 
 use AlecRabbit\Color\Contract\Model\IModelHSL;
 
+/** @internal */
 final class ModelHSL implements IModelHSL
 {
 
