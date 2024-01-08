@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Model\Converter;
 
-use AlecRabbit\Color\Contract\Converter\ICoreConverter;
 use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
 use AlecRabbit\Color\Contract\Model\IColorModel;
-use AlecRabbit\Color\Converter\CoreConverter;
 use AlecRabbit\Color\Model\Converter\A\AModelConverter;
+use AlecRabbit\Color\Model\Core\Contract\ICoreConverter;
+use AlecRabbit\Color\Model\Core\CoreConverter;
 use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\ModelHSL;
 use AlecRabbit\Color\Model\ModelRGB;

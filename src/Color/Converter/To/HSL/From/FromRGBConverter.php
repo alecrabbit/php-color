@@ -9,9 +9,9 @@ use AlecRabbit\Color\Contract\IHasBlue;
 use AlecRabbit\Color\Contract\IHasGreen;
 use AlecRabbit\Color\Contract\IHasRed;
 use AlecRabbit\Color\Converter\A\AFromRGBConverter;
-use AlecRabbit\Color\Converter\CoreConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\HSL;
+use AlecRabbit\Color\Model\Core\CoreConverter;
 
 class FromRGBConverter extends AFromRGBConverter
 {

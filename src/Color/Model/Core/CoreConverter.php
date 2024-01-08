@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color\Converter;
+namespace AlecRabbit\Color\Model\Core;
 
-use AlecRabbit\Color\Contract\Converter\ICoreConverter;
+use AlecRabbit\Color\Model\Core\Contract\ICoreConverter;
 use AlecRabbit\Color\Model\DTO\DHSL as HSL;
 use AlecRabbit\Color\Model\DTO\DRGB as RGB;
 

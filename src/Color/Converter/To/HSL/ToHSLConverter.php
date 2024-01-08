@@ -31,7 +31,7 @@ class ToHSLConverter extends AToConverter
 
     protected function fromDTO(IColorDTO $dto): IColor
     {
-        self::assertDTO($dto);
+        $this->assertColor($dto);
 
         /** @var DHSL $dto */
         return HSL::fromHSL(

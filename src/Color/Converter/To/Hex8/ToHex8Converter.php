@@ -31,7 +31,7 @@ class ToHex8Converter extends AToConverter
 
     protected function fromDTO(IColorDTO $dto): IColor
     {
-        self::assertDTO($dto);
+        $this->assertColor($dto);
 
         /** @var DRGB $dto */
         return Hex8::fromRGBO(

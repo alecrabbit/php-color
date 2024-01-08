@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit\Model\Converter;
 
 
-use AlecRabbit\Color\Contract\Converter\ICoreConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\Converter\RGBToHSLModelConverter;
+use AlecRabbit\Color\Model\Core\Contract\ICoreConverter;
 use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelHSL;

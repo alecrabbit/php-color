@@ -11,15 +11,23 @@ use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Model\Converter\IModelConverter;
 use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
 use AlecRabbit\Color\Contract\Model\IColorModel;
+use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
 use AlecRabbit\Color\Registry\Registry;
 use Traversable;
 
 abstract class AToConverter implements IToConverter
 {
+    /** @var class-string<IColorDTO> */
+    protected string $inputType;
+
     public function __construct(
+        /** @var class-string<IColorDTO> $dtoType */
+        ?string $dtoType = null,
         private readonly IRegistry $registry = new Registry(),
     ) {
+        /** @var class-string<IColorDTO> $dtoType */
+        $this->inputType = $dtoType ?? $this->getTargetColorModel()->dtoType();
     }
 
     /** @inheritDoc */
@@ -68,4 +76,19 @@ abstract class AToConverter implements IToConverter
     }
 
     abstract protected function getTargetColorModel(): IColorModel;
+
+    protected function assertColor(IColorDTO $color): void
+    {
+        if (\is_a($color, $this->inputType, true)) {
+            return;
+        }
+
+        throw new InvalidArgument(
+            \sprintf(
+                'Color must be instance of "%s", "%s" given.',
+                $this->inputType,
+                $color::class,
+            ),
+        );
+    }
 }

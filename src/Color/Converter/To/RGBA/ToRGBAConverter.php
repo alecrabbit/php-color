@@ -31,7 +31,7 @@ class ToRGBAConverter extends AToConverter
 
     protected function fromDTO(IColorDTO $dto): IColor
     {
-        self::assertDTO($dto);
+        $this->assertColor($dto);
 
         /** @var DRGB $dto */
         return RGBA::fromRGBO(
@@ -41,20 +41,4 @@ class ToRGBAConverter extends AToConverter
             $dto->alpha,
         );
     }
-
-    private static function assertDTO(IColorDTO $dto): void
-    {
-        if ($dto instanceof DRGB) {
-            return;
-        }
-
-        throw new InvalidArgument(
-            sprintf(
-                'Color must be instance of "%s", "%s" given.',
-                DRGB::class,
-                $dto::class,
-            ),
-        );
-    }
-
 }

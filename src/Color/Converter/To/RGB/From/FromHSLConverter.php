@@ -7,8 +7,8 @@ namespace AlecRabbit\Color\Converter\To\RGB\From;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Converter\A\AFromHSLConverter;
-use AlecRabbit\Color\Converter\CoreConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
+use AlecRabbit\Color\Model\Core\CoreConverter;
 use AlecRabbit\Color\RGB;
 
 class FromHSLConverter extends AFromHSLConverter

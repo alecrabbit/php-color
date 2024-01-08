@@ -31,7 +31,7 @@ class ToRGBConverter extends AToConverter
 
     protected function fromDTO(IColorDTO $dto): IColor
     {
-        self::assertDTO($dto);
+        $this->assertColor($dto);
 
         /** @var DRGB $dto */
         return RGB::fromRGB(

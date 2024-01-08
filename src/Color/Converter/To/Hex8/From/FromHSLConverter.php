@@ -8,9 +8,9 @@ use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHasAlpha;
 use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Converter\A\AFromHSLConverter;
-use AlecRabbit\Color\Converter\CoreConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Hex8;
+use AlecRabbit\Color\Model\Core\CoreConverter;
 
 class FromHSLConverter extends AFromHSLConverter
 {
