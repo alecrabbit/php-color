@@ -22,12 +22,24 @@ abstract class AToConverter implements IToConverter
     protected string $inputType;
 
     public function __construct(
-        ?string $dtoType = null,
         private readonly IRegistry $registry = new Registry(),
+        ?string $dtoType = null,
     ) {
         /** @var null|class-string<IColorDTO> $dtoType */
-        $this->inputType = $dtoType ?? $this->getTargetColorModel()->dtoType();
+        $this->inputType = $this->refineInputType($dtoType);
     }
+
+    /**
+     * @param class-string<IColorDTO>|null $dtoType
+     *
+     * @return class-string<IColorDTO>
+     */
+    protected function refineInputType(?string $dtoType): string
+    {
+        return $dtoType ?? $this->getTargetColorModel()->dtoType();
+    }
+
+    abstract protected function getTargetColorModel(): IColorModel;
 
     /** @inheritDoc */
     abstract public static function getTargets(): Traversable;
@@ -73,8 +85,6 @@ abstract class AToConverter implements IToConverter
             to: $this->getTargetColorModel(),
         );
     }
-
-    abstract protected function getTargetColorModel(): IColorModel;
 
     protected function assertColor(IColorDTO $color): void
     {
