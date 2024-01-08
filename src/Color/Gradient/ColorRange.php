@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color;
+namespace AlecRabbit\Color\Gradient;
 
 use AlecRabbit\Color\Contract\IColorRange;
 use AlecRabbit\Color\Contract\IUnconvertibleColor;

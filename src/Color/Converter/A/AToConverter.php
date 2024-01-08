@@ -22,11 +22,10 @@ abstract class AToConverter implements IToConverter
     protected string $inputType;
 
     public function __construct(
-        /** @var class-string<IColorDTO> $dtoType */
         ?string $dtoType = null,
         private readonly IRegistry $registry = new Registry(),
     ) {
-        /** @var class-string<IColorDTO> $dtoType */
+        /** @var null|class-string<IColorDTO> $dtoType */
         $this->inputType = $dtoType ?? $this->getTargetColorModel()->dtoType();
     }
 
