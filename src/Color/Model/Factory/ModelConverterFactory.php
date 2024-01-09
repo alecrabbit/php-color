@@ -53,7 +53,7 @@ final readonly class ModelConverterFactory implements IModelConverterFactory
         return new self($converters);
     }
 
-    private function getChainFromPath(iterable $conversionPath): iterable
+    private function getChainFromPath(iterable $conversionPath): \Traversable
     {
         $converters = [];
 
@@ -67,7 +67,7 @@ final readonly class ModelConverterFactory implements IModelConverterFactory
             $converters[] = $this->getConverterClass($prev, $model);
             $prev = $model;
         }
-        return $converters;
+        return new \ArrayObject($converters);
     }
 
     private function getConverterClass(string $prev, string $model): string

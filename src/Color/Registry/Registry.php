@@ -194,7 +194,7 @@ final class Registry implements IRegistry
         return $this->createModelConverter($conversionPath);
     }
 
-    private static function findConversionPath(string $from, string $to): ?array
+    private static function findConversionPath(string $from, string $to): ?\Traversable
     {
         $visited = [];
         $queue = new SplQueue();
@@ -207,7 +207,7 @@ final class Registry implements IRegistry
             $node = end($path);
 
             if ($node === $to) {
-                return $path;
+                return new \ArrayObject($path);
             }
 
             foreach (self::$graph[$node] as $neighbor) {
@@ -223,8 +223,14 @@ final class Registry implements IRegistry
         return null;
     }
 
-    protected function createModelConverter(array $conversionPath): IModelConverter
+    protected function createModelConverter(iterable $conversionPath): IModelConverter
     {
-        return $this->modelConverterFactory->useConverters(self::$modelConverters)->create($conversionPath);
+        return $this->getModelConverterFactory()->create($conversionPath);
+    }
+
+    protected function getModelConverterFactory(): IModelConverterFactory
+    {
+        return $this->modelConverterFactory
+            ->useConverters(new \ArrayObject(self::$modelConverters));
     }
 }
