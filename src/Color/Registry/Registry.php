@@ -13,6 +13,8 @@ use AlecRabbit\Color\Contract\Model\Converter\IModelConverter;
 use AlecRabbit\Color\Contract\Model\IColorModel;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
+use AlecRabbit\Color\Model\Factory\IModelConverterFactory;
+use AlecRabbit\Color\Model\Factory\ModelConverterFactory;
 use RuntimeException;
 use SplQueue;
 use Traversable;
@@ -25,6 +27,11 @@ final class Registry implements IRegistry
     private static array $modelConverters = [];
     private static array $models = [];
     private static array $graph = [];
+
+    public function __construct(
+        private readonly IModelConverterFactory $modelConverterFactory = new ModelConverterFactory(),
+    ) {
+    }
 
     /**
      * @inheritDoc
@@ -184,10 +191,7 @@ final class Registry implements IRegistry
             );
         }
 
-        dump($conversionPath);
-        throw new \RuntimeException('Intentional error.');
-
-        return $conversionPath;
+        return $this->createModelConverter($conversionPath);
     }
 
     private static function findConversionPath(string $from, string $to): ?array
@@ -217,5 +221,10 @@ final class Registry implements IRegistry
         }
 
         return null;
+    }
+
+    protected function createModelConverter(array $conversionPath): IModelConverter
+    {
+        return $this->modelConverterFactory->useConverters(self::$modelConverters)->create($conversionPath);
     }
 }
