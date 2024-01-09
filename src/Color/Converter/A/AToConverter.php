@@ -16,6 +16,9 @@ use AlecRabbit\Color\Exception\UnsupportedColorConversion;
 use AlecRabbit\Color\Registry\Registry;
 use Traversable;
 
+use function is_a;
+use function sprintf;
+
 abstract class AToConverter implements IToConverter
 {
     /** @var class-string<IColorDTO> */
@@ -88,12 +91,12 @@ abstract class AToConverter implements IToConverter
 
     protected function assertColor(IColorDTO $color): void
     {
-        if (\is_a($color, $this->inputType, true)) {
+        if (is_a($color, $this->inputType, true)) {
             return;
         }
 
         throw new InvalidArgument(
-            \sprintf(
+            sprintf(
                 'Color must be instance of "%s", "%s" given.',
                 $this->inputType,
                 $color::class,

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Model\Converter\Core;
 
-use AlecRabbit\Color\Model\Contract\Converter\Core\ICoreConverter;
+use AlecRabbit\Color\Model\Contract\Converter\Core\ILegacyCoreConverter;
 use AlecRabbit\Color\Model\DTO\DHSL as HSL;
 use AlecRabbit\Color\Model\DTO\DRGB as RGB;
 
-class CoreConverter implements ICoreConverter
+class LegacyCoreConverter implements ILegacyCoreConverter
 {
     private const FLOAT_PRECISION = 2;
 

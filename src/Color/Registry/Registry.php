@@ -12,13 +12,19 @@ use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Contract\Model\Converter\IModelConverter;
 use AlecRabbit\Color\Contract\Model\IColorModel;
 use AlecRabbit\Color\Exception\InvalidArgument;
+use AlecRabbit\Color\Exception\UnsupportedColorConversion;
 use RuntimeException;
+use SplQueue;
 use Traversable;
 
 final class Registry implements IRegistry
 {
     /** @var Array<class-string<IToConverter>, Array<class-string<IColor>,IFromConverter|class-string<IFromConverter>>> */
     private static array $fromConverters = [];
+
+    private static array $modelConverters = [];
+    private static array $models = [];
+    private static array $graph = [];
 
     /**
      * @inheritDoc
@@ -97,8 +103,30 @@ final class Registry implements IRegistry
     /** @inheritDoc */
     public static function attach(string ...$classes): void
     {
-        // TODO: Implement register() method.
-        throw new RuntimeException(__METHOD__ . ' Not implemented.');
+        /** @var IModelConverter $class */
+        foreach ($classes as $class) {
+            self::$modelConverters[] = $class;
+            self::$models[$class::from()::class] = true;
+            self::$models[$class::to()::class] = true;
+        }
+
+        self::buildGraph();
+
+        dump(self::$modelConverters);
+        dump(self::$models);
+        dump(self::$graph);
+    }
+
+    private static function buildGraph(): void
+    {
+        foreach (self::$models as $model => $_) {
+            self::$graph[$model] = [];
+        }
+
+        /** @var IModelConverter $class */
+        foreach (self::$modelConverters as $class) {
+            self::$graph[$class::from()::class][] = $class::to()::class;
+        }
     }
 
     /**
@@ -144,7 +172,50 @@ final class Registry implements IRegistry
      */
     public function getModelConverter(IColorModel $from, IColorModel $to): IModelConverter
     {
-        // TODO: Implement getModelConverter() method.
-        throw new RuntimeException(__METHOD__ . ' Not implemented.');
+        $conversionPath = self::findConversionPath($from::class, $to::class);
+
+        if (null === $conversionPath) {
+            throw new UnsupportedColorConversion(
+                sprintf(
+                    'No conversion path found. For "%s" to "%s".',
+                    $from->dtoType(),
+                    $to->dtoType(),
+                )
+            );
+        }
+
+        dump($conversionPath);
+        throw new \RuntimeException('Intentional error.');
+
+        return $conversionPath;
+    }
+
+    private static function findConversionPath(string $from, string $to): ?array
+    {
+        $visited = [];
+        $queue = new SplQueue();
+
+        $queue->enqueue([$from]);
+        $visited[$from] = true;
+
+        while (!$queue->isEmpty()) {
+            $path = $queue->dequeue();
+            $node = end($path);
+
+            if ($node === $to) {
+                return $path;
+            }
+
+            foreach (self::$graph[$node] as $neighbor) {
+                if (!isset($visited[$neighbor])) {
+                    $visited[$neighbor] = true;
+                    $newPath = $path;
+                    $newPath[] = $neighbor;
+                    $queue->enqueue($newPath);
+                }
+            }
+        }
+
+        return null;
     }
 }

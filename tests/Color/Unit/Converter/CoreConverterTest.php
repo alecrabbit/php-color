@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit\Converter;
 
 
-use AlecRabbit\Color\Model\Contract\Converter\Core\ICoreConverter;
-use AlecRabbit\Color\Model\Converter\Core\CoreConverter;
+use AlecRabbit\Color\Model\Contract\Converter\Core\ILegacyCoreConverter;
+use AlecRabbit\Color\Model\Converter\Core\LegacyCoreConverter;
 use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -54,13 +54,13 @@ final class CoreConverterTest extends TestCase
     {
         $converter = $this->getTesteeInstance();
 
-        self::assertInstanceOf(CoreConverter::class, $converter);
+        self::assertInstanceOf(LegacyCoreConverter::class, $converter);
     }
 
     protected function getTesteeInstance(
         ?int $precision = null,
-    ): ICoreConverter {
-        return new CoreConverter(
+    ): ILegacyCoreConverter {
+        return new LegacyCoreConverter(
             precision: $precision ?? 2,
         );
     }

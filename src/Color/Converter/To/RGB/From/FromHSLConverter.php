@@ -8,7 +8,7 @@ use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Converter\A\AFromHSLConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Model\Converter\Core\CoreConverter;
+use AlecRabbit\Color\Model\Converter\Core\LegacyCoreConverter;
 use AlecRabbit\Color\RGB;
 
 class FromHSLConverter extends AFromHSLConverter
@@ -30,7 +30,7 @@ class FromHSLConverter extends AFromHSLConverter
     protected static function createColor(IColor $color): IColor
     {
         /** @var IHSLColor $color */
-        $rgb = (new CoreConverter())->hslToRgb(
+        $rgb = (new LegacyCoreConverter())->hslToRgb(
             $color->getHue(),
             $color->getSaturation(),
             $color->getLightness()

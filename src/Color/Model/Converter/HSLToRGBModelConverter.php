@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Model\Converter;
 
 use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
-use AlecRabbit\Color\Contract\Model\IColorModel;
-use AlecRabbit\Color\Model\Contract\Converter\Core\ICoreConverter;
+use AlecRabbit\Color\Model\Contract\Converter\Core\ILegacyCoreConverter;
 use AlecRabbit\Color\Model\Converter\A\AModelConverter;
-use AlecRabbit\Color\Model\Converter\Core\CoreConverter;
+use AlecRabbit\Color\Model\Converter\Core\Dummy;
+use AlecRabbit\Color\Model\Converter\Core\HSLtoRGB;
+use AlecRabbit\Color\Model\Converter\Core\LegacyCoreConverter;
 use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\ModelHSL;
 use AlecRabbit\Color\Model\ModelRGB;
@@ -16,34 +17,26 @@ use AlecRabbit\Color\Model\ModelRGB;
 /** @internal */
 final readonly class HSLToRGBModelConverter extends AModelConverter
 {
-    public function __construct(
-        private ICoreConverter $converter = new CoreConverter(),
-    ) {
-        parent::__construct(self::from()->dtoType());
+    protected static function getFromModelClass(): string
+    {
+        return ModelHSL::class;
     }
 
-    public static function from(): IColorModel
+    protected static function getToModelClass(): string
     {
-        return new ModelHSL();
+        return ModelRGB::class;
     }
 
-    public static function to(): IColorModel
+    protected static function getConverterClass(): string
     {
-        return new ModelRGB();
+        return HSLtoRGB::class;
     }
 
     public function convert(IColorDTO $color): IColorDTO
     {
+        // TODO (2024-01-09 14:20) [Alec Rabbit]: remove this method and fix tests
         $this->assertColor($color);
 
-        /** @var DHSL $color */
-        return $this->converter
-            ->hslToRgb(
-                $color->hue,
-                $color->saturation,
-                $color->lightness,
-                $color->alpha,
-            );
+        return $this->converter->convert($color);
     }
-
 }

@@ -24,6 +24,21 @@ class ToHex8Converter extends AToConverter
         return new ArrayObject([Hex8::class, IHex8Color::class]);
     }
 
+    private static function assertDTO(IColorDTO $dto): void
+    {
+        if ($dto instanceof DRGB) {
+            return;
+        }
+
+        throw new InvalidArgument(
+            sprintf(
+                'Color must be instance of "%s", "%s" given.',
+                DRGB::class,
+                $dto::class,
+            ),
+        );
+    }
+
     protected function getTargetColorModel(): IColorModel
     {
         return new ModelRGB();
@@ -39,21 +54,6 @@ class ToHex8Converter extends AToConverter
             $dto->green,
             $dto->blue,
             $dto->alpha,
-        );
-    }
-
-    private static function assertDTO(IColorDTO $dto): void
-    {
-        if ($dto instanceof DRGB) {
-            return;
-        }
-
-        throw new InvalidArgument(
-            sprintf(
-                'Color must be instance of "%s", "%s" given.',
-                DRGB::class,
-                $dto::class,
-            ),
         );
     }
 }

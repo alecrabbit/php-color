@@ -24,6 +24,21 @@ class ToHSLAConverter extends AToConverter
         return new ArrayObject([HSLA::class, IHSLAColor::class]);
     }
 
+    private static function assertDTO(IColorDTO $dto): void
+    {
+        if ($dto instanceof DHSL) {
+            return;
+        }
+
+        throw new InvalidArgument(
+            sprintf(
+                'Color must be instance of "%s", "%s" given.',
+                DHSL::class,
+                $dto::class,
+            ),
+        );
+    }
+
     protected function getTargetColorModel(): IColorModel
     {
         return new ModelHSL();
@@ -39,21 +54,6 @@ class ToHSLAConverter extends AToConverter
             $dto->saturation,
             $dto->lightness,
             $dto->alpha,
-        );
-    }
-
-    private static function assertDTO(IColorDTO $dto): void
-    {
-        if ($dto instanceof DHSL) {
-            return;
-        }
-
-        throw new InvalidArgument(
-            sprintf(
-                'Color must be instance of "%s", "%s" given.',
-                DHSL::class,
-                $dto::class,
-            ),
         );
     }
 }

@@ -12,7 +12,7 @@ use AlecRabbit\Color\Contract\IHasRed;
 use AlecRabbit\Color\Converter\A\AFromRGBConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\HSLA;
-use AlecRabbit\Color\Model\Converter\Core\CoreConverter;
+use AlecRabbit\Color\Model\Converter\Core\LegacyCoreConverter;
 
 class FromRGBConverter extends AFromRGBConverter
 {
@@ -34,7 +34,7 @@ class FromRGBConverter extends AFromRGBConverter
     protected static function createColor(IColor $color): IColor
     {
         /** @var IHasRed&IHasGreen&IHasBlue $color */
-        $hsl = (new CoreConverter())
+        $hsl = (new LegacyCoreConverter())
             ->rgbToHsl(
                 $color->getRed(),
                 $color->getGreen(),

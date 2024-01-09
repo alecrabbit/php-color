@@ -24,6 +24,21 @@ class ToHSLConverter extends AToConverter
         return new ArrayObject([HSL::class, IHSLColor::class]);
     }
 
+    private static function assertDTO(IColorDTO $dto): void
+    {
+        if ($dto instanceof DHSL) {
+            return;
+        }
+
+        throw new InvalidArgument(
+            sprintf(
+                'Color must be instance of "%s", "%s" given.',
+                DHSL::class,
+                $dto::class,
+            ),
+        );
+    }
+
     protected function getTargetColorModel(): IColorModel
     {
         return new ModelHSL();
@@ -38,21 +53,6 @@ class ToHSLConverter extends AToConverter
             $dto->hue,
             $dto->saturation,
             $dto->lightness,
-        );
-    }
-
-    private static function assertDTO(IColorDTO $dto): void
-    {
-        if ($dto instanceof DHSL) {
-            return;
-        }
-
-        throw new InvalidArgument(
-            sprintf(
-                'Color must be instance of "%s", "%s" given.',
-                DHSL::class,
-                $dto::class,
-            ),
         );
     }
 }

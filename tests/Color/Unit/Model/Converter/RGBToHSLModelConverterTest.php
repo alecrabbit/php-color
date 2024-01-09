@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Color\Unit\Model\Converter;
 
 
 use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Model\Contract\Converter\Core\ICoreConverter;
+use AlecRabbit\Color\Model\Contract\Converter\Core\ILegacyCoreConverter;
 use AlecRabbit\Color\Model\Converter\RGBToHSLModelConverter;
 use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\DTO\DRGB;
@@ -43,7 +43,7 @@ final class RGBToHSLModelConverterTest extends TestCase
             ->willReturn($expected);
 
         $testee = $this->getTesteeInstance(
-            converter: $converter,
+            legacyConverter: $converter,
         );
 
         $result = $testee->convert($input);
@@ -52,16 +52,16 @@ final class RGBToHSLModelConverterTest extends TestCase
     }
 
     protected function getTesteeInstance(
-        ?ICoreConverter $converter = null
+        ?ILegacyCoreConverter $legacyConverter = null
     ): RGBToHSLModelConverter {
         return new RGBToHSLModelConverter(
-            converter: $converter ?? $this->getConverterMock(),
+            legacyConverter: $legacyConverter ?? $this->getConverterMock(),
         );
     }
 
-    protected function getConverterMock(): MockObject&ICoreConverter
+    protected function getConverterMock(): MockObject&ILegacyCoreConverter
     {
-        return $this->createMock(ICoreConverter::class);
+        return $this->createMock(ILegacyCoreConverter::class);
     }
 
     #[Test]

@@ -24,6 +24,21 @@ class ToRGBConverter extends AToConverter
         return new ArrayObject([RGB::class, IRGBColor::class]);
     }
 
+    private static function assertDTO(IColorDTO $dto): void
+    {
+        if ($dto instanceof DRGB) {
+            return;
+        }
+
+        throw new InvalidArgument(
+            sprintf(
+                'Color must be instance of "%s", "%s" given.',
+                DRGB::class,
+                $dto::class,
+            ),
+        );
+    }
+
     protected function getTargetColorModel(): IColorModel
     {
         return new ModelRGB();
@@ -38,21 +53,6 @@ class ToRGBConverter extends AToConverter
             $dto->red,
             $dto->green,
             $dto->blue,
-        );
-    }
-
-    private static function assertDTO(IColorDTO $dto): void
-    {
-        if ($dto instanceof DRGB) {
-            return;
-        }
-
-        throw new InvalidArgument(
-            sprintf(
-                'Color must be instance of "%s", "%s" given.',
-                DRGB::class,
-                $dto::class,
-            ),
         );
     }
 }
