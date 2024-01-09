@@ -10,12 +10,12 @@ use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
  * @internal
  * @codeCoverageIgnore
  */
-final readonly class DHSL implements IColorDTO
+final readonly class DLAB implements IColorDTO
 {
     public function __construct(
-        public int $hue,    // TODO (2024-01-09 12:53) [Alec Rabbit]: should be float
-        public float $saturation,
         public float $lightness,
+        public float $a,
+        public float $b,
         public float $alpha = 1.0,
     ) {
     }

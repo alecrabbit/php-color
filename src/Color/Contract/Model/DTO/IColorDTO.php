@@ -11,8 +11,9 @@ namespace AlecRabbit\Color\Contract\Model\DTO;
  *     - final readonly class
  *     - public properties
  *     - constructor with all properties as arguments
- *     - int parameters implied to be in range 0-255
- *     - float parameters implied to be in range 0.0-1.0
+ *     - parameters representing values should be named accordingly to the color model
+ *     - parameters should be of type float
+ *     - values implied to be in range 0.0-1.0
  *     - alpha parameter should be optional with default value 1.0
  */
 interface IColorDTO
