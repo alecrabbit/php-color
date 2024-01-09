@@ -56,10 +56,14 @@ final readonly class ModelConverterFactory implements IModelConverterFactory
     private function getChainFromPath(iterable $conversionPath): iterable
     {
         $converters = [];
-        dump($this->converters, $conversionPath);
 
-        $prev = array_shift($conversionPath);
+        $prev = null;
         foreach ($conversionPath as $model) {
+            if (null === $prev) {
+                $prev = $model;
+                continue;
+            }
+
             $converters[] = $this->getConverterClass($prev, $model);
             $prev = $model;
         }
