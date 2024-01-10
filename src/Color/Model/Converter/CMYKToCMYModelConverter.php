@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Model\Converter;
 
 use AlecRabbit\Color\Model\Converter\A\AModelConverter;
+use AlecRabbit\Color\Model\Converter\Core\CMYKToCMY;
 use AlecRabbit\Color\Model\Converter\Core\Dummy;
 use AlecRabbit\Color\Model\ModelCMY;
 use AlecRabbit\Color\Model\ModelCMYK;
@@ -24,7 +25,7 @@ final readonly class CMYKToCMYModelConverter extends AModelConverter
 
     protected static function getConverterClass(): string
     {
-        return Dummy::class;
+        return CMYKToCMY::class;
     }
 
 }
