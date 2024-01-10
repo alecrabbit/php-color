@@ -15,7 +15,6 @@ use function sprintf;
 
 class Hex8 extends Hex implements IHex8Color
 {
-    protected const MAX8 = 0xFFFFFFFF;
     protected const MAX8_NO_ALPHA = 0xFFFFFF00;
     protected const PRECISION = 3;
 

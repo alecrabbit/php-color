@@ -12,6 +12,7 @@ use AlecRabbit\Color\Model\ModelRGB;
 
 abstract class ARGBValueColor extends AColor
 {
+    protected const MAX8 = 0xFFFFFFFF;
     protected const MAX = 0xFFFFFF;
     protected const RED = 0xFF0000;
     protected const GREEN = 0x00FF00;
