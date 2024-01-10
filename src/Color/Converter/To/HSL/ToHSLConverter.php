@@ -46,11 +46,6 @@ class ToHSLConverter extends AToConverter
 
     protected function fromDTO(IColorDTO $dto): IColor
     {
-        /** @var DHSL $dto */
-        return HSL::fromHSL(
-            $dto->hue,
-            $dto->saturation,
-            $dto->lightness,
-        );
+        return HSL::fromDTO($dto);
     }
 }

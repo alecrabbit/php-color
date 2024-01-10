@@ -358,6 +358,7 @@ final class RGBATest extends TestCase
     {
         $testee = RGBA::fromRGBA(0x00, 0x00, 0x00);
         self::assertSame($testee, $testee->to(RGBA::class));
+//        self::assertSame($testee, $testee->to(IRGBAColor::class));
         self::assertNotSame($testee, $testee->to(RGB::class));
     }
 

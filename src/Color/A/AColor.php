@@ -41,6 +41,10 @@ abstract class AColor implements IColor
      */
     protected static function convert(IColor $color, string $to): IColor
     {
+        if ($color::class === $to) {
+            return $color;
+        }
+
         return Converter::to($to)->convert($color);
     }
 

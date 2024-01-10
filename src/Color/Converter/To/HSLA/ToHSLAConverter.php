@@ -9,9 +9,7 @@ use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
 use AlecRabbit\Color\Contract\Model\IColorModel;
 use AlecRabbit\Color\Converter\A\AToConverter;
-use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\HSLA;
-use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\ModelHSL;
 use ArrayObject;
 use Traversable;
@@ -24,21 +22,6 @@ class ToHSLAConverter extends AToConverter
         return new ArrayObject([HSLA::class, IHSLAColor::class]);
     }
 
-    private static function assertDTO(IColorDTO $dto): void
-    {
-        if ($dto instanceof DHSL) {
-            return;
-        }
-
-        throw new InvalidArgument(
-            sprintf(
-                'Color must be instance of "%s", "%s" given.',
-                DHSL::class,
-                $dto::class,
-            ),
-        );
-    }
-
     protected function getTargetColorModel(): IColorModel
     {
         return new ModelHSL();
@@ -46,12 +29,6 @@ class ToHSLAConverter extends AToConverter
 
     protected function fromDTO(IColorDTO $dto): IColor
     {
-        /** @var DHSL $dto */
-        return HSLA::fromHSLA(
-            $dto->hue,
-            $dto->saturation,
-            $dto->lightness,
-            $dto->alpha,
-        );
+        return HSLA::fromDTO($dto);
     }
 }
