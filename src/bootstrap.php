@@ -21,7 +21,14 @@ use AlecRabbit\Color\Instantiator\HSLAInstantiator;
 use AlecRabbit\Color\Instantiator\HSLInstantiator;
 use AlecRabbit\Color\Instantiator\RGBAInstantiator;
 use AlecRabbit\Color\Instantiator\RGBInstantiator;
+use AlecRabbit\Color\Model\Converter\CMYKToCMYModelConverter;
+use AlecRabbit\Color\Model\Converter\CMYToCMYKModelConverter;
+use AlecRabbit\Color\Model\Converter\CMYToRGBModelConverter;
+use AlecRabbit\Color\Model\Converter\HSLToRGBModelConverter;
+use AlecRabbit\Color\Model\Converter\RGBToCMYModelConverter;
+use AlecRabbit\Color\Model\Converter\RGBToHSLModelConverter;
 use AlecRabbit\Color\Package;
+use AlecRabbit\Color\Registry\Registry;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Color\Wrapper\Wrapper;
@@ -123,12 +130,12 @@ Package::add(
     ),
 );
 
-\AlecRabbit\Color\Registry\Registry::attach(
-    \AlecRabbit\Color\Model\Converter\HSLToRGBModelConverter::class,
-    \AlecRabbit\Color\Model\Converter\RGBToHSLModelConverter::class,
-    \AlecRabbit\Color\Model\Converter\RGBToCMYModelConverter::class,
-    \AlecRabbit\Color\Model\Converter\CMYToCMYKModelConverter::class,
-    \AlecRabbit\Color\Model\Converter\CMYKToCMYModelConverter::class,
-    \AlecRabbit\Color\Model\Converter\CMYToRGBModelConverter::class,
+Registry::attach(
+    HSLToRGBModelConverter::class,
+    RGBToHSLModelConverter::class,
+    RGBToCMYModelConverter::class,
+    CMYToCMYKModelConverter::class,
+    CMYKToCMYModelConverter::class,
+    CMYToRGBModelConverter::class,
 );
 // @codeCoverageIgnoreEnd
