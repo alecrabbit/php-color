@@ -5,7 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\A\ARGBValueColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHexColor;
+
+use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
+use AlecRabbit\Color\Model\DTO\DRGB;
 
 use function abs;
 use function sprintf;
@@ -55,5 +59,13 @@ class Hex extends ARGBValueColor implements IHexColor
         return self::fromRGB($this->getRed(), $this->getGreen(), $blue);
     }
 
-
+    public static function fromDTO(IColorDTO $dto): IHexColor
+    {
+        /** @var DRGB $dto */
+        return self::fromRGB(
+            $dto->red,
+            $dto->green,
+            $dto->blue,
+        );
+    }
 }

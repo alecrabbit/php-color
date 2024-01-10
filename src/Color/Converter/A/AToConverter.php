@@ -47,38 +47,11 @@ abstract class AToConverter implements IToConverter
     /** @inheritDoc */
     abstract public static function getTargets(): Traversable;
 
-    /**
-     * @throws UnsupportedColorConversion
-     */
-    protected function doConvertNew(IColor $color): IColor
-    {
-        return $this->fromDTO($this->getModelConverter($color)->convert($color->toDTO()));
-    }
-
     abstract protected function fromDTO(IColorDTO $dto): IColor;
 
     public function convert(IColor $color): IColor
     {
-        return $this->doConvertOld($color);
-    }
-
-    protected function doConvertOld(IColor $color): IColor
-    {
-        return $this->getFromConverter($color)->convert($color);
-    }
-
-    protected function getFromConverter(IColor $source): IFromConverter
-    {
-        return
-            $this->registry->getFromConverter($this::class, $source::class)
-            ??
-            throw new UnsupportedColorConversion(
-                sprintf(
-                    'Conversion from "%s" is not supported by "%s".',
-                    $source::class,
-                    static::class
-                )
-            );
+        return $this->fromDTO($this->getModelConverter($color)->convert($color->toDTO()));
     }
 
     protected function getModelConverter(IColor $color): IModelConverter

@@ -19,5 +19,7 @@ interface IColor extends IUnconvertibleColor, Stringable
 
     public function toDTO(): IColorDTO;
 
+    public static function fromDTO(IColorDTO $dto): IColor;
+
     public function getColorModel(): IColorModel;
 }

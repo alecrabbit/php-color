@@ -122,4 +122,13 @@ Package::add(
         ]),
     ),
 );
+
+\AlecRabbit\Color\Registry\Registry::attach(
+    \AlecRabbit\Color\Model\Converter\HSLToRGBModelConverter::class,
+    \AlecRabbit\Color\Model\Converter\RGBToHSLModelConverter::class,
+    \AlecRabbit\Color\Model\Converter\RGBToCMYModelConverter::class,
+    \AlecRabbit\Color\Model\Converter\CMYToCMYKModelConverter::class,
+    \AlecRabbit\Color\Model\Converter\CMYKToCMYModelConverter::class,
+    \AlecRabbit\Color\Model\Converter\CMYToRGBModelConverter::class,
+);
 // @codeCoverageIgnoreEnd

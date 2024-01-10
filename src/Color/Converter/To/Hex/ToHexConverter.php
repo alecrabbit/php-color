@@ -46,8 +46,6 @@ class ToHexConverter extends AToConverter
 
     protected function fromDTO(IColorDTO $dto): IColor
     {
-        $this->assertColor($dto);
-
         /** @var DRGB $dto */
         return Hex::fromRGB(
             $dto->red,

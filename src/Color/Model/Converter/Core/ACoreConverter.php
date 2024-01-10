@@ -11,6 +11,7 @@ use AlecRabbit\Color\Model\Contract\Converter\Core\ICoreConverter;
 abstract readonly class ACoreConverter implements ICoreConverter
 {
     protected const FLOAT_PRECISION = 2;
+
     /** @var class-string<IColorDTO> */
     protected string $inputType;
 
@@ -27,6 +28,13 @@ abstract readonly class ACoreConverter implements ICoreConverter
      */
     abstract protected static function inputType(): string;
 
+    public function convert(IColorDTO $color): IColorDTO
+    {
+        $this->assertColor($color);
+
+        return $this->doConvert($color);
+    }
+
     protected function assertColor(IColorDTO $color): void
     {
         if (is_a($color, $this->inputType, true)) {
@@ -41,4 +49,6 @@ abstract readonly class ACoreConverter implements ICoreConverter
             ),
         );
     }
+
+    abstract protected function doConvert(IColorDTO $color): IColorDTO;
 }

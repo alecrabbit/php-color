@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit\Factory\Override;
 
 use AlecRabbit\Color\A\AColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
 use AlecRabbit\Color\Contract\Model\IColorModel;
 use RuntimeException;
@@ -22,6 +23,11 @@ final class AConvertableColorOverride extends AColor
     }
 
     public function toDTO(): IColorDTO
+    {
+        throw new RuntimeException('INTENTIONALLY Not implemented.');
+    }
+
+    public static function fromDTO(IColorDTO $dto): IColor
     {
         throw new RuntimeException('INTENTIONALLY Not implemented.');
     }

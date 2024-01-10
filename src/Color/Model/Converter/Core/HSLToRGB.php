@@ -15,10 +15,8 @@ final readonly class HSLToRGB extends ACoreConverter
         return HSL::class;
     }
 
-    public function convert(IColorDTO $color): IColorDTO
+    protected function doConvert(IColorDTO $color): IColorDTO
     {
-        $this->assertColor($color);
-
         /** @var HSL $color */
         $h = $color->hue / 360;
         $c = (1 - abs(2 * $color->lightness - 1)) * $color->saturation;

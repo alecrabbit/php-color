@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\A\AColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHasOpacity;
 use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
@@ -40,6 +41,16 @@ class HSL extends AColor implements IHSLColor
             saturation: $this->getSaturation(),
             lightness: $this->getLightness(),
             alpha: $this instanceof IHasOpacity ? $this->getOpacity() : 1.0,
+        );
+    }
+
+    public static function fromDTO(IColorDTO $dto): IHSLColor
+    {
+        /** @var DHSL $dto */
+        return self::fromHSL(
+            $dto->hue,
+            $dto->saturation,
+            $dto->lightness,
         );
     }
 

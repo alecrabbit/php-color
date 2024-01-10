@@ -46,8 +46,6 @@ class ToHSLAConverter extends AToConverter
 
     protected function fromDTO(IColorDTO $dto): IColor
     {
-        $this->assertColor($dto);
-
         /** @var DHSL $dto */
         return HSLA::fromHSLA(
             $dto->hue,

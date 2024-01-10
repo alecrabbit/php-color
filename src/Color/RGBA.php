@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color;
 
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
+
+use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
+use AlecRabbit\Color\Model\DTO\DRGB;
 
 use function abs;
 use function round;
@@ -33,6 +37,17 @@ class RGBA extends RGB implements IRGBAColor
                 self::componentsToValue($r, $g, $b),
                 (abs($alpha) & self::COMPONENT)
             );
+    }
+
+    public static function fromDTO(IColorDTO $dto): IRGBAColor
+    {
+        /** @var DRGB $dto */
+        return self::fromRGBO(
+            $dto->red,
+            $dto->green,
+            $dto->blue,
+            $dto->alpha,
+        );
     }
 
     /** @psalm-suppress MoreSpecificReturnType */

@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color;
 
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
+use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
+use AlecRabbit\Color\Model\DTO\DHSL;
+use AlecRabbit\Color\Model\DTO\DRGB;
 
 class HSLA extends HSL implements IHSLAColor
 {
@@ -58,6 +62,16 @@ class HSLA extends HSL implements IHSLAColor
         );
     }
 
+    public static function fromDTO(IColorDTO $dto): IHSLAColor
+    {
+        /** @var DHSL $dto */
+        return self::fromHSLA(
+            $dto->hue,
+            $dto->saturation,
+            $dto->lightness,
+            $dto->alpha,
+        );
+    }
     public function withSaturation(float $saturation): IHSLAColor
     {
         return self::fromHSL($this->hue, $saturation, $this->lightness);

@@ -15,10 +15,8 @@ final readonly class RGBToHSL extends ACoreConverter
         return RGB::class;
     }
 
-    public function convert(IColorDTO $color): IColorDTO
+    protected function doConvert(IColorDTO $color): IColorDTO
     {
-        $this->assertColor($color);
-
         /** @var RGB $color */
         $r = $color->red / 255;
         $g = $color->green / 255;
