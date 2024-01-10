@@ -236,6 +236,7 @@ final class Registry implements IRegistry
     protected function getModelConverterFactory(): IModelConverterFactory
     {
         return $this->modelConverterFactory
-            ->useConverters(new ArrayObject(self::$modelConverters));
+            ->useConverters(new ArrayObject(self::$modelConverters))
+        ;
     }
 }

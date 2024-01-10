@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\A\ARGBValueColor;
-use AlecRabbit\Color\Contract\IColor;
-use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Contract\IRGBColor;
-
 use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
 use AlecRabbit\Color\Model\DTO\DRGB;
 
@@ -36,17 +33,17 @@ class RGB extends ARGBValueColor implements IRGBColor
         );
     }
 
-    public function withRed(int $red): IRGBColor
-    {
-        return self::fromRGB($red, $this->getGreen(), $this->getBlue());
-    }
-
     public static function fromRGB(int $r, int $g, int $b): IRGBColor
     {
         return
             new self(
                 self::componentsToValue($r, $g, $b),
             );
+    }
+
+    public function withRed(int $red): IRGBColor
+    {
+        return self::fromRGB($red, $this->getGreen(), $this->getBlue());
     }
 
     public function withGreen(int $green): IRGBColor

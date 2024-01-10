@@ -19,8 +19,11 @@ final readonly class RGBToCMY extends ACoreConverter
     protected function doConvert(IColorDTO $color): IColorDTO
     {
         /** @var RGB $color */
-
-
-        return new CMY();
+        return new CMY(
+            round(1 - $color->red / 255, $this->precision),
+            round(1 - $color->green / 255, $this->precision),
+            round(1 - $color->blue / 255, $this->precision),
+            round($color->alpha, $this->precision),
+        );
     }
 }

@@ -12,6 +12,11 @@ use RuntimeException;
 
 final class AConvertableColorOverride extends AColor
 {
+    public static function fromDTO(IColorDTO $dto): IColor
+    {
+        throw new RuntimeException('INTENTIONALLY Not implemented.');
+    }
+
     public function toString(): string
     {
         throw new RuntimeException('INTENTIONALLY Not implemented.');
@@ -23,11 +28,6 @@ final class AConvertableColorOverride extends AColor
     }
 
     public function toDTO(): IColorDTO
-    {
-        throw new RuntimeException('INTENTIONALLY Not implemented.');
-    }
-
-    public static function fromDTO(IColorDTO $dto): IColor
     {
         throw new RuntimeException('INTENTIONALLY Not implemented.');
     }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit\Converter\To\HSLA;
 
 
-use AlecRabbit\Color\Contract\Converter\IFromConverter;
 use AlecRabbit\Color\Contract\Converter\IRegistry;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
@@ -69,11 +68,13 @@ final class ToHSLAConverterTest extends TestCase
         $incoming
             ->expects(self::once())
             ->method('getColorModel')
-            ->willReturn($modelFrom);
+            ->willReturn($modelFrom)
+        ;
         $incoming
             ->expects(self::once())
             ->method('toDTO')
-            ->willReturn($dtoFrom);
+            ->willReturn($dtoFrom)
+        ;
 
         $registry = $this->getConverterRegistryMock();
         $modelConverter = $this->getModelConverterMock();
@@ -81,7 +82,8 @@ final class ToHSLAConverterTest extends TestCase
             ->expects(self::once())
             ->method('convert')
             ->with($dtoFrom)
-            ->willReturn($dtoTo);
+            ->willReturn($dtoTo)
+        ;
 
         $registry
             ->expects(self::once())
@@ -89,7 +91,8 @@ final class ToHSLAConverterTest extends TestCase
             ->with($modelFrom, $modelTo)
             ->willReturn(
                 $modelConverter
-            );
+            )
+        ;
 
         $toConverter = $this->getTesteeInstance(
             registry: $registry,

@@ -34,6 +34,7 @@ final readonly class CMYToCMYK extends ACoreConverter
             round(($color->magenta - $k) / (1 - $k), $this->precision),
             round(($color->yellow - $k) / (1 - $k), $this->precision),
             round($k, $this->precision),
+            round($color->alpha, $this->precision),
         );
     }
 }

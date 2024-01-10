@@ -12,14 +12,14 @@ interface IColor extends IUnconvertibleColor, Stringable
 {
     public static function from(IColor $color): IColor;
 
+    public static function fromDTO(IColorDTO $dto): IColor;
+
     /**
      * @param class-string<IColor> $class
      */
     public function to(string $class): IColor;
 
     public function toDTO(): IColorDTO;
-
-    public static function fromDTO(IColorDTO $dto): IColor;
 
     public function getColorModel(): IColorModel;
 }

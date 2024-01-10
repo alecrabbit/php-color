@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color;
 
-use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\DTO\DHSL;
-use AlecRabbit\Color\Model\DTO\DRGB;
 
 class HSLA extends HSL implements IHSLAColor
 {
@@ -30,6 +28,34 @@ class HSLA extends HSL implements IHSLAColor
          * @psalm-suppress LessSpecificReturnStatement
          */
         return self::getFromString($color)->to(self::class);
+    }
+
+    public static function fromDTO(IColorDTO $dto): IHSLAColor
+    {
+        self::assertDTO($dto);
+
+        /** @var DHSL $dto */
+        return self::fromHSLA(
+            $dto->hue,
+            $dto->saturation,
+            $dto->lightness,
+            $dto->alpha,
+        );
+    }
+
+    private static function assertDTO(IColorDTO $dto): void
+    {
+        if ($dto instanceof DHSL) {
+            return;
+        }
+
+        throw new InvalidArgument(
+            sprintf(
+                'Color must be instance of "%s", "%s" given.',
+                DHSL::class,
+                $dto::class,
+            ),
+        );
     }
 
     public function toString(): string
@@ -60,34 +86,6 @@ class HSLA extends HSL implements IHSLAColor
             self::refineValue($saturation),
             self::refineValue($lightness),
             self::refineValue($alpha),
-        );
-    }
-
-    public static function fromDTO(IColorDTO $dto): IHSLAColor
-    {
-        self::assertDTO($dto);
-
-        /** @var DHSL $dto */
-        return self::fromHSLA(
-            $dto->hue,
-            $dto->saturation,
-            $dto->lightness,
-            $dto->alpha,
-        );
-    }
-
-    private static function assertDTO(IColorDTO $dto): void
-    {
-        if ($dto instanceof DHSL) {
-            return;
-        }
-
-        throw new InvalidArgument(
-            sprintf(
-                'Color must be instance of "%s", "%s" given.',
-                DHSL::class,
-                $dto::class,
-            ),
         );
     }
 

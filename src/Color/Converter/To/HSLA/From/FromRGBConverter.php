@@ -39,7 +39,8 @@ class FromRGBConverter extends AFromRGBConverter
                 $color->getRed(),
                 $color->getGreen(),
                 $color->getBlue()
-            );
+            )
+        ;
 
         $opacity = $color instanceof IHasOpacity ? $color->getOpacity() : 1.0;
 

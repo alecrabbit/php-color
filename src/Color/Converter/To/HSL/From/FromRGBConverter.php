@@ -38,7 +38,8 @@ class FromRGBConverter extends AFromRGBConverter
                 $color->getRed(),
                 $color->getGreen(),
                 $color->getBlue()
-            );
+            )
+        ;
 
         return HSL::fromHSL($hsl->hue, $hsl->saturation, $hsl->lightness);
     }

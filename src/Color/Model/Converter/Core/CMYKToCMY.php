@@ -23,6 +23,7 @@ final readonly class CMYKToCMY extends ACoreConverter
             round($color->cyan * (1 - $color->black) + $color->black, $this->precision),
             round($color->magenta * (1 - $color->black) + $color->black, $this->precision),
             round($color->yellow * (1 - $color->black) + $color->black, $this->precision),
+            round($color->alpha, $this->precision),
         );
     }
 }

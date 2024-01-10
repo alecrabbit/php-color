@@ -12,7 +12,6 @@ use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Contract\Model\Converter\IModelConverter;
 use AlecRabbit\Color\Converter\To\HSL\ToHSLConverter;
 use AlecRabbit\Color\HSL;
-use AlecRabbit\Color\HSLA;
 use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelHSL;

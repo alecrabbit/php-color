@@ -36,6 +36,7 @@ final readonly class HSLToRGB extends ACoreConverter
             $h < 5 / 6 => [$r, $b] = [$x, $c],
             default => [$r, $b] = [$c, $x],
         };
+
         return
             new RGB(
                 (int)round(($r + $m) * 255),

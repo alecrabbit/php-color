@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit\Converter\To\Hex;
 
 
-use AlecRabbit\Color\Contract\Converter\IFromConverter;
 use AlecRabbit\Color\Contract\Converter\IRegistry;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
@@ -17,7 +16,6 @@ use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelHSL;
 use AlecRabbit\Color\Model\ModelRGB;
-use AlecRabbit\Color\RGB;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
