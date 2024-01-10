@@ -5,17 +5,16 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Model\Converter\Core;
 
 use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
-use AlecRabbit\Color\Model\DTO\DHSL;
+use AlecRabbit\Color\Model\DTO\DHSL as HSL;
 use AlecRabbit\Color\Model\DTO\DRGB as RGB;
 
-final readonly class HSLtoRGB extends ACoreConverter
+final readonly class HSLToRGB extends ACoreConverter
 {
-
     public function convert(IColorDTO $color): IColorDTO
     {
         $this->assertColor($color);
 
-        /** @var DHSL $color */
+        /** @var HSL $color */
         $h = $color->hue / 360;
         $c = (1 - abs(2 * $color->lightness - 1)) * $color->saturation;
         $x = $c * (1 - abs(fmod($h * 6, 2) - 1));
@@ -42,4 +41,8 @@ final readonly class HSLtoRGB extends ACoreConverter
             );
     }
 
+    protected function inputType(): string
+    {
+        return HSL::class;
+    }
 }
