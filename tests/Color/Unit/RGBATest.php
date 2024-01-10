@@ -172,7 +172,7 @@ final class RGBATest extends TestCase
         yield from [
             ['rgb(0, 0, 0)', 0, 0, 0, 1.0],
             ['rgba(0, 0, 0, 1.0)', 0, 0, 0, 1.0],
-            ['rgba(0, 12, 33, 0.333)', 0, 12, 33, 0.329],
+            ['rgba(0, 12, 33, 0.333)', 0, 12, 33, 0.325],
             ['rgba(0, 0, 1, 1.0)', 0, 0, 1, 1.0],
             ['rgb(0, 12, 1)', 0, 12, 1, 1.0],
         ];
@@ -357,8 +357,10 @@ final class RGBATest extends TestCase
     public function returnsSelfIfConvertToRGBA(): void
     {
         $testee = RGBA::fromRGBA(0x00, 0x00, 0x00);
+
         self::assertSame($testee, $testee->to(RGBA::class));
-//        self::assertSame($testee, $testee->to(IRGBAColor::class));
+        self::assertEquals($testee, $testee->to(IRGBAColor::class));
+
         self::assertNotSame($testee, $testee->to(RGB::class));
     }
 

@@ -10,8 +10,13 @@ use AlecRabbit\Color\Contract\Converter\IRegistry;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
+use AlecRabbit\Color\Contract\Model\Converter\IModelConverter;
 use AlecRabbit\Color\Converter\To\HSLA\ToHSLAConverter;
 use AlecRabbit\Color\HSLA;
+use AlecRabbit\Color\Model\DTO\DHSL;
+use AlecRabbit\Color\Model\DTO\DRGB;
+use AlecRabbit\Color\Model\ModelHSL;
+use AlecRabbit\Color\Model\ModelRGB;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -53,23 +58,37 @@ final class ToHSLAConverterTest extends TestCase
     #[Test]
     public function canConvert(): void
     {
+        $dtoFrom = new DRGB(0, 0, 0);
+        $dtoTo = new DHSL(0, 0, 0);
+        $expected = HSLA::fromHSLA(0, 0, 0);
+
+        $modelFrom = new ModelRGB();
+        $modelTo = new ModelHSL();
+
         $incoming = $this->getConvertableColorMock();
-        $expected = $this->getConvertableColorMock();
+        $incoming
+            ->expects(self::once())
+            ->method('getColorModel')
+            ->willReturn($modelFrom);
+        $incoming
+            ->expects(self::once())
+            ->method('toDTO')
+            ->willReturn($dtoFrom);
 
         $registry = $this->getConverterRegistryMock();
-        $fromConverter = $this->getFromConverterMock();
-        $fromConverter
+        $modelConverter = $this->getModelConverterMock();
+        $modelConverter
             ->expects(self::once())
             ->method('convert')
-            ->with($incoming)
-            ->willReturn($expected);
+            ->with($dtoFrom)
+            ->willReturn($dtoTo);
 
         $registry
             ->expects(self::once())
-            ->method('getFromConverter')
-            ->with(ToHSLAConverter::class, self::stringContains('IColor'))
+            ->method('getModelConverter')
+            ->with($modelFrom, $modelTo)
             ->willReturn(
-                $fromConverter
+                $modelConverter
             );
 
         $toConverter = $this->getTesteeInstance(
@@ -78,7 +97,7 @@ final class ToHSLAConverterTest extends TestCase
 
         $result = $toConverter->convert($incoming);
 
-        self::assertSame($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
     private function getConvertableColorMock(): MockObject&IColor
@@ -86,8 +105,8 @@ final class ToHSLAConverterTest extends TestCase
         return $this->createMock(IColor::class);
     }
 
-    private function getFromConverterMock(): MockObject&IFromConverter
+    private function getModelConverterMock(): MockObject&IModelConverter
     {
-        return $this->createMock(IFromConverter::class);
+        return $this->createMock(IModelConverter::class);
     }
 }
