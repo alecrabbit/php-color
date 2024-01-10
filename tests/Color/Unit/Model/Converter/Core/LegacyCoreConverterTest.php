@@ -13,6 +13,9 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
+/**
+ * @deprecated
+ */
 final class LegacyCoreConverterTest extends TestCase
 {
     public static function canConvertRGBToHSLDataProvider(): iterable

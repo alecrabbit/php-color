@@ -8,7 +8,7 @@ use AlecRabbit\Color\Contract\Model\Converter\IModelConverter;
 
 interface IModelConverterFactory
 {
-    public function create(iterable $converterPath): IModelConverter;
+    public function create(iterable $conversionPath): IModelConverter;
 
     public function useConverters(iterable $converters): IModelConverterFactory;
 }

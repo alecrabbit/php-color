@@ -10,6 +10,11 @@ use AlecRabbit\Color\Model\DTO\DRGB as RGB;
 
 final readonly class RGBToHSL extends ACoreConverter
 {
+    protected static function inputType(): string
+    {
+        return RGB::class;
+    }
+
     public function convert(IColorDTO $color): IColorDTO
     {
         $this->assertColor($color);
@@ -46,10 +51,5 @@ final readonly class RGBToHSL extends ACoreConverter
             round($l, $this->precision),
             round($color->alpha, $this->precision),
         );
-    }
-
-    protected function inputType(): string
-    {
-        return RGB::class;
     }
 }

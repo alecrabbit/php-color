@@ -41,6 +41,9 @@ abstract readonly class AModelConverter implements IModelConverter
         return new (static::getConverterClass())();
     }
 
+    /**
+     * @return class-string<ICoreConverter>
+     */
     abstract protected static function getConverterClass(): string;
 
     public static function to(): IColorModel

@@ -9,6 +9,8 @@ use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
 use AlecRabbit\Color\Contract\Model\IColorModel;
 use AlecRabbit\Color\Exception\ColorException;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
+use ArrayObject;
+use Traversable;
 
 final readonly class ModelConverterFactory implements IModelConverterFactory
 {
@@ -17,6 +19,11 @@ final readonly class ModelConverterFactory implements IModelConverterFactory
     ) {
     }
 
+    /**
+     * @param iterable<class-string<IColorModel>> $conversionPath
+     *
+     * @return IModelConverter
+     */
     public function create(iterable $conversionPath): IModelConverter
     {
         $converters = $this->getChainFromPath($conversionPath);
@@ -48,12 +55,12 @@ final readonly class ModelConverterFactory implements IModelConverterFactory
         };
     }
 
-    public function useConverters(iterable $converters): IModelConverterFactory
-    {
-        return new self($converters);
-    }
-
-    private function getChainFromPath(iterable $conversionPath): \Traversable
+    /**
+     * @param iterable<class-string<IColorModel>> $conversionPath
+     *
+     * @return Traversable<class-string<IModelConverter>>
+     */
+    private function getChainFromPath(iterable $conversionPath): Traversable
     {
         $converters = [];
 
@@ -67,7 +74,7 @@ final readonly class ModelConverterFactory implements IModelConverterFactory
             $converters[] = $this->getConverterClass($prev, $model);
             $prev = $model;
         }
-        return new \ArrayObject($converters);
+        return new ArrayObject($converters);
     }
 
     private function getConverterClass(string $prev, string $model): string
@@ -85,5 +92,10 @@ final readonly class ModelConverterFactory implements IModelConverterFactory
                 $model,
             )
         );
+    }
+
+    public function useConverters(iterable $converters): IModelConverterFactory
+    {
+        return new self($converters);
     }
 }

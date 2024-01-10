@@ -7,9 +7,7 @@ namespace AlecRabbit\Tests\Color\Unit\Model\Converter\Core;
 
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\Contract\Converter\Core\ICoreConverter;
-use AlecRabbit\Color\Model\Contract\Converter\Core\ILegacyCoreConverter;
 use AlecRabbit\Color\Model\Converter\Core\HSLToRGB;
-use AlecRabbit\Color\Model\Converter\Core\LegacyCoreConverter;
 use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Tests\TestCase\TestCase;

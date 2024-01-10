@@ -15,6 +15,7 @@ use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
 use AlecRabbit\Color\Model\Factory\IModelConverterFactory;
 use AlecRabbit\Color\Model\Factory\ModelConverterFactory;
+use ArrayObject;
 use RuntimeException;
 use SplQueue;
 use Traversable;
@@ -126,11 +127,12 @@ final class Registry implements IRegistry
 
     private static function buildGraph(): void
     {
+        /** @var class-string<IColorModel> $model */
         foreach (self::$models as $model => $_) {
             self::$graph[$model] = [];
         }
 
-        /** @var IModelConverter $class */
+        /** @var class-string<IModelConverter> $class */
         foreach (self::$modelConverters as $class) {
             self::$graph[$class::from()::class][] = $class::to()::class;
         }
@@ -194,7 +196,7 @@ final class Registry implements IRegistry
         return $this->createModelConverter($conversionPath);
     }
 
-    private static function findConversionPath(string $from, string $to): ?\Traversable
+    private static function findConversionPath(string $from, string $to): ?Traversable
     {
         $visited = [];
         $queue = new SplQueue();
@@ -207,7 +209,7 @@ final class Registry implements IRegistry
             $node = end($path);
 
             if ($node === $to) {
-                return new \ArrayObject($path);
+                return new ArrayObject($path);
             }
 
             foreach (self::$graph[$node] as $neighbor) {
@@ -231,6 +233,6 @@ final class Registry implements IRegistry
     protected function getModelConverterFactory(): IModelConverterFactory
     {
         return $this->modelConverterFactory
-            ->useConverters(new \ArrayObject(self::$modelConverters));
+            ->useConverters(new ArrayObject(self::$modelConverters));
     }
 }

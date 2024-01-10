@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit\Model\Converter;
 
 
-use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Model\Contract\Converter\Core\ILegacyCoreConverter;
+use AlecRabbit\Color\Model\Contract\Converter\Core\ICoreConverter;
 use AlecRabbit\Color\Model\Converter\RGBToHSLModelConverter;
 use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\DTO\DRGB;
@@ -39,11 +38,11 @@ final class RGBToHSLModelConverterTest extends TestCase
         $converter = $this->getConverterMock();
         $converter
             ->expects($this->once())
-            ->method('rgbToHsl')
+            ->method('convert')
             ->willReturn($expected);
 
         $testee = $this->getTesteeInstance(
-            legacyConverter: $converter,
+            converter: $converter,
         );
 
         $result = $testee->convert($input);
@@ -51,31 +50,17 @@ final class RGBToHSLModelConverterTest extends TestCase
         self::assertSame($expected, $result);
     }
 
+    protected function getConverterMock(): MockObject&ICoreConverter
+    {
+        return $this->createMock(ICoreConverter::class);
+    }
+
     protected function getTesteeInstance(
-        ?ILegacyCoreConverter $legacyConverter = null
+        ?ICoreConverter $converter = null,
     ): RGBToHSLModelConverter {
         return new RGBToHSLModelConverter(
-            legacyConverter: $legacyConverter ?? $this->getConverterMock(),
+            converter: $converter ?? $this->getConverterMock(),
         );
     }
 
-    protected function getConverterMock(): MockObject&ILegacyCoreConverter
-    {
-        return $this->createMock(ILegacyCoreConverter::class);
-    }
-
-    #[Test]
-    public function throwsIfModelIsNotCorrect(): void
-    {
-        $input = new DHSL(0, 0, 0);
-
-        $this->expectException(InvalidArgument::class);
-        $this->expectExceptionMessage(
-            'Color must be instance of "AlecRabbit\Color\Model\DTO\DRGB", "AlecRabbit\Color\Model\DTO\DHSL" given.'
-        );
-
-        $testee = $this->getTesteeInstance();
-
-        $testee->convert($input);
-    }
 }

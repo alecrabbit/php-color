@@ -8,6 +8,9 @@ use AlecRabbit\Color\Model\Contract\Converter\Core\ILegacyCoreConverter;
 use AlecRabbit\Color\Model\DTO\DHSL as HSL;
 use AlecRabbit\Color\Model\DTO\DRGB as RGB;
 
+/**
+ * @deprecated
+ */
 class LegacyCoreConverter implements ILegacyCoreConverter
 {
     private const FLOAT_PRECISION = 2;

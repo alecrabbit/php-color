@@ -8,11 +8,11 @@ use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\Contract\Converter\Core\ICoreConverter;
 
-abstract readonly class ACoreConverter  implements ICoreConverter
+abstract readonly class ACoreConverter implements ICoreConverter
 {
+    protected const FLOAT_PRECISION = 2;
     /** @var class-string<IColorDTO> */
     protected string $inputType;
-    protected const FLOAT_PRECISION = 2;
 
     public function __construct(
         string $type = null,
@@ -25,7 +25,7 @@ abstract readonly class ACoreConverter  implements ICoreConverter
     /**
      * @return class-string<IColorDTO>
      */
-    abstract protected function inputType(): string;
+    abstract protected static function inputType(): string;
 
     protected function assertColor(IColorDTO $color): void
     {
