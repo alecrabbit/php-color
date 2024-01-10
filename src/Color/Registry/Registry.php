@@ -181,7 +181,7 @@ final class Registry implements IRegistry
      */
     public function getModelConverter(IColorModel $from, IColorModel $to): IModelConverter
     {
-        dump($from, $to);
+//        dump($from, $to);
 
         $conversionPath = self::findConversionPath($from::class, $to::class);
 
@@ -195,8 +195,8 @@ final class Registry implements IRegistry
             );
         }
 
-//        return $this->createModelConverter($conversionPath);
-        return dump($this->createModelConverter(dump($conversionPath)));
+        return $this->createModelConverter($conversionPath);
+//        return dump($this->createModelConverter(dump($conversionPath)));
     }
 
     private static function findConversionPath(string $from, string $to): ?Traversable
