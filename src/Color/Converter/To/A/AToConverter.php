@@ -60,19 +60,4 @@ abstract class AToConverter implements IToConverter
             to: $this->getTargetColorModel(),
         );
     }
-
-    protected function assertColor(IColorDTO $color): void
-    {
-        if (is_a($color, $this->inputType, true)) {
-            return;
-        }
-
-        throw new InvalidArgument(
-            sprintf(
-                'Color must be instance of "%s", "%s" given.',
-                $this->inputType,
-                $color::class,
-            ),
-        );
-    }
 }
