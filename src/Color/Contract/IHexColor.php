@@ -9,6 +9,8 @@ interface IHexColor extends IColor,
                             IHasRed,
                             IHasGreen,
                             IHasBlue,
+                            IInstantiatableFromInteger,
+                            IInstantiatableFromRGB,
                             IModifiableWithRed,
                             IModifiableWithGreen,
                             IModifiableWithBlue

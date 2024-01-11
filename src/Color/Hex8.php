@@ -33,9 +33,9 @@ class Hex8 extends Hex implements IHex8Color
         return self::getFromString($color)->to(IHex8Color::class);
     }
 
-    public static function fromInteger(int $value): IHex8Color
+    public static function fromInteger(int $value, ?int $alpha = null): IHex8Color
     {
-        return new self((abs($value) & (int)static::MAX8_NO_ALPHA) >> 8, $value & 0x000000FF);
+        return new self($value, $alpha ?? 0xFF);
     }
 
     public static function fromDTO(IColorDTO $dto): IHex8Color
@@ -120,5 +120,10 @@ class Hex8 extends Hex implements IHex8Color
     public function getValue8(): int
     {
         return $this->getValue() << 8 | $this->getAlpha();
+    }
+
+    public static function fromInteger8(int $value8): IHex8Color
+    {
+        return new self((abs($value8) & (int)static::MAX8_NO_ALPHA) >> 8, $value8 & 0x000000FF);
     }
 }

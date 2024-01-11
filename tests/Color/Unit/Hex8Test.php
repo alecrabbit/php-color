@@ -41,13 +41,13 @@ final class Hex8Test extends TestCase
     {
         yield from [
             // (resulting)[value, r, g, b, o, a, toString], (incoming)[value]
-            [[0xFF00FF, 0xFF, 0x00, 0xFF, 0.0, 0x00, '#ff00ff00'], [0xFF00FF00]],
-            [[0x00FF00, 0x00, 0xFF, 0x00, 0.678, 0xAD, '#00ff00ad'], [0x00FF00AD]],
-            [[0x0000FF, 0x00, 0x00, 0xFF, 0.0, 0x00, '#0000ff00'], [0x0000FF00]],
-            [[0x000000, 0x00, 0x00, 0x00, 0.067, 0x11, '#00000011'], [0x00000011]],
-            [[0xFFFFFF, 0xFF, 0xFF, 0xFF, 0.0, 0x00, '#ffffff00'], [0xFFFFFF00]],
-            [[0x110000, 0x11, 0x00, 0x00, 0.133, 0x22, '#11000022'], [0x11000022]],
-            [[0x00ae00, 0x00, 0xae, 0x00, 0.0, 0x00, '#00ae0000'], [0x00AE0000]],
+            [[0xFF00FF, 0xFF, 0x00, 0xFF, 1.0, 0xFF, '#ff00ffff'], [0xFF00FF]],
+            [[0x00FF00, 0x00, 0xFF, 0x00, 1.0, 0xFF, '#00ff00ff'], [0x00FF00]],
+            [[0x0000FF, 0x00, 0x00, 0xFF, 1.0, 0xFF, '#0000ffff'], [0x0000FF]],
+            [[0x000000, 0x00, 0x00, 0x00, 1.0, 0xFF, '#000000ff'], [0x000000]],
+            [[0xFFFFFF, 0xFF, 0xFF, 0xFF, 1.0, 0xFF, '#ffffffff'], [0xFFFFFF]],
+            [[0x110000, 0x11, 0x00, 0x00, 1.0, 0xFF, '#110000ff'], [0x110000]],
+            [[0x00ae00, 0x00, 0xae, 0x00, 1.0, 0xFF, '#00ae00ff'], [0x00AE00]],
         ];
     }
 
@@ -70,7 +70,7 @@ final class Hex8Test extends TestCase
     private static function canGetValue8DataFeeder(): iterable
     {
         yield from [
-            // (resulting)[value, value8, a, toString], (incoming)value
+            // (resulting)[value, value8, a, toString], (incoming)value8
             [[0xFF00FF, 0xFF00FF00, 0x00, '#ff00ff00'], 0xFF00FF00],
             [[0x00FF00, 0x00FF00AD, 0xAD, '#00ff00ad'], 0x00FF00AD],
             [[0x0000FF, 0x0000FF00, 0x00, '#0000ff00'], 0x0000FF00],
@@ -431,11 +431,11 @@ final class Hex8Test extends TestCase
     #[DataProvider('canGetValue8DataProvider')]
     public function canGetValue8(array $expected, int $incoming): void
     {
-        $testee = Hex8::fromInteger($incoming);
+        $testee = Hex8::fromInteger8($incoming);
 
-        self::assertSame($expected[self::ALPHA], $testee->getAlpha());
         self::assertSame($expected[self::VALUE], $testee->getValue());
         self::assertSame($expected[self::VALUE_8], $testee->getValue8());
+        self::assertSame($expected[self::ALPHA], $testee->getAlpha());
         self::assertSame($expected[self::TO_STRING], $testee->toString());
         self::assertSame($expected[self::TO_STRING], (string)$testee);
     }
@@ -451,7 +451,7 @@ final class Hex8Test extends TestCase
     #[Test]
     public function canToDTO(): void
     {
-        $testee = self::getTesteeFromInteger(0x01020300);
+        $testee = self::getTesteeFromInteger8(0x01020300);
 
         $dto = $testee->toDTO();
 
@@ -460,5 +460,10 @@ final class Hex8Test extends TestCase
         self::assertSame(2, $dto->green);
         self::assertSame(3, $dto->blue);
         self::assertSame(0.0, $dto->alpha);
+    }
+
+    private static function getTesteeFromInteger8(int $value8): IHex8Color
+    {
+        return Hex8::fromInteger8($value8);
     }
 }

@@ -33,7 +33,7 @@ class Hex8Instantiator extends AInstantiator
     protected function instantiate(string $color): ?IColor
     {
         if (self::isHexString($color)) {
-            return Hex8::fromInteger(self::extractInteger($color));
+            return Hex8::fromInteger8(self::extractInteger($color));
         }
 
         return null;

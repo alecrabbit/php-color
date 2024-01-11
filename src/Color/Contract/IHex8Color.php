@@ -8,12 +8,15 @@ interface IHex8Color extends IHexColor,
                              IHasValue8,
                              IHasAlpha,
                              IHasOpacity,
+                             IInstantiatableFromInteger8,
                              IModifiableWithAlpha,
                              IModifiableWithOpacity
 {
     public const FORMAT_HEX8 = '#%06x%02x';
 
-    public static function fromInteger(int $value): IHex8Color;
+    public static function fromInteger(int $value, ?int $alpha = null): IHex8Color;
+
+    public static function fromInteger8(int $value8): IHex8Color;
 
     public static function fromRGB(int $r, int $g, int $b): IHex8Color;
 
