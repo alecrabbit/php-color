@@ -24,7 +24,6 @@ class ToHex8Converter extends AToConverter
         return new ArrayObject([Hex8::class, IHex8Color::class]);
     }
 
-
     protected function getTargetColorModel(): IColorModel
     {
         return new ModelRGB();
