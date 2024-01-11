@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Model\Builder;
 
 use AlecRabbit\Color\Contract\Model\Converter\IColorDTOConverter;
+use AlecRabbit\Color\Contract\Model\Converter\IModelConverter;
 use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
 use AlecRabbit\Color\Contract\Model\IColorModel;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
@@ -77,7 +78,9 @@ final readonly class ChainConverterBuilder implements IChainConverterBuilder
     private function getConverterClass(string $prev, string $model): string
     {
         foreach ($this->converters as $converter) {
-            if ($converter::from()::class === $prev && $converter::to()::class === $model) {
+            if (\is_subclass_of($converter, IModelConverter::class, true)
+                && $converter::from()::class === $prev
+                && $converter::to()::class === $model) {
                 return $converter;
             }
         }

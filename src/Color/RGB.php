@@ -14,13 +14,8 @@ use function sprintf;
 
 class RGB extends ARGBValueColor implements IRGBColor
 {
-    /** @psalm-suppress MoreSpecificReturnType */
     public static function fromString(string $value): IRGBColor
     {
-        /**
-         * @noinspection PhpIncompatibleReturnTypeInspection
-         * @psalm-suppress LessSpecificReturnStatement
-         */
         return parent::getFromString($value)->to(IRGBColor::class);
     }
 

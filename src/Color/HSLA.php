@@ -21,13 +21,8 @@ class HSLA extends HSL implements IHSLAColor
         parent::__construct($hue, $saturation, $lightness);
     }
 
-    /** @psalm-suppress MoreSpecificReturnType */
     public static function fromString(string $value): IHSLAColor
     {
-        /**
-         * @noinspection PhpIncompatibleReturnTypeInspection
-         * @psalm-suppress LessSpecificReturnStatement
-         */
         return self::getFromString($value)->to(self::class);
     }
 

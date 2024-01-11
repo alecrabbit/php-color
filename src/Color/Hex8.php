@@ -28,13 +28,8 @@ class Hex8 extends Hex implements IHex8Color
         return $color->to(IHex8Color::class);
     }
 
-    /** @psalm-suppress MoreSpecificReturnType */
     public static function fromString(string $value): IHex8Color
     {
-        /**
-         * @noinspection PhpIncompatibleReturnTypeInspection
-         * @psalm-suppress LessSpecificReturnStatement
-         */
         return self::getFromString($value)->to(IHex8Color::class);
     }
 

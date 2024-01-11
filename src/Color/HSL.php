@@ -12,6 +12,7 @@ use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
 use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\ModelHSL;
 
+
 class HSL extends AColor implements IHSLColor
 {
     protected function __construct(
@@ -29,13 +30,8 @@ class HSL extends AColor implements IHSLColor
         return $color->to(IHSLColor::class);
     }
 
-    /** @psalm-suppress MoreSpecificReturnType */
     public static function fromString(string $value): IHSLColor
     {
-        /**
-         * @noinspection PhpIncompatibleReturnTypeInspection
-         * @psalm-suppress LessSpecificReturnStatement
-         */
         return self::getFromString($value)->to(self::class);
     }
 

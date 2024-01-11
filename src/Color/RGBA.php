@@ -59,13 +59,8 @@ class RGBA extends RGB implements IRGBAColor
             self::fromRGBA($r, $g, $b, $alpha);
     }
 
-    /** @psalm-suppress MoreSpecificReturnType */
     public static function fromString(string $value): IRGBAColor
     {
-        /**
-         * @noinspection PhpIncompatibleReturnTypeInspection
-         * @psalm-suppress LessSpecificReturnStatement
-         */
         return self::getFromString($value)->to(IRGBAColor::class);
     }
 

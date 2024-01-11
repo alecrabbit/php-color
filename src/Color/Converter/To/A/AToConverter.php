@@ -13,6 +13,11 @@ use AlecRabbit\Color\Contract\Model\IColorModel;
 use AlecRabbit\Color\Registry\Registry;
 use Traversable;
 
+/**
+ * @template-covariant T of IColor
+ *
+ * @implements IToConverter<T>
+ */
 abstract class AToConverter implements IToConverter
 {
     /** @var class-string<IColorDTO> */
@@ -46,6 +51,11 @@ abstract class AToConverter implements IToConverter
         return $this->fromDTO($this->getModelConverter($color)->convert($color->toDTO()));
     }
 
+    /**
+     * @param IColorDTO $dto
+     *
+     * @psalm-return T
+     */
     abstract protected function fromDTO(IColorDTO $dto): IColor;
 
     protected function getModelConverter(IColor $color): IColorDTOConverter

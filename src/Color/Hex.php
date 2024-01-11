@@ -15,13 +15,8 @@ use function sprintf;
 
 class Hex extends ARGBValueColor implements IHexColor
 {
-    /** @psalm-suppress MoreSpecificReturnType */
     public static function fromString(string $value): IHexColor
     {
-        /**
-         * @noinspection PhpIncompatibleReturnTypeInspection
-         * @psalm-suppress LessSpecificReturnStatement
-         */
         return self::getFromString($value)->to(IHexColor::class);
     }
 

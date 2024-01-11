@@ -21,10 +21,12 @@ abstract class AColor implements IColor
     abstract public static function from(IColor $color): IColor;
 
     /**
-     * @param IColor $color
-     * @param class-string<IColor> $to
+     * @template T of IColor
      *
-     * @return IColor
+     * @param IColor $color
+     * @param class-string<T> $to
+     *
+     * @psalm-return T
      */
     protected static function convert(IColor $color, string $to): IColor
     {
@@ -35,6 +37,13 @@ abstract class AColor implements IColor
         return Converter::to($to)->convert($color);
     }
 
+    /**
+     * @template T of IColor
+     *
+     * @param class-string<T> $class
+     *
+     * @psalm-return T
+     */
     public function to(string $class): IColor
     {
         return self::convert($this, $class);

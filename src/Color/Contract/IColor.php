@@ -25,7 +25,11 @@ interface IColor extends IHasFromString,
     public function getColorModel(): IColorModel;
 
     /**
-     * @param class-string<IColor> $class
+     * @template T of IColor
+     *
+     * @param class-string<T> $class
+     *
+     * @psalm-return T
      */
     public function to(string $class): IColor;
 
