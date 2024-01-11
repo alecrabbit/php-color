@@ -28,13 +28,13 @@ abstract readonly class AModelConverter implements IModelConverter
 
     public static function from(): IColorModel
     {
-        return new (static::getFromModelClass())();
+        return new (static::getSourceModelClass())();
     }
 
     /**
      * @return class-string<IColorModel>
      */
-    abstract protected static function getFromModelClass(): string;
+    abstract protected static function getSourceModelClass(): string;
 
     protected static function createConverter(): ICoreConverter
     {
@@ -48,31 +48,16 @@ abstract readonly class AModelConverter implements IModelConverter
 
     public static function to(): IColorModel
     {
-        return new (static::getToModelClass())();
+        return new (static::getTargetModelClass())();
     }
 
     /**
      * @return class-string<IColorModel>
      */
-    abstract protected static function getToModelClass(): string;
+    abstract protected static function getTargetModelClass(): string;
 
     public function convert(IColorDTO $color): IColorDTO
     {
         return $this->converter->convert($color);
-    }
-
-    protected function assertColor(IColorDTO $color): void
-    {
-        if (is_a($color, $this->inputType, true)) {
-            return;
-        }
-
-        throw new InvalidArgument(
-            sprintf(
-                'Color must be instance of "%s", "%s" given.',
-                $this->inputType,
-                $color::class,
-            ),
-        );
     }
 }

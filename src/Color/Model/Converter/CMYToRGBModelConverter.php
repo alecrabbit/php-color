@@ -12,12 +12,12 @@ use AlecRabbit\Color\Model\ModelRGB;
 /** @internal */
 final readonly class CMYToRGBModelConverter extends AModelConverter
 {
-    protected static function getFromModelClass(): string
+    protected static function getSourceModelClass(): string
     {
         return ModelCMY::class;
     }
 
-    protected static function getToModelClass(): string
+    protected static function getTargetModelClass(): string
     {
         return ModelRGB::class;
     }

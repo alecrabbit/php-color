@@ -136,6 +136,7 @@ final class Registry implements IRegistry
         $visited[$from] = true;
 
         while (!$queue->isEmpty()) {
+            /** @var Array<class-string<IColorModel>> $path */
             $path = $queue->dequeue();
             $node = end($path);
 
@@ -143,6 +144,7 @@ final class Registry implements IRegistry
                 yield from $path;
             }
 
+            /** @var class-string<IColorModel> $neighbor */
             foreach (self::$graph[$node] as $neighbor) {
                 if (!isset($visited[$neighbor])) {
                     $visited[$neighbor] = true;

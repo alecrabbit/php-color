@@ -12,12 +12,12 @@ use AlecRabbit\Color\Model\ModelRGB;
 /** @internal */
 final readonly class RGBToHSLModelConverter extends AModelConverter
 {
-    protected static function getFromModelClass(): string
+    protected static function getSourceModelClass(): string
     {
         return ModelRGB::class;
     }
 
-    protected static function getToModelClass(): string
+    protected static function getTargetModelClass(): string
     {
         return ModelHSL::class;
     }

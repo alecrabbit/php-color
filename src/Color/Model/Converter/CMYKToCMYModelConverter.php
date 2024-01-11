@@ -12,12 +12,12 @@ use AlecRabbit\Color\Model\ModelCMYK;
 /** @internal */
 final readonly class CMYKToCMYModelConverter extends AModelConverter
 {
-    protected static function getFromModelClass(): string
+    protected static function getSourceModelClass(): string
     {
         return ModelCMYK::class;
     }
 
-    protected static function getToModelClass(): string
+    protected static function getTargetModelClass(): string
     {
         return ModelCMY::class;
     }
