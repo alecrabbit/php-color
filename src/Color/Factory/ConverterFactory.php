@@ -12,7 +12,9 @@ use AlecRabbit\Color\Exception\InvalidArgument;
 
 class ConverterFactory implements IConverterFactory
 {
-    /** @var Array<class-string<IColor>, class-string<IToConverter>> */
+    /**
+     * @var Array<class-string<IColor>, class-string<IToConverter<IColor>>>
+     */
     protected static array $registered = [];
 
     /**
@@ -67,7 +69,11 @@ class ConverterFactory implements IConverterFactory
     }
 
     /**
-     * @param class-string<IColor> $class
+     * @template T of IColor
+     *
+     * @param class-string<T> $class
+     *
+     * @psalm-return IToConverter<T>
      */
     protected static function createConverter(string $class): IToConverter
     {
@@ -77,13 +83,19 @@ class ConverterFactory implements IConverterFactory
     }
 
     /**
-     * @param class-string<IColor> $class
-     * @return class-string<IToConverter>
+     * @template T of IColor
+     *
+     * @param class-string<T> $class
+     *
+     * @return class-string<IToConverter<T>>
      */
     protected static function getConverterClass(string $class): string
     {
+        /** @var null|class-string<IToConverter<T>> $var */
+        $var = self::$registered[$class] ?? null;
+
         return
-            self::$registered[$class]
+            $var
             ??
             throw new ConverterUnavailable(
                 sprintf('Converter class for "%s" is not available.', $class)

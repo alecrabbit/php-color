@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\A;
 
+use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Model\IColorModel;
 use AlecRabbit\Color\Util\Color;
@@ -23,7 +24,6 @@ abstract class AColor implements IColor
     /**
      * @template T of IColor
      *
-     * @param IColor $color
      * @param class-string<T> $to
      *
      * @psalm-return T
@@ -34,7 +34,10 @@ abstract class AColor implements IColor
             return $color;
         }
 
-        return Converter::to($to)->convert($color);
+        /** @var IToConverter<T> $converter */
+        $converter = Converter::to($to);
+
+        return $converter->convert($color);
     }
 
     /**

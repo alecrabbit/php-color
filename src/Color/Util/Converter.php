@@ -12,8 +12,6 @@ use AlecRabbit\Color\Factory\ConverterFactory;
 
 /**
  * Utility class for converter instantiation through factory.
- *
- * @template-covariant TV of IColor
  */
 final class Converter
 {
@@ -30,11 +28,9 @@ final class Converter
     }
 
     /**
-     * @template T of TV
+     * @template T of IColor
      *
      * @param class-string<T> $class
-     *
-     * @psalm-return IToConverter<T>
      */
     public static function to(string $class): IToConverter
     {

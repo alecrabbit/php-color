@@ -10,7 +10,11 @@ use AlecRabbit\Color\Contract\IColor;
 interface IConverterFactory
 {
     /**
-     * @param class-string<IColor> $class
+     * @template T of IColor
+     *
+     * @param class-string<T> $class
+     *
+     * @psalm-return IToConverter<T>
      */
     public function make(string $class): IToConverter;
 }
