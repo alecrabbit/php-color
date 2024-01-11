@@ -9,6 +9,7 @@ use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
 use AlecRabbit\Color\Contract\Model\IColorModel;
 use AlecRabbit\Color\Exception\ColorException;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
+use AlecRabbit\Color\Model\Contract\Factory\IModelConverterFactory;
 use ArrayObject;
 use Traversable;
 

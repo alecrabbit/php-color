@@ -13,7 +13,7 @@ use AlecRabbit\Color\Contract\Model\Converter\IModelConverter;
 use AlecRabbit\Color\Contract\Model\IColorModel;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
-use AlecRabbit\Color\Model\Factory\IModelConverterFactory;
+use AlecRabbit\Color\Model\Contract\Factory\IModelConverterFactory;
 use AlecRabbit\Color\Model\Factory\ModelConverterFactory;
 use ArrayObject;
 use RuntimeException;

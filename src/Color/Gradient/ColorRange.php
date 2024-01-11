@@ -6,7 +6,6 @@ namespace AlecRabbit\Color\Gradient;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IColorRange;
-use AlecRabbit\Color\Contract\IUnconvertibleColor;
 
 
 final readonly class ColorRange implements IColorRange

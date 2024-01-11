@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Contract\Gradient;
 
 use AlecRabbit\Color\Contract\IColor;
-use AlecRabbit\Color\Contract\IUnconvertibleColor;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use Traversable;
 

@@ -6,7 +6,6 @@ namespace AlecRabbit\Tests\Color\Unit;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IColorRange;
-use AlecRabbit\Color\Contract\IUnconvertibleColor;
 use AlecRabbit\Color\Gradient\ColorRange;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\RGB;

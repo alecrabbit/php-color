@@ -15,7 +15,6 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;
-use Traversable;
 
 final class WrapperTest extends TestCase
 {

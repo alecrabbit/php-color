@@ -6,17 +6,8 @@ namespace AlecRabbit\Tests\Color\Functional\Registry;
 
 
 use AlecRabbit\Color\Contract\Converter\IRegistry;
-use AlecRabbit\Color\Contract\IHexColor;
-use AlecRabbit\Color\Contract\IRGBAColor;
-use AlecRabbit\Color\Contract\IRGBColor;
-use AlecRabbit\Color\Converter\To\ToRGBAConverter;
-use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\Registry\Registry;
-use AlecRabbit\Color\RGB;
-use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;
-use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 
 final class RegistryTest extends TestCase
