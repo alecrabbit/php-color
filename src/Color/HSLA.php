@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color;
 
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
+use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
+use AlecRabbit\Color\Exception\InvalidArgument;
+use AlecRabbit\Color\Model\DTO\DHSL;
 
 class HSLA extends HSL implements IHSLAColor
 {
@@ -17,14 +21,56 @@ class HSLA extends HSL implements IHSLAColor
         parent::__construct($hue, $saturation, $lightness);
     }
 
-    /** @psalm-suppress MoreSpecificReturnType */
-    public static function fromString(string $color): IHSLAColor
+    public static function fromString(string $value): IHSLAColor
     {
-        /**
-         * @noinspection PhpIncompatibleReturnTypeInspection
-         * @psalm-suppress LessSpecificReturnStatement
-         */
-        return self::getFromString($color)->to(self::class);
+        return self::getFromString($value)->to(self::class);
+    }
+
+    public static function from(IColor $color): IHSLAColor
+    {
+        return $color->to(IHSLAColor::class);
+    }
+
+    public static function fromDTO(IColorDTO $dto): IHSLAColor
+    {
+        self::assertDTO($dto);
+
+        /** @var DHSL $dto */
+        return self::fromHSLA(
+            (int)round($dto->hue * 360),
+            $dto->saturation,
+            $dto->lightness,
+            $dto->alpha,
+        );
+    }
+
+    private static function assertDTO(IColorDTO $dto): void
+    {
+        if ($dto instanceof DHSL) {
+            return;
+        }
+
+        throw new InvalidArgument(
+            sprintf(
+                'Color must be instance of "%s", "%s" given.',
+                DHSL::class,
+                $dto::class,
+            ),
+        );
+    }
+
+    public static function fromHSLA(
+        int $hue,
+        float $saturation = 1.0,
+        float $lightness = 0.5,
+        float $alpha = 1.0,
+    ): IHSLAColor {
+        return new self(
+            self::refineHue($hue),
+            self::refineValue($saturation),
+            self::refineValue($lightness),
+            self::refineValue($alpha),
+        );
     }
 
     public function toString(): string
@@ -42,20 +88,6 @@ class HSLA extends HSL implements IHSLAColor
     public function withHue(int $hue): IHSLAColor
     {
         return self::fromHSLA($hue, $this->saturation, $this->lightness, $this->alpha);
-    }
-
-    public static function fromHSLA(
-        int $hue,
-        float $saturation = 1.0,
-        float $lightness = 0.5,
-        float $alpha = 1.0,
-    ): IHSLAColor {
-        return new self(
-            self::refineHue($hue),
-            self::refineValue($saturation),
-            self::refineValue($lightness),
-            self::refineValue($alpha),
-        );
     }
 
     public function withSaturation(float $saturation): IHSLAColor

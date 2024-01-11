@@ -12,7 +12,7 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-class Hex8InstantiatorTest extends TestCase
+final class Hex8InstantiatorTest extends TestCase
 {
     public static function canInstantiateDataProvider(): iterable
     {
@@ -50,7 +50,8 @@ class Hex8InstantiatorTest extends TestCase
             ['rgba(0, 0, 0, 0.5)'],
             ['LimeGreen'],
             ['slategray'],
-            ['#ff0'],['ff0'],
+            ['#ff0'],
+            ['ff0'],
             ['rgba(0, 2, 255, 1)'],
             ['hsl(22, 100%, 50%)'],
             ['hsla(56, 100%, 50%, 1)'],

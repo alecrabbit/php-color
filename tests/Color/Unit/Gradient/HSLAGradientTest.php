@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit\Gradient;
 
 
-use AlecRabbit\Color\ColorRange;
 use AlecRabbit\Color\Contract\Gradient\IGradient;
 use AlecRabbit\Color\Contract\IColorRange;
 use AlecRabbit\Color\Exception\InvalidArgument;
+use AlecRabbit\Color\Gradient\ColorRange;
 use AlecRabbit\Color\Gradient\HSLAGradient;
 use AlecRabbit\Color\HSLA;
+use AlecRabbit\Color\Model\Contract\Converter\Core\ICoreConverter;
 use AlecRabbit\Tests\TestCase\FactoryAwareTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -280,7 +281,7 @@ final class HSLAGradientTest extends FactoryAwareTestCase
             range: $range ?? $this->getColorRange(),
             count: $count ?? 2,
             max: $max ?? 1000,
-            precision: $precision ?? 2,
+            precision: $precision ?? ICoreConverter::PRECISION,
         );
     }
 
@@ -309,7 +310,7 @@ final class HSLAGradientTest extends FactoryAwareTestCase
         );
 
         $result = iterator_to_array($gradient->unwrap());
-        
+
         self::assertEquals($expected, $result);
         self::assertCount($count, $result);
         self::assertEquals($count, $gradient->getCount());

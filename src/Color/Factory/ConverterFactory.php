@@ -6,17 +6,19 @@ namespace AlecRabbit\Color\Factory;
 
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\Factory\IConverterFactory;
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Exception\ConverterUnavailable;
 use AlecRabbit\Color\Exception\InvalidArgument;
 
 class ConverterFactory implements IConverterFactory
 {
-    /** @var Array<class-string<IConvertableColor>, class-string<IToConverter>> */
+    /**
+     * @var Array<class-string<IColor>, class-string<IToConverter<IColor>>>
+     */
     protected static array $registered = [];
 
     /**
-     * @param class-string<IConvertableColor> $targetClass
+     * @param class-string<IColor> $targetClass
      * @param class-string<IToConverter> $converterClass
      */
     public static function register(string $targetClass, string $converterClass): void
@@ -27,16 +29,16 @@ class ConverterFactory implements IConverterFactory
     }
 
     /**
-     * @param class-string<IConvertableColor> $class
+     * @param class-string<IColor> $class
      */
     protected static function assertTargetClass(string $class): void
     {
-        if (!is_subclass_of($class, IConvertableColor::class)) {
+        if (!is_subclass_of($class, IColor::class)) {
             throw new InvalidArgument(
                 sprintf(
                     'Class "%s" is not a "%s" subclass.',
                     $class,
-                    IConvertableColor::class
+                    IColor::class
                 )
             );
         }
@@ -67,7 +69,11 @@ class ConverterFactory implements IConverterFactory
     }
 
     /**
-     * @param class-string<IConvertableColor> $class
+     * @template T of IColor
+     *
+     * @param class-string<T> $class
+     *
+     * @psalm-return IToConverter<T>
      */
     protected static function createConverter(string $class): IToConverter
     {
@@ -77,13 +83,19 @@ class ConverterFactory implements IConverterFactory
     }
 
     /**
-     * @param class-string<IConvertableColor> $class
-     * @return class-string<IToConverter>
+     * @template T of IColor
+     *
+     * @param class-string<T> $class
+     *
+     * @return class-string<IToConverter<T>>
      */
     protected static function getConverterClass(string $class): string
     {
+        /** @var null|class-string<IToConverter<T>> $var */
+        $var = self::$registered[$class] ?? null;
+
         return
-            self::$registered[$class]
+            $var
             ??
             throw new ConverterUnavailable(
                 sprintf('Converter class for "%s" is not available.', $class)

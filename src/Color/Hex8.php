@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color;
 
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHex8Color;
+use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
+use AlecRabbit\Color\Model\DTO\DRGB;
 
 use function abs;
 use function sprintf;
 
 class Hex8 extends Hex implements IHex8Color
 {
-    protected const MAX8 = 0xFFFFFFFF;
     protected const MAX8_NO_ALPHA = 0xFFFFFF00;
-    protected const PRECISION = 3;
 
     protected function __construct(
         int $value,
@@ -22,19 +23,52 @@ class Hex8 extends Hex implements IHex8Color
         parent::__construct($value);
     }
 
-    /** @psalm-suppress MoreSpecificReturnType */
-    public static function fromString(string $color): IHex8Color
+    public static function from(IColor $color): IHex8Color
     {
-        /**
-         * @noinspection PhpIncompatibleReturnTypeInspection
-         * @psalm-suppress LessSpecificReturnStatement
-         */
-        return self::getFromString($color)->to(IHex8Color::class);
+        return $color->to(IHex8Color::class);
     }
 
-    public static function fromInteger(int $value): IHex8Color
+    public static function fromString(string $value): IHex8Color
     {
-        return new self((abs($value) & (int)static::MAX8_NO_ALPHA) >> 8, $value & 0x000000FF);
+        return self::getFromString($value)->to(IHex8Color::class);
+    }
+
+    public static function fromInteger(int $value, ?int $alpha = null): IHex8Color
+    {
+        return new self($value, $alpha ?? 0xFF);
+    }
+
+    public static function fromDTO(IColorDTO $dto): IHex8Color
+    {
+        /** @var DRGB $dto */
+        return self::fromRGBO(
+            (int)round($dto->red * self::COMPONENT),
+            (int)round($dto->green * self::COMPONENT),
+            (int)round($dto->blue * self::COMPONENT),
+            $dto->alpha,
+        );
+    }
+
+    public static function fromRGBO(int $r, int $g, int $b, float $opacity = 1.0): IHex8Color
+    {
+        $alpha = (int)(abs($opacity) * self::COMPONENT) & self::COMPONENT;
+
+        return
+            self::fromRGBA($r, $g, $b, $alpha);
+    }
+
+    public static function fromRGBA(int $r, int $g, int $b, int $alpha = 0xFF): IHex8Color
+    {
+        return
+            new self(
+                self::componentsToValue($r, $g, $b),
+                (abs($alpha) & self::COMPONENT)
+            );
+    }
+
+    public static function fromInteger8(int $value8): IHex8Color
+    {
+        return new self((abs($value8) & (int)static::MAX8_NO_ALPHA) >> 8, $value8 & 0x000000FF);
     }
 
     public function toString(): string
@@ -73,7 +107,7 @@ class Hex8 extends Hex implements IHex8Color
 
     public function getOpacity(): float
     {
-        return round($this->getAlpha() / self::COMPONENT, self::PRECISION);
+        return round($this->getAlpha() / self::COMPONENT, self::CALC_PRECISION);
     }
 
     public function withAlpha(int $alpha): IHex8Color
@@ -82,27 +116,10 @@ class Hex8 extends Hex implements IHex8Color
             self::fromRGBA($this->getRed(), $this->getGreen(), $this->getBlue(), $alpha);
     }
 
-    public static function fromRGBA(int $r, int $g, int $b, int $alpha = 0xFF): IHex8Color
-    {
-        return
-            new self(
-                self::componentsToValue($r, $g, $b),
-                (abs($alpha) & self::COMPONENT)
-            );
-    }
-
     public function withOpacity(float $opacity): IHex8Color
     {
         return
             self::fromRGBO($this->getRed(), $this->getGreen(), $this->getBlue(), $opacity);
-    }
-
-    public static function fromRGBO(int $r, int $g, int $b, float $opacity = 1.0): IHex8Color
-    {
-        $alpha = (int)(abs($opacity) * self::COMPONENT) & self::COMPONENT;
-
-        return
-            self::fromRGBA($r, $g, $b, $alpha);
     }
 
     public function getValue8(): int

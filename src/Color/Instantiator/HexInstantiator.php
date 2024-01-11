@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Instantiator;
 
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
 
@@ -185,7 +185,7 @@ class HexInstantiator extends AInstantiator
         return (bool)preg_match(self::REGEXP_HEX, $color);
     }
 
-    protected function instantiate(string $color): ?IConvertableColor
+    protected function instantiate(string $color): ?IColor
     {
         if (self::isNamedColor($color)) {
             $color = self::NAMED_COLORS[$color];

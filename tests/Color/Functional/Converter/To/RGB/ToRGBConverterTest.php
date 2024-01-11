@@ -6,9 +6,9 @@ namespace AlecRabbit\Tests\Color\Functional\Converter\To\RGB;
 
 
 use AlecRabbit\Color\Contract\Converter\IToConverter;
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IRGBColor;
-use AlecRabbit\Color\Converter\To\RGB\ToRGBConverter;
+use AlecRabbit\Color\Converter\To\ToRGBConverter;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
@@ -48,7 +48,7 @@ final class ToRGBConverterTest extends TestCase
 
     #[Test]
     #[DataProvider('canConvertDataProvider')]
-    public function canConvert(IRGBColor $expected, IConvertableColor $incoming): void
+    public function canConvert(IRGBColor $expected, IColor $incoming): void
     {
         $toConverter = $this->getTesteeInstance();
 

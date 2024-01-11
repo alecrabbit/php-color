@@ -6,7 +6,7 @@ namespace AlecRabbit\Color\Util;
 
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\Factory\IConverterFactory;
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Factory\ConverterFactory;
 
@@ -28,14 +28,16 @@ final class Converter
     }
 
     /**
-     * @param class-string<IConvertableColor> $class
+     * @template T of IColor
+     *
+     * @param class-string<T> $class
      */
     public static function to(string $class): IToConverter
     {
-        return self::getFactory()->make($class);
+        return self::getConverterFactory()->make($class);
     }
 
-    private static function getFactory(): IConverterFactory
+    private static function getConverterFactory(): IConverterFactory
     {
         if (self::$factory === null) {
             self::$factory = self::createFactory();

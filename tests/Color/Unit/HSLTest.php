@@ -4,15 +4,18 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Color\Unit;
 
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLColor;
+use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
+use AlecRabbit\Color\Model\DTO\DHSL;
+use AlecRabbit\Color\Model\ModelHSL;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-class HSLTest extends TestCase
+final class HSLTest extends TestCase
 {
     public static function canBeCreatedFromHSLDataProvider(): iterable
     {
@@ -113,13 +116,13 @@ class HSLTest extends TestCase
         yield from [
             [HSL::fromHSL(0, 0, 0), RGBA::fromRGBA(0, 0, 0, 0),],
             [HSL::fromHSL(36, 0.1, 0.2), RGBA::fromRGBA(56, 52, 46, 0),],
-//            [HSL::fromHSL(), Hex::fromInteger(0x23142),],
+            [HSL::fromHSL(196,0.94, 0.13), Hex::fromInteger(0x23142),],
         ];
     }
 
     #[Test]
     #[DataProvider('canBeCreatedFromDataProvider')]
-    public function canBeCreatedFrom(IConvertableColor $expected, IConvertableColor $incoming): void
+    public function canBeCreatedFrom(IColor $expected, IColor $incoming): void
     {
         $testee = HSL::from($incoming);
         self::assertEquals($expected, $testee);
@@ -222,4 +225,37 @@ class HSLTest extends TestCase
         self::assertNotSame($original, $modified);
     }
 
+    #[Test]
+    public function canGetColorModel(): void
+    {
+        $testee = self::getTesteeFromHSL(
+            [
+                self::HUE => 0,
+                self::SATURATION => 0,
+                self::LIGHTNESS => 0,
+            ]
+        );
+
+        self::assertInstanceOf(ModelHSL::class, $testee->getColorModel());
+    }
+
+    #[Test]
+    public function canToDTO(): void
+    {
+        $testee = self::getTesteeFromHSL(
+            [
+                self::HUE => 1,
+                self::SATURATION => 0.1,
+                self::LIGHTNESS => 0.2,
+            ]
+        );
+
+        $dto = $testee->toDTO();
+
+        self::assertInstanceOf(DHSL::class, $dto);
+        self::assertSame(0.002778, $dto->hue);
+        self::assertSame(0.1, $dto->saturation);
+        self::assertSame(0.2, $dto->lightness);
+        self::assertSame(1.0, $dto->alpha);
+    }
 }

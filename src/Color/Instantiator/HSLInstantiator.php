@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Instantiator;
 
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
 
@@ -13,7 +13,7 @@ class HSLInstantiator extends AInstantiator
     protected const REGEXP_HSLA = '/^hsla?\((\d+)(?:,\s*|\s*)(\d+)%(?:,\s*|\s*)(\d+)%(?:(?:,\s*|\s*\/\s*)(([\d.]+)|(\d+%)))?\)$/';
     protected const PRECISION = 2;
 
-    protected function instantiate(string $color): ?IConvertableColor
+    protected function instantiate(string $color): ?IColor
     {
         if (self::canInstantiate($color) && preg_match(self::REGEXP_HSLA, $color, $matches)) {
             return

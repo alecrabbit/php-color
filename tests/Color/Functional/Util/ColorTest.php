@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Color\Functional\Util;
 
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
@@ -15,7 +15,7 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-class ColorTest extends TestCase
+final class ColorTest extends TestCase
 {
     public static function canCreateColorFromStringDataProvider(): iterable
     {
@@ -49,7 +49,7 @@ class ColorTest extends TestCase
         self::assertInstanceOf($expectedClass, $testee);
     }
 
-    private static function getTesteeFromString(string $value): IConvertableColor
+    private static function getTesteeFromString(string $value): IColor
     {
         return Color::fromString($value);
     }

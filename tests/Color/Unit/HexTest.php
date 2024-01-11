@@ -6,11 +6,13 @@ namespace AlecRabbit\Tests\Color\Unit;
 
 use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Hex;
+use AlecRabbit\Color\Model\DTO\DRGB;
+use AlecRabbit\Color\Model\ModelRGB;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-class HexTest extends TestCase
+final class HexTest extends TestCase
 {
     public static function canBeCreatedFromIntegerDataProvider(): iterable
     {
@@ -184,4 +186,25 @@ class HexTest extends TestCase
         self::assertSame(0xFF, $modifiedBlue->getBlue());
     }
 
+    #[Test]
+    public function canGetColorModel(): void
+    {
+        $testee = self::getTesteeFromInteger(0x000000);
+
+        self::assertInstanceOf(ModelRGB::class, $testee->getColorModel());
+    }
+
+    #[Test]
+    public function canToDTO(): void
+    {
+        $testee = self::getTesteeFromInteger(0x010203);
+
+        $dto = $testee->toDTO();
+
+        self::assertInstanceOf(DRGB::class, $dto);
+        self::assertSame(0.003922, $dto->red);
+        self::assertSame(0.007843, $dto->green);
+        self::assertSame(0.011765, $dto->blue);
+        self::assertSame(1.0, $dto->alpha);
+    }
 }

@@ -21,7 +21,7 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-class ConverterTest extends TestCase
+final class ConverterTest extends TestCase
 {
     public static function canGetConverterFromClassStringDataProvider(): iterable
     {
@@ -37,16 +37,16 @@ class ConverterTest extends TestCase
     {
         yield from [
             // (resulting)class, (incoming)value
-            [To\Hex\ToHexConverter::class, Hex::class],
-            [To\Hex\ToHexConverter::class, IHexColor::class],
-            [To\RGBA\ToRGBAConverter::class, RGBA::class],
-            [To\RGBA\ToRGBAConverter::class, IRGBAColor::class],
-            [To\HSL\ToHSLConverter::class, HSL::class],
-            [To\HSL\ToHSLConverter::class, IHSLColor::class],
-            [To\HSLA\ToHSLAConverter::class, HSLA::class],
-            [To\HSLA\ToHSLAConverter::class, IHSLAColor::class],
-            [To\RGB\ToRGBConverter::class, RGB::class],
-            [To\RGB\ToRGBConverter::class, IRGBColor::class],
+            [To\ToHexConverter::class, Hex::class],
+            [To\ToHexConverter::class, IHexColor::class],
+            [To\ToRGBAConverter::class, RGBA::class],
+            [To\ToRGBAConverter::class, IRGBAColor::class],
+            [To\ToHSLConverter::class, HSL::class],
+            [To\ToHSLConverter::class, IHSLColor::class],
+            [To\ToHSLAConverter::class, HSLA::class],
+            [To\ToHSLAConverter::class, IHSLAColor::class],
+            [To\ToRGBConverter::class, RGB::class],
+            [To\ToRGBConverter::class, IRGBColor::class],
         ];
     }
 

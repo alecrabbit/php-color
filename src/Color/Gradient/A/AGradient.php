@@ -7,7 +7,6 @@ namespace AlecRabbit\Color\Gradient\A;
 use AlecRabbit\Color\Contract\Gradient\IGradient;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IColorRange;
-use AlecRabbit\Color\Contract\IConvertableColor;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Util\Color;
 use Traversable;
@@ -16,7 +15,7 @@ abstract readonly class AGradient implements IGradient
 {
     protected const MAX = 1000;
     protected const MIN = 2;
-    protected const FLOAT_PRECISION = 2;
+    protected const FLOAT_PRECISION = 3;
 
     public function __construct(
         protected IColorRange $range,
@@ -56,7 +55,7 @@ abstract readonly class AGradient implements IGradient
     }
 
 
-    protected function createColor(int $index): IConvertableColor
+    protected function createColor(int $index): IColor
     {
         return Color::fromString(
             $this->getColorString($index),
@@ -75,16 +74,10 @@ abstract readonly class AGradient implements IGradient
         return $this->count;
     }
 
-    protected function ensureConvertable(IColor|string $color): IConvertableColor
+    protected function ensureConvertable(IColor|string $color): IColor
     {
-        if ($color instanceof IConvertableColor) {
+        if ($color instanceof IColor) {
             return $color;
-        }
-
-        if (!is_string($color)) {
-            // @codeCoverageIgnoreStart
-            $color = $color->toString();
-            // @codeCoverageIgnoreEnd
         }
 
         return Color::fromString($color);

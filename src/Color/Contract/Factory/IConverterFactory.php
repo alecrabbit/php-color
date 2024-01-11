@@ -5,12 +5,16 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Contract\Factory;
 
 use AlecRabbit\Color\Contract\Converter\IToConverter;
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 
 interface IConverterFactory
 {
     /**
-     * @param class-string<IConvertableColor> $class
+     * @template T of IColor
+     *
+     * @param class-string<T> $class
+     *
+     * @psalm-return IToConverter<T>
      */
     public function make(string $class): IToConverter;
 }

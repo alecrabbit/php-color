@@ -4,38 +4,56 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Registry;
 
-use AlecRabbit\Color\Contract\Converter\IFromConverter;
 use AlecRabbit\Color\Contract\Converter\IRegistry;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
-use AlecRabbit\Color\Contract\Wrapper\IWrapper;
+use AlecRabbit\Color\Contract\Model\Converter\IColorDTOConverter;
+use AlecRabbit\Color\Contract\Model\Converter\IModelConverter;
+use AlecRabbit\Color\Contract\Model\IColorModel;
 use AlecRabbit\Color\Exception\InvalidArgument;
+use AlecRabbit\Color\Exception\UnsupportedColorConversion;
+use AlecRabbit\Color\Model\Builder\ChainConverterBuilder;
+use AlecRabbit\Color\Model\Contract\Builder\IChainConverterBuilder;
+use ArrayObject;
 use RuntimeException;
+use SplQueue;
 use Traversable;
 
 final class Registry implements IRegistry
 {
-    /** @var Array<class-string<IToConverter>, Array<class-string<IConvertableColor>,IFromConverter|class-string<IFromConverter>>> */
-    private static array $fromConverters = [];
+    private static array $modelConverters = [];
+    private static array $models = [];
+    private static array $graph = [];
 
-    /**
-     * @inheritDoc
-     */
-    public static function register(string $toConverter, Traversable $fromConverters): void
+    public function __construct(
+        private readonly IChainConverterBuilder $modelConverterBuilder = new ChainConverterBuilder(),
+    ) {
+    }
+
+    /** @inheritDoc */
+    public static function attach(string ...$classes): void
     {
-        self::assertToConverter($toConverter);
+        /** @var IModelConverter $class */
+        foreach ($classes as $class) {
+            self::$modelConverters[] = $class;
+            self::$models[$class::from()::class] = true;
+            self::$models[$class::to()::class] = true;
+        }
 
-        /**
-         * @var class-string<IToConverter> $toConverter
-         * @var class-string<IConvertableColor> $color
-         * @var class-string<IFromConverter> $fromConverter
-         */
-        foreach ($fromConverters as $color => $fromConverter) {
-            self::assertColor($color);
-            self::assertFromConverter($fromConverter);
+        self::buildGraph();
+    }
 
-            self::$fromConverters[$toConverter][$color] = $fromConverter;
+    private static function buildGraph(): void
+    {
+        /** @var class-string<IColorModel> $model */
+        foreach (self::$models as $model => $_) {
+            self::$graph[$model] = [];
+        }
+
+        /** @var class-string<IModelConverter> $class */
+        foreach (self::$modelConverters as $class) {
+            self::$graph[$class::from()::class][] = $class::to()::class;
         }
     }
 
@@ -62,68 +80,15 @@ final class Registry implements IRegistry
                     get_debug_type($color)
                 )
             ),
-            !is_subclass_of($color, IConvertableColor::class) => throw new InvalidArgument(
+            !is_subclass_of($color, IColor::class) => throw new InvalidArgument(
                 sprintf(
                     'Color must be instance of "%s". "%s" given.',
-                    IConvertableColor::class,
+                    IColor::class,
                     $color
                 )
             ),
             default => null,
         };
-    }
-
-    private static function assertFromConverter(mixed $fromConverter): void
-    {
-        match (true) {
-            !is_string($fromConverter) => throw new InvalidArgument(
-                sprintf(
-                    'Converter must be type of string. "%s" given.',
-                    get_debug_type($fromConverter)
-                )
-            ),
-            !is_subclass_of($fromConverter, IFromConverter::class) => throw new InvalidArgument(
-                sprintf(
-                    'Converter must be instance of "%s". "%s" given.',
-                    IFromConverter::class,
-                    $fromConverter
-                )
-            ),
-            default => null,
-        };
-    }
-
-    /** @inheritDoc */
-    public static function attach(IWrapper ...$wrappers): void
-    {
-        // TODO: Implement register() method.
-        throw new RuntimeException(__METHOD__ . ' Not implemented.');
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getFromConverter(string $to, string $source): ?IFromConverter
-    {
-        self::assertToConverter($to);
-        self::assertColor($source);
-
-        return $this->getRefinedFromConverter($to, $source);
-    }
-
-    private function getRefinedFromConverter(string $toConverter, string $color): ?IFromConverter
-    {
-        /**
-         * @var class-string<IToConverter> $toConverter
-         * @var class-string<IConvertableColor> $color
-         * @var null|IFromConverter|class-string<IFromConverter> $fromConverter
-         */
-        $fromConverter = self::$fromConverters[$toConverter][$color] ?? null;
-        if (is_string($fromConverter)) {
-            $fromConverter = new $fromConverter();
-            self::$fromConverters[$toConverter][$color] = $fromConverter;
-        }
-        return $fromConverter;
     }
 
     public function getToConverter(string $target): ?IToConverter
@@ -136,5 +101,72 @@ final class Registry implements IRegistry
     {
         // TODO: Implement getInstantiator() method.
         throw new RuntimeException(__METHOD__ . ' Not implemented.');
+    }
+
+    /** @inheritDoc */
+    public function getColorConverter(IColorModel $from, IColorModel $to): IColorDTOConverter
+    {
+        $conversionPath = self::findConversionPath($from::class, $to::class);
+
+        if (null === $conversionPath) {
+            throw new UnsupportedColorConversion(
+                sprintf(
+                    'No conversion path found. For "%s" to "%s".',
+                    $from->dtoType(),
+                    $to->dtoType(),
+                )
+            );
+        }
+
+        return $this->createColorConverter($conversionPath);
+    }
+
+    /**
+     * @param class-string<IColorModel> $from
+     * @param class-string<IColorModel> $to
+     *
+     * @return null|Traversable<class-string<IColorModel>>
+     */
+    private static function findConversionPath(string $from, string $to): ?Traversable
+    {
+        $visited = [];
+        $queue = new SplQueue();
+
+        $queue->enqueue([$from]);
+        $visited[$from] = true;
+
+        while (!$queue->isEmpty()) {
+            /** @var Array<class-string<IColorModel>> $path */
+            $path = $queue->dequeue();
+            $node = end($path);
+
+            if ($node === $to) {
+                yield from $path;
+            }
+
+            /** @var class-string<IColorModel> $neighbor */
+            foreach (self::$graph[$node] as $neighbor) {
+                if (!isset($visited[$neighbor])) {
+                    $visited[$neighbor] = true;
+                    $newPath = $path;
+                    $newPath[] = $neighbor;
+                    $queue->enqueue($newPath);
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @param iterable<class-string<IColorModel>> $conversionPath
+     *
+     * @return IColorDTOConverter
+     */
+    protected function createColorConverter(iterable $conversionPath): IColorDTOConverter
+    {
+        return $this->modelConverterBuilder
+            ->useConverters(new ArrayObject(self::$modelConverters))
+            ->create($conversionPath);
     }
 }

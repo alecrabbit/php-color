@@ -14,7 +14,7 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-class InstantiatorTest extends TestCase
+final class InstantiatorTest extends TestCase
 {
     public static function canInstantiateFromStringDataProvider(): iterable
     {

@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Functional\Instantiator;
 
 use AlecRabbit\Color\Contract\IHex8Color;
-use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Instantiator\Hex8Instantiator;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-class Hex8InstantiatorTest extends TestCase
+final class Hex8InstantiatorTest extends TestCase
 {
     public static function canInstantiateDataProvider(): iterable
     {

@@ -33,7 +33,9 @@ final readonly class HSLAGradient extends AGradient
         );
 
         $count = $this->count - 1;
+        /** @var IHSLAColor $start */
         $start = $this->toHSLA($this->range->getStart());
+        /** @var IHSLAColor $end */
         $end = $this->toHSLA($this->range->getEnd());
 
         $this->h = Vector::create($start->getHue(), $end->getHue(), $count);
@@ -41,10 +43,10 @@ final readonly class HSLAGradient extends AGradient
         $this->l = Vector::create($start->getLightness(), $end->getLightness(), $count);
         $this->o = Vector::create($start->getOpacity(), $end->getOpacity(), $count);
 
-        $this->format = "hsla(%s, %.0f%%, %.0f%%, %.{$this->precision}f)";
+        $this->format = "hsla(%s, %.0f%%, %.0f%%, %.3f)";
     }
 
-    private function toHSLA(IColor|string $color): IHSLAColor
+    private function toHSLA(IColor|string $color): IColor
     {
         return $this->ensureConvertable($color)->to(IHSLAColor::class);
     }

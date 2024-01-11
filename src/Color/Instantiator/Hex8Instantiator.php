@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Instantiator;
 
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Hex8;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
 
@@ -30,10 +30,10 @@ class Hex8Instantiator extends AInstantiator
         return (bool)preg_match(self::REGEXP_HEX, $color);
     }
 
-    protected function instantiate(string $color): ?IConvertableColor
+    protected function instantiate(string $color): ?IColor
     {
         if (self::isHexString($color)) {
-            return Hex8::fromInteger(self::extractInteger($color));
+            return Hex8::fromInteger8(self::extractInteger($color));
         }
 
         return null;

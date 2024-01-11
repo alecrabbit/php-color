@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color;
 
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
+use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
+use AlecRabbit\Color\Model\DTO\DRGB;
 
 use function abs;
 use function round;
@@ -12,8 +15,6 @@ use function sprintf;
 
 class RGBA extends RGB implements IRGBAColor
 {
-    protected const PRECISION = 3;
-
     protected function __construct(
         int $value,
         protected readonly int $alpha,
@@ -35,14 +36,32 @@ class RGBA extends RGB implements IRGBAColor
             );
     }
 
-    /** @psalm-suppress MoreSpecificReturnType */
-    public static function fromString(string $color): IRGBAColor
+    public static function from(IColor $color): IRGBAColor
     {
-        /**
-         * @noinspection PhpIncompatibleReturnTypeInspection
-         * @psalm-suppress LessSpecificReturnStatement
-         */
-        return self::getFromString($color)->to(IRGBAColor::class);
+        return $color->to(IRGBAColor::class);
+    }
+
+    public static function fromDTO(IColorDTO $dto): IRGBAColor
+    {
+        /** @var DRGB $dto */
+        return self::fromRGBO(
+            (int)round($dto->red * self::COMPONENT),
+            (int)round($dto->green * self::COMPONENT),
+            (int)round($dto->blue * self::COMPONENT),
+            $dto->alpha,
+        );
+    }
+
+    public static function fromRGBO(int $r, int $g, int $b, float $opacity = 1.0): IRGBAColor
+    {
+        $alpha = (int)(abs($opacity) * self::COMPONENT) & self::COMPONENT;
+        return
+            self::fromRGBA($r, $g, $b, $alpha);
+    }
+
+    public static function fromString(string $value): IRGBAColor
+    {
+        return self::getFromString($value)->to(IRGBAColor::class);
     }
 
     public function withRed(int $red): IRGBAColor
@@ -76,13 +95,13 @@ class RGBA extends RGB implements IRGBAColor
                 $this->getRed(),
                 $this->getGreen(),
                 $this->getBlue(),
-                $this->getOpacity()
+                round($this->getOpacity(), self::FLOAT_PRECISION),
             );
     }
 
     public function getOpacity(): float
     {
-        return round($this->getAlpha() / self::COMPONENT, self::PRECISION);
+        return round($this->getAlpha() / self::COMPONENT, self::CALC_PRECISION);
     }
 
     public function withAlpha(int $alpha): IRGBAColor
@@ -95,12 +114,5 @@ class RGBA extends RGB implements IRGBAColor
     {
         return
             self::fromRGBO($this->getRed(), $this->getGreen(), $this->getBlue(), $opacity);
-    }
-
-    public static function fromRGBO(int $r, int $g, int $b, float $opacity = 1.0): IRGBAColor
-    {
-        $alpha = (int)(abs($opacity) * self::COMPONENT) & self::COMPONENT;
-        return
-            self::fromRGBA($r, $g, $b, $alpha);
     }
 }

@@ -6,9 +6,9 @@ namespace AlecRabbit\Tests\Color\Functional\Converter\To\Hex;
 
 
 use AlecRabbit\Color\Contract\Converter\IToConverter;
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHexColor;
-use AlecRabbit\Color\Converter\To\Hex\ToHexConverter;
+use AlecRabbit\Color\Converter\To\ToHexConverter;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
@@ -52,7 +52,7 @@ final class ToHexConverterTest extends TestCase
 
     #[Test]
     #[DataProvider('canConvertDataProvider')]
-    public function canConvert(IHexColor $expected, IConvertableColor $incoming): void
+    public function canConvert(IHexColor $expected, IColor $incoming): void
     {
         $toConverter = $this->getTesteeInstance();
 

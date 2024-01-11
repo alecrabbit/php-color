@@ -14,7 +14,7 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-class RGBAInstantiatorTest extends TestCase
+final class RGBAInstantiatorTest extends TestCase
 {
     public static function canNotInstantiateRGBDataProvider(): iterable
     {
@@ -38,7 +38,7 @@ class RGBAInstantiatorTest extends TestCase
             [[0xff00ff, 1.0, 255], 'rgba(255, 0, 255, 1.0)'],
             [[0xd51e19, 0.0, 0], 'rgba(213, 30, 25, 0)'],
             [[0x0de67d, 0.0, 0], 'rgba(13, 230, 125, 0)'],
-            [[0x0de67d, 0.498, 127], 'rgba(13, 230, 125, 0.5)'],
+            [[0x0de67d, 0.498039, 127], 'rgba(13, 230, 125, 0.5)'],
             [[0x161616, 0.0, 0], 'rgba(22, 22, 22, 0)'],
             [[0x000000, 0.0, 0], 'rgba(0, 0, 0, 0)'],
         ];
@@ -49,7 +49,7 @@ class RGBAInstantiatorTest extends TestCase
         yield from [
             ['rgba(0, 0, 0, 0)', 0, 0, 0, 0, 0],
             ['rgba(0, 0, 0, 1.0)', 0, 0, 0, 1.0, 255],
-            ['rgba(0, 12, 33, 0.333)', 0, 12, 33, 0.329, 84],
+            ['rgba(0, 12, 33, 0.333)', 0, 12, 33, 0.329412, 84],
             ['rgba(0, 0, 1, 1.0)', 0, 0, 1, 1.0, 255],
         ];
     }

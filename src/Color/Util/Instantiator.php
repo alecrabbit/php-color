@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Util;
 
 use AlecRabbit\Color\Contract\Factory\IInstantiatorFactory;
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Factory\InstantiatorFactory;
 
+// TODO (2024-01-05 15:23) [Alec Rabbit]: functionality moved to Color class, remove this class
 final class Instantiator
 {
     /** @var class-string<IInstantiatorFactory> */
@@ -23,7 +24,7 @@ final class Instantiator
         // Can not be instantiated
     }
 
-    public static function fromString(string $color): IConvertableColor
+    public static function fromString(string $color): IColor
     {
         return self::getFactory()->getInstantiator($color)->fromString($color);
     }

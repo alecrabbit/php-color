@@ -12,7 +12,7 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;
 
-class InstantiatorFactoryRegisterInstantiatorsTest extends TestCase
+final class InstantiatorFactoryRegisterInstantiatorsTest extends TestCase
 {
     private array $registeredInstantiators;
 

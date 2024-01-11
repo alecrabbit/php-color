@@ -4,11 +4,16 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Contract\Instantiator;
 
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 
 interface IInstantiator
 {
     public static function isSupported(string $color): bool;
 
-    public function fromString(string $color): IConvertableColor;
+    /**
+     * @return class-string<IColor>
+     */
+    public static function instantiates(): string;
+
+    public function fromString(string $color): IColor;
 }

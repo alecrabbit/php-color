@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Color\Functional\Instantiator;
 
-use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Exception\UnrecognizedColorString;
 use AlecRabbit\Color\HSL;
@@ -13,7 +12,7 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-class HSLInstantiatorTest extends TestCase
+final class HSLInstantiatorTest extends TestCase
 {
     public static function canInstantiateHSLDataProvider(): iterable
     {

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Color\Unit;
 
-use AlecRabbit\Color\ColorRange;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IColorRange;
+use AlecRabbit\Color\Gradient\ColorRange;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Tests\TestCase\FactoryAwareTestCase;

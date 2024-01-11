@@ -6,25 +6,14 @@ namespace AlecRabbit\Tests\Color\Functional\Registry;
 
 
 use AlecRabbit\Color\Contract\Converter\IRegistry;
-use AlecRabbit\Color\Contract\IHexColor;
-use AlecRabbit\Color\Contract\IRGBAColor;
-use AlecRabbit\Color\Contract\IRGBColor;
-use AlecRabbit\Color\Converter\From\NoOpConverter;
-use AlecRabbit\Color\Converter\To\RGBA\From\FromRGBConverter;
-use AlecRabbit\Color\Converter\To\RGBA\ToRGBAConverter;
-use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\Registry\Registry;
-use AlecRabbit\Color\RGB;
-use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;
-use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 
 final class RegistryTest extends TestCase
 {
-    private const FROM_CONVERTERS = 'fromConverters';
-    private static mixed $fromConverters = null;
+//    private const FROM_CONVERTERS = 'fromConverters';
+//    private static mixed $fromConverters = null;
 
     #[Test]
     public function canBeInstantiated(): void
@@ -39,117 +28,6 @@ final class RegistryTest extends TestCase
         return new Registry();
     }
 
-    #[Test]
-    public function canRegisterAndRetrieve(): void
-    {
-        $registry = $this->getTesteeInstance();
-
-        $converters = [
-            IRGBAColor::class => NoOpConverter::class,
-            RGBA::class => NoOpConverter::class,
-            IRGBColor::class => FromRGBConverter::class,
-            RGB::class => FromRGBConverter::class,
-            IHexColor::class => FromRGBConverter::class,
-            Hex::class => FromRGBConverter::class,
-        ];
-
-        Registry::register(ToRGBAConverter::class, new ArrayObject($converters));
-
-        self::assertInstanceOf(
-            NoOpConverter::class,
-            $registry->getFromConverter(ToRGBAConverter::class, IRGBAColor::class)
-        );
-        self::assertInstanceOf(
-            NoOpConverter::class,
-            $registry->getFromConverter(ToRGBAConverter::class, RGBA::class)
-        );
-        self::assertInstanceOf(
-            FromRGBConverter::class,
-            $registry->getFromConverter(ToRGBAConverter::class, IRGBColor::class)
-        );
-        self::assertInstanceOf(
-            FromRGBConverter::class,
-            $registry->getFromConverter(ToRGBAConverter::class, RGB::class)
-        );
-        self::assertInstanceOf(
-            FromRGBConverter::class,
-            $registry->getFromConverter(ToRGBAConverter::class, IHexColor::class)
-        );
-        self::assertInstanceOf(
-            FromRGBConverter::class,
-            $registry->getFromConverter(ToRGBAConverter::class, Hex::class)
-        );
-    }
-
-    #[Test]
-    public function throwsIfSuppliedToConverterClassIsInvalid(): void
-    {
-        $this->expectException(InvalidArgument::class);
-        $this->expectExceptionMessage(
-            'Converter must be instance of "AlecRabbit\Color\Contract\Converter\IToConverter". "invalid" given.'
-        );
-
-        Registry::register('invalid', new ArrayObject([]));
-    }
-
-    #[Test]
-    public function throwsIfSuppliedColorClassIsInvalid(): void
-    {
-        $this->expectException(InvalidArgument::class);
-        $this->expectExceptionMessage(
-            'Color must be instance of "AlecRabbit\Color\Contract\IConvertableColor". "invalid" given.'
-        );
-
-        $converters = [
-            'invalid' => NoOpConverter::class,
-        ];
-
-        Registry::register(ToRGBAConverter::class, new ArrayObject($converters));
-    }
-
-    #[Test]
-    public function throwsIfSuppliedFromConverterClassIsInvalid(): void
-    {
-        $this->expectException(InvalidArgument::class);
-        $this->expectExceptionMessage(
-            'Converter must be instance of "AlecRabbit\Color\Contract\Converter\IFromConverter". "invalid" given.'
-        );
-
-        $converters = [
-            IRGBAColor::class => 'invalid',
-        ];
-
-        Registry::register(ToRGBAConverter::class, new ArrayObject($converters));
-    }
-
-    #[Test]
-    public function throwsIfSuppliedFromConverterClassIsNotString(): void
-    {
-        $this->expectException(InvalidArgument::class);
-        $this->expectExceptionMessage(
-            'Converter must be type of string. "int" given.'
-        );
-
-        $converters = [
-            IRGBAColor::class => 1,
-        ];
-
-        Registry::register(ToRGBAConverter::class, new ArrayObject($converters));
-    }
-
-    #[Test]
-    public function throwsIfSuppliedColorClassIsNotString(): void
-    {
-        $this->expectException(InvalidArgument::class);
-        $this->expectExceptionMessage('Color must be type of string. "int" given.');
-
-        $converters = [
-            1 => NoOpConverter::class,
-        ];
-
-        Registry::register(ToRGBAConverter::class, new ArrayObject($converters));
-    }
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -158,7 +36,7 @@ final class RegistryTest extends TestCase
 
     private static function storeRegistryState(): void
     {
-        self::$fromConverters = self::getPropertyValue(Registry::class, self::FROM_CONVERTERS);
+//        self::$fromConverters = self::getPropertyValue(Registry::class, self::FROM_CONVERTERS);
     }
 
     protected function tearDown(): void
@@ -169,7 +47,7 @@ final class RegistryTest extends TestCase
 
     private static function rollbackRegistryState(): void
     {
-        self::setPropertyValue(Registry::class, self::FROM_CONVERTERS, self::$fromConverters);
+//        self::setPropertyValue(Registry::class, self::FROM_CONVERTERS, self::$fromConverters);
     }
 
 

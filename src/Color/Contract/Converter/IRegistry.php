@@ -4,34 +4,27 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Contract\Converter;
 
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
-use AlecRabbit\Color\Contract\Wrapper\IWrapper;
-use Traversable;
+use AlecRabbit\Color\Contract\Model\Converter\IColorDTOConverter;
+use AlecRabbit\Color\Contract\Model\Converter\IModelConverter;
+use AlecRabbit\Color\Contract\Model\IColorModel;
+use AlecRabbit\Color\Exception\UnsupportedColorConversion;
 
 interface IRegistry
 {
     /**
-     * @param class-string<IToConverter> $toConverter
-     * @param Traversable<class-string<IConvertableColor>, class-string<IFromConverter>> $fromConverters
-     * @deprecated
-     *
+     * @param class-string<IInstantiator|IModelConverter|IToConverter> ...$classes
      */
-    public static function register(string $toConverter, Traversable $fromConverters): void;
+    public static function attach(string ...$classes): void;
 
     /**
-     * @param IWrapper ...$wrappers
+     * @throws UnsupportedColorConversion
      */
-    public static function attach(IWrapper ...$wrappers): void;
+    public function getColorConverter(IColorModel $from, IColorModel $to): IColorDTOConverter;
 
     /**
-     * @param class-string<IToConverter> $to
-     * @param class-string<IConvertableColor> $source
-     */
-    public function getFromConverter(string $to, string $source): ?IFromConverter;
-
-    /**
-     * @param class-string<IConvertableColor> $target
+     * @param class-string<IColor> $target
      */
     public function getToConverter(string $target): ?IToConverter;
 

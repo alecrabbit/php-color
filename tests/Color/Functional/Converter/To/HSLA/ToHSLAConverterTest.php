@@ -6,9 +6,9 @@ namespace AlecRabbit\Tests\Color\Functional\Converter\To\HSLA;
 
 
 use AlecRabbit\Color\Contract\Converter\IToConverter;
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
-use AlecRabbit\Color\Converter\To\HSLA\ToHSLAConverter;
+use AlecRabbit\Color\Converter\To\ToHSLAConverter;
 use AlecRabbit\Color\HSLA;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -45,7 +45,7 @@ final class ToHSLAConverterTest extends TestCase
 
     #[Test]
     #[DataProvider('canConvertDataProvider')]
-    public function canConvert(IHSLAColor $expected, IConvertableColor $incoming): void
+    public function canConvert(IHSLAColor $expected, IColor $incoming): void
     {
         $toConverter = $this->getTesteeInstance();
 

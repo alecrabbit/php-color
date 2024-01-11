@@ -4,18 +4,20 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Color\Unit;
 
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
+use AlecRabbit\Color\Model\DTO\DRGB;
+use AlecRabbit\Color\Model\ModelRGB;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-class RGBATest extends TestCase
+final class RGBATest extends TestCase
 {
     public static function canBeCreatedFromRGBADataProvider(): iterable
     {
@@ -52,19 +54,19 @@ class RGBATest extends TestCase
             [[0xFF00FF, 0xFF, 0xFF, 0x00, 0xFF, 1.0], [0xFF, 0x00, 0xFF, 0xFF,]],               // #1
             [[0xFFFFFF, 0xFF, 0xFF, 0xFF, 0xFF, 1.0], [0xFF, 0xFF, 0xFF, 0xFF,]],               // #2
             [[0x000000, 0x00, 0x00, 0x00, 0x00, 0.0], [0x00, 0x00, 0x00, 0x00,]],               // #3
-            [[0x112233, 0x7F, 0x11, 0x22, 0x33, 0.498], [0x11, 0x22, 0x33, 0x7F,]],             // #4
-            [[0x112233, 0x01, 0x11, 0x22, 0x33, 0.004], [0x11, 0x22, 0x33, 0x01,]],             // #5
-            [[0x112233, 0xFE, 0x11, 0x22, 0x33, 0.996], [0x11, 0x22, 0x33, 0xFE,]],             // #6
-            [[0xFE2233, 0xFE, 0xFE, 0x22, 0x33, 0.996], [0xFE, 0x22, 0x33, 0xFE,]],             // #7
-            [[0xFE2233, 0xFE, 0xFE, 0x22, 0x33, 0.996], [0xFE, 0x22, -0x33, 0xFE,]],            // #8
-            [[0xFE2233, 0xFE, 0xFE, 0x22, 0x33, 0.996], [0xFE, 0x22, -0x33, -0xFE,]],           // #9
-            [[0xFA2233, 0xFE, 0xFA, 0x22, 0x33, 0.996], [-0xFA, 0x22, -0x33, 0xFE,]],           // #10
-            [[0xFA2200, 0xFE, 0xFA, 0x22, 0x00, 0.996], [-0xFA, 0x22, 256, 0xFE,]],             // #11
-            [[0x000000, 0xCA, 0x00, 0x00, 0x00, 0.792], [0, 0, 0, 0xCA,]],                      // #13
-            [[0x000000, 0xCA, 0x00, 0x00, 0x00, 0.792], [256, 256, 256, 0xCA,]],                // #14
-            [[0x000000, 0xCA, 0x00, 0x00, 0x00, 0.792], [-256, 256, 256, 0xCA,]],               // #15
-            [[0x000000, 0xCA, 0x00, 0x00, 0x00, 0.792], [256, -256, 256, 0xCA,]],               // #16
-            [[0x000000, 0xCA, 0x00, 0x00, 0x00, 0.792], [256, 256, -256, 0xCA,]],               // #17
+            [[0x112233, 0x7F, 0x11, 0x22, 0x33, 0.498039], [0x11, 0x22, 0x33, 0x7F,]],             // #4
+            [[0x112233, 0x01, 0x11, 0x22, 0x33, 0.003922], [0x11, 0x22, 0x33, 0x01,]],             // #5
+            [[0x112233, 0xFE, 0x11, 0x22, 0x33, 0.996078], [0x11, 0x22, 0x33, 0xFE,]],             // #6
+            [[0xFE2233, 0xFE, 0xFE, 0x22, 0x33, 0.996078], [0xFE, 0x22, 0x33, 0xFE,]],             // #7
+            [[0xFE2233, 0xFE, 0xFE, 0x22, 0x33, 0.996078], [0xFE, 0x22, -0x33, 0xFE,]],            // #8
+            [[0xFE2233, 0xFE, 0xFE, 0x22, 0x33, 0.996078], [0xFE, 0x22, -0x33, -0xFE,]],           // #9
+            [[0xFA2233, 0xFE, 0xFA, 0x22, 0x33, 0.996078], [-0xFA, 0x22, -0x33, 0xFE,]],           // #10
+            [[0xFA2200, 0xFE, 0xFA, 0x22, 0x00, 0.996078], [-0xFA, 0x22, 256, 0xFE,]],             // #11
+            [[0x000000, 0xCA, 0x00, 0x00, 0x00, 0.792157], [0, 0, 0, 0xCA,]],                      // #13
+            [[0x000000, 0xCA, 0x00, 0x00, 0x00, 0.792157], [256, 256, 256, 0xCA,]],                // #14
+            [[0x000000, 0xCA, 0x00, 0x00, 0x00, 0.792157], [-256, 256, 256, 0xCA,]],               // #15
+            [[0x000000, 0xCA, 0x00, 0x00, 0x00, 0.792157], [256, -256, 256, 0xCA,]],               // #16
+            [[0x000000, 0xCA, 0x00, 0x00, 0x00, 0.792157], [256, 256, -256, 0xCA,]],               // #17
         ];
     }
 
@@ -103,19 +105,19 @@ class RGBATest extends TestCase
             [[0xFF00FF, 0xFF, 0xFF, 0x00, 0xFF, 1.0], [0xFF, 0x00, 0xFF, 1.0,]],               // #1
             [[0xFFFFFF, 0xFF, 0xFF, 0xFF, 0xFF, 1.0], [0xFF, 0xFF, 0xFF, 1.0,]],               // #2
             [[0x000000, 0x00, 0x00, 0x00, 0x00, 0.0], [0x00, 0x00, 0x00, 0.0,]],               // #3
-            [[0x112233, 0x7F, 0x11, 0x22, 0x33, 0.498], [0x11, 0x22, 0x33, 0.5,]],           // #4
-            [[0x112233, 0x01, 0x11, 0x22, 0x33, 0.004], [0x11, 0x22, 0x33, 0.004,]],           // #5
-            [[0x112233, 0xFE, 0x11, 0x22, 0x33, 0.996], [0x11, 0x22, 0x33, 0.998,]],           // #6
-            [[0xFE2233, 0xFE, 0xFE, 0x22, 0x33, 0.996], [0xFE, 0x22, 0x33, 0.998,]],           // #7
-            [[0xFE2233, 0xFE, 0xFE, 0x22, 0x33, 0.996], [0xFE, 0x22, -0x33, 0.998,]],          // #8
-            [[0xFE2233, 0xFE, 0xFE, 0x22, 0x33, 0.996], [0xFE, 0x22, -0x33, -0.998,]],         // #9
-            [[0xFA2233, 0xFE, 0xFA, 0x22, 0x33, 0.996], [-0xFA, 0x22, -0x33, 0.998,]],         // #10
-            [[0xFA2200, 0xFE, 0xFA, 0x22, 0x00, 0.996], [-0xFA, 0x22, 256, 0.998,]],           // #11
-            [[0x000000, 0xCA, 0x00, 0x00, 0x00, 0.792], [0, 0, 0, 0.794,]],                    // #13
-            [[0x000000, 0xCA, 0x00, 0x00, 0x00, 0.792], [256, 256, 256, 0.794,]],              // #14
-            [[0x000000, 0xCA, 0x00, 0x00, 0x00, 0.792], [-256, 256, 256, 0.794,]],             // #15
-            [[0x000000, 0xCA, 0x00, 0x00, 0x00, 0.792], [256, -256, 256, 0.794,]],             // #16
-            [[0x000000, 0xCA, 0x00, 0x00, 0x00, 0.792], [256, 256, -256, 0.794,]],             // #17
+            [[0x112233, 0x7F, 0x11, 0x22, 0x33, 0.498039], [0x11, 0x22, 0x33, 0.5,]],           // #4
+            [[0x112233, 0x01, 0x11, 0x22, 0x33, 0.003922], [0x11, 0x22, 0x33, 0.004,]],           // #5
+            [[0x112233, 0xFE, 0x11, 0x22, 0x33, 0.996078], [0x11, 0x22, 0x33, 0.998,]],           // #6
+            [[0xFE2233, 0xFE, 0xFE, 0x22, 0x33, 0.996078], [0xFE, 0x22, 0x33, 0.998,]],           // #7
+            [[0xFE2233, 0xFE, 0xFE, 0x22, 0x33, 0.996078], [0xFE, 0x22, -0x33, 0.998,]],          // #8
+            [[0xFE2233, 0xFE, 0xFE, 0x22, 0x33, 0.996078], [0xFE, 0x22, -0x33, -0.998,]],         // #9
+            [[0xFA2233, 0xFE, 0xFA, 0x22, 0x33, 0.996078], [-0xFA, 0x22, -0x33, 0.998,]],         // #10
+            [[0xFA2200, 0xFE, 0xFA, 0x22, 0x00, 0.996078], [-0xFA, 0x22, 256, 0.998,]],           // #11
+            [[0x000000, 0xCA, 0x00, 0x00, 0x00, 0.792157], [0, 0, 0, 0.794,]],                    // #13
+            [[0x000000, 0xCA, 0x00, 0x00, 0x00, 0.792157], [256, 256, 256, 0.794,]],              // #14
+            [[0x000000, 0xCA, 0x00, 0x00, 0x00, 0.792157], [-256, 256, 256, 0.794,]],             // #15
+            [[0x000000, 0xCA, 0x00, 0x00, 0x00, 0.792157], [256, -256, 256, 0.794,]],             // #16
+            [[0x000000, 0xCA, 0x00, 0x00, 0x00, 0.792157], [256, 256, -256, 0.794,]],             // #17
         ];
     }
 
@@ -139,27 +141,6 @@ class RGBATest extends TestCase
                 ]
             ];
         }
-    }
-    public static function canBeInstantiatedFromStringDataProvider(): iterable
-    {
-        yield from [
-            ['rgb(0, 0, 0)', 0, 0, 0, 1.0],
-            ['rgba(0, 0, 0, 1.0)', 0, 0, 0, 1.0],
-            ['rgba(0, 12, 33, 0.333)', 0, 12, 33, 0.329],
-            ['rgba(0, 0, 1, 1.0)', 0, 0, 1, 1.0],
-            ['rgb(0, 12, 1)', 0, 12, 1, 1.0],
-        ];
-    }
-
-    #[Test]
-    #[DataProvider('canBeInstantiatedFromStringDataProvider')]
-    public function canBeInstantiatedFromString(string $color, int $r, int $g, int $b, float $o): void
-    {
-        $testee = RGBA::fromString($color);
-        self::assertSame($r, $testee->getRed());
-        self::assertSame($g, $testee->getGreen());
-        self::assertSame($b, $testee->getBlue());
-        self::assertSame($o, $testee->getOpacity());
     }
 
     private static function stringAndRGBADataFeeder(): iterable
@@ -186,6 +167,17 @@ class RGBATest extends TestCase
         ];
     }
 
+    public static function canBeInstantiatedFromStringDataProvider(): iterable
+    {
+        yield from [
+            ['rgb(0, 0, 0)', 0, 0, 0, 1.0],
+            ['rgba(0, 0, 0, 1.0)', 0, 0, 0, 1.0],
+            ['rgba(0, 12, 33, 0.333)', 0, 12, 33, 0.329412],
+            ['rgba(0, 0, 1, 1.0)', 0, 0, 1, 1.0],
+            ['rgb(0, 12, 1)', 0, 12, 1, 1.0],
+        ];
+    }
+
     public static function canBeCreatedFromDataProvider(): iterable
     {
         yield from [
@@ -199,8 +191,19 @@ class RGBATest extends TestCase
     }
 
     #[Test]
+    #[DataProvider('canBeInstantiatedFromStringDataProvider')]
+    public function canBeInstantiatedFromString(string $color, int $r, int $g, int $b, float $o): void
+    {
+        $testee = RGBA::fromString($color);
+        self::assertSame($r, $testee->getRed());
+        self::assertSame($g, $testee->getGreen());
+        self::assertSame($b, $testee->getBlue());
+        self::assertSame($o, $testee->getOpacity());
+    }
+
+    #[Test]
     #[DataProvider('canBeCreatedFromDataProvider')]
-    public function canBeCreatedFrom(IConvertableColor $expected, IConvertableColor $incoming): void
+    public function canBeCreatedFrom(IColor $expected, IColor $incoming): void
     {
         $testee = RGBA::from($incoming);
         self::assertEquals($expected, $testee);
@@ -301,7 +304,7 @@ class RGBATest extends TestCase
     {
         $original = RGBA::fromRGBA(0x00, 0x00, 0x00, 0xFF);
         $modified = $original->withOpacity(0.5);
-        self::assertEquals(0.498, $modified->getOpacity());
+        self::assertEquals(0.498039, $modified->getOpacity());
         self::assertEquals(1.0, $original->getOpacity());
         self::assertNotSame($original, $modified);
     }
@@ -354,8 +357,32 @@ class RGBATest extends TestCase
     public function returnsSelfIfConvertToRGBA(): void
     {
         $testee = RGBA::fromRGBA(0x00, 0x00, 0x00);
+
         self::assertSame($testee, $testee->to(RGBA::class));
+        self::assertEquals($testee, $testee->to(IRGBAColor::class));
+
         self::assertNotSame($testee, $testee->to(RGB::class));
     }
 
+    #[Test]
+    public function canGetColorModel(): void
+    {
+        $testee = RGBA::fromRGBA(0x00, 0x00, 0x00);
+
+        self::assertInstanceOf(ModelRGB::class, $testee->getColorModel());
+    }
+
+    #[Test]
+    public function canToDTO(): void
+    {
+        $testee = RGBA::fromRGBO(0x01, 0x02, 0x03, 0.5);
+
+        $dto = $testee->toDTO();
+
+        self::assertInstanceOf(DRGB::class, $dto);
+        self::assertSame(0.003922, $dto->red);
+        self::assertSame(0.007843, $dto->green);
+        self::assertSame(0.011765, $dto->blue);
+        self::assertSame(0.498039, $dto->alpha);
+    }
 }

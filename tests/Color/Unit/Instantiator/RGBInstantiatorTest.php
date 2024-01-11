@@ -12,7 +12,7 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-class RGBInstantiatorTest extends TestCase
+final class RGBInstantiatorTest extends TestCase
 {
     public static function canInstantiateRGBDataProvider(): iterable
     {

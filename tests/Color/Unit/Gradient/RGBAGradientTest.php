@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit\Gradient;
 
 
-use AlecRabbit\Color\ColorRange;
 use AlecRabbit\Color\Contract\Gradient\IGradient;
 use AlecRabbit\Color\Contract\IColorRange;
 use AlecRabbit\Color\Exception\InvalidArgument;
+use AlecRabbit\Color\Gradient\ColorRange;
 use AlecRabbit\Color\Gradient\RGBAGradient;
+use AlecRabbit\Color\Model\Contract\Converter\Core\ICoreConverter;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\FactoryAwareTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -90,21 +91,21 @@ final class RGBAGradientTest extends FactoryAwareTestCase
             ],
             [
                 [
-                    RGBA::fromRGBO(0, 25, 255, 1),
-                    RGBA::fromRGBO(0, 25, 255, 1),
+                    RGBA::fromRGBO(0, 0x1a, 255, 1),
+                    RGBA::fromRGBO(0, 0x1a, 255, 1),
                 ],
                 ['hsla(234, 100%, 50%, 1)', 'hsla(234, 100%, 50%, 1)', 2],
             ],
             [
                 [
-                    RGBA::fromRGBO(0, 25, 255, 1),
-                    RGBA::fromRGBO(0, 25, 255, 1),
+                    RGBA::fromRGBO(0, 0x1a, 255, 1),
+                    RGBA::fromRGBO(0, 0x1a, 255, 1),
                 ],
                 ['hsl(234, 100%, 50%)', 'hsl(234, 100%, 50%)', 2],
             ],
             [
                 [
-                    RGBA::fromRGBO(0, 25, 255, 1),
+                    RGBA::fromRGBO(0, 0x1a, 255, 1),
                     RGBA::fromRGBO(255, 60, 0, 1),
                 ],
                 ['hsl(234, 100%, 50%)', 'hsl(14, 100%, 50%)', 2],
@@ -249,7 +250,7 @@ final class RGBAGradientTest extends FactoryAwareTestCase
             range: $range ?? $this->getColorRange(),
             count: $count ?? 2,
             max: $max ?? 1000,
-            precision: $precision ?? 2,
+            precision: $precision ?? ICoreConverter::PRECISION,
         );
     }
 

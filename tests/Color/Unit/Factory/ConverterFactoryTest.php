@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit\Factory;
 
 use AlecRabbit\Color\Contract\Factory\IConverterFactory;
-use AlecRabbit\Color\Contract\IConvertableColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Converter\To;
 use AlecRabbit\Color\Exception\ConverterUnavailable;
 use AlecRabbit\Color\Exception\InvalidArgument;
@@ -21,7 +21,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;
 
-class ConverterFactoryTest extends TestCase
+final class ConverterFactoryTest extends TestCase
 {
     public static function canMakeCorrespondingConverterDataProvider(): iterable
     {
@@ -37,11 +37,11 @@ class ConverterFactoryTest extends TestCase
     {
         yield from [
             // (resulting)converter::class, (incoming)color::class
-            [To\RGB\ToRGBConverter::class, RGB::class],
-            [To\RGBA\ToRGBAConverter::class, RGBA::class],
-            [To\Hex\ToHexConverter::class, Hex::class],
-            [To\HSL\ToHSLConverter::class, HSL::class],
-            [To\HSLA\ToHSLAConverter::class, HSLA::class],
+            [To\ToRGBConverter::class, RGB::class],
+            [To\ToRGBAConverter::class, RGBA::class],
+            [To\ToHexConverter::class, Hex::class],
+            [To\ToHSLConverter::class, HSL::class],
+            [To\ToHSLAConverter::class, HSLA::class],
         ];
     }
 
@@ -76,7 +76,7 @@ class ConverterFactoryTest extends TestCase
             sprintf(
                 'Class "%s" is not a "%s" subclass.',
                 $class,
-                IConvertableColor::class
+                IColor::class
             )
         );
         $converterFactory = self::getTestee();

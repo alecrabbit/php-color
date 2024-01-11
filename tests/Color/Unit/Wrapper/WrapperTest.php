@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Color\Unit\Wrapper;
 
 use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Contract\Wrapper\IWrapper;
-use AlecRabbit\Color\Converter\To\RGB\ToRGBConverter;
+use AlecRabbit\Color\Converter\To\ToRGBConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Instantiator\RGBInstantiator;
 use AlecRabbit\Color\RGB;
@@ -15,7 +15,6 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;
-use Traversable;
 
 final class WrapperTest extends TestCase
 {
@@ -28,15 +27,12 @@ final class WrapperTest extends TestCase
     }
 
     private function getTesteeInstance(
-        Traversable $to = null,
-        Traversable $from = null,
         string $converter = null,
         string $instantiator = null,
     ): IWrapper {
         return new Wrapper(
             instantiator: $instantiator ?? RGBInstantiator::class,
             converter: $converter ?? ToRGBConverter::class,
-            from: $from ?? new ArrayObject(),
         );
     }
 
