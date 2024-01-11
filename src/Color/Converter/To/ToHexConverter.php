@@ -19,7 +19,6 @@ use Traversable;
  */
 class ToHexConverter extends AToConverter
 {
-    /** @inheritDoc */
     public static function getTargets(): Traversable
     {
         return new ArrayObject([Hex::class, IHexColor::class]);

@@ -43,7 +43,6 @@ abstract class AToConverter implements IToConverter
 
     abstract protected function getTargetColorModel(): IColorModel;
 
-    /** @inheritDoc */
     abstract public static function getTargets(): Traversable;
 
     public function convert(IColor $color): IColor

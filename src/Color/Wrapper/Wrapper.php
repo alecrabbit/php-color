@@ -22,25 +22,25 @@ final readonly class Wrapper implements IWrapper
     /** @var class-string<IInstantiator> */
     private string $instantiator;
 
+    /**
+     * @param class-string<IInstantiator> $instantiator
+     * @param class-string<IToConverter> $converter
+     */
     public function __construct(
         string $instantiator,
         string $converter,
     ) {
         self::assertConverter($converter);
 
-        /** @var class-string<IToConverter> $converter */
+        /** @var Traversable<class-string<IColor>> $to */
         $to = $converter::getTargets();
 
         self::assertTo($to);
         self::assertInstantiator($instantiator);
 
-        /** @var Traversable<class-string<IColor>> $to */
         $this->targets = $to;
 
-        /** @var class-string<IToConverter> $converter */
         $this->converter = $converter;
-
-        /** @var class-string<IInstantiator> $instantiator */
         $this->instantiator = $instantiator;
     }
 
