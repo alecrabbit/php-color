@@ -45,10 +45,6 @@ final class Registry implements IRegistry
         }
 
         self::buildGraph();
-//
-//        dump(self::$modelConverters);
-//        dump(self::$models);
-//        dump(self::$graph);
     }
 
     private static function buildGraph(): void
@@ -161,8 +157,6 @@ final class Registry implements IRegistry
      */
     public function getModelConverter(IColorModel $from, IColorModel $to): IModelConverter
     {
-//        dump($from, $to);
-
         $conversionPath = self::findConversionPath($from::class, $to::class);
 
         if (null === $conversionPath) {
@@ -176,7 +170,6 @@ final class Registry implements IRegistry
         }
 
         return $this->createModelConverter($conversionPath);
-//        return dump($this->createModelConverter(dump($conversionPath)));
     }
 
     private static function findConversionPath(string $from, string $to): ?Traversable

@@ -15,16 +15,19 @@ use Traversable;
 
 final readonly class ModelConverterFactory implements IModelConverterFactory
 {
-    public function __construct(
-        private iterable $converters = [],
-    ) {
-    }
+    /** @var iterable<class-string<IModelConverter>> */
+    private iterable $converters;
 
     /**
-     * @param iterable<class-string<IColorModel>> $conversionPath
-     *
-     * @return IModelConverter
+     * @param iterable<class-string<IModelConverter>> $converters
      */
+    public function __construct(
+        iterable $converters = [],
+    ) {
+        $this->converters = $converters;
+    }
+
+    /** @inheritDoc */
     public function create(iterable $conversionPath): IModelConverter
     {
         $converters = $this->getChainFromPath($conversionPath);
@@ -63,6 +66,7 @@ final readonly class ModelConverterFactory implements IModelConverterFactory
      */
     private function getChainFromPath(iterable $conversionPath): Traversable
     {
+        /** @var Array<class-string<IModelConverter>> $converters */
         $converters = [];
 
         $prev = null;
@@ -78,6 +82,12 @@ final readonly class ModelConverterFactory implements IModelConverterFactory
         return new ArrayObject($converters);
     }
 
+    /**
+     * @param class-string<IColorModel> $prev
+     * @param class-string<IColorModel> $model
+     *
+     * @return class-string<IModelConverter>
+     */
     private function getConverterClass(string $prev, string $model): string
     {
         foreach ($this->converters as $converter) {
@@ -95,6 +105,7 @@ final readonly class ModelConverterFactory implements IModelConverterFactory
         );
     }
 
+    /** @inheritDoc */
     public function useConverters(iterable $converters): IModelConverterFactory
     {
         return new self($converters);
