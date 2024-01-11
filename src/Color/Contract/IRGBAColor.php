@@ -20,6 +20,10 @@ interface IRGBAColor extends IRGBColor,
 
     public static function fromDTO(IColorDTO $dto): IRGBAColor;
 
+    public static function from(IColor $color): IRGBAColor;
+
+    public static function fromString(string $value): IRGBAColor;
+
     public function withRed(int $red): IRGBAColor;
 
     public function withGreen(int $green): IRGBAColor;

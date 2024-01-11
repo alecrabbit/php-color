@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color;
 
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
 use AlecRabbit\Color\Exception\InvalidArgument;
@@ -21,13 +22,18 @@ class HSLA extends HSL implements IHSLAColor
     }
 
     /** @psalm-suppress MoreSpecificReturnType */
-    public static function fromString(string $color): IHSLAColor
+    public static function fromString(string $value): IHSLAColor
     {
         /**
          * @noinspection PhpIncompatibleReturnTypeInspection
          * @psalm-suppress LessSpecificReturnStatement
          */
-        return self::getFromString($color)->to(self::class);
+        return self::getFromString($value)->to(self::class);
+    }
+
+    public static function from(IColor $color): IHSLAColor
+    {
+        return $color->to(IHSLAColor::class);
     }
 
     public static function fromDTO(IColorDTO $dto): IHSLAColor

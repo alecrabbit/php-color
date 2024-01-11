@@ -17,6 +17,16 @@ final class AConvertableColorOverride extends AColor
         throw new RuntimeException('INTENTIONALLY Not implemented.');
     }
 
+    public static function from(IColor $color): IColor
+    {
+        throw new RuntimeException('INTENTIONALLY Not implemented.');
+    }
+
+    public static function fromString(string $value): IColor
+    {
+        throw new RuntimeException('INTENTIONALLY Not implemented.');
+    }
+
     public function toString(): string
     {
         throw new RuntimeException('INTENTIONALLY Not implemented.');
@@ -31,4 +41,6 @@ final class AConvertableColorOverride extends AColor
     {
         throw new RuntimeException('INTENTIONALLY Not implemented.');
     }
+
+
 }

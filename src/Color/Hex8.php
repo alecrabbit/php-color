@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color;
 
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHex8Color;
 use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
 use AlecRabbit\Color\Model\DTO\DRGB;
@@ -22,14 +23,19 @@ class Hex8 extends Hex implements IHex8Color
         parent::__construct($value);
     }
 
+    public static function from(IColor $color): IHex8Color
+    {
+        return $color->to(IHex8Color::class);
+    }
+
     /** @psalm-suppress MoreSpecificReturnType */
-    public static function fromString(string $color): IHex8Color
+    public static function fromString(string $value): IHex8Color
     {
         /**
          * @noinspection PhpIncompatibleReturnTypeInspection
          * @psalm-suppress LessSpecificReturnStatement
          */
-        return self::getFromString($color)->to(IHex8Color::class);
+        return self::getFromString($value)->to(IHex8Color::class);
     }
 
     public static function fromInteger(int $value, ?int $alpha = null): IHex8Color

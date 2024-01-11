@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Color\Unit;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLColor;
+use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\ModelHSL;
@@ -115,7 +116,7 @@ final class HSLTest extends TestCase
         yield from [
             [HSL::fromHSL(0, 0, 0), RGBA::fromRGBA(0, 0, 0, 0),],
             [HSL::fromHSL(36, 0.1, 0.2), RGBA::fromRGBA(56, 52, 46, 0),],
-//            [HSL::fromHSL(), Hex::fromInteger(0x23142),],
+            [HSL::fromHSL(196,0.94, 0.13), Hex::fromInteger(0x23142),],
         ];
     }
 

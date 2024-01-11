@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Contract;
 
+use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
+
 interface IRGBColor extends IColor,
                             IHasValue,
                             IHasRed,
@@ -16,6 +18,12 @@ interface IRGBColor extends IColor,
     public const FORMAT_RGB = 'rgb(%d, %d, %d)';
 
     public static function fromRGB(int $r, int $g, int $b): IRGBColor;
+
+    public static function fromDTO(IColorDTO $dto): IRGBColor;
+
+    public static function from(IColor $color): IRGBColor;
+
+    public static function fromString(string $value): IRGBColor;
 
     public function withRed(int $red): IRGBColor;
 

@@ -18,20 +18,7 @@ abstract class AColor implements IColor
     ) {
     }
 
-    public static function fromString(string $color): IColor
-    {
-        return self::getFromString($color);
-    }
-
-    protected static function getFromString(string $color): IColor
-    {
-        return Color::fromString($color);
-    }
-
-    public static function from(IColor $color): IColor
-    {
-        return self::convert($color, static::class);
-    }
+    abstract public static function from(IColor $color): IColor;
 
     /**
      * @param IColor $color
@@ -52,6 +39,13 @@ abstract class AColor implements IColor
     {
         return self::convert($this, $class);
     }
+
+    protected static function getFromString(string $color): IColor
+    {
+        return Color::fromString($color);
+    }
+
+    abstract public static function fromString(string $value): IColor;
 
     public function __toString(): string
     {

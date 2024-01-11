@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\A\ARGBValueColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
 use AlecRabbit\Color\Model\DTO\DRGB;
@@ -15,13 +16,18 @@ use function sprintf;
 class Hex extends ARGBValueColor implements IHexColor
 {
     /** @psalm-suppress MoreSpecificReturnType */
-    public static function fromString(string $color): IHexColor
+    public static function fromString(string $value): IHexColor
     {
         /**
          * @noinspection PhpIncompatibleReturnTypeInspection
          * @psalm-suppress LessSpecificReturnStatement
          */
-        return self::getFromString($color)->to(IHexColor::class);
+        return self::getFromString($value)->to(IHexColor::class);
+    }
+
+    public static function from(IColor $color): IHexColor
+    {
+        return $color->to(IHexColor::class);
     }
 
     public static function fromInteger(int $value): IHexColor

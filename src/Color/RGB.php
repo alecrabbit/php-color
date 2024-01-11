@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\A\ARGBValueColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
 use AlecRabbit\Color\Model\DTO\DRGB;
@@ -14,13 +15,18 @@ use function sprintf;
 class RGB extends ARGBValueColor implements IRGBColor
 {
     /** @psalm-suppress MoreSpecificReturnType */
-    public static function fromString(string $color): IRGBColor
+    public static function fromString(string $value): IRGBColor
     {
         /**
          * @noinspection PhpIncompatibleReturnTypeInspection
          * @psalm-suppress LessSpecificReturnStatement
          */
-        return parent::fromString($color)->to(IRGBColor::class);
+        return parent::getFromString($value)->to(IRGBColor::class);
+    }
+
+    public static function from(IColor $color): IRGBColor
+    {
+        return $color->to(IRGBColor::class);
     }
 
     public static function fromDTO(IColorDTO $dto): IRGBColor

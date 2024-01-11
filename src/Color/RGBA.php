@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color;
 
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
 use AlecRabbit\Color\Model\DTO\DRGB;
@@ -35,6 +36,11 @@ class RGBA extends RGB implements IRGBAColor
             );
     }
 
+    public static function from(IColor $color): IRGBAColor
+    {
+        return $color->to(IRGBAColor::class);
+    }
+
     public static function fromDTO(IColorDTO $dto): IRGBAColor
     {
         /** @var DRGB $dto */
@@ -54,13 +60,13 @@ class RGBA extends RGB implements IRGBAColor
     }
 
     /** @psalm-suppress MoreSpecificReturnType */
-    public static function fromString(string $color): IRGBAColor
+    public static function fromString(string $value): IRGBAColor
     {
         /**
          * @noinspection PhpIncompatibleReturnTypeInspection
          * @psalm-suppress LessSpecificReturnStatement
          */
-        return self::getFromString($color)->to(IRGBAColor::class);
+        return self::getFromString($value)->to(IRGBAColor::class);
     }
 
     public function withRed(int $red): IRGBAColor

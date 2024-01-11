@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\A\AColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHasOpacity;
 use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
@@ -23,14 +24,19 @@ class HSL extends AColor implements IHSLColor
         );
     }
 
+    public static function from(IColor $color): IHSLColor
+    {
+        return $color->to(IHSLColor::class);
+    }
+
     /** @psalm-suppress MoreSpecificReturnType */
-    public static function fromString(string $color): IHSLColor
+    public static function fromString(string $value): IHSLColor
     {
         /**
          * @noinspection PhpIncompatibleReturnTypeInspection
          * @psalm-suppress LessSpecificReturnStatement
          */
-        return self::getFromString($color)->to(self::class);
+        return self::getFromString($value)->to(self::class);
     }
 
     public static function fromDTO(IColorDTO $dto): IHSLColor
