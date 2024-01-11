@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Color\Unit;
 
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IColorRange;
 use AlecRabbit\Color\Contract\IUnconvertibleColor;
 use AlecRabbit\Color\Gradient\ColorRange;
@@ -49,8 +50,8 @@ final class ColorRangeTest extends FactoryAwareTestCase
     }
 
     private function getTesteeInstance(
-        null|IUnconvertibleColor|string $start = null,
-        null|IUnconvertibleColor|string $end = null,
+        null|IColor|string $start = null,
+        null|IColor|string $end = null,
     ): IColorRange {
         return new ColorRange(
             start: $start ?? $this->getColorMock(),
@@ -58,9 +59,9 @@ final class ColorRangeTest extends FactoryAwareTestCase
         );
     }
 
-    private function getColorMock(): MockObject&IUnconvertibleColor
+    private function getColorMock(): MockObject&IColor
     {
-        return $this->createMock(IUnconvertibleColor::class);
+        return $this->createMock(IColor::class);
     }
 
     #[Test]

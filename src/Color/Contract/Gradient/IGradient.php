@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Contract\Gradient;
 
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IUnconvertibleColor;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use Traversable;
@@ -13,7 +14,7 @@ interface IGradient
     /**
      * Unwraps gradient to traversable of colors.
      *
-     * @return Traversable<IUnconvertibleColor>
+     * @return Traversable<IColor>
      *
      * @throws InvalidArgument
      */
@@ -24,11 +25,11 @@ interface IGradient
      *
      * @param int $index The index of the color. Starts from 0.
      *
-     * @return IUnconvertibleColor
+     * @return IColor
      *
      * @throws InvalidArgument
      */
-    public function getOne(int $index): IUnconvertibleColor;
+    public function getOne(int $index): IColor;
 
 
     public function getCount(): int;

@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Wrapper;
 
-use AlecRabbit\Color\Contract\Converter\IFromConverter;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Contract\Wrapper\IWrapper;
-use AlecRabbit\Color\Converter\From\NoOpConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use Traversable;
 
@@ -17,9 +15,6 @@ final readonly class Wrapper implements IWrapper
 {
     /** @var Traversable<class-string<IColor>> */
     private Traversable $targets;
-
-    /** @var Traversable<class-string<IColor>, class-string<IFromConverter>> */
-    private Traversable $sources;
 
     /** @var class-string<IToConverter> */
     private string $converter;
@@ -30,7 +25,6 @@ final readonly class Wrapper implements IWrapper
     public function __construct(
         string $instantiator,
         string $converter,
-        Traversable $from,
     ) {
         self::assertConverter($converter);
 
@@ -38,13 +32,10 @@ final readonly class Wrapper implements IWrapper
         $to = $converter::getTargets();
 
         self::assertTo($to);
-        self::assertFrom($from);
         self::assertInstantiator($instantiator);
 
         /** @var Traversable<class-string<IColor>> $to */
         $this->targets = $to;
-
-        $this->sources = $this->refineFrom($from);
 
         /** @var class-string<IToConverter> $converter */
         $this->converter = $converter;
@@ -116,64 +107,6 @@ final readonly class Wrapper implements IWrapper
         }
     }
 
-    private static function assertFrom(Traversable $from): void
-    {
-        foreach ($from as $source => $converter) {
-            self::assertFromConverter($converter);
-            self::assertSource($source);
-        }
-    }
-
-    private static function assertFromConverter(mixed $converter): void
-    {
-        if (!is_string($converter)) {
-            throw new InvalidArgument(
-                sprintf(
-                    'Source converter must be a string. "%s" given.',
-                    get_debug_type($converter)
-                )
-            );
-        }
-        if (!class_exists($converter)) {
-            throw new InvalidArgument(
-                sprintf(
-                    'Source must be a class-string. "%s" given.',
-                    $converter
-                )
-            );
-        }
-        if (!is_subclass_of($converter, IFromConverter::class)) {
-            throw new InvalidArgument(
-                sprintf(
-                    'Source converter must be a subclass of "%s". "%s" given.',
-                    IFromConverter::class,
-                    $converter
-                )
-            );
-        }
-    }
-
-    private static function assertSource(mixed $source): void
-    {
-        if (!is_string($source)) {
-            throw new InvalidArgument(
-                sprintf(
-                    'Source must be a string. "%s" given.',
-                    get_debug_type($source)
-                )
-            );
-        }
-        if (!is_subclass_of($source, IColor::class)) {
-            throw new InvalidArgument(
-                sprintf(
-                    'Source must be a subclass of "%s". "%s" given.',
-                    IColor::class,
-                    $source
-                )
-            );
-        }
-    }
-
     private static function assertInstantiator(string $instantiator): void
     {
         if (!class_exists($instantiator)) {
@@ -195,17 +128,6 @@ final readonly class Wrapper implements IWrapper
         }
     }
 
-    /**
-     * @return Traversable<class-string<IColor>, class-string<IFromConverter>>
-     */
-    private function refineFrom(Traversable $from): Traversable
-    {
-        yield from $from;
-        foreach ($this->targets as $target) {
-            yield $target => NoOpConverter::class;
-        }
-    }
-
     /** @inheritDoc */
     public function getConverterClass(): string
     {
@@ -216,11 +138,5 @@ final readonly class Wrapper implements IWrapper
     public function getInstantiatorClass(): string
     {
         return $this->instantiator;
-    }
-
-    /** @inheritDoc */
-    public function getSources(): Traversable
-    {
-        return $this->sources;
     }
 }

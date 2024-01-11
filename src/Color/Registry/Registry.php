@@ -34,24 +34,65 @@ final class Registry implements IRegistry
     ) {
     }
 
+    /** @inheritDoc */
+    public static function attach(string ...$classes): void
+    {
+        /** @var IModelConverter $class */
+        foreach ($classes as $class) {
+            self::$modelConverters[] = $class;
+            self::$models[$class::from()::class] = true;
+            self::$models[$class::to()::class] = true;
+        }
+
+        self::buildGraph();
+//
+//        dump(self::$modelConverters);
+//        dump(self::$models);
+//        dump(self::$graph);
+    }
+
+    private static function buildGraph(): void
+    {
+        /** @var class-string<IColorModel> $model */
+        foreach (self::$models as $model => $_) {
+            self::$graph[$model] = [];
+        }
+
+        /** @var class-string<IModelConverter> $class */
+        foreach (self::$modelConverters as $class) {
+            self::$graph[$class::from()::class][] = $class::to()::class;
+        }
+    }
+
+    private static function assertFromConverter(mixed $fromConverter): void
+    {
+        match (true) {
+            !is_string($fromConverter) => throw new InvalidArgument(
+                sprintf(
+                    'Converter must be type of string. "%s" given.',
+                    get_debug_type($fromConverter)
+                )
+            ),
+            !is_subclass_of($fromConverter, IFromConverter::class) => throw new InvalidArgument(
+                sprintf(
+                    'Converter must be instance of "%s". "%s" given.',
+                    IFromConverter::class,
+                    $fromConverter
+                )
+            ),
+            default => null,
+        };
+    }
+
     /**
      * @inheritDoc
      */
-    public static function register(string $toConverter, Traversable $fromConverters): void
+    public function getFromConverter(string $to, string $source): ?IFromConverter
     {
-        self::assertToConverter($toConverter);
+        self::assertToConverter($to);
+        self::assertColor($source);
 
-        /**
-         * @var class-string<IToConverter> $toConverter
-         * @var class-string<IColor> $color
-         * @var class-string<IFromConverter> $fromConverter
-         */
-        foreach ($fromConverters as $color => $fromConverter) {
-            self::assertColor($color);
-            self::assertFromConverter($fromConverter);
-
-            self::$fromConverters[$toConverter][$color] = $fromConverter;
-        }
+        return $this->getRefinedFromConverter($to, $source);
     }
 
     private static function assertToConverter(string $toConverter): void
@@ -86,67 +127,6 @@ final class Registry implements IRegistry
             ),
             default => null,
         };
-    }
-
-    private static function assertFromConverter(mixed $fromConverter): void
-    {
-        match (true) {
-            !is_string($fromConverter) => throw new InvalidArgument(
-                sprintf(
-                    'Converter must be type of string. "%s" given.',
-                    get_debug_type($fromConverter)
-                )
-            ),
-            !is_subclass_of($fromConverter, IFromConverter::class) => throw new InvalidArgument(
-                sprintf(
-                    'Converter must be instance of "%s". "%s" given.',
-                    IFromConverter::class,
-                    $fromConverter
-                )
-            ),
-            default => null,
-        };
-    }
-
-    /** @inheritDoc */
-    public static function attach(string ...$classes): void
-    {
-        /** @var IModelConverter $class */
-        foreach ($classes as $class) {
-            self::$modelConverters[] = $class;
-            self::$models[$class::from()::class] = true;
-            self::$models[$class::to()::class] = true;
-        }
-
-        self::buildGraph();
-//
-//        dump(self::$modelConverters);
-//        dump(self::$models);
-//        dump(self::$graph);
-    }
-
-    private static function buildGraph(): void
-    {
-        /** @var class-string<IColorModel> $model */
-        foreach (self::$models as $model => $_) {
-            self::$graph[$model] = [];
-        }
-
-        /** @var class-string<IModelConverter> $class */
-        foreach (self::$modelConverters as $class) {
-            self::$graph[$class::from()::class][] = $class::to()::class;
-        }
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getFromConverter(string $to, string $source): ?IFromConverter
-    {
-        self::assertToConverter($to);
-        self::assertColor($source);
-
-        return $this->getRefinedFromConverter($to, $source);
     }
 
     private function getRefinedFromConverter(string $toConverter, string $color): ?IFromConverter

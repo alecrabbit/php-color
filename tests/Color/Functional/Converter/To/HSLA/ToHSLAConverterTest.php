@@ -8,7 +8,7 @@ namespace AlecRabbit\Tests\Color\Functional\Converter\To\HSLA;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
-use AlecRabbit\Color\Converter\To\HSLA\ToHSLAConverter;
+use AlecRabbit\Color\Converter\To\ToHSLAConverter;
 use AlecRabbit\Color\HSLA;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;

@@ -52,7 +52,7 @@ abstract readonly class AGradient implements IGradient
 
     /** @inheritDoc */
 
-    public function getOne(int $index): IUnconvertibleColor
+    public function getOne(int $index): IColor
     {
         return $this->createColor($this->refineIndex($index));
     }

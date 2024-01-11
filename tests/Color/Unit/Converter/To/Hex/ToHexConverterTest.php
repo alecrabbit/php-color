@@ -10,7 +10,7 @@ use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Contract\Model\Converter\IModelConverter;
-use AlecRabbit\Color\Converter\To\Hex\ToHexConverter;
+use AlecRabbit\Color\Converter\To\ToHexConverter;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\DTO\DRGB;

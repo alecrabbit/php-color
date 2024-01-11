@@ -2,33 +2,33 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color\Converter\To\HSLA;
+namespace AlecRabbit\Color\Converter\To;
 
 use AlecRabbit\Color\Contract\IColor;
-use AlecRabbit\Color\Contract\IHSLAColor;
+use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
 use AlecRabbit\Color\Contract\Model\IColorModel;
-use AlecRabbit\Color\Converter\A\AToConverter;
-use AlecRabbit\Color\HSLA;
-use AlecRabbit\Color\Model\ModelHSL;
+use AlecRabbit\Color\Converter\To\A\AToConverter;
+use AlecRabbit\Color\Model\ModelRGB;
+use AlecRabbit\Color\RGB;
 use ArrayObject;
 use Traversable;
 
-class ToHSLAConverter extends AToConverter
+class ToRGBConverter extends AToConverter
 {
     /** @inheritDoc */
     public static function getTargets(): Traversable
     {
-        return new ArrayObject([HSLA::class, IHSLAColor::class]);
+        return new ArrayObject([RGB::class, IRGBColor::class]);
     }
 
     protected function getTargetColorModel(): IColorModel
     {
-        return new ModelHSL();
+        return new ModelRGB();
     }
 
     protected function fromDTO(IColorDTO $dto): IColor
     {
-        return HSLA::fromDTO($dto);
+        return RGB::fromDTO($dto);
     }
 }

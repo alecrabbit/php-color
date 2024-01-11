@@ -49,6 +49,23 @@ class Hex8 extends Hex implements IHex8Color
         );
     }
 
+    public static function fromRGBO(int $r, int $g, int $b, float $opacity = 1.0): IHex8Color
+    {
+        $alpha = (int)(abs($opacity) * self::COMPONENT) & self::COMPONENT;
+
+        return
+            self::fromRGBA($r, $g, $b, $alpha);
+    }
+
+    public static function fromRGBA(int $r, int $g, int $b, int $alpha = 0xFF): IHex8Color
+    {
+        return
+            new self(
+                self::componentsToValue($r, $g, $b),
+                (abs($alpha) & self::COMPONENT)
+            );
+    }
+
     public function toString(): string
     {
         return sprintf((string)static::FORMAT_HEX8, $this->getValue(), $this->getAlpha());
@@ -94,27 +111,10 @@ class Hex8 extends Hex implements IHex8Color
             self::fromRGBA($this->getRed(), $this->getGreen(), $this->getBlue(), $alpha);
     }
 
-    public static function fromRGBA(int $r, int $g, int $b, int $alpha = 0xFF): IHex8Color
-    {
-        return
-            new self(
-                self::componentsToValue($r, $g, $b),
-                (abs($alpha) & self::COMPONENT)
-            );
-    }
-
     public function withOpacity(float $opacity): IHex8Color
     {
         return
             self::fromRGBO($this->getRed(), $this->getGreen(), $this->getBlue(), $opacity);
-    }
-
-    public static function fromRGBO(int $r, int $g, int $b, float $opacity = 1.0): IHex8Color
-    {
-        $alpha = (int)(abs($opacity) * self::COMPONENT) & self::COMPONENT;
-
-        return
-            self::fromRGBA($r, $g, $b, $alpha);
     }
 
     public function getValue8(): int

@@ -2,25 +2,27 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color\Converter\To\RGB;
+namespace AlecRabbit\Color\Converter\To;
 
 use AlecRabbit\Color\Contract\IColor;
-use AlecRabbit\Color\Contract\IRGBColor;
+use AlecRabbit\Color\Contract\IHex8Color;
 use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
 use AlecRabbit\Color\Contract\Model\IColorModel;
-use AlecRabbit\Color\Converter\A\AToConverter;
+use AlecRabbit\Color\Converter\To\A\AToConverter;
+use AlecRabbit\Color\Hex8;
+use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelRGB;
-use AlecRabbit\Color\RGB;
 use ArrayObject;
 use Traversable;
 
-class ToRGBConverter extends AToConverter
+class ToHex8Converter extends AToConverter
 {
     /** @inheritDoc */
     public static function getTargets(): Traversable
     {
-        return new ArrayObject([RGB::class, IRGBColor::class]);
+        return new ArrayObject([Hex8::class, IHex8Color::class]);
     }
+
 
     protected function getTargetColorModel(): IColorModel
     {
@@ -29,6 +31,12 @@ class ToRGBConverter extends AToConverter
 
     protected function fromDTO(IColorDTO $dto): IColor
     {
-        return RGB::fromDTO($dto);
+        /** @var DRGB $dto */
+        return Hex8::fromRGBO(
+            $dto->red,
+            $dto->green,
+            $dto->blue,
+            $dto->alpha,
+        );
     }
 }

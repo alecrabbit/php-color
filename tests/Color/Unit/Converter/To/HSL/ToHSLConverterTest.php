@@ -10,7 +10,7 @@ use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Contract\Model\Converter\IModelConverter;
-use AlecRabbit\Color\Converter\To\HSL\ToHSLConverter;
+use AlecRabbit\Color\Converter\To\ToHSLConverter;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\DTO\DRGB;

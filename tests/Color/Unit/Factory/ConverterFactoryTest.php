@@ -37,11 +37,11 @@ final class ConverterFactoryTest extends TestCase
     {
         yield from [
             // (resulting)converter::class, (incoming)color::class
-            [To\RGB\ToRGBConverter::class, RGB::class],
-            [To\RGBA\ToRGBAConverter::class, RGBA::class],
-            [To\Hex\ToHexConverter::class, Hex::class],
-            [To\HSL\ToHSLConverter::class, HSL::class],
-            [To\HSLA\ToHSLAConverter::class, HSLA::class],
+            [To\ToRGBConverter::class, RGB::class],
+            [To\ToRGBAConverter::class, RGBA::class],
+            [To\ToHexConverter::class, Hex::class],
+            [To\ToHSLConverter::class, HSL::class],
+            [To\ToHSLAConverter::class, HSLA::class],
         ];
     }
 

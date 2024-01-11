@@ -8,7 +8,7 @@ namespace AlecRabbit\Tests\Color\Functional\Converter\To\RGBA;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
-use AlecRabbit\Color\Converter\To\RGBA\ToRGBAConverter;
+use AlecRabbit\Color\Converter\To\ToRGBAConverter;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;

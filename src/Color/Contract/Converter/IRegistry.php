@@ -9,18 +9,9 @@ use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Contract\Model\Converter\IModelConverter;
 use AlecRabbit\Color\Contract\Model\IColorModel;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
-use Traversable;
 
 interface IRegistry
 {
-    /**
-     * @param class-string<IToConverter> $toConverter
-     * @param Traversable<class-string<IColor>, class-string<IFromConverter>> $fromConverters
-     * @deprecated
-     *
-     */
-    public static function register(string $toConverter, Traversable $fromConverters): void;
-
     /**
      * @param class-string<IInstantiator|IModelConverter|IToConverter> ...$classes
      */

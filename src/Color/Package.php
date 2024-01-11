@@ -8,7 +8,6 @@ use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Wrapper\IWrapper;
 use AlecRabbit\Color\Factory\ConverterFactory;
 use AlecRabbit\Color\Factory\InstantiatorFactory;
-use AlecRabbit\Color\Registry\Registry;
 
 /**
  * @codeCoverageIgnore
@@ -25,8 +24,6 @@ final class Package
                 ConverterFactory::register($target, $converterClass);
             }
             InstantiatorFactory::register($item->getInstantiatorClass());
-
-            Registry::register($converterClass, $item->getSources());
         }
     }
 }
