@@ -14,8 +14,6 @@ use function sprintf;
 
 class RGBA extends RGB implements IRGBAColor
 {
-    protected const PRECISION = 3;
-
     protected function __construct(
         int $value,
         protected readonly int $alpha,
@@ -41,9 +39,9 @@ class RGBA extends RGB implements IRGBAColor
     {
         /** @var DRGB $dto */
         return self::fromRGBO(
-            $dto->red,
-            $dto->green,
-            $dto->blue,
+            (int)round($dto->red * self::COMPONENT),
+            (int)round($dto->green * self::COMPONENT),
+            (int)round($dto->blue * self::COMPONENT),
             $dto->alpha,
         );
     }
@@ -96,13 +94,13 @@ class RGBA extends RGB implements IRGBAColor
                 $this->getRed(),
                 $this->getGreen(),
                 $this->getBlue(),
-                $this->getOpacity()
+                round($this->getOpacity(), self::FLOAT_PRECISION),
             );
     }
 
     public function getOpacity(): float
     {
-        return round($this->getAlpha() / self::COMPONENT, self::PRECISION);
+        return round($this->getAlpha() / self::COMPONENT, self::CALC_PRECISION);
     }
 
     public function withAlpha(int $alpha): IRGBAColor

@@ -30,12 +30,6 @@ class ToRGBAConverter extends AToConverter
 
     protected function fromDTO(IColorDTO $dto): IColor
     {
-        /** @var DRGB $dto */
-        return RGBA::fromRGBO(
-            $dto->red,
-            $dto->green,
-            $dto->blue,
-            $dto->alpha,
-        );
+        return RGBA::fromDTO($dto);
     }
 }

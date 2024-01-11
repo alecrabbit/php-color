@@ -31,12 +31,6 @@ class ToHex8Converter extends AToConverter
 
     protected function fromDTO(IColorDTO $dto): IColor
     {
-        /** @var DRGB $dto */
-        return Hex8::fromRGBO(
-            $dto->red,
-            $dto->green,
-            $dto->blue,
-            $dto->alpha,
-        );
+        return Hex8::fromDTO($dto);
     }
 }

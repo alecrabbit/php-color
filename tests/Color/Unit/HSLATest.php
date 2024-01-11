@@ -308,7 +308,7 @@ final class HSLATest extends TestCase
         $dto = $testee->toDTO();
 
         self::assertInstanceOf(DHSL::class, $dto);
-        self::assertSame(3, $dto->hue);
+        self::assertSame(0.008333, $dto->hue);
         self::assertSame(0.1, $dto->saturation);
         self::assertSame(0.2, $dto->lightness);
         self::assertSame(0.0, $dto->alpha);

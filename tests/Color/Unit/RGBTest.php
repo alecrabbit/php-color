@@ -214,9 +214,9 @@ final class RGBTest extends TestCase
         $dto = $testee->toDTO();
 
         self::assertInstanceOf(DRGB::class, $dto);
-        self::assertSame(1, $dto->red);
-        self::assertSame(2, $dto->green);
-        self::assertSame(3, $dto->blue);
+        self::assertSame(0.003922, $dto->red);
+        self::assertSame(0.007843, $dto->green);
+        self::assertSame(0.011765, $dto->blue);
         self::assertSame(1.0, $dto->alpha);
     }
 }

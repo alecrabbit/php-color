@@ -10,7 +10,7 @@ use AlecRabbit\Color\Model\Contract\Converter\Core\ICoreConverter;
 
 abstract readonly class ACoreConverter implements ICoreConverter
 {
-    protected const FLOAT_PRECISION = 5;
+    protected const FLOAT_PRECISION = ICoreConverter::PRECISION;
 
     /** @var class-string<IColorDTO> */
     protected string $inputType;

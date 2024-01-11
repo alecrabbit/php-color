@@ -36,7 +36,7 @@ class HSLA extends HSL implements IHSLAColor
 
         /** @var DHSL $dto */
         return self::fromHSLA(
-            $dto->hue,
+            (int)round($dto->hue * 360),
             $dto->saturation,
             $dto->lightness,
             $dto->alpha,

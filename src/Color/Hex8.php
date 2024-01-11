@@ -14,7 +14,6 @@ use function sprintf;
 class Hex8 extends Hex implements IHex8Color
 {
     protected const MAX8_NO_ALPHA = 0xFFFFFF00;
-    protected const PRECISION = 3;
 
     protected function __construct(
         int $value,
@@ -42,9 +41,9 @@ class Hex8 extends Hex implements IHex8Color
     {
         /** @var DRGB $dto */
         return self::fromRGBO(
-            $dto->red,
-            $dto->green,
-            $dto->blue,
+            (int)round($dto->red * self::COMPONENT),
+            (int)round($dto->green * self::COMPONENT),
+            (int)round($dto->blue * self::COMPONENT),
             $dto->alpha,
         );
     }
@@ -102,7 +101,7 @@ class Hex8 extends Hex implements IHex8Color
 
     public function getOpacity(): float
     {
-        return round($this->getAlpha() / self::COMPONENT, self::PRECISION);
+        return round($this->getAlpha() / self::COMPONENT, self::CALC_PRECISION);
     }
 
     public function withAlpha(int $alpha): IHex8Color

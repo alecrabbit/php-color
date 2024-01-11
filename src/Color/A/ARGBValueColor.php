@@ -37,9 +37,9 @@ abstract class ARGBValueColor extends AColor
     public function toDTO(): IColorDTO
     {
         return new DRGB(
-            red: $this->getRed(),
-            green: $this->getGreen(),
-            blue: $this->getBlue(),
+            red: round($this->getRed() / self::COMPONENT, self::CALC_PRECISION),
+            green: round($this->getGreen() / self::COMPONENT, self::CALC_PRECISION),
+            blue: round($this->getBlue() / self::COMPONENT, self::CALC_PRECISION),
             alpha: $this instanceof IHasOpacity ? $this->getOpacity() : 1.0,
         );
     }

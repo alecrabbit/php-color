@@ -41,7 +41,7 @@ final readonly class RGBAGradient extends AGradient
         $this->b = Vector::create($start->getBlue(), $end->getBlue(), $count);
         $this->o = Vector::create($start->getOpacity(), $end->getOpacity(), $count);
 
-        $this->format = "rgba(%s, %s, %s, %.{$this->precision}f)";
+        $this->format = "rgba(%s, %s, %s, %.3f)";
     }
 
     private function toRGBA(IUnconvertibleColor|string $color): IRGBAColor

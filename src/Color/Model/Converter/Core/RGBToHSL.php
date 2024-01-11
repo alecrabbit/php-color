@@ -19,9 +19,9 @@ final readonly class RGBToHSL extends ACoreConverter
     protected function doConvert(IColorDTO $color): IColorDTO
     {
         /** @var RGB $color */
-        $r = $color->red / 255;
-        $g = $color->green / 255;
-        $b = $color->blue / 255;
+        $r = $color->red;
+        $g = $color->green;
+        $b = $color->blue;
 
         $max = max($r, $g, $b);
         $min = min($r, $g, $b);
@@ -45,7 +45,7 @@ final readonly class RGBToHSL extends ACoreConverter
         }
 
         return new HSL(
-            (int)round($h * 360),
+            round($h, $this->precision),
             round($s, $this->precision),
             round($l, $this->precision),
             round($color->alpha, $this->precision),

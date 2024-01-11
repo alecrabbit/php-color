@@ -37,7 +37,7 @@ class HSL extends AColor implements IHSLColor
     {
         /** @var DHSL $dto */
         return self::fromHSL(
-            $dto->hue,
+            (int)round($dto->hue * 360),
             $dto->saturation,
             $dto->lightness,
         );
@@ -66,7 +66,7 @@ class HSL extends AColor implements IHSLColor
     public function toDTO(): IColorDTO
     {
         return new DHSL(
-            hue: $this->getHue(),
+            hue: round($this->getHue() / 360, self::CALC_PRECISION),
             saturation: $this->getSaturation(),
             lightness: $this->getLightness(),
             alpha: $this instanceof IHasOpacity ? $this->getOpacity() : 1.0,

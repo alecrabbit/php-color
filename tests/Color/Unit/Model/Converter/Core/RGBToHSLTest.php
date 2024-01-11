@@ -21,14 +21,14 @@ final class RGBToHSLTest extends TestCase
         yield from [
             // [expected, incoming]
             [new DHSL(0, 0, 0), new DRGB(0, 0, 0)],
-            [new DHSL(79, 0.29, 0.72), new DRGB(191, 204, 163)],
-            [new DHSL(165, 0.92, 0.63), new DRGB(74, 247, 204)],
-            [new DHSL(29, 0.44, 0.38), new DRGB(140, 95, 54)],
-            [new DHSL(230, 1, 0.66), new DRGB(84, 113, 255)],
-            [new DHSL(14, 0.46, 0.49), new DRGB(181, 94, 67)],
-            [new DHSL(218, 0.33, 0.44), new DRGB(75, 103, 150)],
-            [new DHSL(13, 0.46, 0.50), new DRGB(186, 94, 69)],
-            [new DHSL(13, 0.94, 0.49), new DRGB(245, 59, 7)],
+            [new DHSL(0.21952, 0.286713, 0.719608), new DRGB(0.749012, 0.8, 0.639216)],
+            [new DHSL(0.458574, 0.915343, 0.629412), new DRGB(0.290196, 0.968627, 0.8)],
+            [new DHSL(0.079457, 0.443299, 0.380393), new DRGB(0.54902, 0.372549, 0.211765)],
+            [new DHSL(0.638402, 1, 0.664706), new DRGB(0.329412, 0.443137, 1)],
+            [new DHSL(0.039474, 0.459678, 0.486275), new DRGB(0.709804, 0.368627, 0.262745)],
+            [new DHSL(0.604444, 0.333333, 0.441177), new DRGB(0.294118, 0.403922, 0.588235)],
+            [new DHSL(0.035612, 0.458824, 0.50), new DRGB(0.729412, 0.368627, 0.270588)],
+            [new DHSL(0.036415, 0.944444, 0.494118), new DRGB(0.960784, 0.231373, 0.027451)],
         ];
     }
 
@@ -44,7 +44,7 @@ final class RGBToHSLTest extends TestCase
         ?int $precision = null,
     ): ICoreConverter {
         return new RGBToHSL(
-            precision: $precision ?? 2,
+            precision: $precision ?? ICoreConverter::PRECISION,
         );
     }
 

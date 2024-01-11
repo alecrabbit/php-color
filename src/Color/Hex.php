@@ -33,9 +33,9 @@ class Hex extends ARGBValueColor implements IHexColor
     {
         /** @var DRGB $dto */
         return self::fromRGB(
-            $dto->red,
-            $dto->green,
-            $dto->blue,
+            (int)round($dto->red * self::COMPONENT),
+            (int)round($dto->green * self::COMPONENT),
+            (int)round($dto->blue * self::COMPONENT),
         );
     }
 

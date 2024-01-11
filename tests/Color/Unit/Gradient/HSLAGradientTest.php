@@ -11,6 +11,7 @@ use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Gradient\ColorRange;
 use AlecRabbit\Color\Gradient\HSLAGradient;
 use AlecRabbit\Color\HSLA;
+use AlecRabbit\Color\Model\Contract\Converter\Core\ICoreConverter;
 use AlecRabbit\Tests\TestCase\FactoryAwareTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -280,7 +281,7 @@ final class HSLAGradientTest extends FactoryAwareTestCase
             range: $range ?? $this->getColorRange(),
             count: $count ?? 2,
             max: $max ?? 1000,
-            precision: $precision ?? 2,
+            precision: $precision ?? ICoreConverter::PRECISION,
         );
     }
 
