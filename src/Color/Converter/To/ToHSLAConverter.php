@@ -19,7 +19,6 @@ use Traversable;
  */
 class ToHSLAConverter extends AToConverter
 {
-    /** @inheritDoc */
     public static function getTargets(): Traversable
     {
         return new ArrayObject([HSLA::class, IHSLAColor::class]);

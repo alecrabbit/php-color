@@ -19,7 +19,6 @@ use Traversable;
  */
 class ToHex8Converter extends AToConverter
 {
-    /** @inheritDoc */
     public static function getTargets(): Traversable
     {
         return new ArrayObject([Hex8::class, IHex8Color::class]);

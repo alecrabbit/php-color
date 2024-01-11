@@ -19,7 +19,6 @@ use Traversable;
  */
 class ToRGBAConverter extends AToConverter
 {
-    /** @inheritDoc */
     public static function getTargets(): Traversable
     {
         return new ArrayObject([RGBA::class, IRGBAColor::class]);

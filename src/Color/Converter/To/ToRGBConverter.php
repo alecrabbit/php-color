@@ -19,7 +19,6 @@ use Traversable;
  */
 class ToRGBConverter extends AToConverter
 {
-    /** @inheritDoc */
     public static function getTargets(): Traversable
     {
         return new ArrayObject([RGB::class, IRGBColor::class]);
