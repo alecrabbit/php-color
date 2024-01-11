@@ -15,9 +15,9 @@ use ArrayObject;
 use Traversable;
 
 /**
- * @template-covariant T as IHSLAColor
+ * @template-covariant T as IColor
  *
- * @extends AToConverter<T>
+ * @extends AToConverter<IHSLAColor>
  */
 class ToHSLAConverter extends AToConverter
 {

@@ -14,6 +14,11 @@ use AlecRabbit\Color\Model\ModelRGB;
 use ArrayObject;
 use Traversable;
 
+/**
+ * @template-covariant T as IColor
+ *
+ * @extends AToConverter<IHex8Color>
+ */
 class ToHex8Converter extends AToConverter
 {
     /** @inheritDoc */

@@ -14,6 +14,11 @@ use AlecRabbit\Color\RGB;
 use ArrayObject;
 use Traversable;
 
+/**
+ * @template-covariant T as IColor
+ *
+ * @extends AToConverter<IRGBColor>
+ */
 class ToRGBConverter extends AToConverter
 {
     /** @inheritDoc */

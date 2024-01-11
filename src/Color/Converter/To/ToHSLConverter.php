@@ -14,6 +14,11 @@ use AlecRabbit\Color\Model\ModelHSL;
 use ArrayObject;
 use Traversable;
 
+/**
+ * @template-covariant T as IColor
+ *
+ * @extends AToConverter<IHSLColor>
+ */
 class ToHSLConverter extends AToConverter
 {
     /** @inheritDoc */
