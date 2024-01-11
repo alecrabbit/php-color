@@ -15,8 +15,6 @@ use ArrayObject;
 use Traversable;
 
 /**
- * @template-covariant T as IColor
- *
  * @extends AToConverter<IRGBAColor>
  */
 class ToRGBAConverter extends AToConverter
