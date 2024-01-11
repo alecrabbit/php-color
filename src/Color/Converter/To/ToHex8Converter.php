@@ -10,7 +10,6 @@ use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
 use AlecRabbit\Color\Contract\Model\IColorModel;
 use AlecRabbit\Color\Converter\To\A\AToConverter;
 use AlecRabbit\Color\Hex8;
-use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelRGB;
 use ArrayObject;
 use Traversable;

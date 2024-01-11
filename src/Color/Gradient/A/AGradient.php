@@ -7,13 +7,10 @@ namespace AlecRabbit\Color\Gradient\A;
 use AlecRabbit\Color\Contract\Gradient\IGradient;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IColorRange;
-use AlecRabbit\Color\Contract\IUnconvertibleColor;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Util\Color;
 use Traversable;
 
-
-// TODO (2024-01-05 14:23) [Alec Rabbit]: Gradient should work with IColor only, IUnconvertibleColor is not needed
 abstract readonly class AGradient implements IGradient
 {
     protected const MAX = 1000;
@@ -77,16 +74,10 @@ abstract readonly class AGradient implements IGradient
         return $this->count;
     }
 
-    protected function ensureConvertable(IUnconvertibleColor|string $color): IColor
+    protected function ensureConvertable(IColor|string $color): IColor
     {
         if ($color instanceof IColor) {
             return $color;
-        }
-
-        if (!is_string($color)) {
-            // @codeCoverageIgnoreStart
-            $color = $color->toString();
-            // @codeCoverageIgnoreEnd
         }
 
         return Color::fromString($color);

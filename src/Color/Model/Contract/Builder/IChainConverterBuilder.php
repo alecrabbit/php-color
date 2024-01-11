@@ -11,16 +11,16 @@ use AlecRabbit\Color\Contract\Model\IColorModel;
 interface IChainConverterBuilder
 {
     /**
-     * @deprecated
      * @param iterable<class-string<IColorModel>> $conversionPath
      *
      * @return IColorDTOConverter
+     * @deprecated
      */
     public function create(iterable $conversionPath): IColorDTOConverter;
 
     /**
-     * @deprecated
      * @param iterable<class-string<IModelConverter>> $converters
+     * @deprecated
      */
     public function useConverters(iterable $converters): IChainConverterBuilder;
 

@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Model\Builder;
 
 use AlecRabbit\Color\Contract\Model\Converter\IColorDTOConverter;
-use AlecRabbit\Color\Contract\Model\Converter\IModelConverter;
 use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
 use AlecRabbit\Color\Contract\Model\IColorModel;
-use AlecRabbit\Color\Exception\ColorException;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
 use AlecRabbit\Color\Model\Contract\Builder\IChainConverterBuilder;
+use RuntimeException;
 use Traversable;
 
 final readonly class ChainConverterBuilder implements IChainConverterBuilder
@@ -101,7 +100,7 @@ final readonly class ChainConverterBuilder implements IChainConverterBuilder
     public function build(): IColorDTOConverter
     {
         // TODO: Implement build() method.
-        throw new \RuntimeException('Not implemented.');
+        throw new RuntimeException('Not implemented.');
     }
 
     /**
@@ -110,7 +109,7 @@ final readonly class ChainConverterBuilder implements IChainConverterBuilder
     public function forPath(iterable $conversionPath): IChainConverterBuilder
     {
         // TODO: Implement forPath() method.
-        throw new \RuntimeException('Not implemented.');
+        throw new RuntimeException('Not implemented.');
     }
 
     /**
@@ -119,6 +118,6 @@ final readonly class ChainConverterBuilder implements IChainConverterBuilder
     public function withConverters(iterable $converters): IChainConverterBuilder
     {
         // TODO: Implement withConverters() method.
-        throw new \RuntimeException('Not implemented.');
+        throw new RuntimeException('Not implemented.');
     }
 }

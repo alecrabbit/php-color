@@ -65,6 +65,11 @@ class Hex8 extends Hex implements IHex8Color
             );
     }
 
+    public static function fromInteger8(int $value8): IHex8Color
+    {
+        return new self((abs($value8) & (int)static::MAX8_NO_ALPHA) >> 8, $value8 & 0x000000FF);
+    }
+
     public function toString(): string
     {
         return sprintf((string)static::FORMAT_HEX8, $this->getValue(), $this->getAlpha());
@@ -119,10 +124,5 @@ class Hex8 extends Hex implements IHex8Color
     public function getValue8(): int
     {
         return $this->getValue() << 8 | $this->getAlpha();
-    }
-
-    public static function fromInteger8(int $value8): IHex8Color
-    {
-        return new self((abs($value8) & (int)static::MAX8_NO_ALPHA) >> 8, $value8 & 0x000000FF);
     }
 }

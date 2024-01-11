@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Registry;
 
-use AlecRabbit\Color\Contract\Converter\IFromConverter;
 use AlecRabbit\Color\Contract\Converter\IRegistry;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
@@ -14,8 +13,8 @@ use AlecRabbit\Color\Contract\Model\Converter\IModelConverter;
 use AlecRabbit\Color\Contract\Model\IColorModel;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
-use AlecRabbit\Color\Model\Contract\Builder\IChainConverterBuilder;
 use AlecRabbit\Color\Model\Builder\ChainConverterBuilder;
+use AlecRabbit\Color\Model\Contract\Builder\IChainConverterBuilder;
 use ArrayObject;
 use RuntimeException;
 use SplQueue;

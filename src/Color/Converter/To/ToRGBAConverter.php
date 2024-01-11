@@ -9,7 +9,6 @@ use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
 use AlecRabbit\Color\Contract\Model\IColorModel;
 use AlecRabbit\Color\Converter\To\A\AToConverter;
-use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelRGB;
 use AlecRabbit\Color\RGBA;
 use ArrayObject;

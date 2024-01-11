@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Gradient;
 
 use AlecRabbit\Color\Contract\Gradient\Vector\IVector;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IColorRange;
 use AlecRabbit\Color\Contract\IRGBAColor;
-use AlecRabbit\Color\Contract\IUnconvertibleColor;
 use AlecRabbit\Color\Gradient\A\AGradient;
 use AlecRabbit\Color\Gradient\Vector\Vector;
 
@@ -33,7 +33,9 @@ final readonly class RGBAGradient extends AGradient
         );
 
         $count = $this->count - 1;
+        /** @var IRGBAColor $start */
         $start = $this->toRGBA($this->range->getStart());
+        /** @var IRGBAColor $end */
         $end = $this->toRGBA($this->range->getEnd());
 
         $this->r = Vector::create($start->getRed(), $end->getRed(), $count);
@@ -44,7 +46,7 @@ final readonly class RGBAGradient extends AGradient
         $this->format = "rgba(%s, %s, %s, %.3f)";
     }
 
-    private function toRGBA(IUnconvertibleColor|string $color): IRGBAColor
+    private function toRGBA(IColor|string $color): IColor
     {
         return $this->ensureConvertable($color)->to(IRGBAColor::class);
     }
