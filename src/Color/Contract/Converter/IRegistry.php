@@ -18,12 +18,6 @@ interface IRegistry
     public static function attach(string ...$classes): void;
 
     /**
-     * @param class-string<IToConverter> $to
-     * @param class-string<IColor> $source
-     */
-    public function getFromConverter(string $to, string $source): ?IFromConverter;
-
-    /**
      * @throws UnsupportedColorConversion
      */
     public function getModelConverter(IColorModel $from, IColorModel $to): IModelConverter;

@@ -13,8 +13,8 @@ use AlecRabbit\Color\Contract\Model\Converter\IModelConverter;
 use AlecRabbit\Color\Contract\Model\IColorModel;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
-use AlecRabbit\Color\Model\Contract\Factory\IModelConverterFactory;
-use AlecRabbit\Color\Model\Factory\ModelConverterFactory;
+use AlecRabbit\Color\Model\Contract\Builder\IChainModelConverterBuilder;
+use AlecRabbit\Color\Model\Builder\ChainModelConverterBuilder;
 use ArrayObject;
 use RuntimeException;
 use SplQueue;
@@ -30,7 +30,7 @@ final class Registry implements IRegistry
     private static array $graph = [];
 
     public function __construct(
-        private readonly IModelConverterFactory $modelConverterFactory = new ModelConverterFactory(),
+        private readonly IChainModelConverterBuilder $modelConverterBuilder = new ChainModelConverterBuilder(),
     ) {
     }
 
@@ -58,37 +58,6 @@ final class Registry implements IRegistry
         foreach (self::$modelConverters as $class) {
             self::$graph[$class::from()::class][] = $class::to()::class;
         }
-    }
-
-    private static function assertFromConverter(mixed $fromConverter): void
-    {
-        match (true) {
-            !is_string($fromConverter) => throw new InvalidArgument(
-                sprintf(
-                    'Converter must be type of string. "%s" given.',
-                    get_debug_type($fromConverter)
-                )
-            ),
-            !is_subclass_of($fromConverter, IFromConverter::class) => throw new InvalidArgument(
-                sprintf(
-                    'Converter must be instance of "%s". "%s" given.',
-                    IFromConverter::class,
-                    $fromConverter
-                )
-            ),
-            default => null,
-        };
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getFromConverter(string $to, string $source): ?IFromConverter
-    {
-        self::assertToConverter($to);
-        self::assertColor($source);
-
-        return $this->getRefinedFromConverter($to, $source);
     }
 
     private static function assertToConverter(string $toConverter): void
@@ -172,6 +141,12 @@ final class Registry implements IRegistry
         return $this->createModelConverter($conversionPath);
     }
 
+    /**
+     * @param class-string<IColorModel> $from
+     * @param class-string<IColorModel> $to
+     *
+     * @return null|Traversable<class-string<IColorModel>>
+     */
     private static function findConversionPath(string $from, string $to): ?Traversable
     {
         $visited = [];
@@ -185,7 +160,7 @@ final class Registry implements IRegistry
             $node = end($path);
 
             if ($node === $to) {
-                return new ArrayObject($path);
+                yield from $path;
             }
 
             foreach (self::$graph[$node] as $neighbor) {
@@ -201,15 +176,15 @@ final class Registry implements IRegistry
         return null;
     }
 
+    /**
+     * @param iterable<class-string<IColorModel>> $conversionPath
+     *
+     * @return IModelConverter
+     */
     protected function createModelConverter(iterable $conversionPath): IModelConverter
     {
-        return $this->getModelConverterFactory()->create($conversionPath);
-    }
-
-    protected function getModelConverterFactory(): IModelConverterFactory
-    {
-        return $this->modelConverterFactory
+        return $this->modelConverterBuilder
             ->useConverters(new ArrayObject(self::$modelConverters))
-        ;
+            ->create($conversionPath);
     }
 }

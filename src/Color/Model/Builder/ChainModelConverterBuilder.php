@@ -2,18 +2,17 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color\Model\Factory;
+namespace AlecRabbit\Color\Model\Builder;
 
 use AlecRabbit\Color\Contract\Model\Converter\IModelConverter;
 use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
 use AlecRabbit\Color\Contract\Model\IColorModel;
 use AlecRabbit\Color\Exception\ColorException;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
-use AlecRabbit\Color\Model\Contract\Factory\IModelConverterFactory;
-use ArrayObject;
+use AlecRabbit\Color\Model\Contract\Builder\IChainModelConverterBuilder;
 use Traversable;
 
-final readonly class ModelConverterFactory implements IModelConverterFactory
+final readonly class ChainModelConverterBuilder implements IChainModelConverterBuilder
 {
     /** @var iterable<class-string<IModelConverter>> */
     private iterable $converters;
@@ -66,20 +65,16 @@ final readonly class ModelConverterFactory implements IModelConverterFactory
      */
     private function getChainFromPath(iterable $conversionPath): Traversable
     {
-        /** @var Array<class-string<IModelConverter>> $converters */
-        $converters = [];
-
         $prev = null;
         foreach ($conversionPath as $model) {
-            if (null === $prev) {
+            if ($prev === null) {
                 $prev = $model;
                 continue;
             }
 
-            $converters[] = $this->getConverterClass($prev, $model);
+            yield $this->getConverterClass($prev, $model);
             $prev = $model;
         }
-        return new ArrayObject($converters);
     }
 
     /**
@@ -106,8 +101,32 @@ final readonly class ModelConverterFactory implements IModelConverterFactory
     }
 
     /** @inheritDoc */
-    public function useConverters(iterable $converters): IModelConverterFactory
+    public function useConverters(iterable $converters): IChainModelConverterBuilder
     {
         return new self($converters);
+    }
+
+    public function build(): IModelConverter
+    {
+        // TODO: Implement build() method.
+        throw new \RuntimeException('Not implemented.');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function forPath(iterable $conversionPath): IChainModelConverterBuilder
+    {
+        // TODO: Implement forPath() method.
+        throw new \RuntimeException('Not implemented.');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function withConverters(iterable $converters): IChainModelConverterBuilder
+    {
+        // TODO: Implement withConverters() method.
+        throw new \RuntimeException('Not implemented.');
     }
 }
