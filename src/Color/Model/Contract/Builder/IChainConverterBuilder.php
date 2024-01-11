@@ -4,34 +4,35 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Model\Contract\Builder;
 
+use AlecRabbit\Color\Contract\Model\Converter\IColorDTOConverter;
 use AlecRabbit\Color\Contract\Model\Converter\IModelConverter;
 use AlecRabbit\Color\Contract\Model\IColorModel;
 
-interface IChainModelConverterBuilder
+interface IChainConverterBuilder
 {
     /**
      * @deprecated
      * @param iterable<class-string<IColorModel>> $conversionPath
      *
-     * @return IModelConverter
+     * @return IColorDTOConverter
      */
-    public function create(iterable $conversionPath): IModelConverter;
+    public function create(iterable $conversionPath): IColorDTOConverter;
 
     /**
      * @deprecated
      * @param iterable<class-string<IModelConverter>> $converters
      */
-    public function useConverters(iterable $converters): IChainModelConverterBuilder;
+    public function useConverters(iterable $converters): IChainConverterBuilder;
 
     /**
      * @param iterable<class-string<IColorModel>> $conversionPath
      */
-    public function forPath(iterable $conversionPath): IChainModelConverterBuilder;
+    public function forPath(iterable $conversionPath): IChainConverterBuilder;
 
     /**
      * @param iterable<class-string<IModelConverter>> $converters
      */
-    public function withConverters(iterable $converters): IChainModelConverterBuilder;
+    public function withConverters(iterable $converters): IChainConverterBuilder;
 
-    public function build(): IModelConverter;
+    public function build(): IColorDTOConverter;
 }

@@ -12,8 +12,8 @@ use PHPUnit\Framework\Attributes\Test;
 
 final class RegistryTest extends TestCase
 {
-    private const FROM_CONVERTERS = 'fromConverters';
-    private static mixed $fromConverters = null;
+//    private const FROM_CONVERTERS = 'fromConverters';
+//    private static mixed $fromConverters = null;
 
     #[Test]
     public function canBeInstantiated(): void
@@ -36,7 +36,7 @@ final class RegistryTest extends TestCase
 
     private static function storeRegistryState(): void
     {
-        self::$fromConverters = self::getPropertyValue(Registry::class, self::FROM_CONVERTERS);
+//        self::$fromConverters = self::getPropertyValue(Registry::class, self::FROM_CONVERTERS);
     }
 
     protected function tearDown(): void
@@ -47,7 +47,7 @@ final class RegistryTest extends TestCase
 
     private static function rollbackRegistryState(): void
     {
-        self::setPropertyValue(Registry::class, self::FROM_CONVERTERS, self::$fromConverters);
+//        self::setPropertyValue(Registry::class, self::FROM_CONVERTERS, self::$fromConverters);
     }
 
 

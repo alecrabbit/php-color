@@ -9,12 +9,13 @@ use AlecRabbit\Color\Contract\Converter\IRegistry;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
+use AlecRabbit\Color\Contract\Model\Converter\IColorDTOConverter;
 use AlecRabbit\Color\Contract\Model\Converter\IModelConverter;
 use AlecRabbit\Color\Contract\Model\IColorModel;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
-use AlecRabbit\Color\Model\Contract\Builder\IChainModelConverterBuilder;
-use AlecRabbit\Color\Model\Builder\ChainModelConverterBuilder;
+use AlecRabbit\Color\Model\Contract\Builder\IChainConverterBuilder;
+use AlecRabbit\Color\Model\Builder\ChainConverterBuilder;
 use ArrayObject;
 use RuntimeException;
 use SplQueue;
@@ -22,15 +23,12 @@ use Traversable;
 
 final class Registry implements IRegistry
 {
-    /** @var Array<class-string<IToConverter>, Array<class-string<IColor>,IFromConverter|class-string<IFromConverter>>> */
-    private static array $fromConverters = [];
-
     private static array $modelConverters = [];
     private static array $models = [];
     private static array $graph = [];
 
     public function __construct(
-        private readonly IChainModelConverterBuilder $modelConverterBuilder = new ChainModelConverterBuilder(),
+        private readonly IChainConverterBuilder $modelConverterBuilder = new ChainConverterBuilder(),
     ) {
     }
 
@@ -94,21 +92,6 @@ final class Registry implements IRegistry
         };
     }
 
-    private function getRefinedFromConverter(string $toConverter, string $color): ?IFromConverter
-    {
-        /**
-         * @var class-string<IToConverter> $toConverter
-         * @var class-string<IColor> $color
-         * @var null|IFromConverter|class-string<IFromConverter> $fromConverter
-         */
-        $fromConverter = self::$fromConverters[$toConverter][$color] ?? null;
-        if (is_string($fromConverter)) {
-            $fromConverter = new $fromConverter();
-            self::$fromConverters[$toConverter][$color] = $fromConverter;
-        }
-        return $fromConverter;
-    }
-
     public function getToConverter(string $target): ?IToConverter
     {
         // TODO: Implement getToConverter() method.
@@ -121,10 +104,8 @@ final class Registry implements IRegistry
         throw new RuntimeException(__METHOD__ . ' Not implemented.');
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getModelConverter(IColorModel $from, IColorModel $to): IModelConverter
+    /** @inheritDoc */
+    public function getColorConverter(IColorModel $from, IColorModel $to): IColorDTOConverter
     {
         $conversionPath = self::findConversionPath($from::class, $to::class);
 
@@ -138,7 +119,7 @@ final class Registry implements IRegistry
             );
         }
 
-        return $this->createModelConverter($conversionPath);
+        return $this->createColorConverter($conversionPath);
     }
 
     /**
@@ -179,9 +160,9 @@ final class Registry implements IRegistry
     /**
      * @param iterable<class-string<IColorModel>> $conversionPath
      *
-     * @return IModelConverter
+     * @return IColorDTOConverter
      */
-    protected function createModelConverter(iterable $conversionPath): IModelConverter
+    protected function createColorConverter(iterable $conversionPath): IColorDTOConverter
     {
         return $this->modelConverterBuilder
             ->useConverters(new ArrayObject(self::$modelConverters))

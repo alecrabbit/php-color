@@ -87,7 +87,7 @@ final class ToHSLAConverterTest extends TestCase
 
         $registry
             ->expects(self::once())
-            ->method('getModelConverter')
+            ->method('getColorConverter')
             ->with($modelFrom, $modelTo)
             ->willReturn(
                 $modelConverter

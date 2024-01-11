@@ -49,11 +49,11 @@ Package::add(
 );
 
 Registry::attach(
-    HSLToRGBModelConverter::class,
-    RGBToHSLModelConverter::class,
-    RGBToCMYModelConverter::class,
-    CMYToCMYKModelConverter::class,
     CMYKToCMYModelConverter::class,
+    CMYToCMYKModelConverter::class,
     CMYToRGBModelConverter::class,
+    HSLToRGBModelConverter::class,
+    RGBToCMYModelConverter::class,
+    RGBToHSLModelConverter::class,
 );
 // @codeCoverageIgnoreEnd

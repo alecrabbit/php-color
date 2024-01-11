@@ -7,6 +7,7 @@ namespace AlecRabbit\Color\Converter\To\A;
 use AlecRabbit\Color\Contract\Converter\IRegistry;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
+use AlecRabbit\Color\Contract\Model\Converter\IColorDTOConverter;
 use AlecRabbit\Color\Contract\Model\Converter\IModelConverter;
 use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
 use AlecRabbit\Color\Contract\Model\IColorModel;
@@ -52,9 +53,9 @@ abstract class AToConverter implements IToConverter
 
     abstract protected function fromDTO(IColorDTO $dto): IColor;
 
-    protected function getModelConverter(IColor $color): IModelConverter
+    protected function getModelConverter(IColor $color): IColorDTOConverter
     {
-        return $this->registry->getModelConverter(
+        return $this->registry->getColorConverter(
             from: $color->getColorModel(),
             to: $this->getTargetColorModel(),
         );
