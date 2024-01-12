@@ -10,15 +10,17 @@ use AlecRabbit\Color\Model\Contract\Converter\IColorDTOConverter;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
 use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
 use AlecRabbit\Color\Model\Contract\IColorModel;
-use RuntimeException;
 use Traversable;
 
 use function is_subclass_of;
 
-final readonly class ChainConverterBuilder implements IChainConverterBuilder
+final class ChainConverterBuilder implements IChainConverterBuilder
 {
     /** @var iterable<class-string<IColorDTOConverter>> */
     private iterable $converters;
+
+    /** @var iterable<class-string<IColorDTOConverter>> */
+    private iterable $chainConverters;
 
     /**
      * @param iterable<class-string<IColorDTOConverter>> $converters
@@ -32,18 +34,21 @@ final readonly class ChainConverterBuilder implements IChainConverterBuilder
     /** @inheritDoc */
     public function create(iterable $conversionPath): IColorDTOConverter
     {
-        $converters = $this->getChainFromPath($conversionPath);
+        return self::createConverter($this->getChainFromPath($conversionPath));
+    }
 
-        return new class($converters) implements IColorDTOConverter {
+    protected static function createConverter(iterable $chainConverters): IColorDTOConverter
+    {
+        return new class($chainConverters) implements IColorDTOConverter {
             public function __construct(
-                private readonly iterable $converters,
+                private readonly iterable $chain,
             ) {
             }
 
             public function convert(IColorDTO $color): IColorDTO
             {
                 /** @var class-string<IColorDTOConverter> $converter */
-                foreach ($this->converters as $converter) {
+                foreach ($this->chain as $converter) {
                     $color = (new $converter())->convert($color);
                 }
 
@@ -104,8 +109,17 @@ final readonly class ChainConverterBuilder implements IChainConverterBuilder
 
     public function build(): IColorDTOConverter
     {
-        // TODO: Implement build() method.
-        throw new RuntimeException('Not implemented.');
+        $this->validate();
+        return self::createConverter($this->chainConverters);
+    }
+
+    private function validate(): void
+    {
+        match (true) {
+            !isset($this->chainConverters) => throw new \LogicException('Path is not provided.'),
+            !isset($this->converters) => throw new \LogicException('Converters are not set.'),
+            default => null,
+        };
     }
 
     /**
@@ -113,8 +127,9 @@ final readonly class ChainConverterBuilder implements IChainConverterBuilder
      */
     public function forPath(iterable $conversionPath): IChainConverterBuilder
     {
-        // TODO: Implement forPath() method.
-        throw new RuntimeException('Not implemented.');
+        $clone = clone $this;
+        $clone->chainConverters = $this->getChainFromPath($conversionPath);
+        return $clone;
     }
 
     /**
@@ -122,7 +137,8 @@ final readonly class ChainConverterBuilder implements IChainConverterBuilder
      */
     public function withConverters(iterable $converters): IChainConverterBuilder
     {
-        // TODO: Implement withConverters() method.
-        throw new RuntimeException('Not implemented.');
+        $clone = clone $this;
+        $clone->converters = $converters;
+        return $clone;
     }
 }
