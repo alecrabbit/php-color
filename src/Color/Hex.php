@@ -32,6 +32,8 @@ class Hex extends ARGBValueColor implements IHexColor
 
     public static function fromDTO(IColorDTO $dto): IHexColor
     {
+        self::assertDTO($dto);
+
         /** @var DRGB $dto */
         return self::fromRGB(
             (int)round($dto->red * self::COMPONENT),

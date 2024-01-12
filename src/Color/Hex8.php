@@ -40,6 +40,8 @@ class Hex8 extends Hex implements IHex8Color
 
     public static function fromDTO(IColorDTO $dto): IHex8Color
     {
+        self::assertDTO($dto);
+
         /** @var DRGB $dto */
         return self::fromRGBO(
             (int)round($dto->red * self::COMPONENT),

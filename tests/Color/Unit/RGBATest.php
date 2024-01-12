@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Color\Unit;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
+use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
@@ -384,5 +385,16 @@ final class RGBATest extends TestCase
         self::assertSame(0.007843, $dto->green);
         self::assertSame(0.011765, $dto->blue);
         self::assertSame(0.498039, $dto->alpha);
+    }
+
+    #[Test]
+    public function throwsIfPassedDTOIsInvalid(): void
+    {
+        $this->expectException(InvalidArgument::class);
+        $this->expectExceptionMessage(
+            'Color must be instance of "AlecRabbit\Color\Model\DTO\DRGB", "AlecRabbit\Tests\Color\Unit\Override\ColorDTOOverride" given.'
+        );
+
+        RGBA::fromDTO(new \AlecRabbit\Tests\Color\Unit\Override\ColorDTOOverride());
     }
 }

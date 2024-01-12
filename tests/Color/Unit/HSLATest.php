@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Color\Unit;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
+use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
@@ -312,5 +313,16 @@ final class HSLATest extends TestCase
         self::assertSame(0.1, $dto->saturation);
         self::assertSame(0.2, $dto->lightness);
         self::assertSame(0.0, $dto->alpha);
+    }
+
+    #[Test]
+    public function throwsIfPassedDTOIsInvalid(): void
+    {
+        $this->expectException(InvalidArgument::class);
+        $this->expectExceptionMessage(
+            'Color must be instance of "AlecRabbit\Color\Model\DTO\DHSL", "AlecRabbit\Tests\Color\Unit\Override\ColorDTOOverride" given.'
+        );
+
+        HSLA::fromDTO(new \AlecRabbit\Tests\Color\Unit\Override\ColorDTOOverride());
     }
 }

@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit;
 
 use AlecRabbit\Color\Contract\IHexColor;
+use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelRGB;
+use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -206,5 +208,16 @@ final class HexTest extends TestCase
         self::assertSame(0.007843, $dto->green);
         self::assertSame(0.011765, $dto->blue);
         self::assertSame(1.0, $dto->alpha);
+    }
+
+    #[Test]
+    public function throwsIfPassedDTOIsInvalid(): void
+    {
+        $this->expectException(InvalidArgument::class);
+        $this->expectExceptionMessage(
+            'Color must be instance of "AlecRabbit\Color\Model\DTO\DRGB", "AlecRabbit\Tests\Color\Unit\Override\ColorDTOOverride" given.'
+        );
+
+        Hex::fromDTO(new \AlecRabbit\Tests\Color\Unit\Override\ColorDTOOverride());
     }
 }
