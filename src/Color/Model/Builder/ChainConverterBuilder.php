@@ -13,6 +13,8 @@ use AlecRabbit\Color\Model\Contract\Builder\IChainConverterBuilder;
 use RuntimeException;
 use Traversable;
 
+use function is_subclass_of;
+
 final readonly class ChainConverterBuilder implements IChainConverterBuilder
 {
     /** @var iterable<class-string<IColorDTOConverter>> */
@@ -78,7 +80,7 @@ final readonly class ChainConverterBuilder implements IChainConverterBuilder
     private function getConverterClass(string $prev, string $model): string
     {
         foreach ($this->converters as $converter) {
-            if (\is_subclass_of($converter, IModelConverter::class, true)
+            if (is_subclass_of($converter, IModelConverter::class, true)
                 && $converter::from()::class === $prev
                 && $converter::to()::class === $model) {
                 return $converter;

@@ -27,6 +27,11 @@ final class AColorOverride extends AColor
         throw new RuntimeException('INTENTIONALLY Not implemented.');
     }
 
+    protected static function dtoType(): string
+    {
+        throw new RuntimeException('INTENTIONALLY Not implemented.');
+    }
+
     public function toString(): string
     {
         throw new RuntimeException('INTENTIONALLY Not implemented.');
@@ -38,12 +43,6 @@ final class AColorOverride extends AColor
     }
 
     public function toDTO(): IColorDTO
-    {
-        throw new RuntimeException('INTENTIONALLY Not implemented.');
-    }
-
-
-    protected static function getType(): string
     {
         throw new RuntimeException('INTENTIONALLY Not implemented.');
     }

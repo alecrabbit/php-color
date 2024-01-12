@@ -34,7 +34,7 @@ abstract class ARGBValueColor extends AColor
             ) & self::MAX;
     }
 
-    protected static function getType(): string
+    protected static function dtoType(): string
     {
         return DRGB::class;
     }

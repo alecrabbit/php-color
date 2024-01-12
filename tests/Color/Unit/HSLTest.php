@@ -12,6 +12,7 @@ use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\ModelHSL;
 use AlecRabbit\Color\RGBA;
+use AlecRabbit\Tests\Color\Unit\Override\ColorDTOOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -117,7 +118,7 @@ final class HSLTest extends TestCase
         yield from [
             [HSL::fromHSL(0, 0, 0), RGBA::fromRGBA(0, 0, 0, 0),],
             [HSL::fromHSL(36, 0.1, 0.2), RGBA::fromRGBA(56, 52, 46, 0),],
-            [HSL::fromHSL(196,0.94, 0.13), Hex::fromInteger(0x23142),],
+            [HSL::fromHSL(196, 0.94, 0.13), Hex::fromInteger(0x23142),],
         ];
     }
 
@@ -268,6 +269,6 @@ final class HSLTest extends TestCase
             'Color must be instance of "AlecRabbit\Color\Model\DTO\DHSL", "AlecRabbit\Tests\Color\Unit\Override\ColorDTOOverride" given.'
         );
 
-        HSL::fromDTO(new \AlecRabbit\Tests\Color\Unit\Override\ColorDTOOverride());
+        HSL::fromDTO(new ColorDTOOverride());
     }
 }
