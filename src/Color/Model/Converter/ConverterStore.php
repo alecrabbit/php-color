@@ -17,6 +17,7 @@ use Traversable;
 
 final class ConverterStore implements IConverterStore
 {
+    /** @var Array<class-string<IModelConverter>> */
     private static array $modelConverters = [];
     private readonly ArrayObject $models;
     private readonly ArrayObject $graph;
@@ -120,12 +121,23 @@ final class ConverterStore implements IConverterStore
         );
     }
 
+    /**
+     * @param iterable<class-string<IColorModel>> $conversionPath
+     */
     private function createColorConverter(iterable $conversionPath): IColorDTOConverter
     {
         return $this->modelConverterBuilder
-            ->withConverters(new ArrayObject(self::$modelConverters))
+            ->withConverters($this->getModelConverters())
             ->forPath($conversionPath)
             ->build();
+    }
+
+    /**
+     * @return Traversable<class-string<IModelConverter>>
+     */
+    private function getModelConverters(): Traversable
+    {
+        yield from self::$modelConverters;
     }
 
     /**
