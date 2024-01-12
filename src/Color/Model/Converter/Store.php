@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Model\Converter;
 
 use AlecRabbit\Color\Exception\InvalidArgument;
+use AlecRabbit\Color\Exception\UnsupportedColorConversion;
 use AlecRabbit\Color\Model\Builder\ChainConverterBuilder;
 use AlecRabbit\Color\Model\Contract\Builder\IChainConverterBuilder;
+use AlecRabbit\Color\Model\Contract\Converter\IColorDTOConverter;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
 use AlecRabbit\Color\Model\Contract\Converter\IStore;
 use AlecRabbit\Color\Model\Contract\IColorModel;
@@ -107,5 +109,33 @@ final class Store implements IStore
     private static function createKey(string $class): string
     {
         return self::extractFrom($class) . '::' . self::extractTo($class);
+    }
+
+    public function getColorConverter(IColorModel $from, IColorModel $to): IColorDTOConverter
+    {
+        return $this->createColorConverter(
+            $this->findConversionPath($from, $to)
+        );
+    }
+
+    private function createColorConverter(iterable $conversionPath): IColorDTOConverter
+    {
+    }
+
+    /**
+     * @param IColorModel $from
+     * @param IColorModel $to
+     *
+     * @return \Traversable<class-string<IColorModel>>
+     */
+    private function findConversionPath(IColorModel $from, IColorModel $to): \Traversable
+    {
+        throw new UnsupportedColorConversion(
+            sprintf(
+                'No conversion path found. For "%s" to "%s".',
+                $from->dtoType(),
+                $to->dtoType(),
+            )
+        );
     }
 }
