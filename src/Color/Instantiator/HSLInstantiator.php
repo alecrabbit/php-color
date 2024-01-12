@@ -27,6 +27,10 @@ class HSLInstantiator extends AInstantiator
         return null;
     }
 
+    public static function getTargetClass(): string
+    {
+        return HSL::class;
+    }
     protected static function canInstantiate(string $color): bool
     {
         return str_starts_with($color, 'hsl(') && !str_contains($color, '/');

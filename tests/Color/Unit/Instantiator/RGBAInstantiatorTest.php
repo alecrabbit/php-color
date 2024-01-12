@@ -112,6 +112,12 @@ final class RGBAInstantiatorTest extends TestCase
     }
 
     #[Test]
+    public function canGetTargetClass(): void
+    {
+        self::assertSame(RGBA::class, RGBAInstantiator::getTargetClass());
+    }
+
+    #[Test]
     #[DataProvider('doesNotSupportFormatDataProvider')]
     public function doesNotSupportFormat(string $format): void
     {

@@ -13,12 +13,14 @@ class InstantiatorFactory implements IInstantiatorFactory
     /** @var Array<class-string<IInstantiator>> */
     protected static array $registered = [];
 
-    /** @inheritDoc */
+    /**
+     * @param class-string<IInstantiator> $class
+     */
     public static function register(string $class): void
     {
+        self::assertClass($class);
         if (!in_array($class, self::$registered, true)) {
-            self::assertClass($class);
-            self::$registered[] = $class;
+            self::$registered[$class::getTargetClass()] = $class;
         }
     }
 
@@ -37,7 +39,7 @@ class InstantiatorFactory implements IInstantiatorFactory
 
     public function getInstantiator(string $color): IInstantiator
     {
-        /** @var IInstantiator $class */
+        /** @var class-string<IInstantiator> $class */
         foreach (self::$registered as $class) {
             if ($class::isSupported($color)) {
                 return new $class();

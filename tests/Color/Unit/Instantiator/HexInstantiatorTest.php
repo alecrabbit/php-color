@@ -109,4 +109,10 @@ final class HexInstantiatorTest extends TestCase
     {
         self::assertFalse(HexInstantiator::isSupported($format));
     }
+
+    #[Test]
+    public function canGetTargetClass(): void
+    {
+        self::assertSame(Hex::class, HexInstantiator::getTargetClass());
+    }
 }

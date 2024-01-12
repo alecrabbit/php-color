@@ -14,6 +14,11 @@ class RGBInstantiator extends AInstantiator
 {
     protected const REGEXP_RGB = '/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/';
 
+    public static function getTargetClass(): string
+    {
+        return RGB::class;
+    }
+
     protected function instantiate(string $color): ?IColor
     {
         if (self::canInstantiate($color) && preg_match(self::REGEXP_RGB, $color, $matches)) {

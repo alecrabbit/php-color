@@ -117,4 +117,10 @@ final class RGBInstantiatorTest extends TestCase
     {
         self::assertFalse(RGBInstantiator::isSupported($format));
     }
+    #[Test]
+    public function canGetTargetClass(): void
+    {
+        self::assertSame(RGB::class, RGBInstantiator::getTargetClass());
+    }
+
 }

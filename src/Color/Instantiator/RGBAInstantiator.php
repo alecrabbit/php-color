@@ -29,6 +29,10 @@ class RGBAInstantiator extends AInstantiator
         return null;
     }
 
+    public static function getTargetClass(): string
+    {
+        return RGBA::class;
+    }
     protected static function canInstantiate(string $color): bool
     {
         return str_starts_with($color, 'rgba(');
