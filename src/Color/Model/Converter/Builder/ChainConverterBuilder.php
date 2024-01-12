@@ -21,6 +21,9 @@ final class ChainConverterBuilder implements IChainConverterBuilder
     private iterable $converters;
 
     /** @var iterable<class-string<IColorDTOConverter>> */
+    private iterable $convertersCache;
+
+    /** @var iterable<class-string<IColorDTOConverter>> */
     private iterable $chainConverters;
 
     public function build(): IColorDTOConverter
@@ -76,10 +79,18 @@ final class ChainConverterBuilder implements IChainConverterBuilder
      */
     private function getConverterClass(string $prev, string $model): string
     {
-        foreach ($this->converters as $converter) {
-            if (is_subclass_of($converter, IModelConverter::class, true)
-                && $converter::from()::class === $prev
-                && $converter::to()::class === $model) {
+        if (!isset($this->convertersCache)) {
+            $this->convertersCache = [];
+            foreach ($this->converters as $converter) {
+                if (is_subclass_of($converter, IModelConverter::class)) {
+                    $this->convertersCache[] = $converter;
+                }
+            }
+        }
+
+        /** @var class-string<IModelConverter> $converter */
+        foreach ($this->convertersCache as $converter) {
+            if ($converter::from()::class === $prev && $converter::to()::class === $model) {
                 return $converter;
             }
         }
