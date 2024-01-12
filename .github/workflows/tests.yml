@@ -16,7 +16,7 @@ jobs:
           - 'ubuntu-latest'
           - 'windows-latest'
           - 'macos-latest'
-        php: [8.2]
+        php: [8.2, 8.3]
         dependency-version: [prefer-stable]
 
     name: PHP${{ matrix.php }} - ${{ matrix.os }} - ${{ matrix.dependency-version }}
