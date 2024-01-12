@@ -83,14 +83,14 @@ final class ChainConverterBuilder implements IChainConverterBuilder
             $this->convertersCache = [];
             foreach ($this->converters as $converter) {
                 if (is_subclass_of($converter, IModelConverter::class)) {
-                    $this->convertersCache[] = $converter;
+                    $this->convertersCache[self::createKey($converter)] = $converter;
                 }
             }
         }
 
         /** @var class-string<IModelConverter> $converter */
-        foreach ($this->convertersCache as $converter) {
-            if ($converter::from()::class === $prev && $converter::to()::class === $model) {
+        foreach ($this->convertersCache as $key => $converter) {
+            if ($key === self::concatKey($prev, $model)) {
                 return $converter;
             }
         }
@@ -102,6 +102,19 @@ final class ChainConverterBuilder implements IChainConverterBuilder
                 $model,
             )
         );
+    }
+
+    /**
+     * @param class-string<IModelConverter> $converter
+     */
+    private static function createKey(mixed $converter): string
+    {
+        return self::concatKey($converter::from()::class, $converter::to()::class);
+    }
+
+    private static function concatKey(string $from, string $to): string
+    {
+        return $from . '::' . $to;
     }
 
     /**
