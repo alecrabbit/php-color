@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color\Contract\Model;
+namespace AlecRabbit\Color\Model\Contract;
 
-use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
 
 interface IColorModel
 {

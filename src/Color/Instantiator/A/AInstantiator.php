@@ -28,13 +28,6 @@ abstract class AInstantiator implements IInstantiator
 
     abstract protected static function canInstantiate(string $color): bool;
 
-    /** @inheritDoc */
-    public static function instantiates(): string
-    {
-        // TODO: Implement instantiates() method.
-        throw new RuntimeException(__METHOD__ . ' Not implemented.');
-    }
-
     public function fromString(string $color): IColor
     {
         $color = self::normalize($color);

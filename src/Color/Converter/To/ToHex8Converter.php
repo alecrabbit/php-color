@@ -6,10 +6,10 @@ namespace AlecRabbit\Color\Converter\To;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHex8Color;
-use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
-use AlecRabbit\Color\Contract\Model\IColorModel;
 use AlecRabbit\Color\Converter\To\A\AToConverter;
 use AlecRabbit\Color\Hex8;
+use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Model\ModelRGB;
 use ArrayObject;
 use Traversable;

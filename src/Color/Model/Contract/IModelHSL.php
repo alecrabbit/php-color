@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color\Contract\Model;
+namespace AlecRabbit\Color\Model\Contract;
 
 interface IModelHSL extends IColorModel
 {

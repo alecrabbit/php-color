@@ -124,6 +124,12 @@ final class HSLAInstantiatorTest extends TestCase
     }
 
     #[Test]
+    public function canGetTargetClass(): void
+    {
+        self::assertSame(HSLA::class, HSLAInstantiator::getTargetClass());
+    }
+
+    #[Test]
     #[DataProvider('doesNotSupportFormatDataProvider')]
     public function doesNotSupportFormat(string $format): void
     {

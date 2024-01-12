@@ -185,6 +185,11 @@ class HexInstantiator extends AInstantiator
         return (bool)preg_match(self::REGEXP_HEX, $color);
     }
 
+    public static function getTargetClass(): string
+    {
+        return Hex::class;
+    }
+
     protected function instantiate(string $color): ?IColor
     {
         if (self::isNamedColor($color)) {

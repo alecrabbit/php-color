@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit;
 
 use AlecRabbit\Color\Contract\IColor;
+use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Hex;
@@ -18,6 +19,7 @@ use AlecRabbit\Tests\Color\Unit\Override\ColorDTOOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class HSLATest extends TestCase
 {
@@ -314,6 +316,27 @@ final class HSLATest extends TestCase
         self::assertSame(0.1, $dto->saturation);
         self::assertSame(0.2, $dto->lightness);
         self::assertSame(0.0, $dto->alpha);
+    }
+
+    #[Test]
+    public function canFrom(): void
+    {
+        $colorClass = IHSLAColor::class;
+
+        $result = $this->getColorMock($colorClass);
+
+        $color = $this->getColorMock();
+        $color->expects(self::once())
+            ->method('to')
+            ->with($colorClass)
+            ->willReturn($result);
+
+        self::assertSame($result, HSLA::from($color));
+    }
+
+    private function getColorMock(?string $colorClass = null): MockObject&IColor
+    {
+        return $this->createMock($colorClass ?? IColor::class);
     }
 
     #[Test]

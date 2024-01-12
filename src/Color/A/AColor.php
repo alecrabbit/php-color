@@ -6,9 +6,9 @@ namespace AlecRabbit\Color\A;
 
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
-use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
-use AlecRabbit\Color\Contract\Model\IColorModel;
 use AlecRabbit\Color\Exception\InvalidArgument;
+use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Util\Color;
 use AlecRabbit\Color\Util\Converter;
 

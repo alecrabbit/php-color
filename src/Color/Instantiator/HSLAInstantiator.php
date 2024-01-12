@@ -26,6 +26,10 @@ class HSLAInstantiator extends HSLInstantiator
         return null;
     }
 
+    public static function getTargetClass(): string
+    {
+        return HSLA::class;
+    }
     protected static function canInstantiate(string $color): bool
     {
         return

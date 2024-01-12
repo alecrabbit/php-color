@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Color\Unit\Instantiator;
 
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Exception\UnrecognizedColorString;
-use AlecRabbit\Color\Hex;
+use AlecRabbit\Color\Hex8;
 use AlecRabbit\Color\Instantiator\Hex8Instantiator;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -78,7 +78,7 @@ final class Hex8InstantiatorTest extends TestCase
     {
         $instantiator = $this->getTesteeInstance();
         $color = $instantiator->fromString($colorString);
-        self::assertInstanceOf(Hex::class, $color);
+        self::assertInstanceOf(Hex8::class, $color);
     }
 
     #[Test]
@@ -102,6 +102,12 @@ final class Hex8InstantiatorTest extends TestCase
     public function supportsFormat(string $format): void
     {
         self::assertTrue(Hex8Instantiator::isSupported($format));
+    }
+
+    #[Test]
+    public function canGetTargetClass(): void
+    {
+        self::assertSame(Hex8::class, Hex8Instantiator::getTargetClass());
     }
 
     #[Test]

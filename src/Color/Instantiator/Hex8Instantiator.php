@@ -13,6 +13,11 @@ class Hex8Instantiator extends AInstantiator
     protected const REGEXP_HEX = '/^#?(?:([a-f\d]{2}){4}|([a-f\d]){4})$/i';
 
 
+    public static function getTargetClass(): string
+    {
+        return Hex8::class;
+    }
+
     public static function isSupported(string $color): bool
     {
         $color = self::normalize($color);

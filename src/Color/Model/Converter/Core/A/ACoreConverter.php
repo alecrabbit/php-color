@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Model\Converter\Core\A;
 
-use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\Contract\Converter\Core\ICoreConverter;
+use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
 
 abstract readonly class ACoreConverter implements ICoreConverter
 {

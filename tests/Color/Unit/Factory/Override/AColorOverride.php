@@ -6,8 +6,8 @@ namespace AlecRabbit\Tests\Color\Unit\Factory\Override;
 
 use AlecRabbit\Color\A\AColor;
 use AlecRabbit\Color\Contract\IColor;
-use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
-use AlecRabbit\Color\Contract\Model\IColorModel;
+use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\IColorModel;
 use RuntimeException;
 
 final class AColorOverride extends AColor

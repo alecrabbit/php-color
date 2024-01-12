@@ -13,7 +13,7 @@ interface IInstantiator
     /**
      * @return class-string<IColor>
      */
-    public static function instantiates(): string;
+    public static function getTargetClass(): string;
 
     public function fromString(string $color): IColor;
 }
