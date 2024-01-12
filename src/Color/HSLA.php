@@ -7,7 +7,6 @@ namespace AlecRabbit\Color;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
-use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\DTO\DHSL;
 
 class HSLA extends HSL implements IHSLAColor
@@ -41,21 +40,6 @@ class HSLA extends HSL implements IHSLAColor
             $dto->saturation,
             $dto->lightness,
             $dto->alpha,
-        );
-    }
-
-    private static function assertDTO(IColorDTO $dto): void
-    {
-        if ($dto instanceof DHSL) {
-            return;
-        }
-
-        throw new InvalidArgument(
-            sprintf(
-                'Color must be instance of "%s", "%s" given.',
-                DHSL::class,
-                $dto::class,
-            ),
         );
     }
 

@@ -10,7 +10,7 @@ use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
 use AlecRabbit\Color\Contract\Model\IColorModel;
 use RuntimeException;
 
-final class AConvertableColorOverride extends AColor
+final class AColorOverride extends AColor
 {
     public static function fromDTO(IColorDTO $dto): IColor
     {
@@ -43,4 +43,8 @@ final class AConvertableColorOverride extends AColor
     }
 
 
+    protected static function getType(): string
+    {
+        throw new RuntimeException('INTENTIONALLY Not implemented.');
+    }
 }

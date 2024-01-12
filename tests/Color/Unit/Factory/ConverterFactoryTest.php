@@ -15,7 +15,7 @@ use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
-use AlecRabbit\Tests\Color\Unit\Factory\Override\AConvertableColorOverride;
+use AlecRabbit\Tests\Color\Unit\Factory\Override\AColorOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -48,7 +48,7 @@ final class ConverterFactoryTest extends TestCase
     #[Test]
     public function throwsIfConverterIsUnavailable(): void
     {
-        $class = AConvertableColorOverride::class;
+        $class = AColorOverride::class;
 
         $this->expectException(ConverterUnavailable::class);
         $this->expectExceptionMessage(

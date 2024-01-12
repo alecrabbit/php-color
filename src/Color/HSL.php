@@ -30,6 +30,11 @@ class HSL extends AColor implements IHSLColor
         return $color->to(IHSLColor::class);
     }
 
+    protected static function getType(): string
+    {
+        return DHSL::class;
+    }
+
     public static function fromString(string $value): IHSLColor
     {
         return self::getFromString($value)->to(self::class);

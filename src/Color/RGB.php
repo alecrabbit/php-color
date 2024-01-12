@@ -26,6 +26,8 @@ class RGB extends ARGBValueColor implements IRGBColor
 
     public static function fromDTO(IColorDTO $dto): IRGBColor
     {
+        self::assertDTO($dto);
+
         /** @var DRGB $dto */
         return self::fromRGB(
             (int)round($dto->red * self::COMPONENT),

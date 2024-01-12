@@ -6,7 +6,9 @@ namespace AlecRabbit\Color\A;
 
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
+use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
 use AlecRabbit\Color\Contract\Model\IColorModel;
+use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Util\Color;
 use AlecRabbit\Color\Util\Converter;
 
@@ -59,6 +61,26 @@ abstract class AColor implements IColor
 
     abstract public static function fromString(string $value): IColor;
 
+    /**
+     * @return class-string<IColorDTO>
+     */
+    abstract protected static function getType(): string;
+
+
+    protected static function assertDTO(IColorDTO $dto): void
+    {
+        if (is_a($dto, static::getType(), true)) {
+        return;
+    }
+
+        throw new InvalidArgument(
+            sprintf(
+                'Color must be instance of "%s", "%s" given.',
+                static::getType(),
+                $dto::class,
+            ),
+        );
+    }
     public function __toString(): string
     {
         return $this->toString();
