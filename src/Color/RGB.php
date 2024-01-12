@@ -4,43 +4,36 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color;
 
-use AlecRabbit\Color\A\AConvertableColor;
+use AlecRabbit\Color\A\ARGBValueColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IRGBColor;
+use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
+use AlecRabbit\Color\Model\DTO\DRGB;
 
-use function abs;
 use function sprintf;
 
-class RGB extends AConvertableColor implements IRGBColor
+class RGB extends ARGBValueColor implements IRGBColor
 {
-    protected const MAX = 0xFFFFFF;
-    protected const COMPONENT = 0xFF;
-    protected const RED = 0xFF0000;
-    protected const GREEN = 0x00FF00;
-    protected const BLUE = 0x0000FF;
-
-    protected function __construct(
-        protected readonly int $value,
-    ) {
+    public static function fromString(string $value): IRGBColor
+    {
+        return parent::getFromString($value)->to(IRGBColor::class);
     }
 
-    /** @psalm-suppress MoreSpecificReturnType */
-    public static function fromString(string $color): IRGBColor
+    public static function from(IColor $color): IRGBColor
     {
-        /**
-         * @noinspection PhpIncompatibleReturnTypeInspection
-         * @psalm-suppress LessSpecificReturnStatement
-         */
-        return parent::fromString($color)->toRGB();
+        return $color->to(IRGBColor::class);
     }
 
-    public function getValue(): int
+    public static function fromDTO(IColorDTO $dto): IRGBColor
     {
-        return $this->value;
-    }
+        self::assertDTO($dto);
 
-    public function withRed(int $red): IRGBColor
-    {
-        return self::fromRGB($red, $this->getGreen(), $this->getBlue());
+        /** @var DRGB $dto */
+        return self::fromRGB(
+            (int)round($dto->red * self::COMPONENT),
+            (int)round($dto->green * self::COMPONENT),
+            (int)round($dto->blue * self::COMPONENT),
+        );
     }
 
     public static function fromRGB(int $r, int $g, int $b): IRGBColor
@@ -51,33 +44,14 @@ class RGB extends AConvertableColor implements IRGBColor
             );
     }
 
-    protected static function componentsToValue(int $r, int $g, int $b): int
+    public function withRed(int $red): IRGBColor
     {
-        return (
-                ((abs($r) & self::COMPONENT) << 16) |
-                ((abs($g) & self::COMPONENT) << 8) |
-                ((abs($b) & self::COMPONENT) << 0)
-            ) & self::MAX;
-    }
-
-    public function getGreen(): int
-    {
-        return (self::GREEN & $this->value) >> 8;
-    }
-
-    public function getBlue(): int
-    {
-        return (self::BLUE & $this->value) >> 0;
+        return self::fromRGB($red, $this->getGreen(), $this->getBlue());
     }
 
     public function withGreen(int $green): IRGBColor
     {
         return self::fromRGB($this->getRed(), $green, $this->getBlue());
-    }
-
-    public function getRed(): int
-    {
-        return (self::RED & $this->value) >> 16;
     }
 
     public function withBlue(int $blue): IRGBColor
@@ -89,10 +63,12 @@ class RGB extends AConvertableColor implements IRGBColor
     {
         return
             sprintf(
-                self::FORMAT_RGB,
+                (string)static::FORMAT_RGB,
                 $this->getRed(),
                 $this->getGreen(),
                 $this->getBlue(),
             );
     }
+
+
 }

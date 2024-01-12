@@ -4,92 +4,69 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color;
 
-use AlecRabbit\Color\A\AConvertableColor;
+use AlecRabbit\Color\A\ARGBValueColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHexColor;
+use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
+use AlecRabbit\Color\Model\DTO\DRGB;
 
 use function abs;
 use function sprintf;
 
-class Hex extends AConvertableColor implements IHexColor
+class Hex extends ARGBValueColor implements IHexColor
 {
-    protected const MAX = 0xFFFFFF;
-    protected const COMPONENT = 0xFF;
-    protected const RED = 0xFF0000;
-    protected const GREEN = 0x00FF00;
-    protected const BLUE = 0x0000FF;
-
-    protected function __construct(
-        protected readonly int $value,
-    ) {
+    public static function fromString(string $value): IHexColor
+    {
+        return self::getFromString($value)->to(IHexColor::class);
     }
 
-    /** @psalm-suppress MoreSpecificReturnType */
-    public static function fromString(string $color): IHexColor
+    public static function from(IColor $color): IHexColor
     {
-        /**
-         * @noinspection PhpIncompatibleReturnTypeInspection
-         * @psalm-suppress LessSpecificReturnStatement
-         */
-        return parent::fromString($color)->toHex();
-    }
-
-    public function toString(): string
-    {
-        return sprintf(self::FORMAT_HEX, $this->getValue());
-    }
-
-    public function getValue(): int
-    {
-        return $this->value;
-    }
-
-    public function withRed(int $red): IHexColor
-    {
-        return self::fromInteger(
-            self::componentsToValue($red, $this->getGreen(), $this->getBlue())
-        );
+        return $color->to(IHexColor::class);
     }
 
     public static function fromInteger(int $value): IHexColor
     {
-        return new self(abs($value) & self::MAX);
+        return new self(abs($value) & (int)static::MAX);
     }
 
-    protected static function componentsToValue(int $r, int $g, int $b): int
+    public static function fromDTO(IColorDTO $dto): IHexColor
     {
-        return (
-                ((abs($r) & self::COMPONENT) << 16) |
-                ((abs($g) & self::COMPONENT) << 8) |
-                ((abs($b) & self::COMPONENT) << 0)
-            ) & self::MAX;
+        self::assertDTO($dto);
+
+        /** @var DRGB $dto */
+        return self::fromRGB(
+            (int)round($dto->red * self::COMPONENT),
+            (int)round($dto->green * self::COMPONENT),
+            (int)round($dto->blue * self::COMPONENT),
+        );
     }
 
-    public function getGreen(): int
+    public static function fromRGB(int $r, int $g, int $b): IHexColor
     {
-        return (self::GREEN & $this->value) >> 8;
+        return
+            new self(
+                self::componentsToValue($r, $g, $b),
+            );
     }
 
-    public function getBlue(): int
+    public function toString(): string
     {
-        return (self::BLUE & $this->value) >> 0;
+        return sprintf((string)static::FORMAT_HEX, $this->getValue());
+    }
+
+    public function withRed(int $red): IHexColor
+    {
+        return self::fromRGB($red, $this->getGreen(), $this->getBlue());
     }
 
     public function withGreen(int $green): IHexColor
     {
-        return self::fromInteger(
-            self::componentsToValue($this->getRed(), $green, $this->getBlue())
-        );
-    }
-
-    public function getRed(): int
-    {
-        return (self::RED & $this->value) >> 16;
+        return self::fromRGB($this->getRed(), $green, $this->getBlue());
     }
 
     public function withBlue(int $blue): IHexColor
     {
-        return self::fromInteger(
-            self::componentsToValue($this->getRed(), $this->getGreen(), $blue)
-        );
+        return self::fromRGB($this->getRed(), $this->getGreen(), $blue);
     }
 }
