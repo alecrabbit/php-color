@@ -6,7 +6,7 @@ namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
-use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
 use AlecRabbit\Color\Model\DTO\DHSL;
 
 class HSLA extends HSL implements IHSLAColor

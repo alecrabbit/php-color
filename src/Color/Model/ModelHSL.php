@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Model;
 
-use AlecRabbit\Color\Contract\Model\IModelHSL;
+use AlecRabbit\Color\Model\Contract\IModelHSL;
 use AlecRabbit\Color\Model\DTO\DHSL;
 
 /** @internal */

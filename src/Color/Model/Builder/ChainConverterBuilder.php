@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Model\Builder;
 
-use AlecRabbit\Color\Contract\Model\Converter\IColorDTOConverter;
-use AlecRabbit\Color\Contract\Model\Converter\IModelConverter;
-use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
-use AlecRabbit\Color\Contract\Model\IColorModel;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
 use AlecRabbit\Color\Model\Contract\Builder\IChainConverterBuilder;
+use AlecRabbit\Color\Model\Contract\Converter\IColorDTOConverter;
+use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
+use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\IColorModel;
 use RuntimeException;
 use Traversable;
 

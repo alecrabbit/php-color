@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Model\Contract\Builder;
 
-use AlecRabbit\Color\Contract\Model\Converter\IColorDTOConverter;
-use AlecRabbit\Color\Contract\Model\Converter\IModelConverter;
-use AlecRabbit\Color\Contract\Model\IColorModel;
+use AlecRabbit\Color\Model\Contract\Converter\IColorDTOConverter;
+use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
+use AlecRabbit\Color\Model\Contract\IColorModel;
 
 interface IChainConverterBuilder
 {

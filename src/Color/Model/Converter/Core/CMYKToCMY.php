@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Model\Converter\Core;
 
-use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
 use AlecRabbit\Color\Model\Converter\Core\A\ACoreConverter;
 use AlecRabbit\Color\Model\DTO\DCMY as CMY;
 use AlecRabbit\Color\Model\DTO\DCMYK as CMYK;

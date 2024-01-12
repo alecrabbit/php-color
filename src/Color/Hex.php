@@ -7,7 +7,7 @@ namespace AlecRabbit\Color;
 use AlecRabbit\Color\A\ARGBValueColor;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHexColor;
-use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
 use AlecRabbit\Color\Model\DTO\DRGB;
 
 use function abs;

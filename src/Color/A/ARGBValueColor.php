@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\A;
 
 use AlecRabbit\Color\Contract\IHasOpacity;
-use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
 use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelRGB;
 

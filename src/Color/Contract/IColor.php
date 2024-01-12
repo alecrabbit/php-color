@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Contract;
 
-use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
-use AlecRabbit\Color\Contract\Model\IColorModel;
 use AlecRabbit\Color\Model\Contract\Converter\Core\ICoreConverter;
+use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\IColorModel;
 use Stringable;
 
 interface IColor extends IHasFromString,

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Functional\Model\Converter;
 
 
-use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
 use AlecRabbit\Color\Exception\InvalidArgument;
+use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
 use AlecRabbit\Color\Model\Converter\HSLToRGBModelConverter;
 use AlecRabbit\Color\Model\DTO\DCMY;
 use AlecRabbit\Color\Model\DTO\DCMYK;

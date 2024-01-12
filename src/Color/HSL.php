@@ -8,7 +8,7 @@ use AlecRabbit\Color\A\AColor;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHasOpacity;
 use AlecRabbit\Color\Contract\IHSLColor;
-use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
 use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\ModelHSL;
 

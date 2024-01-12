@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color\Contract\Model\DTO;
+namespace AlecRabbit\Color\Model\Contract\DTO;
 
 /**
  * Marker interface.

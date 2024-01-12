@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Model\Converter\A;
 
-use AlecRabbit\Color\Contract\Model\Converter\IModelConverter;
-use AlecRabbit\Color\Contract\Model\DTO\IColorDTO;
-use AlecRabbit\Color\Contract\Model\IColorModel;
 use AlecRabbit\Color\Model\Contract\Converter\Core\ICoreConverter;
+use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
+use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\IColorModel;
 
 abstract readonly class AModelConverter implements IModelConverter
 {
