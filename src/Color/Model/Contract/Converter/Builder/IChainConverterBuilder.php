@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color\Model\Contract\Builder;
+namespace AlecRabbit\Color\Model\Contract\Converter\Builder;
 
 use AlecRabbit\Color\Model\Contract\Converter\IColorDTOConverter;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;

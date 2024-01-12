@@ -6,12 +6,12 @@ namespace AlecRabbit\Color\Model\Converter;
 
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
-use AlecRabbit\Color\Model\Builder\ChainConverterBuilder;
-use AlecRabbit\Color\Model\Contract\Builder\IChainConverterBuilder;
+use AlecRabbit\Color\Model\Contract\Converter\Builder\IChainConverterBuilder;
 use AlecRabbit\Color\Model\Contract\Converter\IColorDTOConverter;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
 use AlecRabbit\Color\Model\Contract\Converter\IStore;
 use AlecRabbit\Color\Model\Contract\IColorModel;
+use AlecRabbit\Color\Model\Converter\Builder\ChainConverterBuilder;
 
 final class Store implements IStore
 {
