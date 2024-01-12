@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color\Model\Converter;
+namespace AlecRabbit\Color\Model\Converter\Store;
 
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\Contract\Converter\Builder\IChainConverterBuilder;
 use AlecRabbit\Color\Model\Contract\Converter\IColorDTOConverter;
-use AlecRabbit\Color\Model\Contract\Converter\IConverterStore;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
+use AlecRabbit\Color\Model\Contract\Converter\Store\IConverterStore;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Model\Converter\Builder\ChainConverterBuilder;
 use ArrayObject;

@@ -7,8 +7,8 @@ namespace AlecRabbit\Tests\Color\Unit\Model\Converter;
 
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\Contract\Converter\Builder\IChainConverterBuilder;
-use AlecRabbit\Color\Model\Contract\Converter\IConverterStore;
-use AlecRabbit\Color\Model\Converter\ConverterStore;
+use AlecRabbit\Color\Model\Contract\Converter\Store\IConverterStore;
+use AlecRabbit\Color\Model\Converter\Store\ConverterStore;
 use AlecRabbit\Tests\Color\Unit\Model\Converter\Override\ModelConverterOverrideOne;
 use AlecRabbit\Tests\Color\Unit\Model\Converter\Override\ModelConverterOverrideOneOverride;
 use AlecRabbit\Tests\Color\Unit\Model\Converter\Override\ModelConverterOverrideTwo;

@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color\Model\Contract\Converter;
+namespace AlecRabbit\Color\Model\Contract\Converter\Store;
 
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
+use AlecRabbit\Color\Model\Contract\Converter\IColorDTOConverter;
+use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 
 interface IConverterStore

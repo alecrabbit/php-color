@@ -11,7 +11,7 @@ use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\Contract\Converter\IColorDTOConverter;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
 use AlecRabbit\Color\Model\Contract\IColorModel;
-use AlecRabbit\Color\Model\Converter\ConverterStore;
+use AlecRabbit\Color\Model\Converter\Store\ConverterStore;
 use RuntimeException;
 
 final class Registry implements IRegistry
