@@ -120,6 +120,9 @@ final class Store implements IStore
 
     private function createColorConverter(iterable $conversionPath): IColorDTOConverter
     {
+        return $this->modelConverterBuilder
+            ->useConverters(new \ArrayObject(self::$modelConverters))
+            ->create($conversionPath);
     }
 
     /**
@@ -130,6 +133,35 @@ final class Store implements IStore
      */
     private function findConversionPath(IColorModel $from, IColorModel $to): \Traversable
     {
+        $visited = [];
+        $queue = new \SplQueue();
+
+        $fromClass = $from::class;
+        $toClass = $to::class;
+
+        $queue->enqueue([$fromClass]);
+        $visited[$fromClass] = true;
+
+        while (!$queue->isEmpty()) {
+            /** @var Array<class-string<IColorModel>> $path */
+            $path = $queue->dequeue();
+            $node = end($path);
+
+            if ($node === $toClass) {
+                yield from $path;
+            }
+
+            /** @var class-string<IColorModel> $neighbor */
+            foreach ($this->graph[$node] as $neighbor) {
+                if (!isset($visited[$neighbor])) {
+                    $visited[$neighbor] = true;
+                    $newPath = $path;
+                    $newPath[] = $neighbor;
+                    $queue->enqueue($newPath);
+                }
+            }
+        }
+
         throw new UnsupportedColorConversion(
             sprintf(
                 'No conversion path found. For "%s" to "%s".',
