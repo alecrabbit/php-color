@@ -30,7 +30,7 @@ class ToHexConverter extends AToConverter
         return new ModelRGB();
     }
 
-    protected function fromDTO(IColorDTO $dto): IColor
+    protected function createColorFromDTO(IColorDTO $dto): IColor
     {
         return Hex::fromDTO($dto);
     }

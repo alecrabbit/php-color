@@ -30,7 +30,7 @@ class ToHSLConverter extends AToConverter
         return new ModelHSL();
     }
 
-    protected function fromDTO(IColorDTO $dto): IColor
+    protected function createColorFromDTO(IColorDTO $dto): IColor
     {
         return HSL::fromDTO($dto);
     }
