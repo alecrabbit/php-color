@@ -88,9 +88,12 @@ final class ChainConverterBuilder implements IChainConverterBuilder
             }
         }
 
-        /** @var class-string<IModelConverter> $converter */
+        /**
+         * @var string $key
+         * @var class-string<IModelConverter> $converter
+         */
         foreach ($this->convertersCache as $key => $converter) {
-            if ($key === self::concatKey($prev, $model)) {
+            if (self::concatKey($prev, $model) === $key) {
                 return $converter;
             }
         }
