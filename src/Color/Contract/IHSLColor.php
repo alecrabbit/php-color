@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Contract;
 
-interface IHSLColor extends IConvertableColor,
+interface IHSLColor extends IColor,
                             IHasHue,
                             IHasSaturation,
                             IHasLightness,
@@ -12,6 +12,8 @@ interface IHSLColor extends IConvertableColor,
                             IModifiableWithSaturation,
                             IModifiableWithLightness
 {
+    public const FORMAT_HSL = 'hsl(%d, %s%%, %s%%)';
+
     public static function fromHSL(int $hue, float $saturation = 1.0, float $lightness = 0.5): IHSLColor;
 
     public function withHue(int $hue): IHSLColor;
