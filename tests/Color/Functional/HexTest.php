@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Color\Functional;
 
 use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Hex;
+use AlecRabbit\Color\HSL;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -121,6 +122,12 @@ final class HexTest extends TestCase
     private static function getTesteeFromString(string $value): IHexColor
     {
         return Hex::fromString($value);
+    }
+    #[Test]
+    public function canFrom(): void
+    {
+        $color = HSL::fromString('black');
+        self::assertInstanceOf(Hex::class, Hex::from($color));
     }
 
     #[Test]

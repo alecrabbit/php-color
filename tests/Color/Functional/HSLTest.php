@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Color\Functional;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLColor;
+use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -237,6 +238,12 @@ final class HSLTest extends TestCase
         self::assertSame(0.0, $original->getSaturation());
         self::assertSame(0.33, $modified->getSaturation());
         self::assertNotSame($original, $modified);
+    }
+    #[Test]
+    public function canFrom(): void
+    {
+        $color = Hex::fromString('black');
+        self::assertInstanceOf(HSL::class, HSL::from($color));
     }
 
     #[Test]

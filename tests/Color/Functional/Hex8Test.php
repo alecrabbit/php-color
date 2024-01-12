@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Color\Functional;
 
 use AlecRabbit\Color\Contract\IHex8Color;
 use AlecRabbit\Color\Hex8;
+use AlecRabbit\Color\HSL;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -188,6 +189,13 @@ final class Hex8Test extends TestCase
         self::assertNotSame($testee, $modifiedBlue);
         self::assertSame(0x00, $testee->getBlue());
         self::assertSame(0xFF, $modifiedBlue->getBlue());
+    }
+
+    #[Test]
+    public function canFrom(): void
+    {
+        $color = HSL::fromString('black');
+        self::assertInstanceOf(Hex8::class, Hex8::from($color));
     }
 
     private static function getTesteeFromInteger(int $value): IHex8Color
