@@ -7,14 +7,16 @@ namespace AlecRabbit\Tests\Color\Unit\Model\Converter;
 
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\Contract\Converter\Builder\IChainConverterBuilder;
-use AlecRabbit\Color\Model\Contract\Converter\IStore;
-use AlecRabbit\Color\Model\Converter\Store;
+use AlecRabbit\Color\Model\Contract\Converter\IConverterStore;
+use AlecRabbit\Color\Model\Converter\ConverterStore;
 use AlecRabbit\Tests\Color\Unit\Model\Converter\Override\ModelConverterOverrideOne;
 use AlecRabbit\Tests\Color\Unit\Model\Converter\Override\ModelConverterOverrideOneOverride;
 use AlecRabbit\Tests\Color\Unit\Model\Converter\Override\ModelConverterOverrideTwo;
 use AlecRabbit\Tests\TestCase\TestCase;
+use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use stdClass;
 
 final class StoreTest extends TestCase
 {
@@ -26,17 +28,17 @@ final class StoreTest extends TestCase
     {
         $store = $this->getTesteeInstance();
 
-        self::assertInstanceOf(Store::class, $store);
+        self::assertInstanceOf(ConverterStore::class, $store);
     }
 
     private function getTesteeInstance(
-        ?\ArrayObject $models = null,
-        ?\ArrayObject $graph = null,
+        ?ArrayObject $models = null,
+        ?ArrayObject $graph = null,
         ?IChainConverterBuilder $modelConverterBuilder = null
-    ): IStore {
-        return new Store(
-            models: $models ?? new \ArrayObject(),
-            graph: $graph ?? new \ArrayObject(),
+    ): IConverterStore {
+        return new ConverterStore(
+            models: $models ?? new ArrayObject(),
+            graph: $graph ?? new ArrayObject(),
             modelConverterBuilder: $modelConverterBuilder ?? $this->getChainConverterBuilderMock(),
         );
     }
@@ -52,8 +54,8 @@ final class StoreTest extends TestCase
         $classOne = ModelConverterOverrideOne::class;
         $classTwo = ModelConverterOverrideTwo::class;
 
-        Store::add($classOne);
-        Store::add($classTwo);
+        ConverterStore::add($classOne);
+        ConverterStore::add($classTwo);
 
         $modelConverters = self::getModelConverters();
 
@@ -64,7 +66,7 @@ final class StoreTest extends TestCase
 
     protected static function getModelConverters(): array
     {
-        return self::getPropertyValue(Store::class, self::MODEL_CONVERTERS);
+        return self::getPropertyValue(ConverterStore::class, self::MODEL_CONVERTERS);
     }
 
     #[Test]
@@ -73,8 +75,8 @@ final class StoreTest extends TestCase
         $classOne = ModelConverterOverrideOne::class;
         $classTwo = ModelConverterOverrideTwo::class;
 
-        Store::add($classOne);
-        Store::add($classTwo);
+        ConverterStore::add($classOne);
+        ConverterStore::add($classTwo);
 
         $modelConverters = self::getModelConverters();
 
@@ -82,8 +84,8 @@ final class StoreTest extends TestCase
         self::assertContains($classOne, $modelConverters);
         self::assertContains($classTwo, $modelConverters);
 
-        $models = new \ArrayObject();
-        $graph = new \ArrayObject();
+        $models = new ArrayObject();
+        $graph = new ArrayObject();
 
         $store = $this->getTesteeInstance(
             models: $models,
@@ -107,8 +109,8 @@ final class StoreTest extends TestCase
         $classOne = ModelConverterOverrideOne::class;
         $classTwo = ModelConverterOverrideTwo::class;
 
-        Store::add($classOne);
-        Store::add($classTwo);
+        ConverterStore::add($classOne);
+        ConverterStore::add($classTwo);
 
         $modelConverters = self::getModelConverters();
 
@@ -116,8 +118,8 @@ final class StoreTest extends TestCase
         self::assertContains($classOne, $modelConverters);
         self::assertContains($classTwo, $modelConverters);
 
-        $models = new \ArrayObject();
-        $graph = new \ArrayObject();
+        $models = new ArrayObject();
+        $graph = new ArrayObject();
 
         $store = $this->getTesteeInstance(
             models: $models,
@@ -147,14 +149,14 @@ final class StoreTest extends TestCase
         $classOne = ModelConverterOverrideOne::class;
         $classOneOverride = ModelConverterOverrideOneOverride::class;
 
-        Store::add($classOne);
+        ConverterStore::add($classOne);
 
         $modelConverters = self::getModelConverters();
 
         self::assertCount(1, $modelConverters);
         self::assertContains($classOne, $modelConverters);
 
-        Store::add($classOneOverride);
+        ConverterStore::add($classOneOverride);
 
         $modelConverters = self::getModelConverters();
 
@@ -167,8 +169,8 @@ final class StoreTest extends TestCase
     {
         $class = ModelConverterOverrideOne::class;
 
-        Store::add($class);
-        Store::add($class);
+        ConverterStore::add($class);
+        ConverterStore::add($class);
 
         $modelConverters = self::getModelConverters();
 
@@ -179,14 +181,14 @@ final class StoreTest extends TestCase
     #[Test]
     public function throwsIfAddedClassIsNotSubclassOfModelConverter(): void
     {
-        $class = \stdClass::class;
+        $class = stdClass::class;
 
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
             'Class "stdClass" is not subclass of "AlecRabbit\Color\Model\Contract\Converter\IModelConverter".'
         );
 
-        Store::add($class);
+        ConverterStore::add($class);
     }
 
     protected function setUp(): void
@@ -204,7 +206,7 @@ final class StoreTest extends TestCase
 
     private static function setModelConvertersStorage(mixed $value): void
     {
-        self::setPropertyValue(Store::class, self::MODEL_CONVERTERS, $value);
+        self::setPropertyValue(ConverterStore::class, self::MODEL_CONVERTERS, $value);
     }
 
     protected function tearDown(): void

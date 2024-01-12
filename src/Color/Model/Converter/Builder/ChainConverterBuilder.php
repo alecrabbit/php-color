@@ -10,6 +10,7 @@ use AlecRabbit\Color\Model\Contract\Converter\IColorDTOConverter;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Model\Converter\ChainConverter;
+use LogicException;
 use Traversable;
 
 use function is_subclass_of;
@@ -32,8 +33,8 @@ final class ChainConverterBuilder implements IChainConverterBuilder
     private function validate(): void
     {
         match (true) {
-            !isset($this->chainConverters) => throw new \LogicException('Path is not provided.'),
-            !isset($this->converters) => throw new \LogicException('Converters are not set.'),
+            !isset($this->chainConverters) => throw new LogicException('Path is not provided.'),
+            !isset($this->converters) => throw new LogicException('Converters are not set.'),
             default => null,
         };
     }

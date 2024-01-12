@@ -5,23 +5,25 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Model\Converter;
 
 use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Exception\UnsupportedColorConversion;
 use AlecRabbit\Color\Model\Contract\Converter\Builder\IChainConverterBuilder;
 use AlecRabbit\Color\Model\Contract\Converter\IColorDTOConverter;
+use AlecRabbit\Color\Model\Contract\Converter\IConverterStore;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
-use AlecRabbit\Color\Model\Contract\Converter\IStore;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Model\Converter\Builder\ChainConverterBuilder;
+use ArrayObject;
+use SplQueue;
+use Traversable;
 
-final class Store implements IStore
+final class ConverterStore implements IConverterStore
 {
     private static array $modelConverters = [];
-    private readonly \ArrayObject $models;
-    private readonly \ArrayObject $graph;
+    private readonly ArrayObject $models;
+    private readonly ArrayObject $graph;
 
     public function __construct(
-        \ArrayObject $models = new \ArrayObject(),
-        \ArrayObject $graph = new \ArrayObject(),
+        ArrayObject $models = new ArrayObject(),
+        ArrayObject $graph = new ArrayObject(),
         private readonly IChainConverterBuilder $modelConverterBuilder = new ChainConverterBuilder(),
     ) {
         $this->models = $models;
@@ -121,7 +123,7 @@ final class Store implements IStore
     private function createColorConverter(iterable $conversionPath): IColorDTOConverter
     {
         return $this->modelConverterBuilder
-            ->withConverters(new \ArrayObject(self::$modelConverters))
+            ->withConverters(new ArrayObject(self::$modelConverters))
             ->forPath($conversionPath)
             ->build();
     }
@@ -130,12 +132,12 @@ final class Store implements IStore
      * @param IColorModel $from
      * @param IColorModel $to
      *
-     * @return \Traversable<class-string<IColorModel>>
+     * @return Traversable<class-string<IColorModel>>
      */
-    private function findConversionPath(IColorModel $from, IColorModel $to): \Traversable
+    private function findConversionPath(IColorModel $from, IColorModel $to): Traversable
     {
         $visited = [];
-        $queue = new \SplQueue();
+        $queue = new SplQueue();
 
         $fromClass = $from::class;
         $toClass = $to::class;
@@ -162,13 +164,5 @@ final class Store implements IStore
                 }
             }
         }
-
-        throw new UnsupportedColorConversion(
-            sprintf(
-                'No conversion path found. For "%s" to "%s".',
-                $from->dtoType(),
-                $to->dtoType(),
-            )
-        );
     }
 }

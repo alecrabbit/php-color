@@ -10,7 +10,7 @@ use AlecRabbit\Color\Model\Contract\IColorModel;
 
 interface IChainConverterBuilder
 {
-   /**
+    /**
      * @param iterable<class-string<IColorModel>> $conversionPath
      */
     public function forPath(iterable $conversionPath): IChainConverterBuilder;

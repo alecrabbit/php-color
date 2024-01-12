@@ -6,9 +6,8 @@ namespace AlecRabbit\Color\Model\Contract\Converter;
 
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
 use AlecRabbit\Color\Model\Contract\IColorModel;
-use AlecRabbit\Color\Model\Converter\Store;
 
-interface IStore
+interface IConverterStore
 {
     /**
      * @param class-string<IModelConverter> ...$classes
