@@ -22,22 +22,7 @@ final class ChainConverterBuilder implements IChainConverterBuilder
     /** @var iterable<class-string<IColorDTOConverter>> */
     private iterable $chainConverters;
 
-    /**
-     * @param iterable<class-string<IColorDTOConverter>> $converters
-     */
-    public function __construct(
-        iterable $converters = [],
-    ) {
-        $this->converters = $converters;
-    }
-
-    /** @inheritDoc */
-    public function create(iterable $conversionPath): IColorDTOConverter
-    {
-        return self::createConverter($this->getChainFromPath($conversionPath));
-    }
-
-    protected static function createConverter(iterable $chainConverters): IColorDTOConverter
+    private static function createConverter(iterable $chainConverters): IColorDTOConverter
     {
         return new class($chainConverters) implements IColorDTOConverter {
             public function __construct(
@@ -62,7 +47,7 @@ final class ChainConverterBuilder implements IChainConverterBuilder
      *
      * @return Traversable<class-string<IColorDTOConverter>>
      */
-    private function getChainFromPath(iterable $conversionPath): Traversable
+    private function getChainConvertersFromPath(iterable $conversionPath): Traversable
     {
         $prev = null;
         foreach ($conversionPath as $model) {
@@ -101,12 +86,6 @@ final class ChainConverterBuilder implements IChainConverterBuilder
         );
     }
 
-    /** @inheritDoc */
-    public function useConverters(iterable $converters): IChainConverterBuilder
-    {
-        return new self($converters);
-    }
-
     public function build(): IColorDTOConverter
     {
         $this->validate();
@@ -128,7 +107,7 @@ final class ChainConverterBuilder implements IChainConverterBuilder
     public function forPath(iterable $conversionPath): IChainConverterBuilder
     {
         $clone = clone $this;
-        $clone->chainConverters = $this->getChainFromPath($conversionPath);
+        $clone->chainConverters = $this->getChainConvertersFromPath($conversionPath);
         return $clone;
     }
 

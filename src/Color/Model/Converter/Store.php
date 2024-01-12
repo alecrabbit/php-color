@@ -121,8 +121,9 @@ final class Store implements IStore
     private function createColorConverter(iterable $conversionPath): IColorDTOConverter
     {
         return $this->modelConverterBuilder
-            ->useConverters(new \ArrayObject(self::$modelConverters))
-            ->create($conversionPath);
+            ->withConverters(new \ArrayObject(self::$modelConverters))
+            ->forPath($conversionPath)
+            ->build();
     }
 
     /**
