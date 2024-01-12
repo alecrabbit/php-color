@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Color\Unit;
 
+use AlecRabbit\Color\Contract\IColor;
+use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Exception\InvalidArgument;
+use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelRGB;
 use AlecRabbit\Color\RGB;
@@ -13,6 +16,7 @@ use AlecRabbit\Tests\Color\Unit\Override\ColorDTOOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class RGBTest extends TestCase
 {
@@ -221,6 +225,27 @@ final class RGBTest extends TestCase
         self::assertSame(0.011765, $dto->blue);
         self::assertSame(1.0, $dto->alpha);
     }
+    #[Test]
+    public function canFrom(): void
+    {
+        $colorClass = IRGBColor::class;
+
+        $result = $this->getColorMock($colorClass);
+
+        $color = $this->getColorMock();
+        $color->expects(self::once())
+            ->method('to')
+            ->with($colorClass)
+            ->willReturn($result);
+
+        self::assertSame($result, RGB::from($color));
+    }
+
+    private function getColorMock(?string $colorClass = null): MockObject&IColor
+    {
+        return $this->createMock($colorClass ?? IColor::class);
+    }
+
 
     #[Test]
     public function throwsIfPassedDTOIsInvalid(): void
