@@ -1,5 +1,5 @@
 # Note: This Dockerfile creates a general purpose development image.
-FROM php:8.2-cli-alpine
+FROM php:8.3-cli-alpine
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
