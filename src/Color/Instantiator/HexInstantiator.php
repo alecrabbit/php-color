@@ -5,9 +5,13 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Instantiator;
 
 use AlecRabbit\Color\Contract\IColor;
+use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
 
+/**
+ * @extends AInstantiator<IHexColor>
+ */
 class HexInstantiator extends AInstantiator
 {
     protected const REGEXP_HEX = '/^#?(?:([a-f\d]{2}){3}|([a-f\d]){3})$/i';
@@ -189,8 +193,8 @@ class HexInstantiator extends AInstantiator
     {
         return Hex::class;
     }
-
-    protected function instantiate(string $value): ?IColor
+    /** @inheritDoc  */
+    protected function createFromString(string $value): ?IColor
     {
         if (self::isNamedColor($value)) {
             $value = self::NAMED_COLORS[$value];

@@ -35,6 +35,19 @@ final class Color
         return self::getInstantiatorFactory()->getByString($color)->fromString($color);
     }
 
+    private static function getInstantiatorFactory(): IInstantiatorFactory
+    {
+        if (self::$factory === null) {
+            self::$factory = self::createFactory();
+        }
+        return self::$factory;
+    }
+
+    private static function createFactory(): IInstantiatorFactory
+    {
+        return new self::$factoryClass();
+    }
+
     /**
      * @template T of IColor
      *
@@ -47,22 +60,10 @@ final class Color
         /** @var T $color */
         $color = self::getInstantiatorFactory()
             ->getByTarget($target)
-            ->fromDTO($dto);
+            ->fromDTO($dto)
+        ;
 
         return $color;
-    }
-
-    private static function getInstantiatorFactory(): IInstantiatorFactory
-    {
-        if (self::$factory === null) {
-            self::$factory = self::createFactory();
-        }
-        return self::$factory;
-    }
-
-    private static function createFactory(): IInstantiatorFactory
-    {
-        return new self::$factoryClass();
     }
 
     /**

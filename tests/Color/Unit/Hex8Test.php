@@ -6,9 +6,7 @@ namespace AlecRabbit\Tests\Color\Unit;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHex8Color;
-use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\Hex8;
 use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelRGB;
@@ -484,7 +482,8 @@ final class Hex8Test extends TestCase
         $color->expects(self::once())
             ->method('to')
             ->with($colorClass)
-            ->willReturn($result);
+            ->willReturn($result)
+        ;
 
         self::assertSame($result, Hex8::from($color));
     }

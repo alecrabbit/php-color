@@ -7,6 +7,7 @@ namespace AlecRabbit\Color\Factory;
 use AlecRabbit\Color\Contract\Factory\IInstantiatorFactory;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Exception\InvalidArgument;
+use RuntimeException;
 
 class InstantiatorFactory implements IInstantiatorFactory
 {
@@ -56,6 +57,6 @@ class InstantiatorFactory implements IInstantiatorFactory
     public function getByTarget(string $target): IInstantiator
     {
         // TODO: Implement getByTarget() method.
-        throw new \RuntimeException('Not implemented.');
+        throw new RuntimeException('Not implemented.');
     }
 }

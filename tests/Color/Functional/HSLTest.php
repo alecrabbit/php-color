@@ -239,6 +239,7 @@ final class HSLTest extends TestCase
         self::assertSame(0.33, $modified->getSaturation());
         self::assertNotSame($original, $modified);
     }
+
     #[Test]
     public function canFrom(): void
     {

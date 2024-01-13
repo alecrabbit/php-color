@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit;
 
 use AlecRabbit\Color\Contract\IColor;
-use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Hex;
@@ -401,7 +400,8 @@ final class RGBATest extends TestCase
         $color->expects(self::once())
             ->method('to')
             ->with($colorClass)
-            ->willReturn($result);
+            ->willReturn($result)
+        ;
 
         self::assertSame($result, RGBA::from($color));
     }

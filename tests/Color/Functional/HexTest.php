@@ -123,6 +123,7 @@ final class HexTest extends TestCase
     {
         return Hex::fromString($value);
     }
+
     #[Test]
     public function canFrom(): void
     {

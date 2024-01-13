@@ -5,9 +5,13 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Instantiator;
 
 use AlecRabbit\Color\Contract\IColor;
+use AlecRabbit\Color\Contract\IHex8Color;
 use AlecRabbit\Color\Hex8;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
 
+/**
+ * @extends AInstantiator<IHex8Color>
+ */
 class Hex8Instantiator extends AInstantiator
 {
     protected const REGEXP_HEX = '/^#?(?:([a-f\d]{2}){4}|([a-f\d]){4})$/i';
@@ -34,8 +38,8 @@ class Hex8Instantiator extends AInstantiator
     {
         return (bool)preg_match(self::REGEXP_HEX, $color);
     }
-
-    protected function instantiate(string $value): ?IColor
+    /** @inheritDoc  */
+    protected function createFromString(string $value): ?IColor
     {
         if (self::isHexString($value)) {
             return Hex8::fromInteger8(self::extractInteger($value));

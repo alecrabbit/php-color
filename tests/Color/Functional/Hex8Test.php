@@ -191,16 +191,16 @@ final class Hex8Test extends TestCase
         self::assertSame(0xFF, $modifiedBlue->getBlue());
     }
 
+    private static function getTesteeFromInteger(int $value): IHex8Color
+    {
+        return Hex8::fromInteger($value);
+    }
+
     #[Test]
     public function canFrom(): void
     {
         $color = HSL::fromString('black');
         self::assertInstanceOf(Hex8::class, Hex8::from($color));
-    }
-
-    private static function getTesteeFromInteger(int $value): IHex8Color
-    {
-        return Hex8::fromInteger($value);
     }
 
 }

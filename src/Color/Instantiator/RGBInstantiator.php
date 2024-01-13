@@ -5,11 +5,15 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Instantiator;
 
 use AlecRabbit\Color\Contract\IColor;
+use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
 use AlecRabbit\Color\RGB;
 
 use function str_starts_with;
 
+/**
+ * @extends AInstantiator<IRGBColor>
+ */
 class RGBInstantiator extends AInstantiator
 {
     protected const REGEXP_RGB = '/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/';
@@ -18,8 +22,8 @@ class RGBInstantiator extends AInstantiator
     {
         return RGB::class;
     }
-
-    protected function instantiate(string $value): ?IColor
+    /** @inheritDoc  */
+    protected function createFromString(string $value): ?IColor
     {
         if (self::canInstantiate($value) && preg_match(self::REGEXP_RGB, $value, $matches)) {
             return

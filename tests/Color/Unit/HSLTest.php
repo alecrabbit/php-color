@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit;
 
 use AlecRabbit\Color\Contract\IColor;
-use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Hex;
@@ -274,7 +273,8 @@ final class HSLTest extends TestCase
         $color->expects(self::once())
             ->method('to')
             ->with($colorClass)
-            ->willReturn($result);
+            ->willReturn($result)
+        ;
 
         self::assertSame($result, HSL::from($color));
     }
