@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Functional\Registry;
 
 
-use AlecRabbit\Color\Contract\Converter\IRegistry;
+use AlecRabbit\Color\Contract\IRegistry;
 use AlecRabbit\Color\Registry\Registry;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;

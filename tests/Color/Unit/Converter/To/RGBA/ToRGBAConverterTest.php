@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit\Converter\To\RGBA;
 
 
-use AlecRabbit\Color\Contract\Converter\IRegistry;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
+use AlecRabbit\Color\Contract\IRegistry;
 use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Converter\To\ToRGBAConverter;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;

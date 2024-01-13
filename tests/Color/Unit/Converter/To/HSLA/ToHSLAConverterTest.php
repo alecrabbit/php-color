@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit\Converter\To\HSLA;
 
 
-use AlecRabbit\Color\Contract\Converter\IRegistry;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
+use AlecRabbit\Color\Contract\IRegistry;
 use AlecRabbit\Color\Converter\To\ToHSLAConverter;
 use AlecRabbit\Color\HSLA;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit\Converter\To\Hex8;
 
 
-use AlecRabbit\Color\Contract\Converter\IRegistry;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHex8Color;
+use AlecRabbit\Color\Contract\IRegistry;
 use AlecRabbit\Color\Converter\To\ToHex8Converter;
 use AlecRabbit\Color\Hex8;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;

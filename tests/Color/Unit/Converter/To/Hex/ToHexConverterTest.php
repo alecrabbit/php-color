@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit\Converter\To\Hex;
 
 
-use AlecRabbit\Color\Contract\Converter\IRegistry;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHexColor;
+use AlecRabbit\Color\Contract\IRegistry;
 use AlecRabbit\Color\Converter\To\ToHexConverter;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
