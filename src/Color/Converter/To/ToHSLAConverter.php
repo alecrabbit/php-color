@@ -8,7 +8,7 @@ use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Converter\To\A\AToConverter;
 use AlecRabbit\Color\HSLA;
-use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Model\ModelHSL;
 use ArrayObject;
@@ -29,7 +29,7 @@ class ToHSLAConverter extends AToConverter
         return new ModelHSL();
     }
 
-    protected function createColorFromDTO(IColorDTO $dto): IColor
+    protected function createColorFromDTO(DColor $dto): IColor
     {
         return HSLA::fromDTO($dto);
     }

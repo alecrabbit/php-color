@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Contract;
 
 use AlecRabbit\Color\Model\Contract\Converter\Core\ICoreConverter;
-use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use Stringable;
 
@@ -20,7 +20,7 @@ interface IColor extends IHasFromString,
 
     public static function fromString(string $value): IColor;
 
-    public static function fromDTO(IColorDTO $dto): IColor;
+    public static function fromDTO(DColor $dto): IColor;
 
     public function getColorModel(): IColorModel;
 
@@ -33,5 +33,5 @@ interface IColor extends IHasFromString,
      */
     public function to(string $class): IColor;
 
-    public function toDTO(): IColorDTO;
+    public function toDTO(): DColor;
 }

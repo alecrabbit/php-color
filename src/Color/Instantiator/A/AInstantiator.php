@@ -7,7 +7,7 @@ namespace AlecRabbit\Color\Instantiator\A;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Exception\UnrecognizedColorString;
-use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use RuntimeException;
 
 use function strtolower;
@@ -60,7 +60,7 @@ abstract class AInstantiator implements IInstantiator
     /**
      * @psalm-return T
      */
-    public function fromDTO(IColorDTO $dto): IColor
+    public function fromDTO(DColor $dto): IColor
     {
         // TODO: Implement fromDTO() method.
         throw new RuntimeException('Not implemented.');

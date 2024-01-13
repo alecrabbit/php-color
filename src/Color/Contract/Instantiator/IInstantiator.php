@@ -6,7 +6,7 @@ namespace AlecRabbit\Color\Contract\Instantiator;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Exception\UnrecognizedColorString;
-use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 
 /**
  * @template-covariant T of IColor
@@ -30,5 +30,5 @@ interface IInstantiator
     /**
      * @psalm-return T
      */
-    public function fromDTO(IColorDTO $dto): IColor;
+    public function fromDTO(DColor $dto): IColor;
 }

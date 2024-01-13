@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Color\Functional\Model\Converter;
 
 
 use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Converter\HSLToRGBModelConverter;
 use AlecRabbit\Color\Model\DTO\DCMY;
 use AlecRabbit\Color\Model\DTO\DCMYK;
@@ -43,7 +43,7 @@ final class HSLToRGBModelConverterTest extends TestCase
 
     #[Test]
     #[DataProvider('canConvertDataProvider')]
-    public function canConvert(IColorDTO $expected, IColorDTO $input): void
+    public function canConvert(DColor $expected, DColor $input): void
     {
         $testee = $this->getTesteeInstance();
 
@@ -57,7 +57,7 @@ final class HSLToRGBModelConverterTest extends TestCase
 
     #[Test]
     #[DataProvider('incorrectInputDataProvider')]
-    public function throwsIfModelIsNotCorrect(IColorDTO $dto, string $message): void
+    public function throwsIfModelIsNotCorrect(DColor $dto, string $message): void
     {
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage($message);

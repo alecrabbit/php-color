@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Model\Converter\Core;
 
-use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Converter\Core\A\ACoreConverter;
 use AlecRabbit\Color\Model\DTO\DCMY as CMY;
 use AlecRabbit\Color\Model\DTO\DCMYK as CMYK;
@@ -16,7 +16,7 @@ final readonly class CMYKToCMY extends ACoreConverter
         return CMYK::class;
     }
 
-    protected function doConvert(IColorDTO $color): IColorDTO
+    protected function doConvert(DColor $color): DColor
     {
         /** @var CMYK $color */
         return new CMY(

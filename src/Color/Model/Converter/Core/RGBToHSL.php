@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Model\Converter\Core;
 
-use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Converter\Core\A\ACoreConverter;
 use AlecRabbit\Color\Model\DTO\DHSL as HSL;
 use AlecRabbit\Color\Model\DTO\DRGB as RGB;
@@ -16,7 +16,7 @@ final readonly class RGBToHSL extends ACoreConverter
         return RGB::class;
     }
 
-    protected function doConvert(IColorDTO $color): IColorDTO
+    protected function doConvert(DColor $color): DColor
     {
         /** @var RGB $color */
         $r = $color->red;

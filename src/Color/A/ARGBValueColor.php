@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\A;
 
 use AlecRabbit\Color\Contract\IHasOpacity;
-use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelRGB;
 
@@ -39,7 +39,7 @@ abstract class ARGBValueColor extends AColor
         return DRGB::class;
     }
 
-    public function toDTO(): IColorDTO
+    public function toDTO(): DColor
     {
         return new DRGB(
             red: round($this->getRed() / self::COMPONENT, self::CALC_PRECISION),

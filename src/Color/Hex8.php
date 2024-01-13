@@ -6,7 +6,7 @@ namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHex8Color;
-use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\DTO\DRGB;
 
 use function abs;
@@ -38,14 +38,14 @@ class Hex8 extends Hex implements IHex8Color
         return new self($value, $alpha ?? 0xFF);
     }
 
-    public static function fromDTO(IColorDTO $dto): IHex8Color
+    public static function fromDTO(DColor $dto): IHex8Color
     {
         self::assertDTO($dto);
 
         return self::createFromDTO($dto);
     }
 
-    protected static function createFromDTO(IColorDTO $dto): IHex8Color
+    protected static function createFromDTO(DColor $dto): IHex8Color
     {
         /** @var DRGB $dto */
         return self::fromRGBO(

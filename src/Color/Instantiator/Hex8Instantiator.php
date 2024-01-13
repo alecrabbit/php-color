@@ -38,7 +38,8 @@ class Hex8Instantiator extends AInstantiator
     {
         return (bool)preg_match(self::REGEXP_HEX, $color);
     }
-    /** @inheritDoc  */
+
+    /** @inheritDoc */
     protected function createFromString(string $value): ?IColor
     {
         if (self::isHexString($value)) {

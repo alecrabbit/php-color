@@ -10,7 +10,7 @@ use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Hex8;
 use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelRGB;
-use AlecRabbit\Tests\Color\Unit\Override\ColorDTOOverride;
+use AlecRabbit\Tests\Color\Unit\Override\DColorOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -498,9 +498,9 @@ final class Hex8Test extends TestCase
     {
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
-            'Color must be instance of "AlecRabbit\Color\Model\DTO\DRGB", "AlecRabbit\Tests\Color\Unit\Override\ColorDTOOverride" given.'
+            'Color must be instance of "AlecRabbit\Color\Model\DTO\DRGB", "AlecRabbit\Tests\Color\Unit\Override\DColorOverride" given.'
         );
 
-        Hex8::fromDTO(new ColorDTOOverride());
+        Hex8::fromDTO(new DColorOverride());
     }
 }

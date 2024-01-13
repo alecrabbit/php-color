@@ -12,7 +12,7 @@ use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\ModelHSL;
 use AlecRabbit\Color\RGBA;
-use AlecRabbit\Tests\Color\Unit\Override\ColorDTOOverride;
+use AlecRabbit\Tests\Color\Unit\Override\DColorOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -289,9 +289,9 @@ final class HSLTest extends TestCase
     {
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
-            'Color must be instance of "AlecRabbit\Color\Model\DTO\DHSL", "AlecRabbit\Tests\Color\Unit\Override\ColorDTOOverride" given.'
+            'Color must be instance of "AlecRabbit\Color\Model\DTO\DHSL", "AlecRabbit\Tests\Color\Unit\Override\DColorOverride" given.'
         );
 
-        HSL::fromDTO(new ColorDTOOverride());
+        HSL::fromDTO(new DColorOverride());
     }
 }

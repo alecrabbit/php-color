@@ -8,7 +8,7 @@ use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHex8Color;
 use AlecRabbit\Color\Converter\To\A\AToConverter;
 use AlecRabbit\Color\Hex8;
-use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Model\ModelRGB;
 use ArrayObject;
@@ -29,7 +29,7 @@ class ToHex8Converter extends AToConverter
         return new ModelRGB();
     }
 
-    protected function createColorFromDTO(IColorDTO $dto): IColor
+    protected function createColorFromDTO(DColor $dto): IColor
     {
         return Hex8::fromDTO($dto);
     }

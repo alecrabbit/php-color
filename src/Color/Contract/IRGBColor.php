@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Contract;
 
-use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 
 interface IRGBColor extends IColor,
                             IHasValue,
@@ -19,7 +19,7 @@ interface IRGBColor extends IColor,
 
     public static function fromRGB(int $r, int $g, int $b): IRGBColor;
 
-    public static function fromDTO(IColorDTO $dto): IRGBColor;
+    public static function fromDTO(DColor $dto): IRGBColor;
 
     public static function from(IColor $color): IRGBColor;
 

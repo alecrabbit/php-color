@@ -193,7 +193,8 @@ class HexInstantiator extends AInstantiator
     {
         return Hex::class;
     }
-    /** @inheritDoc  */
+
+    /** @inheritDoc */
     protected function createFromString(string $value): ?IColor
     {
         if (self::isNamedColor($value)) {

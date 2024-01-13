@@ -16,7 +16,7 @@ namespace AlecRabbit\Color\Model\Contract\DTO;
  *     - values implied to be in range 0.0-1.0
  *     - alpha parameter should be optional with default value 1.0
  */
-interface IColorDTO
+interface DColor
 {
 
 }

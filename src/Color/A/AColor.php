@@ -7,7 +7,7 @@ namespace AlecRabbit\Color\A;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Util\Color;
 use AlecRabbit\Color\Util\Converter;
@@ -23,7 +23,7 @@ abstract class AColor implements IColor
 
     abstract public static function from(IColor $color): IColor;
 
-    protected static function assertDTO(IColorDTO $dto): void
+    protected static function assertDTO(DColor $dto): void
     {
         if (is_a($dto, static::dtoType(), true)) {
             return;
@@ -39,11 +39,11 @@ abstract class AColor implements IColor
     }
 
     /**
-     * @return class-string<IColorDTO>
+     * @return class-string<DColor>
      */
     abstract protected static function dtoType(): string;
 
-    abstract protected static function createFromDTO(IColorDTO $dto): IColor;
+    abstract protected static function createFromDTO(DColor $dto): IColor;
 
     /**
      * @template T of IColor

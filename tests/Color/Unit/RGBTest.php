@@ -10,7 +10,7 @@ use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelRGB;
 use AlecRabbit\Color\RGB;
-use AlecRabbit\Tests\Color\Unit\Override\ColorDTOOverride;
+use AlecRabbit\Tests\Color\Unit\Override\DColorOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -252,9 +252,9 @@ final class RGBTest extends TestCase
     {
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
-            'Color must be instance of "AlecRabbit\Color\Model\DTO\DRGB", "AlecRabbit\Tests\Color\Unit\Override\ColorDTOOverride" given.'
+            'Color must be instance of "AlecRabbit\Color\Model\DTO\DRGB", "AlecRabbit\Tests\Color\Unit\Override\DColorOverride" given.'
         );
 
-        RGB::fromDTO(new ColorDTOOverride());
+        RGB::fromDTO(new DColorOverride());
     }
 }

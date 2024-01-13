@@ -8,7 +8,7 @@ use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IRegistry;
 use AlecRabbit\Color\Model\Contract\Converter\IColorDTOConverter;
-use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Registry\Registry;
 use Traversable;
@@ -20,21 +20,21 @@ use Traversable;
  */
 abstract class AToConverter implements IToConverter
 {
-    /** @var class-string<IColorDTO> */
+    /** @var class-string<DColor> */
     protected string $inputType;
 
     public function __construct(
         private readonly IRegistry $registry = new Registry(),
         ?string $dtoType = null,
     ) {
-        /** @var null|class-string<IColorDTO> $dtoType */
+        /** @var null|class-string<DColor> $dtoType */
         $this->inputType = $this->refineInputType($dtoType);
     }
 
     /**
-     * @param class-string<IColorDTO>|null $dtoType
+     * @param class-string<DColor>|null $dtoType
      *
-     * @return class-string<IColorDTO>
+     * @return class-string<DColor>
      */
     protected function refineInputType(?string $dtoType): string
     {
@@ -51,13 +51,13 @@ abstract class AToConverter implements IToConverter
     }
 
     /**
-     * @param IColorDTO $dto
+     * @param DColor $dto
      *
      * @psalm-return T
      */
-    abstract protected function createColorFromDTO(IColorDTO $dto): IColor;
+    abstract protected function createColorFromDTO(DColor $dto): IColor;
 
-    protected function convertToTargetDTO(IColor $color): IColorDTO
+    protected function convertToTargetDTO(IColor $color): DColor
     {
         return $this->getModelConverter($color)->convert($color->toDTO());
     }

@@ -7,7 +7,7 @@ namespace AlecRabbit\Color;
 use AlecRabbit\Color\A\ARGBValueColor;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IRGBColor;
-use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\DTO\DRGB;
 
 use function sprintf;
@@ -24,14 +24,14 @@ class RGB extends ARGBValueColor implements IRGBColor
         return $color->to(IRGBColor::class);
     }
 
-    public static function fromDTO(IColorDTO $dto): IRGBColor
+    public static function fromDTO(DColor $dto): IRGBColor
     {
         self::assertDTO($dto);
 
         return self::createFromDTO($dto);
     }
 
-    protected static function createFromDTO(IColorDTO $dto): IRGBColor
+    protected static function createFromDTO(DColor $dto): IRGBColor
     {
         /** @var DRGB $dto */
         return self::fromRGB(

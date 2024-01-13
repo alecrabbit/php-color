@@ -6,7 +6,7 @@ namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
-use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\DTO\DHSL;
 
 class HSLA extends HSL implements IHSLAColor
@@ -25,14 +25,14 @@ class HSLA extends HSL implements IHSLAColor
         return self::getFromString($value)->to(self::class);
     }
 
-    public static function fromDTO(IColorDTO $dto): IHSLAColor
+    public static function fromDTO(DColor $dto): IHSLAColor
     {
         self::assertDTO($dto);
 
         return self::createFromDTO($dto);
     }
 
-    protected static function createFromDTO(IColorDTO $dto): IHSLAColor
+    protected static function createFromDTO(DColor $dto): IHSLAColor
     {
         /** @var DHSL $dto */
         return self::fromHSLA(

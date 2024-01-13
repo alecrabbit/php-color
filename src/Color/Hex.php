@@ -7,7 +7,7 @@ namespace AlecRabbit\Color;
 use AlecRabbit\Color\A\ARGBValueColor;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHexColor;
-use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\DTO\DRGB;
 
 use function abs;
@@ -30,14 +30,14 @@ class Hex extends ARGBValueColor implements IHexColor
         return new self(abs($value) & (int)static::MAX);
     }
 
-    public static function fromDTO(IColorDTO $dto): IHexColor
+    public static function fromDTO(DColor $dto): IHexColor
     {
         self::assertDTO($dto);
 
         return self::createFromDTO($dto);
     }
 
-    protected static function createFromDTO(IColorDTO $dto): IHexColor
+    protected static function createFromDTO(DColor $dto): IHexColor
     {
         /** @var DRGB $dto */
         return self::fromRGB(

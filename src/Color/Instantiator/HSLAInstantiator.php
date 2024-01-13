@@ -21,7 +21,8 @@ class HSLAInstantiator extends AInstantiator
     {
         return HSLA::class;
     }
-    /** @inheritDoc  */
+
+    /** @inheritDoc */
     protected function createFromString(string $value): ?IColor
     {
         if (self::canInstantiate($value) && preg_match(self::REGEXP_HSLA, $value, $matches)) {

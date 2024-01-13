@@ -22,7 +22,8 @@ class RGBInstantiator extends AInstantiator
     {
         return RGB::class;
     }
-    /** @inheritDoc  */
+
+    /** @inheritDoc */
     protected function createFromString(string $value): ?IColor
     {
         if (self::canInstantiate($value) && preg_match(self::REGEXP_RGB, $value, $matches)) {

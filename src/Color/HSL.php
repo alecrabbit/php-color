@@ -8,7 +8,7 @@ use AlecRabbit\Color\A\AColor;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHasOpacity;
 use AlecRabbit\Color\Contract\IHSLColor;
-use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\ModelHSL;
 
@@ -35,14 +35,14 @@ class HSL extends AColor implements IHSLColor
         return self::getFromString($value)->to(self::class);
     }
 
-    public static function fromDTO(IColorDTO $dto): IHSLColor
+    public static function fromDTO(DColor $dto): IHSLColor
     {
         self::assertDTO($dto);
 
         return self::createFromDTO($dto);
     }
 
-    protected static function createFromDTO(IColorDTO $dto): IHSLColor
+    protected static function createFromDTO(DColor $dto): IHSLColor
     {
         /** @var DHSL $dto */
         return self::fromHSL(
@@ -77,7 +77,7 @@ class HSL extends AColor implements IHSLColor
         return DHSL::class;
     }
 
-    public function toDTO(): IColorDTO
+    public function toDTO(): DColor
     {
         return new DHSL(
             hue: round($this->getHue() / 360, self::CALC_PRECISION),
