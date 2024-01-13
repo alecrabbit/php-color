@@ -35,10 +35,10 @@ class Hex8Instantiator extends AInstantiator
         return (bool)preg_match(self::REGEXP_HEX, $color);
     }
 
-    protected function instantiate(string $color): ?IColor
+    protected function instantiate(string $value): ?IColor
     {
-        if (self::isHexString($color)) {
-            return Hex8::fromInteger8(self::extractInteger($color));
+        if (self::isHexString($value)) {
+            return Hex8::fromInteger8(self::extractInteger($value));
         }
 
         return null;

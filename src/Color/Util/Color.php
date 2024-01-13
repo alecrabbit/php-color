@@ -8,6 +8,7 @@ use AlecRabbit\Color\Contract\Factory\IInstantiatorFactory;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Factory\InstantiatorFactory;
+use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
 
 /**
  * // TODO (2024-01-05 15:24) [Alec Rabbit]: move tests InstantiatorTest to test this class
@@ -31,7 +32,24 @@ final class Color
 
     public static function fromString(string $color): IColor
     {
-        return self::getInstantiatorFactory()->getInstantiator($color)->fromString($color);
+        return self::getInstantiatorFactory()->getByString($color)->fromString($color);
+    }
+
+    /**
+     * @template T of IColor
+     *
+     * @param class-string<T> $target
+     *
+     * @psalm-return T
+     */
+    public static function fromDTO(IColorDTO $dto, string $target): IColor
+    {
+        /** @var T $color */
+        $color = self::getInstantiatorFactory()
+            ->getByTarget($target)
+            ->fromDTO($dto);
+
+        return $color;
     }
 
     private static function getInstantiatorFactory(): IInstantiatorFactory

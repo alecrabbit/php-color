@@ -190,14 +190,14 @@ class HexInstantiator extends AInstantiator
         return Hex::class;
     }
 
-    protected function instantiate(string $color): ?IColor
+    protected function instantiate(string $value): ?IColor
     {
-        if (self::isNamedColor($color)) {
-            $color = self::NAMED_COLORS[$color];
+        if (self::isNamedColor($value)) {
+            $value = self::NAMED_COLORS[$value];
         }
 
-        if (self::isHexString($color)) {
-            return Hex::fromInteger(self::extractInteger($color));
+        if (self::isHexString($value)) {
+            return Hex::fromInteger(self::extractInteger($value));
         }
 
         return null;

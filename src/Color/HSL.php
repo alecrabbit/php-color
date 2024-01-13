@@ -39,6 +39,11 @@ class HSL extends AColor implements IHSLColor
     {
         self::assertDTO($dto);
 
+        return self::createFromDTO($dto);
+    }
+
+    protected static function createFromDTO(IColorDTO $dto): IHSLColor
+    {
         /** @var DHSL $dto */
         return self::fromHSL(
             (int)round($dto->hue * 360),

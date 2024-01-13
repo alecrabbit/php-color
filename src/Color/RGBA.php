@@ -41,10 +41,20 @@ class RGBA extends RGB implements IRGBAColor
         return $color->to(IRGBAColor::class);
     }
 
+    public static function fromString(string $value): IRGBAColor
+    {
+        return self::getFromString($value)->to(IRGBAColor::class);
+    }
+
     public static function fromDTO(IColorDTO $dto): IRGBAColor
     {
         self::assertDTO($dto);
 
+        return self::createFromDTO($dto);
+    }
+
+    protected static function createFromDTO(IColorDTO $dto): IRGBAColor
+    {
         /** @var DRGB $dto */
         return self::fromRGBO(
             (int)round($dto->red * self::COMPONENT),
@@ -59,11 +69,6 @@ class RGBA extends RGB implements IRGBAColor
         $alpha = (int)(abs($opacity) * self::COMPONENT) & self::COMPONENT;
         return
             self::fromRGBA($r, $g, $b, $alpha);
-    }
-
-    public static function fromString(string $value): IRGBAColor
-    {
-        return self::getFromString($value)->to(IRGBAColor::class);
     }
 
     public function withRed(int $red): IRGBAColor

@@ -37,19 +37,25 @@ class InstantiatorFactory implements IInstantiatorFactory
         }
     }
 
-    public function getInstantiator(string $color): IInstantiator
+    public function getByString(string $value): IInstantiator
     {
         /** @var class-string<IInstantiator> $class */
         foreach (self::$registered as $class) {
-            if ($class::isSupported($color)) {
+            if ($class::isSupported($value)) {
                 return new $class();
             }
         }
         throw new InvalidArgument(
             sprintf(
                 'Instantiator for color "%s" is not registered.',
-                $color,
+                $value,
             )
         );
+    }
+
+    public function getByTarget(string $target): IInstantiator
+    {
+        // TODO: Implement getByTarget() method.
+        throw new \RuntimeException('Not implemented.');
     }
 }

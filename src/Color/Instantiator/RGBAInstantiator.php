@@ -14,9 +14,14 @@ class RGBAInstantiator extends AInstantiator
 {
     protected const REGEXP_RGBA = '/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)$/';
 
-    protected function instantiate(string $color): ?IColor
+    public static function getTargetClass(): string
     {
-        if (self::canInstantiate($color) && preg_match(self::REGEXP_RGBA, $color, $matches)) {
+        return RGBA::class;
+    }
+
+    protected function instantiate(string $value): ?IColor
+    {
+        if (self::canInstantiate($value) && preg_match(self::REGEXP_RGBA, $value, $matches)) {
             return
                 RGBA::fromRGBO(
                     (int)$matches[1],
@@ -29,10 +34,6 @@ class RGBAInstantiator extends AInstantiator
         return null;
     }
 
-    public static function getTargetClass(): string
-    {
-        return RGBA::class;
-    }
     protected static function canInstantiate(string $color): bool
     {
         return str_starts_with($color, 'rgba(');

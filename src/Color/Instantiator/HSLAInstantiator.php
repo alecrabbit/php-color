@@ -9,9 +9,14 @@ use AlecRabbit\Color\HSLA;
 
 class HSLAInstantiator extends HSLInstantiator
 {
-    protected function instantiate(string $color): ?IColor
+    public static function getTargetClass(): string
     {
-        if (self::canInstantiate($color) && preg_match(self::REGEXP_HSLA, $color, $matches)) {
+        return HSLA::class;
+    }
+
+    protected function instantiate(string $value): ?IColor
+    {
+        if (self::canInstantiate($value) && preg_match(self::REGEXP_HSLA, $value, $matches)) {
             return
                 HSLA::fromHSLA(
                     (int)$matches[1],
@@ -26,10 +31,6 @@ class HSLAInstantiator extends HSLInstantiator
         return null;
     }
 
-    public static function getTargetClass(): string
-    {
-        return HSLA::class;
-    }
     protected static function canInstantiate(string $color): bool
     {
         return

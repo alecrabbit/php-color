@@ -7,7 +7,8 @@ namespace AlecRabbit\Color\Instantiator\A;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Exception\UnrecognizedColorString;
-use RuntimeException;
+
+use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
 
 use function strtolower;
 use function trim;
@@ -28,20 +29,26 @@ abstract class AInstantiator implements IInstantiator
 
     abstract protected static function canInstantiate(string $color): bool;
 
-    public function fromString(string $color): IColor
+    public function fromString(string $value): IColor
     {
-        $color = self::normalize($color);
+        $value = self::normalize($value);
 
         return
-            $this->instantiate($color)
+            $this->instantiate($value)
             ??
             throw new UnrecognizedColorString(
                 sprintf(
                     'Unrecognized color string: "%s".',
-                    $color
+                    $value
                 )
             );
     }
 
-    abstract protected function instantiate(string $color): ?IColor;
+    abstract protected function instantiate(string $value): ?IColor;
+
+    public function fromDTO(IColorDTO $dto): IColor
+    {
+        // TODO: Implement fromDTO() method.
+        throw new \RuntimeException('Not implemented.');
+    }
 }

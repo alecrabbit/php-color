@@ -23,6 +23,28 @@ abstract class AColor implements IColor
 
     abstract public static function from(IColor $color): IColor;
 
+    protected static function assertDTO(IColorDTO $dto): void
+    {
+        if (is_a($dto, static::dtoType(), true)) {
+            return;
+        }
+
+        throw new InvalidArgument(
+            sprintf(
+                'Color must be instance of "%s", "%s" given.',
+                static::dtoType(),
+                $dto::class,
+            ),
+        );
+    }
+
+    /**
+     * @return class-string<IColorDTO>
+     */
+    abstract protected static function dtoType(): string;
+
+    abstract protected static function createFromDTO(IColorDTO $dto): IColor;
+
     /**
      * @template T of IColor
      *
@@ -60,26 +82,6 @@ abstract class AColor implements IColor
     }
 
     abstract public static function fromString(string $value): IColor;
-
-    protected static function assertDTO(IColorDTO $dto): void
-    {
-        if (is_a($dto, static::dtoType(), true)) {
-            return;
-        }
-
-        throw new InvalidArgument(
-            sprintf(
-                'Color must be instance of "%s", "%s" given.',
-                static::dtoType(),
-                $dto::class,
-            ),
-        );
-    }
-
-    /**
-     * @return class-string<IColorDTO>
-     */
-    abstract protected static function dtoType(): string;
 
     public function __toString(): string
     {

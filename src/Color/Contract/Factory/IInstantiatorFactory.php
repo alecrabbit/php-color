@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Contract\Factory;
 
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 
 interface IInstantiatorFactory
@@ -13,5 +14,10 @@ interface IInstantiatorFactory
      */
     public static function register(string $class): void;
 
-    public function getInstantiator(string $color): IInstantiator;
+    public function getByString(string $value): IInstantiator;
+
+    /**
+     * @param class-string<IColor> $target
+     */
+    public function getByTarget(string $target): IInstantiator;
 }

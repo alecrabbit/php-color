@@ -13,9 +13,14 @@ class HSLInstantiator extends AInstantiator
     protected const REGEXP_HSLA = '/^hsla?\((\d+)(?:,\s*|\s*)(\d+)%(?:,\s*|\s*)(\d+)%(?:(?:,\s*|\s*\/\s*)(([\d.]+)|(\d+%)))?\)$/';
     protected const PRECISION = 2;
 
-    protected function instantiate(string $color): ?IColor
+    public static function getTargetClass(): string
     {
-        if (self::canInstantiate($color) && preg_match(self::REGEXP_HSLA, $color, $matches)) {
+        return HSL::class;
+    }
+
+    protected function instantiate(string $value): ?IColor
+    {
+        if (self::canInstantiate($value) && preg_match(self::REGEXP_HSLA, $value, $matches)) {
             return
                 HSL::fromHSL(
                     (int)$matches[1],
@@ -27,10 +32,6 @@ class HSLInstantiator extends AInstantiator
         return null;
     }
 
-    public static function getTargetClass(): string
-    {
-        return HSL::class;
-    }
     protected static function canInstantiate(string $color): bool
     {
         return str_starts_with($color, 'hsl(') && !str_contains($color, '/');

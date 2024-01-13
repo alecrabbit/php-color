@@ -17,9 +17,15 @@ final class InstantiatorFactoryOverride implements IInstantiatorFactory
         throw new RuntimeException('Not implemented.');
     }
 
-    public function getInstantiator(string $color): IInstantiator
+    public function getByString(string $value): IInstantiator
     {
         // TODO: Implement getInstantiator() method.
         throw new RuntimeException('Not implemented.');
+    }
+
+    public function getByTarget(string $target): IInstantiator
+    {
+        // TODO: Implement getByTarget() method.
+        throw new \RuntimeException('Not implemented.');
     }
 }

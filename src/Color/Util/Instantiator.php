@@ -26,7 +26,7 @@ final class Instantiator
 
     public static function fromString(string $color): IColor
     {
-        return self::getFactory()->getInstantiator($color)->fromString($color);
+        return self::getFactory()->getByString($color)->fromString($color);
     }
 
     private static function getFactory(): IInstantiatorFactory

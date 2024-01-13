@@ -25,15 +25,15 @@ class HSLA extends HSL implements IHSLAColor
         return self::getFromString($value)->to(self::class);
     }
 
-    public static function from(IColor $color): IHSLAColor
-    {
-        return $color->to(IHSLAColor::class);
-    }
-
     public static function fromDTO(IColorDTO $dto): IHSLAColor
     {
         self::assertDTO($dto);
 
+        return self::createFromDTO($dto);
+    }
+
+    protected static function createFromDTO(IColorDTO $dto): IHSLAColor
+    {
         /** @var DHSL $dto */
         return self::fromHSLA(
             (int)round($dto->hue * 360),
@@ -55,6 +55,11 @@ class HSLA extends HSL implements IHSLAColor
             self::refineValue($lightness),
             self::refineValue($alpha),
         );
+    }
+
+    public static function from(IColor $color): IHSLAColor
+    {
+        return $color->to(IHSLAColor::class);
     }
 
     public function toString(): string

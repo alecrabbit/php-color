@@ -19,9 +19,9 @@ class RGBInstantiator extends AInstantiator
         return RGB::class;
     }
 
-    protected function instantiate(string $color): ?IColor
+    protected function instantiate(string $value): ?IColor
     {
-        if (self::canInstantiate($color) && preg_match(self::REGEXP_RGB, $color, $matches)) {
+        if (self::canInstantiate($value) && preg_match(self::REGEXP_RGB, $value, $matches)) {
             return
                 RGB::fromRGB(
                     (int)$matches[1],

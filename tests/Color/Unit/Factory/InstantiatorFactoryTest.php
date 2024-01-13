@@ -40,7 +40,7 @@ final class InstantiatorFactoryTest extends TestCase
     public function canProvideInstantiator(string $class, string $color): void
     {
         $factory = $this->getTestee();
-        $instantiator = $factory->getInstantiator($color);
+        $instantiator = $factory->getByString($color);
 
         /** @noinspection UnnecessaryAssertionInspection */
         self::assertInstanceOf($class, $instantiator);
@@ -82,7 +82,7 @@ final class InstantiatorFactoryTest extends TestCase
             )
         );
 
-        $this->getTestee()->getInstantiator($color);
+        $this->getTestee()->getByString($color);
 
         self::fail('Exception was not thrown.');
     }

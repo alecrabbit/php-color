@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Contract\Instantiator;
 
 use AlecRabbit\Color\Contract\IColor;
+use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
 
 interface IInstantiator
 {
@@ -15,5 +16,7 @@ interface IInstantiator
      */
     public static function getTargetClass(): string;
 
-    public function fromString(string $color): IColor;
+    public function fromString(string $value): IColor;
+
+    public function fromDTO(IColorDTO $dto): IColor;
 }
