@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Util;
 
-use AlecRabbit\Color\Contract\Factory\IInstantiatorFactory;
 use AlecRabbit\Color\Contract\IColor;
+use AlecRabbit\Color\Contract\Store\IInstantiatorStore;
 use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Factory\InstantiatorFactory;
+use AlecRabbit\Color\Store\InstantiatorStore;
 
 // TODO (2024-01-05 15:23) [Alec Rabbit]: functionality moved to Color class, remove this class
 final class Instantiator
 {
-    /** @var class-string<IInstantiatorFactory> */
-    private static string $factoryClass = InstantiatorFactory::class;
-    private static ?IInstantiatorFactory $factory = null;
+    /** @var class-string<IInstantiatorStore> */
+    private static string $storeClass = InstantiatorStore::class;
+    private static ?IInstantiatorStore $store = null;
 
     /**
      * @codeCoverageIgnore
@@ -26,39 +26,39 @@ final class Instantiator
 
     public static function fromString(string $color): IColor
     {
-        return self::getFactory()->getByString($color)->fromString($color);
+        return self::getStore()->getByString($color)->fromString($color);
     }
 
-    private static function getFactory(): IInstantiatorFactory
+    private static function getStore(): IInstantiatorStore
     {
-        if (self::$factory === null) {
-            self::$factory = self::createFactory();
+        if (self::$store === null) {
+            self::$store = self::createStore();
         }
-        return self::$factory;
+        return self::$store;
     }
 
-    private static function createFactory(): IInstantiatorFactory
+    private static function createStore(): IInstantiatorStore
     {
-        return new self::$factoryClass();
+        return new self::$storeClass();
     }
 
     /**
-     * @param class-string<IInstantiatorFactory> $factoryClass
+     * @param class-string<IInstantiatorStore> $storeClass
      */
-    public static function setFactoryClass(string $factoryClass): void
+    public static function setStoreClass(string $storeClass): void
     {
-        self::assertFactoryClass($factoryClass);
-        self::$factoryClass = $factoryClass;
+        self::assertStoreClass($storeClass);
+        self::$storeClass = $storeClass;
     }
 
-    private static function assertFactoryClass(string $factoryClass): void
+    private static function assertStoreClass(string $storeClass): void
     {
-        if (!is_subclass_of($factoryClass, IInstantiatorFactory::class)) {
+        if (!is_subclass_of($storeClass, IInstantiatorStore::class)) {
             throw new InvalidArgument(
                 sprintf(
                     'Class "%s" is not a "%s" subclass.',
-                    $factoryClass,
-                    IInstantiatorFactory::class
+                    $storeClass,
+                    IInstantiatorStore::class
                 )
             );
         }

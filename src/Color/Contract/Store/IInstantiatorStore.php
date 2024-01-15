@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color\Contract\Factory;
+namespace AlecRabbit\Color\Contract\Store;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 
-interface IInstantiatorFactory
+interface IInstantiatorStore
 {
     /**
      * @param class-string<IInstantiator> $class

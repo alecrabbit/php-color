@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color\Factory;
+namespace AlecRabbit\Color\Store;
 
-use AlecRabbit\Color\Contract\Factory\IInstantiatorFactory;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
+use AlecRabbit\Color\Contract\Store\IInstantiatorStore;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use RuntimeException;
 
-class InstantiatorFactory implements IInstantiatorFactory
+class InstantiatorStore implements IInstantiatorStore
 {
     /** @var Array<class-string<IInstantiator>> */
     protected static array $registered = [];

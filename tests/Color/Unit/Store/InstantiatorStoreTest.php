@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Color\Unit\Factory;
+namespace AlecRabbit\Tests\Color\Unit\Store;
 
-use AlecRabbit\Color\Contract\Factory\IInstantiatorFactory;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
+use AlecRabbit\Color\Contract\Store\IInstantiatorStore;
 use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Factory\InstantiatorFactory;
 use AlecRabbit\Color\Instantiator\HexInstantiator;
 use AlecRabbit\Color\Instantiator\HSLInstantiator;
 use AlecRabbit\Color\Instantiator\RGBInstantiator;
+use AlecRabbit\Color\Store\InstantiatorStore;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;
 
-final class InstantiatorFactoryTest extends TestCase
+final class InstantiatorStoreTest extends TestCase
 {
     public static function canProvideInstantiatorDataProvider(): iterable
     {
@@ -46,9 +46,9 @@ final class InstantiatorFactoryTest extends TestCase
         self::assertInstanceOf($class, $instantiator);
     }
 
-    protected function getTestee(): IInstantiatorFactory
+    protected function getTestee(): IInstantiatorStore
     {
-        return new InstantiatorFactory();
+        return new InstantiatorStore();
     }
 
     #[Test]
@@ -65,7 +65,7 @@ final class InstantiatorFactoryTest extends TestCase
             )
         );
 
-        InstantiatorFactory::register($class);
+        InstantiatorStore::register($class);
 
         self::fail('Exception was not thrown.');
     }

@@ -5,28 +5,30 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\TestCase;
 
 use AlecRabbit\Color\Contract\Factory\IConverterFactory;
-use AlecRabbit\Color\Contract\Factory\IInstantiatorFactory;
+use AlecRabbit\Color\Contract\Store\IInstantiatorStore;
 use AlecRabbit\Color\Util\Converter;
 use AlecRabbit\Color\Util\Instantiator;
 
 abstract class FactoryAwareTestCase extends TestCase
 {
-    private static ?IInstantiatorFactory $instantiatorFactory = null;
+    protected const STORE = 'store';
+
+    private static ?IInstantiatorStore $instantiatorStore = null;
     private static ?IConverterFactory $converterFactory = null;
 
     protected function setUp(): void
     {
         parent::setUp();
-        self::storeInstantiatorFactory();
+        self::storeInstantiatorStore();
         self::storeConverterFactory();
 
-        self::setInstantiatorFactory(null);
+        self::setInstantiatorStore(null);
         self::setConverterFactory(null);
     }
 
-    private static function storeInstantiatorFactory(): void
+    private static function storeInstantiatorStore(): void
     {
-        self::$instantiatorFactory = self::getPropertyValue(Instantiator::class, 'factory');
+        self::$instantiatorStore = self::getPropertyValue(Instantiator::class, self::STORE);
     }
 
     private static function storeConverterFactory(): void
@@ -34,9 +36,9 @@ abstract class FactoryAwareTestCase extends TestCase
         self::$converterFactory = self::getPropertyValue(Converter::class, 'factory');
     }
 
-    private static function setInstantiatorFactory(?IInstantiatorFactory $factory): void
+    private static function setInstantiatorStore(?IInstantiatorStore $store): void
     {
-        self::setPropertyValue(Instantiator::class, 'factory', $factory);
+        self::setPropertyValue(Instantiator::class, self::STORE, $store);
     }
 
     protected static function setConverterFactory(?IConverterFactory $factory): void
@@ -46,14 +48,14 @@ abstract class FactoryAwareTestCase extends TestCase
 
     protected function tearDown(): void
     {
-        self::rollbackInstantiatorFactory();
+        self::rollbackInstantiatorStore();
         self::rollbackConverterFactory();
         parent::tearDown();
     }
 
-    private static function rollbackInstantiatorFactory(): void
+    private static function rollbackInstantiatorStore(): void
     {
-        self::setInstantiatorFactory(self::$instantiatorFactory);
+        self::setInstantiatorStore(self::$instantiatorStore);
     }
 
     private static function rollbackConverterFactory(): void

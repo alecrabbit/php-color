@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Color\Unit\Util\Override;
 
-use AlecRabbit\Color\Contract\Factory\IInstantiatorFactory;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
+use AlecRabbit\Color\Contract\Store\IInstantiatorStore;
 use RuntimeException;
 
-final class InstantiatorFactoryOverride implements IInstantiatorFactory
+final class InstantiatorStoreOverride implements IInstantiatorStore
 {
 
     public static function register(string $class): void

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Util;
 
-use AlecRabbit\Color\Contract\Factory\IInstantiatorFactory;
 use AlecRabbit\Color\Contract\IColor;
+use AlecRabbit\Color\Contract\Store\IInstantiatorStore;
 use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Factory\InstantiatorFactory;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
+use AlecRabbit\Color\Store\InstantiatorStore;
 
 /**
  * // TODO (2024-01-05 15:24) [Alec Rabbit]: move tests InstantiatorTest to test this class
@@ -18,9 +18,9 @@ use AlecRabbit\Color\Model\Contract\DTO\DColor;
  */
 final class Color
 {
-    /** @var class-string<IInstantiatorFactory> */
-    private static string $factoryClass = InstantiatorFactory::class;
-    private static ?IInstantiatorFactory $factory = null;
+    /** @var class-string<IInstantiatorStore> */
+    private static string $factoryClass = InstantiatorStore::class;
+    private static ?IInstantiatorStore $factory = null;
 
     /**
      * @codeCoverageIgnore
@@ -35,7 +35,7 @@ final class Color
         return self::getInstantiatorFactory()->getByString($color)->fromString($color);
     }
 
-    private static function getInstantiatorFactory(): IInstantiatorFactory
+    private static function getInstantiatorFactory(): IInstantiatorStore
     {
         if (self::$factory === null) {
             self::$factory = self::createFactory();
@@ -43,7 +43,7 @@ final class Color
         return self::$factory;
     }
 
-    private static function createFactory(): IInstantiatorFactory
+    private static function createFactory(): IInstantiatorStore
     {
         return new self::$factoryClass();
     }
@@ -67,7 +67,7 @@ final class Color
     }
 
     /**
-     * @param class-string<IInstantiatorFactory> $factoryClass
+     * @param class-string<IInstantiatorStore> $factoryClass
      */
     public static function setFactoryClass(string $factoryClass): void
     {
@@ -77,12 +77,12 @@ final class Color
 
     private static function assertFactoryClass(string $factoryClass): void
     {
-        if (!is_subclass_of($factoryClass, IInstantiatorFactory::class)) {
+        if (!is_subclass_of($factoryClass, IInstantiatorStore::class)) {
             throw new InvalidArgument(
                 sprintf(
                     'Class "%s" is not a "%s" subclass.',
                     $factoryClass,
-                    IInstantiatorFactory::class
+                    IInstantiatorStore::class
                 )
             );
         }

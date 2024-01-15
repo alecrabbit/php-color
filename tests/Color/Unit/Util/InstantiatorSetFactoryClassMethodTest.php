@@ -6,23 +6,24 @@ namespace AlecRabbit\Tests\Color\Unit\Util;
 
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Util\Instantiator;
-use AlecRabbit\Tests\Color\Unit\Util\Override\InstantiatorFactoryOverride;
+use AlecRabbit\Tests\Color\Unit\Util\Override\InstantiatorStoreOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;
 
 final class InstantiatorSetFactoryClassMethodTest extends TestCase
 {
-    private string $factoryClass;
+    private const STORE_CLASS = 'storeClass';
+    private string $storeClass;
 
     #[Test]
     public function canSetFactoryClass(): void
     {
-        $class = InstantiatorFactoryOverride::class;
+        $class = InstantiatorStoreOverride::class;
 
-        Instantiator::setFactoryClass($class);
+        Instantiator::setStoreClass($class);
 
-        self::assertSame($class, self::getPropertyValue(Instantiator::class, 'factoryClass'));
+        self::assertSame($class, self::getPropertyValue(Instantiator::class, self::STORE_CLASS));
     }
 
     #[Test]
@@ -30,18 +31,18 @@ final class InstantiatorSetFactoryClassMethodTest extends TestCase
     {
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
-            'Class "stdClass" is not a "AlecRabbit\Color\Contract\Factory\IInstantiatorFactory" subclass.'
+            'Class "stdClass" is not a "AlecRabbit\Color\Contract\Store\IInstantiatorStore" subclass.'
         );
-        Instantiator::setFactoryClass(stdClass::class);
+        Instantiator::setStoreClass(stdClass::class);
     }
 
     protected function setUp(): void
     {
-        $this->factoryClass = self::getPropertyValue(Instantiator::class, 'factoryClass');
+        $this->storeClass = self::getPropertyValue(Instantiator::class, self::STORE_CLASS);
     }
 
     protected function tearDown(): void
     {
-        self::setPropertyValue(Instantiator::class, 'factoryClass', $this->factoryClass);
+        self::setPropertyValue(Instantiator::class, self::STORE_CLASS, $this->storeClass);
     }
 }

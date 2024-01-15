@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Color\Unit\Factory\InstantiatorFactory;
+namespace AlecRabbit\Tests\Color\Unit\Store\InstantiatorStore;
 
 use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Factory\InstantiatorFactory;
 use AlecRabbit\Color\Instantiator\RGBInstantiator;
 use AlecRabbit\Color\RGB;
+use AlecRabbit\Color\Store\InstantiatorStore;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;
 
-final class InstantiatorFactoryRegisterInstantiatorsTest extends TestCase
+final class InstantiatorStoreRegisterInstantiatorsTest extends TestCase
 {
     private array $registeredInstantiators;
 
@@ -21,19 +21,19 @@ final class InstantiatorFactoryRegisterInstantiatorsTest extends TestCase
     {
         self::assertEmpty($this->getRegisteredInstantiators());
 
-        InstantiatorFactory::register(RGBInstantiator::class);
+        InstantiatorStore::register(RGBInstantiator::class);
 
         self::assertContains(RGBInstantiator::class, $this->getRegisteredInstantiators());
     }
 
     protected function getRegisteredInstantiators(): array
     {
-        return self::getPropertyValue(InstantiatorFactory::class, 'registered');
+        return self::getPropertyValue(InstantiatorStore::class, 'registered');
     }
 
     protected function setRegisteredInstantiators(array $registeredInstantiators): void
     {
-        self::setPropertyValue(InstantiatorFactory::class, 'registered', $registeredInstantiators);
+        self::setPropertyValue(InstantiatorStore::class, 'registered', $registeredInstantiators);
     }
 
     #[Test]
@@ -41,7 +41,7 @@ final class InstantiatorFactoryRegisterInstantiatorsTest extends TestCase
     {
         $this->expectException(InvalidArgument::class);
 
-        InstantiatorFactory::register(stdClass::class, RGBInstantiator::class);
+        InstantiatorStore::register(stdClass::class, RGBInstantiator::class);
     }
 
     #[Test]
@@ -49,7 +49,7 @@ final class InstantiatorFactoryRegisterInstantiatorsTest extends TestCase
     {
         $this->expectException(InvalidArgument::class);
 
-        InstantiatorFactory::register(RGB::class, stdClass::class);
+        InstantiatorStore::register(RGB::class, stdClass::class);
     }
 
     protected function setUp(): void
