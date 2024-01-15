@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Util;
 
+use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
+use AlecRabbit\Color\Contract\Store\IConverterStore;
 use AlecRabbit\Color\Contract\Store\IInstantiatorStore;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
+use AlecRabbit\Color\Store\ConverterStore;
 use AlecRabbit\Color\Store\InstantiatorStore;
 
 /**
@@ -19,8 +22,12 @@ use AlecRabbit\Color\Store\InstantiatorStore;
 final class Color
 {
     /** @var class-string<IInstantiatorStore> */
-    private static string $factoryClass = InstantiatorStore::class;
-    private static ?IInstantiatorStore $factory = null;
+    private static string $instantiatorStoreClass = InstantiatorStore::class;
+    private static ?IInstantiatorStore $instantiatorStore = null;
+
+    /** @var class-string<IConverterStore> */
+    private static string $converterStoreClass = ConverterStore::class;
+    private static ?IConverterStore $converterStore = null;
 
     /**
      * @codeCoverageIgnore
@@ -32,20 +39,20 @@ final class Color
 
     public static function fromString(string $color): IColor
     {
-        return self::getInstantiatorFactory()->getByString($color)->fromString($color);
+        return self::getInstantiatorStore()->getByString($color)->fromString($color);
     }
 
-    private static function getInstantiatorFactory(): IInstantiatorStore
+    private static function getInstantiatorStore(): IInstantiatorStore
     {
-        if (self::$factory === null) {
-            self::$factory = self::createFactory();
+        if (self::$instantiatorStore === null) {
+            self::$instantiatorStore = self::createInstantiatorStore();
         }
-        return self::$factory;
+        return self::$instantiatorStore;
     }
 
-    private static function createFactory(): IInstantiatorStore
+    private static function createInstantiatorStore(): IInstantiatorStore
     {
-        return new self::$factoryClass();
+        return new self::$instantiatorStoreClass();
     }
 
     /**
@@ -55,36 +62,60 @@ final class Color
      *
      * @psalm-return T
      */
-    public static function fromDTO(DColor $dto, string $target): IColor
+    public static function from(DColor $dto, string $target): IColor
     {
         /** @var T $color */
-        $color = self::getInstantiatorFactory()
+        $color = self::getInstantiatorStore()
             ->getByTarget($target)
             ->fromDTO($dto)
         ;
 
         return $color;
     }
-
     /**
-     * @param class-string<IInstantiatorStore> $factoryClass
+     * @template T of IColor
+     *
+     * @param class-string<T> $class
+     *
+     * @psalm-return IToConverter<T>
      */
-    public static function setFactoryClass(string $factoryClass): void
+    public static function to(string $class): IToConverter
     {
-        self::assertFactoryClass($factoryClass);
-        self::$factoryClass = $factoryClass;
+        return self::getConverterStore()->getByTarget($class);
     }
 
-    private static function assertFactoryClass(string $factoryClass): void
+    /**
+     * @param class-string<IInstantiatorStore> $instantiatorStoreClass
+     */
+    public static function setInstantiatorStoreClass(string $instantiatorStoreClass): void
     {
-        if (!is_subclass_of($factoryClass, IInstantiatorStore::class)) {
+        self::assertStoreClass($instantiatorStoreClass);
+        self::$instantiatorStoreClass = $instantiatorStoreClass;
+    }
+
+    private static function assertStoreClass(string $instantiatorStoreClass): void
+    {
+        if (!is_subclass_of($instantiatorStoreClass, IInstantiatorStore::class)) {
             throw new InvalidArgument(
                 sprintf(
                     'Class "%s" is not a "%s" subclass.',
-                    $factoryClass,
+                    $instantiatorStoreClass,
                     IInstantiatorStore::class
                 )
             );
         }
+    }
+
+    private static function getConverterStore(): IConverterStore
+    {
+        if (self::$converterStore === null) {
+            self::$converterStore = self::createConverterStore();
+        }
+        return self::$converterStore;
+    }
+
+    private static function createConverterStore(): IConverterStore
+    {
+        return new self::$converterStoreClass();
     }
 }

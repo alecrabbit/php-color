@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Color\Unit\Util;
 
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Util\Converter;
-use AlecRabbit\Tests\Color\Unit\Util\Override\ConverterFactoryOverride;
+use AlecRabbit\Tests\Color\Unit\Util\Override\ConverterStoreOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;
@@ -18,7 +18,7 @@ final class ConverterSetFactoryClassMethodTest extends TestCase
     #[Test]
     public function canSetFactoryClass(): void
     {
-        $class = ConverterFactoryOverride::class;
+        $class = ConverterStoreOverride::class;
 
         Converter::setFactoryClass($class);
 
@@ -30,7 +30,7 @@ final class ConverterSetFactoryClassMethodTest extends TestCase
     {
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
-            'Class "stdClass" is not a "AlecRabbit\Color\Contract\Factory\IConverterFactory" subclass.'
+            'Class "stdClass" is not a "AlecRabbit\Color\Contract\Store\IConverterStore" subclass.'
         );
         Converter::setFactoryClass(stdClass::class);
     }

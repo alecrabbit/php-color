@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\TestCase;
 
-use AlecRabbit\Color\Contract\Factory\IConverterFactory;
+use AlecRabbit\Color\Contract\Store\IConverterStore;
 use AlecRabbit\Color\Contract\Store\IInstantiatorStore;
 use AlecRabbit\Color\Util\Converter;
 use AlecRabbit\Color\Util\Instantiator;
@@ -14,7 +14,7 @@ abstract class FactoryAwareTestCase extends TestCase
     protected const STORE = 'store';
 
     private static ?IInstantiatorStore $instantiatorStore = null;
-    private static ?IConverterFactory $converterFactory = null;
+    private static ?IConverterStore $converterFactory = null;
 
     protected function setUp(): void
     {
@@ -41,7 +41,7 @@ abstract class FactoryAwareTestCase extends TestCase
         self::setPropertyValue(Instantiator::class, self::STORE, $store);
     }
 
-    protected static function setConverterFactory(?IConverterFactory $factory): void
+    protected static function setConverterFactory(?IConverterStore $factory): void
     {
         self::setPropertyValue(Converter::class, 'factory', $factory);
     }

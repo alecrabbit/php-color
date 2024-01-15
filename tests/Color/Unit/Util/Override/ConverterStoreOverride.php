@@ -5,19 +5,26 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit\Util\Override;
 
 use AlecRabbit\Color\Contract\Converter\IToConverter;
-use AlecRabbit\Color\Contract\Factory\IConverterFactory;
+use AlecRabbit\Color\Contract\Store\IConverterStore;
 use RuntimeException;
 
-final class ConverterFactoryOverride implements IConverterFactory
+final class ConverterStoreOverride implements IConverterStore
 {
 
     public static function registerConverter(string $targetClass, string $converterClass): void
     {
-        // TODO: Implement registerConverter() method.
-        throw new RuntimeException('Not implemented.');
+        throw new RuntimeException('INTENTIONALLY Not implemented.');
     }
 
     public function make(string $class): IToConverter
+    {
+        throw new RuntimeException('INTENTIONALLY Not implemented.');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getByTarget(string $class): IToConverter
     {
         throw new RuntimeException('INTENTIONALLY Not implemented.');
     }

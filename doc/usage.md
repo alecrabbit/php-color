@@ -29,12 +29,16 @@ $rgb =
     ->to(RGB::class);                                   // RGB::class
 
 $hsl = $color->to(HSL::class);                          // HSL::class
+$hsl = $color->to(IHSLColor::class);                    // HSL::class
 $rgb = $color->to(RGB::class);                          // RGB::class
 $hex = $color->to(Hex::class);                          // Hex::class
 ```
 or
 ```php
-$hsl = Converter::to(HSL::class)->convert($color);
-$rgb = Converter::to(RGB::class)->convert($color);
-$hex = Converter::to(Hex::class)->convert($color);
+$color = Color::fromString('red');                          // Hex::class
+
+$hsl = Color::to(HSL::class)->convert($color);              // HSL::class
+$hsla = Color::to(IHSLAColor::class)->convert($color);      // HSLA::class
+$rgb = Color::to(RGB::class)->convert($color);              // RGB::class
+$hex = Color::to(Hex8::class)->convert($color);             // Hex8::class
 ```

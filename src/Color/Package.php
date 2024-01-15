@@ -6,7 +6,7 @@ namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Wrapper\IWrapper;
-use AlecRabbit\Color\Factory\ConverterFactory;
+use AlecRabbit\Color\Store\ConverterStore;
 use AlecRabbit\Color\Store\InstantiatorStore;
 
 /**
@@ -21,7 +21,7 @@ final class Package
 
             /** @var class-string<IColor> $target */
             foreach ($item->getTargets() as $target) {
-                ConverterFactory::register($target, $converterClass);
+                ConverterStore::register($target, $converterClass);
             }
             InstantiatorStore::register($item->getInstantiatorClass());
         }

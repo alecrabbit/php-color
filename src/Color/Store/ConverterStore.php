@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color\Factory;
+namespace AlecRabbit\Color\Store;
 
 use AlecRabbit\Color\Contract\Converter\IToConverter;
-use AlecRabbit\Color\Contract\Factory\IConverterFactory;
 use AlecRabbit\Color\Contract\IColor;
+use AlecRabbit\Color\Contract\Store\IConverterStore;
 use AlecRabbit\Color\Exception\ConverterUnavailable;
 use AlecRabbit\Color\Exception\InvalidArgument;
 
-class ConverterFactory implements IConverterFactory
+class ConverterStore implements IConverterStore
 {
     /**
      * @var Array<class-string<IColor>, class-string<IToConverter<IColor>>>
@@ -100,5 +100,15 @@ class ConverterFactory implements IConverterFactory
             throw new ConverterUnavailable(
                 sprintf('Converter class for "%s" is not available.', $class)
             );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getByTarget(string $class): IToConverter
+    {
+        self::assertTargetClass($class);
+
+        return self::createConverter($class);
     }
 }

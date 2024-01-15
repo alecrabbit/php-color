@@ -6,8 +6,8 @@ namespace AlecRabbit\Tests\Color\Unit\Factory\ConverterFactory;
 
 use AlecRabbit\Color\Converter\To\ToRGBConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Factory\ConverterFactory;
 use AlecRabbit\Color\RGB;
+use AlecRabbit\Color\Store\ConverterStore;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;
@@ -20,7 +20,7 @@ final class ConverterFactoryRegisterConvertersTest extends TestCase
     public function convertersCanBeRegistered(): void
     {
         self::assertEmpty($this->getRegisteredConverters());
-        ConverterFactory::register(RGB::class, ToRGBConverter::class);
+        ConverterStore::register(RGB::class, ToRGBConverter::class);
 
         $registeredConverters = $this->getRegisteredConverters();
         self::assertArrayHasKey(RGB::class, $registeredConverters);
@@ -29,12 +29,12 @@ final class ConverterFactoryRegisterConvertersTest extends TestCase
 
     protected function getRegisteredConverters(): array
     {
-        return self::getPropertyValue(ConverterFactory::class, 'registered');
+        return self::getPropertyValue(ConverterStore::class, 'registered');
     }
 
     protected function setRegisteredConverters(array $registeredConverters): void
     {
-        self::setPropertyValue(ConverterFactory::class, 'registered', $registeredConverters);
+        self::setPropertyValue(ConverterStore::class, 'registered', $registeredConverters);
     }
 
     #[Test]
@@ -42,7 +42,7 @@ final class ConverterFactoryRegisterConvertersTest extends TestCase
     {
         $this->expectException(InvalidArgument::class);
 
-        ConverterFactory::register(stdClass::class, ToRGBConverter::class);
+        ConverterStore::register(stdClass::class, ToRGBConverter::class);
     }
 
     #[Test]
@@ -50,7 +50,7 @@ final class ConverterFactoryRegisterConvertersTest extends TestCase
     {
         $this->expectException(InvalidArgument::class);
 
-        ConverterFactory::register(RGB::class, stdClass::class);
+        ConverterStore::register(RGB::class, stdClass::class);
     }
 
     protected function setUp(): void

@@ -9,7 +9,10 @@ use AlecRabbit\Color\Contract\Store\IInstantiatorStore;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Store\InstantiatorStore;
 
-// TODO (2024-01-05 15:23) [Alec Rabbit]: functionality moved to Color class, remove this class
+
+/**
+ * @deprecated TODO (2024-01-05 15:23) [Alec Rabbit]: functionality moved to Color::class, remove this class
+ */
 final class Instantiator
 {
     /** @var class-string<IInstantiatorStore> */

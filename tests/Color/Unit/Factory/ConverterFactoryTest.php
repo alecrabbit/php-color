@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Color\Unit\Factory;
 
-use AlecRabbit\Color\Contract\Factory\IConverterFactory;
 use AlecRabbit\Color\Contract\IColor;
+use AlecRabbit\Color\Contract\Store\IConverterStore;
 use AlecRabbit\Color\Converter\To;
 use AlecRabbit\Color\Exception\ConverterUnavailable;
 use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Factory\ConverterFactory;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
+use AlecRabbit\Color\Store\ConverterStore;
 use AlecRabbit\Tests\Color\Unit\Factory\Override\AColorOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -61,9 +61,9 @@ final class ConverterFactoryTest extends TestCase
         $converterFactory->make($class);
     }
 
-    private static function getTestee(): IConverterFactory
+    private static function getTestee(): IConverterStore
     {
-        return new ConverterFactory();
+        return new ConverterStore();
     }
 
     #[Test]
