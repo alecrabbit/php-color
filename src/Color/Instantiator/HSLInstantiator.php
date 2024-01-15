@@ -8,6 +8,7 @@ use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 
 /**
  * @extends AInstantiator<IHSLColor>
@@ -40,5 +41,11 @@ class HSLInstantiator extends AInstantiator
     protected static function canInstantiate(string $color): bool
     {
         return str_starts_with($color, 'hsl(') && !str_contains($color, '/');
+    }
+
+    protected function createFromDTO(DColor $value): ?IColor
+    {
+        // TODO: Implement createFromDTO() method.
+        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
     }
 }

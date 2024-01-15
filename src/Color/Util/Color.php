@@ -97,7 +97,7 @@ final class Color
         /** @var T $color */
         $color = self::getInstantiatorStore()
             ->getByTarget($target)
-            ->fromDTO($dto);
+            ->from($dto);
 
         return $color;
     }

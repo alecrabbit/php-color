@@ -13,7 +13,7 @@ use AlecRabbit\Color\Model\Contract\DTO\DColor;
  */
 interface IInstantiator
 {
-    public static function isSupported(string $color): bool;
+    public static function isSupported(string $value): bool;
 
     /**
      * @return class-string<IColor>
@@ -30,5 +30,5 @@ interface IInstantiator
     /**
      * @psalm-return T
      */
-    public function fromDTO(DColor $dto): IColor;
+    public function from(DColor|string $value): IColor;
 }

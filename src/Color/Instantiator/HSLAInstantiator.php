@@ -8,6 +8,7 @@ use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\HSLA;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 
 /**
  * @extends AInstantiator<IHSLAColor>
@@ -54,5 +55,11 @@ class HSLAInstantiator extends AInstantiator
         }
 
         return round((float)$value, self::PRECISION);
+    }
+
+    protected function createFromDTO(DColor $value): ?IColor
+    {
+        // TODO: Implement createFromDTO() method.
+        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
     }
 }

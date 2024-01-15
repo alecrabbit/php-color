@@ -6,6 +6,7 @@ namespace AlecRabbit\Color\Instantiator\A;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
+use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Exception\UnrecognizedColorString;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use RuntimeException;
@@ -22,11 +23,11 @@ abstract class AInstantiator implements IInstantiator
 {
     protected const PRECISION = 2;
 
-    public static function isSupported(string $color): bool
+    public static function isSupported(string $value): bool
     {
-        $color = self::normalize($color);
+        $value = self::normalize($value);
 
-        return static::canInstantiate($color);
+        return static::canInstantiate($value);
     }
 
     protected static function normalize(string $color): string
@@ -35,6 +36,33 @@ abstract class AInstantiator implements IInstantiator
     }
 
     abstract protected static function canInstantiate(string $color): bool;
+
+    /**
+     * @psalm-return T
+     */
+    public function from(DColor|string $value): IColor
+    {
+        return
+            $value instanceof DColor
+                ? $this->fromDTO($value)
+                : $this->fromString($value);
+    }
+
+    /**
+     * @psalm-return T
+     */
+    protected function fromDTO(DColor $dto): IColor
+    {
+        return $this->createFromDTO($dto)
+            ??
+            throw new InvalidArgument( // TODO (2024-01-15 15:31) [Alec Rabbit]: clarify exception message
+                sprintf(
+                    'Cannot instantiate "%s" from "%s".',
+                    static::getTargetClass(),
+                    $dto::class
+                )
+            );
+    }
 
     /**
      * @psalm-return T
@@ -60,11 +88,7 @@ abstract class AInstantiator implements IInstantiator
     abstract protected function createFromString(string $value): ?IColor;
 
     /**
-     * @psalm-return T
+     * @psalm-return null|T
      */
-    public function fromDTO(DColor $dto): IColor
-    {
-        // TODO: Implement fromDTO() method.
-        throw new RuntimeException('Not implemented.');
-    }
+    abstract protected function createFromDTO(DColor $value): ?IColor;
 }

@@ -8,6 +8,7 @@ use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHex8Color;
 use AlecRabbit\Color\Hex8;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 
 /**
  * @extends AInstantiator<IHex8Color>
@@ -22,11 +23,11 @@ class Hex8Instantiator extends AInstantiator
         return Hex8::class;
     }
 
-    public static function isSupported(string $color): bool
+    public static function isSupported(string $value): bool
     {
-        $color = self::normalize($color);
+        $value = self::normalize($value);
 
-        return self::canInstantiate($color);
+        return self::canInstantiate($value);
     }
 
     protected static function canInstantiate(string $color): bool
@@ -63,5 +64,11 @@ class Hex8Instantiator extends AInstantiator
         }
 
         return $hex;
+    }
+
+    protected function createFromDTO(DColor $value): ?IColor
+    {
+        // TODO: Implement createFromDTO() method.
+        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
     }
 }

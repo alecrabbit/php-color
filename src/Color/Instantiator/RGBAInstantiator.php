@@ -7,6 +7,7 @@ namespace AlecRabbit\Color\Instantiator;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\RGBA;
 
 use function str_starts_with;
@@ -42,5 +43,11 @@ class RGBAInstantiator extends AInstantiator
     protected static function canInstantiate(string $color): bool
     {
         return str_starts_with($color, 'rgba(');
+    }
+
+    protected function createFromDTO(DColor $value): ?IColor
+    {
+        // TODO: Implement createFromDTO() method.
+        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
     }
 }
