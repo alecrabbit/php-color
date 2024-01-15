@@ -6,6 +6,7 @@ namespace AlecRabbit\Color\Util;
 
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
+use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Contract\Store\IConverterStore;
 use AlecRabbit\Color\Contract\Store\IInstantiatorStore;
 use AlecRabbit\Color\Exception\InvalidArgument;
@@ -37,9 +38,68 @@ final class Color
         // Can not be instantiated
     }
 
-    public static function fromString(string $color): IColor
+    /**
+     * @template T of IColor
+     *
+     * @param null|class-string<T> $target
+     *
+     * @psalm-return ($target is null ? IColor : T)
+     */
+    public static function from(IColor|DColor|string $value, ?string $target = null): IColor
     {
-        return self::getInstantiatorStore()->getByString($color)->fromString($color);
+        return match (true) {
+            $value instanceof IColor => $target === null
+                ? $value
+                : $value->to($target),
+            $value instanceof DColor => $target === null
+                ? self::fromDTO($value, IHexColor::class)
+                : self::fromDTO($value, $target),
+            default => $target === null
+                ? self::fromString($value)
+                : self::fromString($value)->to($target),
+        };
+    }
+
+    /**
+     * @template T of IColor
+     *
+     * @param class-string<T> $class
+     *
+     * @psalm-return IToConverter<T>
+     */
+    public static function to(string $class): IToConverter
+    {
+        return self::getConverterStore()->getByTarget($class);
+    }
+
+    private static function getConverterStore(): IConverterStore
+    {
+        if (self::$converterStore === null) {
+            self::$converterStore = self::createConverterStore();
+        }
+        return self::$converterStore;
+    }
+
+    private static function createConverterStore(): IConverterStore
+    {
+        return new self::$converterStoreClass();
+    }
+
+    /**
+     * @template T of IColor
+     *
+     * @param class-string<T> $target
+     *
+     * @psalm-return T
+     */
+    public static function fromDTO(DColor $dto, string $target): IColor
+    {
+        /** @var T $color */
+        $color = self::getInstantiatorStore()
+            ->getByTarget($target)
+            ->fromDTO($dto);
+
+        return $color;
     }
 
     private static function getInstantiatorStore(): IInstantiatorStore
@@ -55,33 +115,9 @@ final class Color
         return new self::$instantiatorStoreClass();
     }
 
-    /**
-     * @template T of IColor
-     *
-     * @param class-string<T> $target
-     *
-     * @psalm-return T
-     */
-    public static function from(DColor $dto, string $target): IColor
+    public static function fromString(string $color): IColor
     {
-        /** @var T $color */
-        $color = self::getInstantiatorStore()
-            ->getByTarget($target)
-            ->fromDTO($dto)
-        ;
-
-        return $color;
-    }
-    /**
-     * @template T of IColor
-     *
-     * @param class-string<T> $class
-     *
-     * @psalm-return IToConverter<T>
-     */
-    public static function to(string $class): IToConverter
-    {
-        return self::getConverterStore()->getByTarget($class);
+        return self::getInstantiatorStore()->getByString($color)->fromString($color);
     }
 
     /**
@@ -104,18 +140,5 @@ final class Color
                 )
             );
         }
-    }
-
-    private static function getConverterStore(): IConverterStore
-    {
-        if (self::$converterStore === null) {
-            self::$converterStore = self::createConverterStore();
-        }
-        return self::$converterStore;
-    }
-
-    private static function createConverterStore(): IConverterStore
-    {
-        return new self::$converterStoreClass();
     }
 }

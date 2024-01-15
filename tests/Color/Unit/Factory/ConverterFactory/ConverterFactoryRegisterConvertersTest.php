@@ -20,7 +20,7 @@ final class ConverterFactoryRegisterConvertersTest extends TestCase
     public function convertersCanBeRegistered(): void
     {
         self::assertEmpty($this->getRegisteredConverters());
-        ConverterStore::register(RGB::class, ToRGBConverter::class);
+        ConverterStore::registerOld(RGB::class, ToRGBConverter::class);
 
         $registeredConverters = $this->getRegisteredConverters();
         self::assertArrayHasKey(RGB::class, $registeredConverters);
@@ -42,7 +42,7 @@ final class ConverterFactoryRegisterConvertersTest extends TestCase
     {
         $this->expectException(InvalidArgument::class);
 
-        ConverterStore::register(stdClass::class, ToRGBConverter::class);
+        ConverterStore::registerOld(stdClass::class, ToRGBConverter::class);
     }
 
     #[Test]
@@ -50,7 +50,7 @@ final class ConverterFactoryRegisterConvertersTest extends TestCase
     {
         $this->expectException(InvalidArgument::class);
 
-        ConverterStore::register(RGB::class, stdClass::class);
+        ConverterStore::registerOld(RGB::class, stdClass::class);
     }
 
     protected function setUp(): void

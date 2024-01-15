@@ -35,7 +35,7 @@ final class Converter
      */
     public static function to(string $class): IToConverter
     {
-        return self::getConverterFactory()->make($class);
+        return self::getConverterFactory()->getByTarget($class);
     }
 
     private static function getConverterFactory(): IConverterStore

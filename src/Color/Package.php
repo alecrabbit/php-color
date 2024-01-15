@@ -21,7 +21,7 @@ final class Package
 
             /** @var class-string<IColor> $target */
             foreach ($item->getTargets() as $target) {
-                ConverterStore::register($target, $converterClass);
+                ConverterStore::registerOld($target, $converterClass);
             }
             InstantiatorStore::register($item->getInstantiatorClass());
         }

@@ -51,6 +51,6 @@ final class ColorTest extends TestCase
 
     private static function getTesteeFromString(string $value): IColor
     {
-        return Color::fromString($value);
+        return Color::from($value);
     }
 }

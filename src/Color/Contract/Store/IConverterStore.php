@@ -10,6 +10,13 @@ use AlecRabbit\Color\Contract\IColor;
 interface IConverterStore
 {
     /**
+     * @param class-string<IToConverter> $class
+     */
+    public static function register(string $class): void;
+
+    /**
+     * @deprecated Use {@see IConverterStore::getByTarget()} instead.
+     *
      * @template T of IColor
      *
      * @param class-string<T> $class

@@ -21,7 +21,7 @@ class ConverterStore implements IConverterStore
      * @param class-string<IColor> $targetClass
      * @param class-string<IToConverter> $converterClass
      */
-    public static function register(string $targetClass, string $converterClass): void
+    public static function registerOld(string $targetClass, string $converterClass): void
     {
         self::assertTargetClass($targetClass);
         self::assertConverterClass($converterClass);
@@ -110,5 +110,14 @@ class ConverterStore implements IConverterStore
         self::assertTargetClass($class);
 
         return self::createConverter($class);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public static function register(string $class): void
+    {
+        // TODO: Implement register() method.
+        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
     }
 }
