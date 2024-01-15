@@ -10,6 +10,11 @@ use RuntimeException;
 
 final class ConverterStoreOverride implements IConverterStore
 {
+    public static function register(string $class): void
+    {
+        throw new RuntimeException('INTENTIONALLY Not implemented.');
+    }
+
     public function make(string $class): IToConverter
     {
         throw new RuntimeException('INTENTIONALLY Not implemented.');
@@ -19,11 +24,6 @@ final class ConverterStoreOverride implements IConverterStore
      * @inheritDoc
      */
     public function getByTarget(string $class): IToConverter
-    {
-        throw new RuntimeException('INTENTIONALLY Not implemented.');
-    }
-
-    public static function register(string $class): void
     {
         throw new RuntimeException('INTENTIONALLY Not implemented.');
     }

@@ -328,8 +328,7 @@ final class HSLATest extends TestCase
         $color->expects(self::once())
             ->method('to')
             ->with($colorClass)
-            ->willReturn($result)
-        ;
+            ->willReturn($result);
 
         self::assertSame($result, HSLA::from($color));
     }

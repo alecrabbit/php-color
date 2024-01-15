@@ -6,44 +6,44 @@ namespace AlecRabbit\Tests\TestCase;
 
 use AlecRabbit\Color\Contract\Store\IConverterStore;
 use AlecRabbit\Color\Contract\Store\IInstantiatorStore;
-use AlecRabbit\Color\Util\Converter;
-use AlecRabbit\Color\Util\Instantiator;
+use AlecRabbit\Color\Util\Color;
 
 abstract class FactoryAwareTestCase extends TestCase
 {
-    protected const STORE = 'store';
+    protected const INSTANTIATOR_STORE = 'instantiatorStore';
+    protected const CONVERTER_STORE = 'converterStore';
 
     private static ?IInstantiatorStore $instantiatorStore = null;
-    private static ?IConverterStore $converterFactory = null;
+    private static ?IConverterStore $converterStore = null;
 
     protected function setUp(): void
     {
         parent::setUp();
         self::storeInstantiatorStore();
-        self::storeConverterFactory();
+        self::storeConverterStore();
 
         self::setInstantiatorStore(null);
-        self::setConverterFactory(null);
+        self::setConverterStore(null);
     }
 
     private static function storeInstantiatorStore(): void
     {
-        self::$instantiatorStore = self::getPropertyValue(Instantiator::class, self::STORE);
+        self::$instantiatorStore = self::getPropertyValue(Color::class, self::INSTANTIATOR_STORE);
     }
 
-    private static function storeConverterFactory(): void
+    private static function storeConverterStore(): void
     {
-        self::$converterFactory = self::getPropertyValue(Converter::class, 'factory');
+        self::$converterStore = self::getPropertyValue(Color::class, self::CONVERTER_STORE);
     }
 
     private static function setInstantiatorStore(?IInstantiatorStore $store): void
     {
-        self::setPropertyValue(Instantiator::class, self::STORE, $store);
+        self::setPropertyValue(Color::class, self::INSTANTIATOR_STORE, $store);
     }
 
-    protected static function setConverterFactory(?IConverterStore $factory): void
+    protected static function setConverterStore(?IConverterStore $factory): void
     {
-        self::setPropertyValue(Converter::class, 'factory', $factory);
+        self::setPropertyValue(Color::class, self::CONVERTER_STORE, $factory);
     }
 
     protected function tearDown(): void
@@ -60,7 +60,7 @@ abstract class FactoryAwareTestCase extends TestCase
 
     private static function rollbackConverterFactory(): void
     {
-        self::setConverterFactory(self::$converterFactory);
+        self::setConverterStore(self::$converterStore);
     }
 
 }

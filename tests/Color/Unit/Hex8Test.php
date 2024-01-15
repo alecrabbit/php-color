@@ -482,8 +482,7 @@ final class Hex8Test extends TestCase
         $color->expects(self::once())
             ->method('to')
             ->with($colorClass)
-            ->willReturn($result)
-        ;
+            ->willReturn($result);
 
         self::assertSame($result, Hex8::from($color));
     }

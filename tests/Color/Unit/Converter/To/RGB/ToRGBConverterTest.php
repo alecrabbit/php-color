@@ -57,13 +57,11 @@ final class ToRGBConverterTest extends TestCase
         $incoming
             ->expects(self::once())
             ->method('getColorModel')
-            ->willReturn($modelFrom)
-        ;
+            ->willReturn($modelFrom);
         $incoming
             ->expects(self::once())
             ->method('toDTO')
-            ->willReturn($dtoFrom)
-        ;
+            ->willReturn($dtoFrom);
 
         $registry = $this->getConverterRegistryMock();
         $modelConverter = $this->getModelConverterMock();
@@ -71,8 +69,7 @@ final class ToRGBConverterTest extends TestCase
             ->expects(self::once())
             ->method('convert')
             ->with($dtoFrom)
-            ->willReturn($dtoTo)
-        ;
+            ->willReturn($dtoTo);
 
         $registry
             ->expects(self::once())
@@ -80,8 +77,7 @@ final class ToRGBConverterTest extends TestCase
             ->with($modelFrom, $modelTo)
             ->willReturn(
                 $modelConverter
-            )
-        ;
+            );
 
         $toConverter = $this->getTesteeInstance(
             registry: $registry,

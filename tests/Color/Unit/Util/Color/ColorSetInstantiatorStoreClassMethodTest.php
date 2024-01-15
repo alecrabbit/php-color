@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Color\Unit\Util;
+namespace AlecRabbit\Tests\Color\Unit\Util\Color;
 
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Util\Color;
-use AlecRabbit\Color\Util\Instantiator;
 use AlecRabbit\Tests\Color\Unit\Store\Override\InstantiatorStoreOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;

@@ -273,8 +273,7 @@ final class HSLTest extends TestCase
         $color->expects(self::once())
             ->method('to')
             ->with($colorClass)
-            ->willReturn($result)
-        ;
+            ->willReturn($result);
 
         self::assertSame($result, HSL::from($color));
     }

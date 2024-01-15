@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Color\Unit\Util;
+namespace AlecRabbit\Tests\Color\Unit\Util\Color;
 
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Util\Color;

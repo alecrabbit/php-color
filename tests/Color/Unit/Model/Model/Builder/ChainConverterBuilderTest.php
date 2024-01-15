@@ -34,8 +34,7 @@ final class ChainConverterBuilderTest extends TestCase
         $converter = $builder
             ->withConverters(new ArrayObject())
             ->forPath(new ArrayObject())
-            ->build()
-        ;
+            ->build();
 
         self::assertInstanceOf(ChainConverterBuilder::class, $builder);
     }
@@ -50,8 +49,7 @@ final class ChainConverterBuilderTest extends TestCase
 
         $builder
             ->forPath(new ArrayObject())
-            ->build()
-        ;
+            ->build();
     }
 
     #[Test]
@@ -64,7 +62,6 @@ final class ChainConverterBuilderTest extends TestCase
 
         $builder
             ->withConverters(new ArrayObject())
-            ->build()
-        ;
+            ->build();
     }
 }

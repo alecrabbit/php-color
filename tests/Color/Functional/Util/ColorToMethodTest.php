@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Color\Functional\Util;
 
-use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Contract\IHSLColor;
@@ -16,12 +15,12 @@ use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
-use AlecRabbit\Color\Util\Converter;
+use AlecRabbit\Color\Util\Color;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-final class ConverterTest extends TestCase
+final class ColorToMethodTest extends TestCase
 {
     public static function canGetConverterFromClassStringDataProvider(): iterable
     {
@@ -54,14 +53,9 @@ final class ConverterTest extends TestCase
     #[DataProvider('canGetConverterFromClassStringDataProvider')]
     public function canGetConverterFromClassString(string $converterClass, string $class): void
     {
-        $testee = Converter::to($class);
+        $testee = Color::to($class);
 
         /** @noinspection UnnecessaryAssertionInspection */
         self::assertInstanceOf($converterClass, $testee);
-    }
-
-    protected function getTesteeFromClassString(string $class): IToConverter
-    {
-        return Converter::to($class);
     }
 }
