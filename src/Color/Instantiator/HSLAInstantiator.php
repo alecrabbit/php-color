@@ -15,7 +15,6 @@ use AlecRabbit\Color\Instantiator\A\AInstantiator;
 class HSLAInstantiator extends AInstantiator
 {
     protected const REGEXP_HSLA = '/^hsla?\((\d+)(?:,\s*|\s*)(\d+)%(?:,\s*|\s*)(\d+)%(?:(?:,\s*|\s*\/\s*)(([\d.]+)|(\d+%)))?\)$/';
-    protected const PRECISION = 2;
 
     public static function getTargetClass(): string
     {

@@ -20,6 +20,8 @@ use function trim;
  */
 abstract class AInstantiator implements IInstantiator
 {
+    protected const PRECISION = 2;
+
     public static function isSupported(string $color): bool
     {
         $color = self::normalize($color);
