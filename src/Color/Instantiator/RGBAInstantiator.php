@@ -10,6 +10,8 @@ use AlecRabbit\Color\Instantiator\A\AInstantiator;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\RGBA;
 
+use RuntimeException;
+
 use function str_starts_with;
 
 /**
@@ -19,6 +21,7 @@ class RGBAInstantiator extends AInstantiator
 {
     protected const REGEXP_RGBA = '/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)$/';
 
+    /** @inheritDoc */
     public static function getTargetClass(): string
     {
         return RGBA::class;
@@ -47,7 +50,6 @@ class RGBAInstantiator extends AInstantiator
 
     protected function createFromDTO(DColor $value): ?IColor
     {
-        // TODO: Implement createFromDTO() method.
-        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
+        return null;
     }
 }

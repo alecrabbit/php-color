@@ -17,6 +17,9 @@ interface IInstantiator
 
     /**
      * @return class-string<IColor>
+     * @deprecated Changed visibility to protected. Do not use. No replacement.
+     * // TODO 2024-01-15 17:49) [Alec Rabbit]:  remove from tests and interface
+     *
      */
     public static function getTargetClass(): string;
 

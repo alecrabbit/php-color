@@ -15,13 +15,13 @@ interface IConverterStore
     public static function register(string $class): void;
 
     /**
+     * @param class-string<T> $class
+     *
+     * @psalm-return IToConverter<T>
      * @deprecated Use {@see IConverterStore::getByTarget()} instead.
      *
      * @template T of IColor
      *
-     * @param class-string<T> $class
-     *
-     * @psalm-return IToConverter<T>
      */
     public function make(string $class): IToConverter;
 

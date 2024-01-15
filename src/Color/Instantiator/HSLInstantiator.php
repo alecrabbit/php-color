@@ -9,6 +9,7 @@ use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
+use RuntimeException;
 
 /**
  * @extends AInstantiator<IHSLColor>
@@ -17,7 +18,7 @@ class HSLInstantiator extends AInstantiator
 {
     protected const REGEXP_HSLA = '/^hsla?\((\d+)(?:,\s*|\s*)(\d+)%(?:,\s*|\s*)(\d+)%(?:(?:,\s*|\s*\/\s*)(([\d.]+)|(\d+%)))?\)$/';
 
-
+    /** @inheritDoc */
     public static function getTargetClass(): string
     {
         return HSL::class;
@@ -45,7 +46,6 @@ class HSLInstantiator extends AInstantiator
 
     protected function createFromDTO(DColor $value): ?IColor
     {
-        // TODO: Implement createFromDTO() method.
-        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
+        return null;
     }
 }

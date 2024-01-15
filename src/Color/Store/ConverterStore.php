@@ -9,6 +9,7 @@ use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Store\IConverterStore;
 use AlecRabbit\Color\Exception\ConverterUnavailable;
 use AlecRabbit\Color\Exception\InvalidArgument;
+use RuntimeException;
 
 class ConverterStore implements IConverterStore
 {
@@ -58,6 +59,15 @@ class ConverterStore implements IConverterStore
                 )
             );
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public static function register(string $class): void
+    {
+        // TODO: Implement register() method.
+        throw new RuntimeException(__METHOD__ . ' Not implemented.');
     }
 
     /** @inheritDoc */
@@ -110,14 +120,5 @@ class ConverterStore implements IConverterStore
         self::assertTargetClass($class);
 
         return self::createConverter($class);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function register(string $class): void
-    {
-        // TODO: Implement register() method.
-        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
     }
 }

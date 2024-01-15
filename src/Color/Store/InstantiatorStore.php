@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Store;
 
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Contract\Store\IInstantiatorStore;
 use AlecRabbit\Color\Exception\InvalidArgument;
-use RuntimeException;
 
 class InstantiatorStore implements IInstantiatorStore
 {
@@ -15,13 +15,27 @@ class InstantiatorStore implements IInstantiatorStore
     protected static array $registered = [];
 
     /**
+     * @param class-string<IColor> $target
      * @param class-string<IInstantiator> $class
      */
-    public static function register(string $class): void
+    public static function registerOld(string $target, string $class): void
     {
+        self::assertTargetClass($target);
         self::assertClass($class);
-        if (!in_array($class, self::$registered, true)) {
-            self::$registered[$class::getTargetClass()] = $class;
+
+        self::$registered[$target] = $class;
+    }
+
+    protected static function assertTargetClass(string $class): void
+    {
+        if (!is_subclass_of($class, IColor::class)) {
+            throw new InvalidArgument(
+                sprintf(
+                    'Target class "%s" is not a "%s" subclass.',
+                    $class,
+                    IColor::class
+                )
+            );
         }
     }
 
@@ -30,7 +44,7 @@ class InstantiatorStore implements IInstantiatorStore
         if (!is_subclass_of($class, IInstantiator::class)) {
             throw new InvalidArgument(
                 sprintf(
-                    'Class "%s" must implement "%s" interface.',
+                    'Instantiator class "%s" must implement "%s" interface.',
                     $class,
                     IInstantiator::class,
                 )
@@ -56,7 +70,16 @@ class InstantiatorStore implements IInstantiatorStore
 
     public function getByTarget(string $target): IInstantiator
     {
-        // TODO: Implement getByTarget() method.
-        throw new RuntimeException('Not implemented.');
+        $class =
+            self::$registered[$target]
+            ??
+            throw new InvalidArgument(
+                sprintf(
+                    'Instantiator for target "%s" is not registered.',
+                    $target,
+                )
+            );
+
+        return new $class();
     }
 }

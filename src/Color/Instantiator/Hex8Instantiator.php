@@ -9,6 +9,7 @@ use AlecRabbit\Color\Contract\IHex8Color;
 use AlecRabbit\Color\Hex8;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
+use RuntimeException;
 
 /**
  * @extends AInstantiator<IHex8Color>
@@ -17,7 +18,7 @@ class Hex8Instantiator extends AInstantiator
 {
     protected const REGEXP_HEX = '/^#?(?:([a-f\d]{2}){4}|([a-f\d]){4})$/i';
 
-
+    /** @inheritDoc */
     public static function getTargetClass(): string
     {
         return Hex8::class;
@@ -68,7 +69,6 @@ class Hex8Instantiator extends AInstantiator
 
     protected function createFromDTO(DColor $value): ?IColor
     {
-        // TODO: Implement createFromDTO() method.
-        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
+        return null;
     }
 }

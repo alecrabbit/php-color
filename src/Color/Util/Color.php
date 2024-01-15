@@ -127,15 +127,6 @@ final class Color
         self::$instantiatorStoreClass = $instantiatorStoreClass;
     }
 
-    /**
-     * @param class-string<IConverterStore> $converterStoreClass
-     */
-    public static function setConverterStoreClass(string $converterStoreClass): void
-    {
-        self::assertConverterStoreClass($converterStoreClass);
-        self::$converterStoreClass = $converterStoreClass;
-    }
-
     private static function assertInstantiatorStoreClass(string $instantiatorStoreClass): void
     {
         if (!is_subclass_of($instantiatorStoreClass, IInstantiatorStore::class)) {
@@ -149,9 +140,18 @@ final class Color
         }
     }
 
+    /**
+     * @param class-string<IConverterStore> $converterStoreClass
+     */
+    public static function setConverterStoreClass(string $converterStoreClass): void
+    {
+        self::assertConverterStoreClass($converterStoreClass);
+        self::$converterStoreClass = $converterStoreClass;
+    }
+
     private static function assertConverterStoreClass(string $converterStoreClass): void
     {
-        if(!is_subclass_of($converterStoreClass, IConverterStore::class)) {
+        if (!is_subclass_of($converterStoreClass, IConverterStore::class)) {
             throw new InvalidArgument(
                 sprintf(
                     'Class "%s" is not a "%s" subclass.',

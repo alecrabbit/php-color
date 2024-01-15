@@ -20,7 +20,7 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-final class ColorToMethodTest extends TestCase
+final class ColorMethodToTest extends TestCase
 {
     public static function canGetConverterFromClassStringDataProvider(): iterable
     {

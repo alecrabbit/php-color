@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Color\Unit\Store;
 
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
+use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Contract\Store\IInstantiatorStore;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Instantiator\HexInstantiator;
@@ -59,13 +61,13 @@ final class InstantiatorStoreTest extends TestCase
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
             sprintf(
-                'Class "%s" must implement "%s" interface.',
+                'Instantiator class "%s" must implement "%s" interface.',
                 $class,
                 IInstantiator::class,
             )
         );
 
-        InstantiatorStore::register($class);
+        InstantiatorStore::registerOld(IRGBColor::class, $class);
 
         self::fail('Exception was not thrown.');
     }

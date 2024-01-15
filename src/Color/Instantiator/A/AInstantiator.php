@@ -9,7 +9,6 @@ use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Exception\UnrecognizedColorString;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
-use RuntimeException;
 
 use function strtolower;
 use function trim;
@@ -53,7 +52,8 @@ abstract class AInstantiator implements IInstantiator
      */
     protected function fromDTO(DColor $dto): IColor
     {
-        return $this->createFromDTO($dto)
+        return
+            $this->createFromDTO($dto)
             ??
             throw new InvalidArgument( // TODO (2024-01-15 15:31) [Alec Rabbit]: clarify exception message
                 sprintf(
@@ -63,6 +63,11 @@ abstract class AInstantiator implements IInstantiator
                 )
             );
     }
+
+    /**
+     * @psalm-return null|T
+     */
+    abstract protected function createFromDTO(DColor $value): ?IColor;
 
     /**
      * @psalm-return T
@@ -86,9 +91,4 @@ abstract class AInstantiator implements IInstantiator
      * @psalm-return null|T
      */
     abstract protected function createFromString(string $value): ?IColor;
-
-    /**
-     * @psalm-return null|T
-     */
-    abstract protected function createFromDTO(DColor $value): ?IColor;
 }

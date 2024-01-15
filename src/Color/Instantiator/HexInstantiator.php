@@ -9,6 +9,7 @@ use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
+use RuntimeException;
 
 /**
  * @extends AInstantiator<IHexColor>
@@ -190,6 +191,7 @@ class HexInstantiator extends AInstantiator
         return (bool)preg_match(self::REGEXP_HEX, $color);
     }
 
+    /** @inheritDoc */
     public static function getTargetClass(): string
     {
         return Hex::class;
@@ -227,7 +229,6 @@ class HexInstantiator extends AInstantiator
 
     protected function createFromDTO(DColor $value): ?IColor
     {
-        // TODO: Implement createFromDTO() method.
-        throw new \RuntimeException(__METHOD__ . ' Not implemented.');
+        return null;
     }
 }

@@ -10,9 +10,10 @@ use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 interface IInstantiatorStore
 {
     /**
+     * @param class-string<IColor> $target
      * @param class-string<IInstantiator> $class
      */
-    public static function register(string $class): void;
+    public static function registerOld(string $target, string $class): void;
 
     public function getByString(string $value): IInstantiator;
 

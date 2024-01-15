@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Color\Unit\Store\InstantiatorStore;
 
+use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Instantiator\RGBInstantiator;
 use AlecRabbit\Color\RGB;
@@ -21,7 +22,7 @@ final class InstantiatorStoreRegisterInstantiatorsTest extends TestCase
     {
         self::assertEmpty($this->getRegisteredInstantiators());
 
-        InstantiatorStore::register(RGBInstantiator::class);
+        InstantiatorStore::registerOld(IRGBColor::class, RGBInstantiator::class);
 
         self::assertContains(RGBInstantiator::class, $this->getRegisteredInstantiators());
     }
@@ -41,7 +42,7 @@ final class InstantiatorStoreRegisterInstantiatorsTest extends TestCase
     {
         $this->expectException(InvalidArgument::class);
 
-        InstantiatorStore::register(stdClass::class, RGBInstantiator::class);
+        InstantiatorStore::registerOld(stdClass::class, RGBInstantiator::class);
     }
 
     #[Test]
@@ -49,7 +50,7 @@ final class InstantiatorStoreRegisterInstantiatorsTest extends TestCase
     {
         $this->expectException(InvalidArgument::class);
 
-        InstantiatorStore::register(RGB::class, stdClass::class);
+        InstantiatorStore::registerOld(RGB::class, stdClass::class);
     }
 
     protected function setUp(): void
