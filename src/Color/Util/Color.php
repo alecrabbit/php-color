@@ -14,7 +14,7 @@ use AlecRabbit\Color\Store\ConverterStore;
 use AlecRabbit\Color\Store\InstantiatorStore;
 
 /**
- * // TODO (2024-01-05 15:24) [Alec Rabbit]: move tests InstantiatorTest to test this class
+ * // TODO (2024-01-05 15:24) [Alec Rabbit]: move relevant tests from InstantiatorTest and ConverterTest to ColorTest
  * Utility class for convenient color instantiation.
  *
  * @codeCoverageIgnore

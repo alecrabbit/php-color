@@ -10,7 +10,6 @@ use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Util\Color;
-use AlecRabbit\Color\Util\Converter;
 
 abstract class AColor implements IColor
 {
@@ -59,7 +58,7 @@ abstract class AColor implements IColor
         }
 
         /** @var IToConverter<T> $converter */
-        $converter = Converter::to($to);
+        $converter = Color::to($to);
 
         return $converter->convert($color);
     }
