@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Color\Unit\Factory;
+namespace AlecRabbit\Tests\Color\Unit\Store;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Store\IConverterStore;
@@ -15,13 +15,13 @@ use AlecRabbit\Color\HSLA;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Color\Store\ConverterStore;
-use AlecRabbit\Tests\Color\Unit\Factory\Override\AColorOverride;
+use AlecRabbit\Tests\Color\Unit\Store\Override\AColorOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;
 
-final class ConverterFactoryTest extends TestCase
+final class ConverterStoreTest extends TestCase
 {
     public static function canMakeCorrespondingConverterDataProvider(): iterable
     {

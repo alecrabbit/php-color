@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Color\Unit\Factory\Override;
+namespace AlecRabbit\Tests\Color\Unit\Store\Override;
 
 use AlecRabbit\Color\A\AColor;
 use AlecRabbit\Color\Contract\IColor;

@@ -5,24 +5,25 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit\Util;
 
 use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Util\Converter;
-use AlecRabbit\Tests\Color\Unit\Util\Override\ConverterStoreOverride;
+use AlecRabbit\Color\Util\Color;
+use AlecRabbit\Tests\Color\Unit\Store\Override\ConverterStoreOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;
 
-final class ConverterSetFactoryClassMethodTest extends TestCase
+final class ColorSetConverterStoreClassMethodTest extends TestCase
 {
-    private string $factoryClass;
+    private const CONVERTER_STORE_CLASS = 'converterStoreClass';
+    private string $converterStoreClass;
 
     #[Test]
     public function canSetFactoryClass(): void
     {
         $class = ConverterStoreOverride::class;
 
-        Converter::setFactoryClass($class);
+        Color::setConverterStoreClass($class);
 
-        self::assertSame($class, self::getPropertyValue(Converter::class, 'factoryClass'));
+        self::assertSame($class, self::getPropertyValue(Color::class, self::CONVERTER_STORE_CLASS));
     }
 
     #[Test]
@@ -32,16 +33,16 @@ final class ConverterSetFactoryClassMethodTest extends TestCase
         $this->expectExceptionMessage(
             'Class "stdClass" is not a "AlecRabbit\Color\Contract\Store\IConverterStore" subclass.'
         );
-        Converter::setFactoryClass(stdClass::class);
+        Color::setConverterStoreClass(stdClass::class);
     }
 
     protected function setUp(): void
     {
-        $this->factoryClass = self::getPropertyValue(Converter::class, 'factoryClass');
+        $this->converterStoreClass = self::getPropertyValue(Color::class, self::CONVERTER_STORE_CLASS);
     }
 
     protected function tearDown(): void
     {
-        self::setPropertyValue(Converter::class, 'factoryClass', $this->factoryClass);
+        self::setPropertyValue(Color::class, self::CONVERTER_STORE_CLASS, $this->converterStoreClass);
     }
 }

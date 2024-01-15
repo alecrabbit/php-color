@@ -17,8 +17,6 @@ use AlecRabbit\Color\Store\InstantiatorStore;
 /**
  * // TODO (2024-01-05 15:24) [Alec Rabbit]: move relevant tests from InstantiatorTest and ConverterTest to ColorTest
  * Utility class for convenient color instantiation.
- *
- * @codeCoverageIgnore
  */
 final class Color
 {
@@ -125,11 +123,20 @@ final class Color
      */
     public static function setInstantiatorStoreClass(string $instantiatorStoreClass): void
     {
-        self::assertStoreClass($instantiatorStoreClass);
+        self::assertInstantiatorStoreClass($instantiatorStoreClass);
         self::$instantiatorStoreClass = $instantiatorStoreClass;
     }
 
-    private static function assertStoreClass(string $instantiatorStoreClass): void
+    /**
+     * @param class-string<IConverterStore> $converterStoreClass
+     */
+    public static function setConverterStoreClass(string $converterStoreClass): void
+    {
+        self::assertConverterStoreClass($converterStoreClass);
+        self::$converterStoreClass = $converterStoreClass;
+    }
+
+    private static function assertInstantiatorStoreClass(string $instantiatorStoreClass): void
     {
         if (!is_subclass_of($instantiatorStoreClass, IInstantiatorStore::class)) {
             throw new InvalidArgument(
@@ -137,6 +144,19 @@ final class Color
                     'Class "%s" is not a "%s" subclass.',
                     $instantiatorStoreClass,
                     IInstantiatorStore::class
+                )
+            );
+        }
+    }
+
+    private static function assertConverterStoreClass(string $converterStoreClass): void
+    {
+        if(!is_subclass_of($converterStoreClass, IConverterStore::class)) {
+            throw new InvalidArgument(
+                sprintf(
+                    'Class "%s" is not a "%s" subclass.',
+                    $converterStoreClass,
+                    IConverterStore::class
                 )
             );
         }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Color\Unit\Util\Override;
+namespace AlecRabbit\Tests\Color\Unit\Store\Override;
 
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Contract\Store\IInstantiatorStore;

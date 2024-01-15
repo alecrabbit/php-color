@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Color\Unit\Factory\ConverterFactory;
+namespace AlecRabbit\Tests\Color\Unit\Store\ConverterStore;
 
 use AlecRabbit\Color\Converter\To\ToRGBConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
@@ -12,7 +12,7 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;
 
-final class ConverterFactoryRegisterConvertersTest extends TestCase
+final class ConverterStoreRegisterConvertersTest extends TestCase
 {
     private array $registeredConverters;
 
