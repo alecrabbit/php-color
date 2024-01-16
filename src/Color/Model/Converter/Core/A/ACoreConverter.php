@@ -5,19 +5,17 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Model\Converter\Core\A;
 
 use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Model\Contract\Converter\Core\ICoreConverter;
+use AlecRabbit\Color\Model\Contract\Converter\Core\IDCoreConverter;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 
-abstract readonly class ACoreConverter implements ICoreConverter
+abstract readonly class ACoreConverter implements IDCoreConverter
 {
-    protected const FLOAT_PRECISION = ICoreConverter::PRECISION;
-
     /** @var class-string<DColor> */
     protected string $inputType;
 
     public function __construct(
         string $type = null,
-        protected int $precision = self::FLOAT_PRECISION,
+        protected int $precision = self::CALC_PRECISION,
     ) {
         /** @var null|class-string<DColor> $type */
         $this->inputType = $type ?? static::inputType();

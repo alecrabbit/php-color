@@ -6,7 +6,7 @@ namespace AlecRabbit\Color\Model\Contract\Converter;
 
 use AlecRabbit\Color\Model\Contract\IColorModel;
 
-interface IModelConverter extends IColorDTOConverter
+interface IModelConverter extends IDColorConverter
 {
     public static function to(): IColorModel;
 

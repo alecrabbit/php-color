@@ -8,7 +8,7 @@ use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Contract\IRegistry;
 use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Model\Contract\Converter\IColorDTOConverter;
+use AlecRabbit\Color\Model\Contract\Converter\IDColorConverter;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Model\Converter\Store\ConverterStore;
@@ -40,7 +40,7 @@ final class Registry implements IRegistry
     }
 
     /** @inheritDoc */
-    public function getColorConverter(IColorModel $from, IColorModel $to): IColorDTOConverter
+    public function getColorConverter(IColorModel $from, IColorModel $to): IDColorConverter
     {
         return (new ConverterStore())->getColorConverter($from, $to);
     }

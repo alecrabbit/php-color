@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit\Model\Converter;
 
 
-use AlecRabbit\Color\Model\Contract\Converter\Core\ICoreConverter;
+use AlecRabbit\Color\Model\Contract\Converter\Core\IDCoreConverter;
 use AlecRabbit\Color\Model\Converter\RGBToHSLModelConverter;
 use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\DTO\DRGB;
@@ -50,13 +50,13 @@ final class RGBToHSLModelConverterTest extends TestCase
         self::assertSame($expected, $result);
     }
 
-    protected function getConverterMock(): MockObject&ICoreConverter
+    protected function getConverterMock(): MockObject&IDCoreConverter
     {
-        return $this->createMock(ICoreConverter::class);
+        return $this->createMock(IDCoreConverter::class);
     }
 
     protected function getTesteeInstance(
-        ?ICoreConverter $converter = null,
+        ?IDCoreConverter $converter = null,
     ): RGBToHSLModelConverter {
         return new RGBToHSLModelConverter(
             converter: $converter ?? $this->getConverterMock(),

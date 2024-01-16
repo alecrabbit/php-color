@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Model\Converter;
 
-use AlecRabbit\Color\Model\Contract\Converter\IColorDTOConverter;
+use AlecRabbit\Color\Model\Contract\Converter\IDColorConverter;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 
 /**
  * @internal
  * @codeCoverageIgnore
  */
-final readonly class ChainConverter implements IColorDTOConverter
+final readonly class ChainConverter implements IDColorConverter
 {
-    /** @param iterable<class-string<IColorDTOConverter>> $chain */
+    /** @param iterable<class-string<IDColorConverter>> $chain */
     public function __construct(
         private iterable $chain,
     ) {
@@ -21,7 +21,7 @@ final readonly class ChainConverter implements IColorDTOConverter
 
     public function convert(DColor $color): DColor
     {
-        /** @var class-string<IColorDTOConverter> $converter */
+        /** @var class-string<IDColorConverter> $converter */
         foreach ($this->chain as $converter) {
             $color = (new $converter())->convert($color);
         }

@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit\Model\Converter\Core;
 
 
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Model\Contract\Converter\Core\ICoreConverter;
+use AlecRabbit\Color\Model\Contract\Converter\Core\IDCoreConverter;
 use AlecRabbit\Color\Model\Converter\Core\RGBToHSL;
 use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\DTO\DRGB;
@@ -42,9 +43,9 @@ final class RGBToHSLTest extends TestCase
 
     protected function getTesteeInstance(
         ?int $precision = null,
-    ): ICoreConverter {
+    ): IDCoreConverter {
         return new RGBToHSL(
-            precision: $precision ?? ICoreConverter::PRECISION,
+            precision: $precision ?? IColor::CALC_PRECISION,
         );
     }
 
