@@ -8,6 +8,7 @@ use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Exception\UnrecognizedColorString;
+use AlecRabbit\Color\Exception\UnsupportedValue;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 
 use function strtolower;
@@ -22,29 +23,69 @@ abstract class AInstantiator implements IInstantiator
 {
     protected const PRECISION = 2;
 
-    public static function isSupported(string $value): bool
+    protected static function assertValueType(mixed $value): void
     {
-        $value = self::normalize($value);
+        match (true) {
+            $value instanceof DColor, \is_string($value) => null,
+            default => throw new UnsupportedValue(
+                sprintf(
+                    'Unsupported value of type "%s" provided.',
+                    get_Debug_Type($value),
+                )
+            ),
+        };
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function tryFrom(mixed $value): ?IColor
+    {
+        return static::isSupported($value) ? $this->from($value) : null;
+    }
+
+    public static function isSupported(mixed $value): bool
+    {
+        $value = \is_string($value) ? self::normalizeString($value) : $value;
 
         return static::canInstantiate($value);
     }
 
-    protected static function normalize(string $color): string
+    protected static function normalizeString(string $value): string
     {
-        return strtolower(trim($color));
+        return strtolower(trim($value));
     }
 
-    abstract protected static function canInstantiate(string $color): bool;
-
-    /**
-     * @psalm-return T
-     */
-    public function from(DColor|string $value): IColor
+    protected static function canInstantiate(mixed $color): bool
     {
+        return match (true) {
+            $color instanceof DColor => static::canInstantiateFromDTO($color),
+            \is_string($color) => static::canInstantiateFromString($color),
+            default => false,
+        };
+    }
+
+    abstract protected static function canInstantiateFromDTO(DColor $color): bool;
+
+    abstract protected static function canInstantiateFromString(string $color): bool;
+
+    /** @inheritDoc */
+    public function from(mixed $value): IColor
+    {
+        $this->assertSupported($value);
+
         return
             $value instanceof DColor
                 ? $this->fromDTO($value)
                 : $this->fromString($value);
+    }
+
+    private function assertSupported(mixed $value): void
+    {
+        match (true) {
+            static::isSupported($value) => null,
+            default => self::assertValueType($value),
+        };
     }
 
     /**
@@ -55,10 +96,9 @@ abstract class AInstantiator implements IInstantiator
         return
             $this->createFromDTO($dto)
             ??
-            throw new InvalidArgument( // TODO (2024-01-15 15:31) [Alec Rabbit]: clarify exception message
+            throw new UnsupportedValue(
                 sprintf(
-                    'Cannot instantiate "%s" from "%s".',
-                    static::getTargetClass(),
+                    'Unsupported value of type "%s" provided.',
                     $dto::class
                 )
             );
@@ -74,7 +114,7 @@ abstract class AInstantiator implements IInstantiator
      */
     public function fromString(string $value): IColor
     {
-        $value = self::normalize($value);
+        $value = self::normalizeString($value);
 
         return
             $this->createFromString($value)

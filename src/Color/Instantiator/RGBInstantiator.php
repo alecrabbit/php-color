@@ -8,6 +8,7 @@ use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
+use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\RGB;
 
 use RuntimeException;
@@ -30,7 +31,7 @@ class RGBInstantiator extends AInstantiator
     /** @inheritDoc */
     protected function createFromString(string $value): ?IColor
     {
-        if (self::canInstantiate($value) && preg_match(self::REGEXP_RGB, $value, $matches)) {
+        if (self::canInstantiateFromString($value) && preg_match(self::REGEXP_RGB, $value, $matches)) {
             return
                 RGB::fromRGB(
                     (int)$matches[1],
@@ -42,7 +43,12 @@ class RGBInstantiator extends AInstantiator
         return null;
     }
 
-    protected static function canInstantiate(string $color): bool
+    protected static function canInstantiateFromDTO(DColor $color): bool
+    {
+        return $color instanceof DRGB;
+    }
+
+    protected static function canInstantiateFromString(string $color): bool
     {
         return str_starts_with($color, 'rgb(');
     }

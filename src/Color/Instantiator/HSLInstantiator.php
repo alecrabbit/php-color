@@ -9,6 +9,7 @@ use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
+use AlecRabbit\Color\Model\DTO\DHSL;
 use RuntimeException;
 
 /**
@@ -27,7 +28,7 @@ class HSLInstantiator extends AInstantiator
     /** @inheritDoc */
     protected function createFromString(string $value): ?IColor
     {
-        if (self::canInstantiate($value) && preg_match(self::REGEXP_HSLA, $value, $matches)) {
+        if (self::canInstantiateFromString($value) && preg_match(self::REGEXP_HSLA, $value, $matches)) {
             return
                 HSL::fromHSL(
                     (int)$matches[1],
@@ -39,7 +40,12 @@ class HSLInstantiator extends AInstantiator
         return null;
     }
 
-    protected static function canInstantiate(string $color): bool
+    protected static function canInstantiateFromDTO(DColor $color): bool
+    {
+        return $color instanceof DHSL;
+    }
+
+    protected static function canInstantiateFromString(string $color): bool
     {
         return str_starts_with($color, 'hsl(') && !str_contains($color, '/');
     }

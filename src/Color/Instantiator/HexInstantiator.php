@@ -9,6 +9,7 @@ use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
+use AlecRabbit\Color\Model\DTO\DRGB;
 use RuntimeException;
 
 /**
@@ -169,14 +170,12 @@ class HexInstantiator extends AInstantiator
         'yellowgreen' => '#9ACD32',
     ];
 
-    public static function isSupported(string $value): bool
+    protected static function canInstantiateFromDTO(DColor $color): bool
     {
-        $value = self::normalize($value);
-
-        return self::canInstantiate($value);
+        return $color instanceof DRGB;
     }
 
-    protected static function canInstantiate(string $color): bool
+    protected static function canInstantiateFromString(string $color): bool
     {
         return self::isNamedColor($color) || self::isHexString($color);
     }

@@ -9,7 +9,7 @@ use AlecRabbit\Color\Contract\IHex8Color;
 use AlecRabbit\Color\Hex8;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
-use RuntimeException;
+use AlecRabbit\Color\Model\DTO\DRGB;
 
 /**
  * @extends AInstantiator<IHex8Color>
@@ -24,31 +24,19 @@ class Hex8Instantiator extends AInstantiator
         return Hex8::class;
     }
 
-    public static function isSupported(string $value): bool
-    {
-        $value = self::normalize($value);
-
-        return self::canInstantiate($value);
-    }
-
-    protected static function canInstantiate(string $color): bool
-    {
-        return self::isHexString($color);
-    }
-
-    protected static function isHexString(string $color): bool
-    {
-        return (bool)preg_match(self::REGEXP_HEX, $color);
-    }
-
     /** @inheritDoc */
     protected function createFromString(string $value): ?IColor
     {
-        if (self::isHexString($value)) {
+        if (self::canInstantiateFromString($value)) {
             return Hex8::fromInteger8(self::extractInteger($value));
         }
 
         return null;
+    }
+
+    protected static function canInstantiateFromString(string $color): bool
+    {
+        return (bool)preg_match(self::REGEXP_HEX, $color);
     }
 
     protected static function extractInteger(string $color): int
@@ -69,6 +57,21 @@ class Hex8Instantiator extends AInstantiator
 
     protected function createFromDTO(DColor $value): ?IColor
     {
+        if (self::canInstantiateFromDTO($value)) {
+            /** @var DRGB $value */
+            return Hex8::fromRGBA(
+                (int)round($value->red * 0xFF),
+                (int)round($value->green * 0xFF),
+                (int)round($value->blue * 0xFF),
+                (int)round($value->alpha * 0xFF),
+            );
+        }
+
         return null;
+    }
+
+    protected static function canInstantiateFromDTO(DColor $color): bool
+    {
+        return $color instanceof DRGB;
     }
 }

@@ -6,14 +6,14 @@ namespace AlecRabbit\Color\Contract\Instantiator;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Exception\UnrecognizedColorString;
-use AlecRabbit\Color\Model\Contract\DTO\DColor;
+use AlecRabbit\Color\Exception\UnsupportedValue;
 
 /**
  * @template-covariant T of IColor
  */
 interface IInstantiator
 {
-    public static function isSupported(string $value): bool;
+    public static function isSupported(mixed $value): bool;
 
     /**
      * @return class-string<IColor>
@@ -24,14 +24,23 @@ interface IInstantiator
     public static function getTargetClass(): string;
 
     /**
+     * @throws UnrecognizedColorString
+     * @deprecated Changed visibility to protected. Use {@see IInstantiator::from()} instead.
+     *
      * @psalm-return T
      *
-     * @throws UnrecognizedColorString
      */
     public function fromString(string $value): IColor;
 
     /**
      * @psalm-return T
+     *
+     * @throws UnsupportedValue
      */
-    public function from(DColor|string $value): IColor;
+    public function from(mixed $value): IColor;
+
+    /**
+     * @psalm-return T
+     */
+    public function tryFrom(mixed $value): ?IColor;
 }
