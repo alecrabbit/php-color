@@ -102,7 +102,7 @@ final class HSLAInstantiatorTest extends TestCase
 
         $instantiator = $this->getTesteeInstance();
 
-        $instantiator->fromString($incoming);
+        $instantiator->from($incoming);
 
         self::fail(sprintf('Exception was not thrown. Color: "%s".', $incoming));
     }
@@ -112,7 +112,7 @@ final class HSLAInstantiatorTest extends TestCase
     public function canInstantiateHSLA(string $colorString): void
     {
         $instantiator = $this->getTesteeInstance();
-        $color = $instantiator->fromString($colorString);
+        $color = $instantiator->from($colorString);
         self::assertInstanceOf(HSLA::class, $color);
     }
 
@@ -121,12 +121,6 @@ final class HSLAInstantiatorTest extends TestCase
     public function supportsFormat(string $format): void
     {
         self::assertTrue(HSLAInstantiator::isSupported($format));
-    }
-
-    #[Test]
-    public function canGetTargetClass(): void
-    {
-        self::assertSame(HSLA::class, HSLAInstantiator::getTargetClass());
     }
 
     #[Test]

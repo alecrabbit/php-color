@@ -6,13 +6,11 @@ namespace AlecRabbit\Tests\Color\Functional\Util;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHex8Color;
-use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\Hex8;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
-use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Color\Util\Color;

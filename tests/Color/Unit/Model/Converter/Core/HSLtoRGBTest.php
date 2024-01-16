@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit\Model\Converter\Core;
 
 
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\Contract\Converter\Core\IDCoreConverter;
 use AlecRabbit\Color\Model\Converter\Core\HSLToRGB;
@@ -13,7 +14,6 @@ use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
-use AlecRabbit\Color\Contract\IColor;
 
 final class HSLtoRGBTest extends TestCase
 {

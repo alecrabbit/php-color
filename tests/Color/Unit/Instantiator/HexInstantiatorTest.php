@@ -76,7 +76,7 @@ final class HexInstantiatorTest extends TestCase
     public function canInstantiate(string $colorString): void
     {
         $instantiator = $this->getTesteeInstance();
-        $color = $instantiator->fromString($colorString);
+        $color = $instantiator->from($colorString);
         self::assertInstanceOf(Hex::class, $color);
     }
 
@@ -93,7 +93,7 @@ final class HexInstantiatorTest extends TestCase
         );
         $instantiator = $this->getTesteeInstance();
 
-        $instantiator->fromString($incoming);
+        $instantiator->from($incoming);
     }
 
     #[Test]
@@ -108,11 +108,5 @@ final class HexInstantiatorTest extends TestCase
     public function doesNotSupportFormat(string $format): void
     {
         self::assertFalse(HexInstantiator::isSupported($format));
-    }
-
-    #[Test]
-    public function canGetTargetClass(): void
-    {
-        self::assertSame(Hex::class, HexInstantiator::getTargetClass());
     }
 }

@@ -90,7 +90,7 @@ final class RGBAInstantiatorTest extends TestCase
         );
 
         $instantiator = $this->getTesteeInstance();
-        $instantiator->fromString($colorString);
+        $instantiator->from($colorString);
 
         self::fail(sprintf('Exception was not thrown. Color: "%s".', $colorString));
     }
@@ -100,7 +100,7 @@ final class RGBAInstantiatorTest extends TestCase
     public function canInstantiateRGBA(string $colorString): void
     {
         $instantiator = $this->getTesteeInstance();
-        $color = $instantiator->fromString($colorString);
+        $color = $instantiator->from($colorString);
         self::assertInstanceOf(RGBA::class, $color);
     }
 
@@ -109,12 +109,6 @@ final class RGBAInstantiatorTest extends TestCase
     public function supportsFormat(string $format): void
     {
         self::assertTrue(RGBAInstantiator::isSupported($format));
-    }
-
-    #[Test]
-    public function canGetTargetClass(): void
-    {
-        self::assertSame(RGBA::class, RGBAInstantiator::getTargetClass());
     }
 
     #[Test]

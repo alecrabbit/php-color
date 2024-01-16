@@ -11,8 +11,6 @@ use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\RGBA;
 
-use RuntimeException;
-
 use function str_starts_with;
 
 /**
@@ -22,10 +20,9 @@ class RGBAInstantiator extends AInstantiator
 {
     protected const REGEXP_RGBA = '/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)$/';
 
-    /** @inheritDoc */
-    public static function getTargetClass(): string
+    protected static function canInstantiateFromDTO(DColor $color): bool
     {
-        return RGBA::class;
+        return $color instanceof DRGB;
     }
 
     /** @inheritDoc */
@@ -42,11 +39,6 @@ class RGBAInstantiator extends AInstantiator
         }
 
         return null;
-    }
-
-    protected static function canInstantiateFromDTO(DColor $color): bool
-    {
-        return $color instanceof DRGB;
     }
 
     protected static function canInstantiateFromString(string $color): bool

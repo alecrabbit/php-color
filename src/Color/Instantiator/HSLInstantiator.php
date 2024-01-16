@@ -10,7 +10,6 @@ use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\DTO\DHSL;
-use RuntimeException;
 
 /**
  * @extends AInstantiator<IHSLColor>
@@ -19,10 +18,9 @@ class HSLInstantiator extends AInstantiator
 {
     protected const REGEXP_HSLA = '/^hsla?\((\d+)(?:,\s*|\s*)(\d+)%(?:,\s*|\s*)(\d+)%(?:(?:,\s*|\s*\/\s*)(([\d.]+)|(\d+%)))?\)$/';
 
-    /** @inheritDoc */
-    public static function getTargetClass(): string
+    protected static function canInstantiateFromDTO(DColor $color): bool
     {
-        return HSL::class;
+        return $color instanceof DHSL;
     }
 
     /** @inheritDoc */
@@ -38,11 +36,6 @@ class HSLInstantiator extends AInstantiator
         }
 
         return null;
-    }
-
-    protected static function canInstantiateFromDTO(DColor $color): bool
-    {
-        return $color instanceof DHSL;
     }
 
     protected static function canInstantiateFromString(string $color): bool

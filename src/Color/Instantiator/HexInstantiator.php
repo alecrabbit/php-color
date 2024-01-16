@@ -10,7 +10,6 @@ use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\DTO\DRGB;
-use RuntimeException;
 
 /**
  * @extends AInstantiator<IHexColor>
@@ -188,12 +187,6 @@ class HexInstantiator extends AInstantiator
     protected static function isHexString(string $color): bool
     {
         return (bool)preg_match(self::REGEXP_HEX, $color);
-    }
-
-    /** @inheritDoc */
-    public static function getTargetClass(): string
-    {
-        return Hex::class;
     }
 
     /** @inheritDoc */

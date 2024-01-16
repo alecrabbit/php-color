@@ -95,7 +95,8 @@ final class Color
         /** @var T $color */
         $color = self::getInstantiatorStore()
             ->getByTarget($target)
-            ->from($dto);
+            ->from($dto)
+        ;
 
         return $color;
     }
@@ -115,7 +116,7 @@ final class Color
 
     public static function fromString(string $color): IColor
     {
-        return self::getInstantiatorStore()->getByString($color)->fromString($color);
+        return self::getInstantiatorStore()->getByString($color)->from($color);
     }
 
     /**

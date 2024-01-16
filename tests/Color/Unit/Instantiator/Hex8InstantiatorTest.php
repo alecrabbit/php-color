@@ -14,6 +14,7 @@ use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use stdClass;
 
 final class Hex8InstantiatorTest extends TestCase
 {
@@ -33,7 +34,7 @@ final class Hex8InstantiatorTest extends TestCase
     {
         yield from [
             [
-                new \stdClass(),
+                new stdClass(),
                 UnsupportedValue::class,
                 'Unsupported value of type "stdClass" provided.'
             ],
@@ -133,12 +134,6 @@ final class Hex8InstantiatorTest extends TestCase
     public function canIsSupported(mixed $value): void
     {
         self::assertTrue(Hex8Instantiator::isSupported($value));
-    }
-
-    #[Test]
-    public function canGetTargetClass(): void
-    {
-        self::assertSame(Hex8::class, Hex8Instantiator::getTargetClass());
     }
 
     #[Test]

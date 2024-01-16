@@ -59,7 +59,7 @@ final class RGBInstantiatorTest extends TestCase
     {
         $instantiator = $this->getTesteeInstance();
 
-        $color = $instantiator->fromString($incoming);
+        $color = $instantiator->from($incoming);
         self::assertInstanceOf(IRGBColor::class, $color);
         self::assertSame($expected, $color->getValue());
     }
@@ -82,7 +82,7 @@ final class RGBInstantiatorTest extends TestCase
         );
         $instantiator = $this->getTesteeInstance();
 
-        $instantiator->fromString($incoming);
+        $instantiator->from($incoming);
     }
 
     #[Test]
@@ -90,7 +90,7 @@ final class RGBInstantiatorTest extends TestCase
     public function canBeInstantiatedFromString(string $color, int $r, int $g, int $b): void
     {
         $instantiator = $this->getTesteeInstance();
-        $testee = $instantiator->fromString($color);
+        $testee = $instantiator->from($color);
         self::assertInstanceOf(RGB::class, $testee);
         self::assertSame($r, $testee->getRed());
         self::assertSame($g, $testee->getGreen());

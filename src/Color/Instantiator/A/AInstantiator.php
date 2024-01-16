@@ -6,11 +6,11 @@ namespace AlecRabbit\Color\Instantiator\A;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
-use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Exception\UnrecognizedColorString;
 use AlecRabbit\Color\Exception\UnsupportedValue;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 
+use function is_string;
 use function strtolower;
 use function trim;
 
@@ -23,19 +23,6 @@ abstract class AInstantiator implements IInstantiator
 {
     protected const PRECISION = 2;
 
-    protected static function assertValueType(mixed $value): void
-    {
-        match (true) {
-            $value instanceof DColor, \is_string($value) => null,
-            default => throw new UnsupportedValue(
-                sprintf(
-                    'Unsupported value of type "%s" provided.',
-                    get_Debug_Type($value),
-                )
-            ),
-        };
-    }
-
     /**
      * @inheritDoc
      */
@@ -46,7 +33,8 @@ abstract class AInstantiator implements IInstantiator
 
     public static function isSupported(mixed $value): bool
     {
-        $value = \is_string($value) ? self::normalizeString($value) : $value;
+        /** @var mixed $value */
+        $value = is_string($value) ? self::normalizeString($value) : $value;
 
         return static::canInstantiate($value);
     }
@@ -60,7 +48,7 @@ abstract class AInstantiator implements IInstantiator
     {
         return match (true) {
             $color instanceof DColor => static::canInstantiateFromDTO($color),
-            \is_string($color) => static::canInstantiateFromString($color),
+            is_string($color) => static::canInstantiateFromString($color),
             default => false,
         };
     }
@@ -88,6 +76,19 @@ abstract class AInstantiator implements IInstantiator
         };
     }
 
+    protected static function assertValueType(mixed $value): void
+    {
+        match (true) {
+            $value instanceof DColor, is_string($value) => null,
+            default => throw new UnsupportedValue(
+                sprintf(
+                    'Unsupported value of type "%s" provided.',
+                    get_Debug_Type($value),
+                )
+            ),
+        };
+    }
+
     /**
      * @psalm-return T
      */
@@ -112,7 +113,7 @@ abstract class AInstantiator implements IInstantiator
     /**
      * @psalm-return T
      */
-    public function fromString(string $value): IColor
+    protected function fromString(string $value): IColor
     {
         $value = self::normalizeString($value);
 

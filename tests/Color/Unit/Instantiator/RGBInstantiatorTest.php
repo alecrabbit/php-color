@@ -82,7 +82,7 @@ final class RGBInstantiatorTest extends TestCase
     public function canInstantiateRGB(string $colorString): void
     {
         $instantiator = $this->getTesteeInstance();
-        $color = $instantiator->fromString($colorString);
+        $color = $instantiator->from($colorString);
         self::assertInstanceOf(RGB::class, $color);
     }
 
@@ -99,7 +99,7 @@ final class RGBInstantiatorTest extends TestCase
         );
 
         $instantiator = $this->getTesteeInstance();
-        $instantiator->fromString($colorString);
+        $instantiator->from($colorString);
 
         self::fail(sprintf('Exception was not thrown. Color: "%s".', $colorString));
     }
@@ -117,11 +117,4 @@ final class RGBInstantiatorTest extends TestCase
     {
         self::assertFalse(RGBInstantiator::isSupported($format));
     }
-
-    #[Test]
-    public function canGetTargetClass(): void
-    {
-        self::assertSame(RGB::class, RGBInstantiator::getTargetClass());
-    }
-
 }

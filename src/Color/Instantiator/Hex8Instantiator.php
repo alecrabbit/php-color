@@ -19,12 +19,6 @@ class Hex8Instantiator extends AInstantiator
     protected const REGEXP_HEX = '/^#?(?:([a-f\d]{2}){4}|([a-f\d]){4})$/i';
 
     /** @inheritDoc */
-    public static function getTargetClass(): string
-    {
-        return Hex8::class;
-    }
-
-    /** @inheritDoc */
     protected function createFromString(string $value): ?IColor
     {
         if (self::canInstantiateFromString($value)) {
