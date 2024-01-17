@@ -40,21 +40,15 @@ final class ConverterStoreRegisterConvertersTest extends TestCase
         self::setPropertyValue(ConverterStore::class, 'registered', $registeredConverters);
     }
 
-//    #[Test]
-//    public function throwsIfTargetClassIsInvalid(): void
-//    {
-//        $this->expectException(InvalidArgument::class);
-//
-//        ConverterStore::register(ToRGBConverter::class);
-//    }
+    #[Test]
+    public function throwsIfConverterClassIsInvalid(): void
+    {
+        $this->expectException(InvalidArgument::class);
+        $this->expectExceptionMessage(
+            'Class "stdClass" is not a "AlecRabbit\Color\Contract\Converter\IToConverter" subclass.');
 
-//    #[Test]
-//    public function throwsIfConverterClassIsInvalid(): void
-//    {
-//        $this->expectException(InvalidArgument::class);
-//
-//        ConverterStore::registerOld(RGB::class, stdClass::class);
-//    }
+        ConverterStore::register(stdClass::class);
+    }
 
     protected function setUp(): void
     {
