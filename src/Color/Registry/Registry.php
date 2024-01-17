@@ -11,7 +11,7 @@ use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\Contract\Converter\IDColorConverter;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
 use AlecRabbit\Color\Model\Contract\IColorModel;
-use AlecRabbit\Color\Model\Converter\Store\ConverterStore;
+use AlecRabbit\Color\Model\Converter\Store\ConverterStore as ModelConverterStore;
 use RuntimeException;
 
 final class Registry implements IRegistry
@@ -21,7 +21,7 @@ final class Registry implements IRegistry
     {
         foreach ($classes as $class) {
             match (true) {
-                is_subclass_of($class, IModelConverter::class) => ConverterStore::add($class),
+                is_subclass_of($class, IModelConverter::class) => ModelConverterStore::add($class),
                 default => throw new InvalidArgument(sprintf('Invalid class "%s".', $class)),
             };
         }
@@ -42,6 +42,6 @@ final class Registry implements IRegistry
     /** @inheritDoc */
     public function getColorConverter(IColorModel $from, IColorModel $to): IDColorConverter
     {
-        return (new ConverterStore())->getColorConverter($from, $to);
+        return (new ModelConverterStore())->getColorConverter($from, $to);
     }
 }
