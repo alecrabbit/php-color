@@ -82,4 +82,23 @@ class InstantiatorStore implements IInstantiatorStore
 
         return new $class();
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getByValue(mixed $value): IInstantiator
+    {
+        /** @var class-string<IInstantiator> $class */
+        foreach (self::$registered as $class) {
+            if ($class::isSupported($value)) {
+                return new $class();
+            }
+        }
+        throw new InvalidArgument(
+            sprintf(
+                'Instantiator for color "%s" is not registered.',
+                $value,
+            )
+        );
+    }
 }

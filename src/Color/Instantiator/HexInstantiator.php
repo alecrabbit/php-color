@@ -221,6 +221,15 @@ class HexInstantiator extends AInstantiator
 
     protected function createFromDTO(DColor $value): ?IColor
     {
+        if (self::canInstantiateFromDTO($value)) {
+            /** @var DRGB $value */
+            return Hex::fromRGB(
+                (int)round($value->red * 0xFF),
+                (int)round($value->green * 0xFF),
+                (int)round($value->blue * 0xFF),
+            );
+        }
+
         return null;
     }
 }

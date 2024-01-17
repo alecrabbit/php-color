@@ -30,8 +30,8 @@ class HSLInstantiator extends AInstantiator
             return
                 HSL::fromHSL(
                     (int)$matches[1],
-                    round(((int)$matches[2]) / 100, self::PRECISION),
-                    round(((int)$matches[3]) / 100, self::PRECISION),
+                    round(((int)$matches[2]) / 100, $this->precision),
+                    round(((int)$matches[3]) / 100, $this->precision),
                 );
         }
 
@@ -45,6 +45,15 @@ class HSLInstantiator extends AInstantiator
 
     protected function createFromDTO(DColor $value): ?IColor
     {
+        if (self::canInstantiateFromDTO($value)) {
+            /** @var DHSL $value */
+            return HSL::fromHSL(
+                (int)round($value->hue * 360),
+                $value->saturation,
+                $value->lightness,
+            );
+        }
+
         return null;
     }
 }

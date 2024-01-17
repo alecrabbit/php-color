@@ -50,8 +50,8 @@ final class Color
                 ? $value
                 : $value->to($target),
             $value instanceof DColor => $target === null
-                ? self::fromDTO($value, IHexColor::class)
-                : self::fromDTO($value, $target),
+                ? self::fromDTO($value)
+                : self::fromDTO($value)->to($target),
             default => $target === null
                 ? self::fromString($value)
                 : self::fromString($value)->to($target),
@@ -86,15 +86,13 @@ final class Color
     /**
      * @template T of IColor
      *
-     * @param class-string<T> $target
-     *
      * @psalm-return T
      */
-    public static function fromDTO(DColor $dto, string $target): IColor
+    public static function fromDTO(DColor $dto): IColor
     {
         /** @var T $color */
         $color = self::getInstantiatorStore()
-            ->getByTarget($target)
+            ->getByValue($dto)
             ->from($dto)
         ;
 

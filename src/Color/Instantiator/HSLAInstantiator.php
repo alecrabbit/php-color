@@ -30,10 +30,10 @@ class HSLAInstantiator extends AInstantiator
             return
                 HSLA::fromHSLA(
                     (int)$matches[1],
-                    round(((int)$matches[2]) / 100, self::PRECISION),
-                    round(((int)$matches[3]) / 100, self::PRECISION),
+                    round(((int)$matches[2]) / 100, $this->precision),
+                    round(((int)$matches[3]) / 100, $this->precision),
                     isset($matches[4])
-                        ? self::extractOpacity($matches[4])
+                        ? $this->extractOpacity($matches[4])
                         : 1.0,
                 );
         }
@@ -49,17 +49,27 @@ class HSLAInstantiator extends AInstantiator
             (str_starts_with($color, 'hsl(') && str_contains($color, '/'));
     }
 
-    private static function extractOpacity(string $value): float
+    private function extractOpacity(string $value): float
     {
         if (str_contains($value, '%')) {
-            return round(((int)$value) / 100, self::PRECISION);
+            return round(((int)$value) / 100, $this->precision);
         }
 
-        return round((float)$value, self::PRECISION);
+        return round((float)$value, $this->precision);
     }
 
     protected function createFromDTO(DColor $value): ?IColor
     {
+        if (self::canInstantiateFromDTO($value)) {
+            /** @var DHSL $value */
+            return HSLA::fromHSLA(
+                (int)round($value->hue * 360),
+                $value->saturation,
+                $value->lightness,
+                $value->alpha,
+            );
+        }
+
         return null;
     }
 }

@@ -25,4 +25,9 @@ final class InstantiatorStoreOverride implements IInstantiatorStore
     {
         throw new RuntimeException('INTENTIONALLY Not implemented.');
     }
+
+    public function getByValue(mixed $value): IInstantiator
+    {
+        throw new RuntimeException('INTENTIONALLY Not implemented.');
+    }
 }

@@ -6,11 +6,13 @@ namespace AlecRabbit\Tests\Color\Functional\Util;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHex8Color;
+use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\Hex8;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
+use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Color\Util\Color;
@@ -38,9 +40,9 @@ final class ColorMethodFromTest extends TestCase
             [Hex::class, '#ff00ff'],
             [RGBA::class, 'rgba(255, 0, 255, 1)'],
             [HSL::class, 'hsl(234, 100%, 50%)'],
-//            [HSL::class, new DRGB(255, 0, 255), IHSLColor::class],
-//            [HSL::class, new DRGB(255, 0, 255), HSL::class],
-//            [Hex::class, new DRGB(255, 0, 255)],
+            [HSL::class, new DRGB(255, 0, 255), IHSLColor::class],
+            [HSL::class, new DRGB(255, 0, 255), HSL::class],
+            [Hex::class, new DRGB(255, 0, 255)],
             [HSLA::class, 'hsla(234, 100%, 50%, 1)'],
             [RGB::class, 'rgb(255, 0, 255)'],
             [RGB::class, RGB::fromRGB(0, 0, 0)],

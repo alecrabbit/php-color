@@ -48,6 +48,16 @@ class RGBAInstantiator extends AInstantiator
 
     protected function createFromDTO(DColor $value): ?IColor
     {
+        if (self::canInstantiateFromDTO($value)) {
+            /** @var DRGB $value */
+            return RGBA::fromRGBA(
+                (int)round($value->red * 0xFF),
+                (int)round($value->green * 0xFF),
+                (int)round($value->blue * 0xFF),
+                (int)round($value->alpha * 0xFF),
+            );
+        }
+
         return null;
     }
 }

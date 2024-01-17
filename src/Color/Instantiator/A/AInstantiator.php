@@ -21,7 +21,12 @@ use function trim;
  */
 abstract class AInstantiator implements IInstantiator
 {
-    protected const PRECISION = 2;
+    final protected const PRECISION = 3;
+
+    public function __construct(
+        protected int $precision = self::PRECISION,
+    ) {
+    }
 
     /**
      * @inheritDoc
@@ -60,20 +65,12 @@ abstract class AInstantiator implements IInstantiator
     /** @inheritDoc */
     public function from(mixed $value): IColor
     {
-        $this->assertSupported($value);
+        static::assertValueType($value);
 
         return
             $value instanceof DColor
                 ? $this->fromDTO($value)
                 : $this->fromString($value);
-    }
-
-    private function assertSupported(mixed $value): void
-    {
-        match (true) {
-            static::isSupported($value) => null,
-            default => self::assertValueType($value),
-        };
     }
 
     protected static function assertValueType(mixed $value): void
