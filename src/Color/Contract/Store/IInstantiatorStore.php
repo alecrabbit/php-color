@@ -16,8 +16,5 @@ interface IInstantiatorStore
      */
     public static function register(string $targetClass, string $instantiatorClass): void;
 
-    /**
-     * @param DColor|string $value
-     */
     public function getByValue(mixed $value): IInstantiator;
 }

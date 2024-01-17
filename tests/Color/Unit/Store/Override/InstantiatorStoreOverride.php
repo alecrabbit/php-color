@@ -16,16 +16,6 @@ final class InstantiatorStoreOverride implements IInstantiatorStore
         throw new RuntimeException('INTENTIONALLY Not implemented.');
     }
 
-    public function getByString(string $value): IInstantiator
-    {
-        throw new RuntimeException('INTENTIONALLY Not implemented.');
-    }
-
-    public function getByTarget(string $target): IInstantiator
-    {
-        throw new RuntimeException('INTENTIONALLY Not implemented.');
-    }
-
     public function getByValue(mixed $value): IInstantiator
     {
         throw new RuntimeException('INTENTIONALLY Not implemented.');

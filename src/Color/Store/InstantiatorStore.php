@@ -52,40 +52,6 @@ class InstantiatorStore implements IInstantiatorStore
         }
     }
 
-    public function getByString(string $value): IInstantiator
-    {
-        /** @var class-string<IInstantiator> $class */
-        foreach (self::$registered as $class) {
-            if ($class::isSupported($value)) {
-                return new $class();
-            }
-        }
-        throw new InvalidArgument(
-            sprintf(
-                'Instantiator for color "%s" is not registered.',
-                $value,
-            )
-        );
-    }
-
-    public function getByTarget(string $target): IInstantiator
-    {
-        $class =
-            self::$registered[$target]
-            ??
-            throw new InvalidArgument(
-                sprintf(
-                    'Instantiator for target "%s" is not registered.',
-                    $target,
-                )
-            );
-
-        return new $class();
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function getByValue(mixed $value): IInstantiator
     {
         /** @var class-string<IInstantiator> $class */
