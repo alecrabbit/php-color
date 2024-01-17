@@ -11,7 +11,7 @@ use RuntimeException;
 final class InstantiatorStoreOverride implements IInstantiatorStore
 {
 
-    public static function registerOld(string $target, string $class): void
+    public static function register(string $targetClass, string $instantiatorClass): void
     {
         throw new RuntimeException('INTENTIONALLY Not implemented.');
     }

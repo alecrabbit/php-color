@@ -19,17 +19,6 @@ class ConverterStore implements IConverterStore
     protected static array $registered = [];
 
     /**
-     * @param class-string<IColor> $targetClass
-     * @param class-string<IToConverter> $converterClass
-     */
-    public static function registerOld(string $targetClass, string $converterClass): void
-    {
-        self::assertTargetClass($targetClass);
-        self::assertConverterClass($converterClass);
-        self::$registered[$targetClass] = $converterClass;
-    }
-
-    /**
      * @param class-string<IColor> $class
      */
     protected static function assertTargetClass(string $class): void
@@ -62,20 +51,16 @@ class ConverterStore implements IConverterStore
     }
 
     /**
-     * @inheritDoc
+     * @param class-string<IToConverter> $converterClass
      */
-    public static function register(string $class): void
+    public static function register(string $converterClass): void
     {
-        // TODO: Implement register() method.
-        throw new RuntimeException(__METHOD__ . ' Not implemented.');
-    }
+        self::assertConverterClass($converterClass);
+        foreach ($converterClass::getTargets() as $targetClass){
+            self::assertTargetClass($targetClass);
+            self::$registered[$targetClass] = $converterClass;
+        }
 
-    /** @inheritDoc */
-    public function make(string $class): IToConverter
-    {
-        self::assertTargetClass($class);
-
-        return self::createConverter($class);
     }
 
     /**

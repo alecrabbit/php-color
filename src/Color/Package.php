@@ -18,11 +18,11 @@ final class Package
     {
         foreach ($wrapper as $item) {
             $converterClass = $item->getConverterClass();
+            ConverterStore::register($converterClass);
 
             /** @var class-string<IColor> $target */
             foreach ($item->getTargets() as $target) {
-                ConverterStore::registerOld($target, $converterClass);
-                InstantiatorStore::registerOld($target, $item->getInstantiatorClass());
+                InstantiatorStore::register($target, $item->getInstantiatorClass());
             }
         }
     }

@@ -41,7 +41,7 @@ final class InstantiatorStoreTest extends TestCase
     public function canProvideInstantiator(string $class, string $color): void
     {
         $factory = $this->getTestee();
-        $instantiator = $factory->getByString($color);
+        $instantiator = $factory->getByValue($color);
 
         /** @noinspection UnnecessaryAssertionInspection */
         self::assertInstanceOf($class, $instantiator);
@@ -66,7 +66,7 @@ final class InstantiatorStoreTest extends TestCase
             )
         );
 
-        InstantiatorStore::registerOld(IRGBColor::class, $class);
+        InstantiatorStore::register(IRGBColor::class, $class);
 
         self::fail('Exception was not thrown.');
     }
@@ -83,7 +83,7 @@ final class InstantiatorStoreTest extends TestCase
             )
         );
 
-        $this->getTestee()->getByString($color);
+        $this->getTestee()->getByValue($color);
 
         self::fail('Exception was not thrown.');
     }

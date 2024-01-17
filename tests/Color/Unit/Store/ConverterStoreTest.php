@@ -58,7 +58,7 @@ final class ConverterStoreTest extends TestCase
             )
         );
         $converterFactory = self::getTestee();
-        $converterFactory->make($class);
+        $converterFactory->getByTarget($class);
     }
 
     private static function getTestee(): IConverterStore
@@ -80,7 +80,7 @@ final class ConverterStoreTest extends TestCase
             )
         );
         $converterFactory = self::getTestee();
-        $converterFactory->make($class);
+        $converterFactory->getByTarget($class);
     }
 
     #[Test]
@@ -88,7 +88,7 @@ final class ConverterStoreTest extends TestCase
     public function canMakeCorrespondingConverter(string $expected, string $incoming): void
     {
         $converterFactory = self::getTestee();
-        $converter = $converterFactory->make($incoming);
+        $converter = $converterFactory->getByTarget($incoming);
         /** @noinspection UnnecessaryAssertionInspection */
         self::assertInstanceOf($expected, $converter);
     }

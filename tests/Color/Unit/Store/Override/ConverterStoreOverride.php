@@ -10,7 +10,7 @@ use RuntimeException;
 
 final class ConverterStoreOverride implements IConverterStore
 {
-    public static function register(string $class): void
+    public static function register(string $converterClass): void
     {
         throw new RuntimeException('INTENTIONALLY Not implemented.');
     }

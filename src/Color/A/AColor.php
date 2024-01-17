@@ -77,7 +77,7 @@ abstract class AColor implements IColor
 
     protected static function getFromString(string $color): IColor
     {
-        return Color::fromString($color);
+        return Color::from($color);
     }
 
     abstract public static function fromString(string $value): IColor;

@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Functional\Util;
 
 use AlecRabbit\Color\Contract\IColor;
-use AlecRabbit\Color\Contract\IHex8Color;
-use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Hex;
-use AlecRabbit\Color\Hex8;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
@@ -22,46 +19,37 @@ use PHPUnit\Framework\Attributes\Test;
 
 final class ColorMethodFromTest extends TestCase
 {
-    public static function canInstantiateFromStringDataProvider(): iterable
+    public static function canInstantiateFromDataProvider(): iterable
     {
-        foreach (self::canInstantiateFromStringDataFeeder() as $item) {
+        foreach (self::canInstantiateFromDataFeeder() as $item) {
             yield [
-                $item[0],
-                $item[1],
-                $item[2] ?? null,
+                $item[0], // expected
+                $item[1], // incoming
             ];
         }
     }
 
-    private static function canInstantiateFromStringDataFeeder(): iterable
+    private static function canInstantiateFromDataFeeder(): iterable
     {
         yield from [
-            // (expected)class-string, (incoming)IColor|DColor|string, (target)class-string|null
+            // (expected)class-string<IColor>, (incoming)IColor|DColor|string
             [Hex::class, '#ff00ff'],
             [RGBA::class, 'rgba(255, 0, 255, 1)'],
             [HSL::class, 'hsl(234, 100%, 50%)'],
-            [HSL::class, new DRGB(255, 0, 255), IHSLColor::class],
-            [HSL::class, new DRGB(255, 0, 255), HSL::class],
             [Hex::class, new DRGB(255, 0, 255)],
             [HSLA::class, 'hsla(234, 100%, 50%, 1)'],
             [RGB::class, 'rgb(255, 0, 255)'],
             [RGB::class, RGB::fromRGB(0, 0, 0)],
-            [Hex::class, RGB::fromRGB(0, 0, 0), Hex::class],
-            [Hex8::class, 'rgb(255, 0, 255)', IHex8Color::class],
-            [Hex8::class, 'rgb(255, 0, 255)', Hex8::class],
+            [HSL::class, HSL::fromHSL(0, 0, 0)],
         ];
     }
 
     #[Test]
-    #[DataProvider('canInstantiateFromStringDataProvider')]
-    public function canInstantiateFromString(
-        string $expectedClass,
-        IColor|DColor|string $incoming,
-        ?string $target = null
-    ): void {
-        $result = Color::from($incoming, $target);
+    #[DataProvider('canInstantiateFromDataProvider')]
+    public function canInstantiateFrom(string $expectedClass, IColor|DColor|string $incoming): void
+    {
+        $result = Color::from($incoming);
 
         self::assertEquals($expectedClass, $result::class);
-        self::assertInstanceOf($expectedClass, $result);
     }
 }

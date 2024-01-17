@@ -22,7 +22,7 @@ final class InstantiatorStoreRegisterInstantiatorsTest extends TestCase
     {
         self::assertEmpty($this->getRegisteredInstantiators());
 
-        InstantiatorStore::registerOld(IRGBColor::class, RGBInstantiator::class);
+        InstantiatorStore::register(IRGBColor::class, RGBInstantiator::class);
 
         self::assertContains(RGBInstantiator::class, $this->getRegisteredInstantiators());
     }
@@ -42,7 +42,7 @@ final class InstantiatorStoreRegisterInstantiatorsTest extends TestCase
     {
         $this->expectException(InvalidArgument::class);
 
-        InstantiatorStore::registerOld(stdClass::class, RGBInstantiator::class);
+        InstantiatorStore::register(stdClass::class, RGBInstantiator::class);
     }
 
     #[Test]
@@ -50,7 +50,7 @@ final class InstantiatorStoreRegisterInstantiatorsTest extends TestCase
     {
         $this->expectException(InvalidArgument::class);
 
-        InstantiatorStore::registerOld(RGB::class, stdClass::class);
+        InstantiatorStore::register(RGB::class, stdClass::class);
     }
 
     protected function setUp(): void

@@ -57,7 +57,7 @@ abstract readonly class AGradient implements IGradient
 
     protected function createColor(int $index): IColor
     {
-        return Color::fromString(
+        return Color::from(
             $this->getColorString($index),
         );
     }
@@ -80,6 +80,6 @@ abstract readonly class AGradient implements IGradient
             return $color;
         }
 
-        return Color::fromString($color);
+        return Color::from($color);
     }
 }

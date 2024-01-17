@@ -11,17 +11,10 @@ use AlecRabbit\Color\Model\Contract\DTO\DColor;
 interface IInstantiatorStore
 {
     /**
-     * @param class-string<IColor> $target
-     * @param class-string<IInstantiator> $class
+     * @param class-string<IColor> $targetClass
+     * @param class-string<IInstantiator> $instantiatorClass
      */
-    public static function registerOld(string $target, string $class): void;
-
-    public function getByString(string $value): IInstantiator;
-
-    /**
-     * @param class-string<IColor> $target
-     */
-    public function getByTarget(string $target): IInstantiator;
+    public static function register(string $targetClass, string $instantiatorClass): void;
 
     /**
      * @param DColor|string $value

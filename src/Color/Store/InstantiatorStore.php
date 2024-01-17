@@ -15,15 +15,15 @@ class InstantiatorStore implements IInstantiatorStore
     protected static array $registered = [];
 
     /**
-     * @param class-string<IColor> $target
-     * @param class-string<IInstantiator> $class
+     * @param class-string<IColor> $targetClass
+     * @param class-string<IInstantiator> $instantiatorClass
      */
-    public static function registerOld(string $target, string $class): void
+    public static function register(string $targetClass, string $instantiatorClass): void
     {
-        self::assertTargetClass($target);
-        self::assertClass($class);
+        self::assertTargetClass($targetClass);
+        self::assertClass($instantiatorClass);
 
-        self::$registered[$target] = $class;
+        self::$registered[$targetClass] = $instantiatorClass;
     }
 
     protected static function assertTargetClass(string $class): void

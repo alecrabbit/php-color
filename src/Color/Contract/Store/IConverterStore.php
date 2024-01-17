@@ -10,20 +10,9 @@ use AlecRabbit\Color\Contract\IColor;
 interface IConverterStore
 {
     /**
-     * @param class-string<IToConverter> $class
+     * @param class-string<IToConverter> $converterClass
      */
-    public static function register(string $class): void;
-
-    /**
-     * @param class-string<T> $class
-     *
-     * @psalm-return IToConverter<T>
-     * @deprecated Use {@see IConverterStore::getByTarget()} instead.
-     *
-     * @template T of IColor
-     *
-     */
-    public function make(string $class): IToConverter;
+    public static function register(string $converterClass): void;
 
     /**
      * @template T of IColor
