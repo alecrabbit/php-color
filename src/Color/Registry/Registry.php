@@ -30,6 +30,12 @@ final class Registry implements IRegistry
         }
     }
 
+    /** @param class-string<IModelConverter> $class */
+    private static function attachModelConverter(string $class): void
+    {
+        ModelConverterStore::add($class);
+    }
+
     /** @param class-string<IToConverter> $class */
     private static function attachToConverter(string $class): void
     {
@@ -40,13 +46,14 @@ final class Registry implements IRegistry
         }
     }
 
-    /** @param class-string<IModelConverter> $class */
-    private static function attachModelConverter(string $class): void
-    {
-        ModelConverterStore::add($class);
-    }
-
-    public function getToConverter(string $target): ?IToConverter
+    /**
+     * @template T of IColor
+     *
+     * @param class-string<T> $target
+     *
+     * @psalm-return IToConverter<T>
+     */
+    public function getToConverter(string $target): IToConverter
     {
         return (new ConverterStore())->getByTarget($target);
     }

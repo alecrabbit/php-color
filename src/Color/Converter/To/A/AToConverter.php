@@ -71,8 +71,5 @@ abstract class AToConverter implements IToConverter
         );
     }
 
-    /**
-     * @return class-string<IInstantiator<T>>
-     */
     abstract public static function getInstantiatorClass(): string;
 }

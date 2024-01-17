@@ -21,7 +21,7 @@ interface IToConverter
     public static function getTargets(): Traversable;
 
     /**
-     * @return class-string<IInstantiator<T>>
+     * @return class-string<IInstantiator>
      */
     public static function getInstantiatorClass(): string;
 

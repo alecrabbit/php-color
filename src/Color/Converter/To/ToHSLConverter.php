@@ -6,6 +6,7 @@ namespace AlecRabbit\Color\Converter\To;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLColor;
+use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Converter\To\A\AToConverter;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\Instantiator\HSLInstantiator;

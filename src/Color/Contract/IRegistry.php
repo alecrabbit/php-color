@@ -14,7 +14,7 @@ use AlecRabbit\Color\Model\Contract\IColorModel;
 interface IRegistry
 {
     /**
-     * @param class-string<IInstantiator|IModelConverter|IToConverter> ...$classes
+     * @param class-string<IModelConverter|IToConverter> ...$classes
      */
     public static function attach(string ...$classes): void;
 
@@ -24,9 +24,13 @@ interface IRegistry
     public function getColorConverter(IColorModel $from, IColorModel $to): IDColorConverter;
 
     /**
-     * @param class-string<IColor> $target
+     * @template T of IColor
+     *
+     * @param class-string<T> $target
+     *
+     * @psalm-return IToConverter<T>
      */
-    public function getToConverter(string $target): ?IToConverter;
+    public function getToConverter(string $target): IToConverter;
 
     public function getInstantiator(mixed $value): IInstantiator;
 }
