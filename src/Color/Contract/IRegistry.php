@@ -28,5 +28,5 @@ interface IRegistry
      */
     public function getToConverter(string $target): ?IToConverter;
 
-    public function getInstantiator(string $color): IInstantiator;
+    public function getInstantiator(mixed $value): IInstantiator;
 }

@@ -13,10 +13,11 @@ use AlecRabbit\Color\Gradient\ColorRange;
 use AlecRabbit\Color\Gradient\HSLAGradient;
 use AlecRabbit\Color\HSLA;
 use AlecRabbit\Tests\TestCase\FactoryAwareTestCase;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-final class HSLAGradientTest extends FactoryAwareTestCase
+final class HSLAGradientTest extends TestCase
 {
     public static function canProduceGradientDataProvider(): iterable
     {

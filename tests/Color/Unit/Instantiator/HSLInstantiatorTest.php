@@ -41,7 +41,11 @@ final class HSLInstantiatorTest extends TestCase
                 UnsupportedValue::class,
                 'Unsupported value of type "AlecRabbit\Color\Model\DTO\DRGB" provided.'
             ],
-            ['hsla(56, 100%, 50%, 1)', UnrecognizedColorString::class, 'Unrecognized color string: "hsla(56, 100%, 50%, 1)".'],
+            [
+                'hsla(56, 100%, 50%, 1)',
+                UnrecognizedColorString::class,
+                'Unrecognized color string: "hsla(56, 100%, 50%, 1)".'
+            ],
             [
                 'hsla(56, 100%, 50%, 1)',
                 UnrecognizedColorString::class,

@@ -8,6 +8,7 @@ use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Converter\To\A\AToConverter;
 use AlecRabbit\Color\HSL;
+use AlecRabbit\Color\Instantiator\HSLInstantiator;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Model\ModelHSL;
@@ -24,6 +25,10 @@ class ToHSLConverter extends AToConverter
         return new ArrayObject([HSL::class, IHSLColor::class]);
     }
 
+    public static function getInstantiatorClass(): string
+    {
+        return HSLInstantiator::class;
+    }
 
     protected function getTargetColorModel(): IColorModel
     {

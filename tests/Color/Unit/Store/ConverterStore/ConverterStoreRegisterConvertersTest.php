@@ -45,7 +45,8 @@ final class ConverterStoreRegisterConvertersTest extends TestCase
     {
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
-            'Class "stdClass" is not a "AlecRabbit\Color\Contract\Converter\IToConverter" subclass.');
+            'Class "stdClass" is not a "AlecRabbit\Color\Contract\Converter\IToConverter" subclass.'
+        );
 
         ConverterStore::register(stdClass::class);
     }

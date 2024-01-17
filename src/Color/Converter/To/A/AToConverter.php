@@ -6,6 +6,7 @@ namespace AlecRabbit\Color\Converter\To\A;
 
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
+use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Contract\IRegistry;
 use AlecRabbit\Color\Model\Contract\Converter\IDColorConverter;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
@@ -69,4 +70,9 @@ abstract class AToConverter implements IToConverter
             to: $this->getTargetColorModel(),
         );
     }
+
+    /**
+     * @return class-string<IInstantiator<T>>
+     */
+    abstract public static function getInstantiatorClass(): string;
 }

@@ -7,6 +7,7 @@ namespace AlecRabbit\Color\Converter\To;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Converter\To\A\AToConverter;
+use AlecRabbit\Color\Instantiator\RGBInstantiator;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Model\ModelRGB;
@@ -22,6 +23,11 @@ class ToRGBConverter extends AToConverter
     public static function getTargets(): Traversable
     {
         return new ArrayObject([RGB::class, IRGBColor::class]);
+    }
+
+    public static function getInstantiatorClass(): string
+    {
+        return RGBInstantiator::class;
     }
 
     protected function getTargetColorModel(): IColorModel

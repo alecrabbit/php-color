@@ -129,8 +129,7 @@ final class ConverterStore implements IConverterStore
         return $this->modelConverterBuilder
             ->withConverters($this->getModelConverters())
             ->forPath($conversionPath)
-            ->build()
-        ;
+            ->build();
     }
 
     /**
@@ -167,8 +166,10 @@ final class ConverterStore implements IConverterStore
                 yield from $path;
             }
 
+            $neighbours = $this->graph[$node] ?? [];
+
             /** @var class-string<IColorModel> $neighbor */
-            foreach ($this->graph[$node] as $neighbor) {
+            foreach ($neighbours as $neighbor) {
                 if (!isset($visited[$neighbor])) {
                     $visited[$neighbor] = true;
                     $newPath = $path;

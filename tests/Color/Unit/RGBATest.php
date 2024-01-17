@@ -400,8 +400,7 @@ final class RGBATest extends TestCase
         $color->expects(self::once())
             ->method('to')
             ->with($colorClass)
-            ->willReturn($result)
-        ;
+            ->willReturn($result);
 
         self::assertSame($result, RGBA::from($color));
     }

@@ -8,6 +8,7 @@ use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Converter\To\A\AToConverter;
 use AlecRabbit\Color\Hex;
+use AlecRabbit\Color\Instantiator\HexInstantiator;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Model\ModelRGB;
@@ -24,6 +25,10 @@ class ToHexConverter extends AToConverter
         return new ArrayObject([Hex::class, IHexColor::class]);
     }
 
+    public static function getInstantiatorClass(): string
+    {
+        return HexInstantiator::class;
+    }
 
     protected function getTargetColorModel(): IColorModel
     {

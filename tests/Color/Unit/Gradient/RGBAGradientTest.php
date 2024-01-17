@@ -13,10 +13,11 @@ use AlecRabbit\Color\Gradient\ColorRange;
 use AlecRabbit\Color\Gradient\RGBAGradient;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\FactoryAwareTestCase;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-final class RGBAGradientTest extends FactoryAwareTestCase
+final class RGBAGradientTest extends TestCase
 {
     public static function canProduceGradientDataProvider(): iterable
     {

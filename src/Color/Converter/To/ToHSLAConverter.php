@@ -8,6 +8,7 @@ use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Converter\To\A\AToConverter;
 use AlecRabbit\Color\HSLA;
+use AlecRabbit\Color\Instantiator\HSLAInstantiator;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Model\ModelHSL;
@@ -22,6 +23,11 @@ class ToHSLAConverter extends AToConverter
     public static function getTargets(): Traversable
     {
         return new ArrayObject([HSLA::class, IHSLAColor::class]);
+    }
+
+    public static function getInstantiatorClass(): string
+    {
+        return HSLAInstantiator::class;
     }
 
     protected function getTargetColorModel(): IColorModel

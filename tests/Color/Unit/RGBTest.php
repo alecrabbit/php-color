@@ -235,8 +235,7 @@ final class RGBTest extends TestCase
         $color->expects(self::once())
             ->method('to')
             ->with($colorClass)
-            ->willReturn($result)
-        ;
+            ->willReturn($result);
 
         self::assertSame($result, RGB::from($color));
     }
