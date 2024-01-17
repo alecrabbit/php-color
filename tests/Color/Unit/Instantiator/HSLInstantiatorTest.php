@@ -6,12 +6,15 @@ namespace AlecRabbit\Tests\Color\Unit\Instantiator;
 
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Exception\UnrecognizedColorString;
+use AlecRabbit\Color\Exception\UnsupportedValue;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\Instantiator\HSLInstantiator;
 use AlecRabbit\Color\Model\DTO\DHSL;
+use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use stdClass;
 
 final class HSLInstantiatorTest extends TestCase
 {
@@ -25,30 +28,45 @@ final class HSLInstantiatorTest extends TestCase
         ];
     }
 
-    public static function canNotInstantiateHSLADataProvider(): iterable
+    public static function canNotInstantiateDataProvider(): iterable
     {
         yield from [
-            ['hsla(56, 100%, 50%, 1)'],
-            ['hsla(56, 100%, 50%, 0)'],
-            ['hsla(56, 100%, 0%, 0)'],
-            ['hsla(22, 0%, 0%, 0)'],
-            ['hsla(33, 24%, 47%, 1)'],
-            ['hsla(2, 79%, 47%, 0)'],
+            [
+                new stdClass(),
+                UnsupportedValue::class,
+                'Unsupported value of type "stdClass" provided.'
+            ],
+            [
+                new DRGB(0, 0, 0),
+                UnsupportedValue::class,
+                'Unsupported value of type "AlecRabbit\Color\Model\DTO\DRGB" provided.'
+            ],
+            ['hsla(56, 100%, 50%, 1)', UnrecognizedColorString::class, 'Unrecognized color string: "hsla(56, 100%, 50%, 1)".'],
+            [
+                'hsla(56, 100%, 50%, 1)',
+                UnrecognizedColorString::class,
+                'Unrecognized color string: "hsla(56, 100%, 50%, 1)".'
+            ],
+            ['rgb(23, 0, 255)', UnrecognizedColorString::class, 'Unrecognized color string: "rgb(23, 0, 255)".'],
+            ['slategray', UnrecognizedColorString::class, 'Unrecognized color string: "slategray".'],
+            ['invalid', UnrecognizedColorString::class, 'Unrecognized color string: "invalid".'],
         ];
     }
 
-    public static function supportsFormatDataProvider(): iterable
+    public static function canIsSupportedDataProvider(): iterable
     {
         yield from [
+            [new DHSL(0, 0, 0)],
             ['hsl(22, 100%, 50%)'],
             ['hsl(64, 12%, 14%)'],
             ['hsl(0, 0%, 0%)'],
         ];
     }
 
-    public static function doesNotSupportFormatDataProvider(): iterable
+    public static function notIsSupportedDataProvider(): iterable
     {
         yield from [
+            [new DRGB(0, 0, 0)],
             ['hsla(56, 100%, 50%, 0)'],
             ['hsla(56, 100%, 50%, 1)'],
             ['hsla(56, 100%, 0%, 0)'],
@@ -102,35 +120,37 @@ final class HSLInstantiatorTest extends TestCase
     }
 
     #[Test]
-    #[DataProvider('canNotInstantiateHSLADataProvider')]
-    public function canInstantiateHSLA(string $incoming): void
+    #[DataProvider('canNotInstantiateDataProvider')]
+    public function canNotInstantiateFrom(mixed $value, string $exceptionClass, string $exceptionMessage): void
     {
-        $this->expectException(UnrecognizedColorString::class);
-        $this->expectExceptionMessage(
-            sprintf(
-                'Unrecognized color string: "%s".',
-                $incoming
-            )
-        );
+        $this->expectException($exceptionClass);
+        $this->expectExceptionMessage($exceptionMessage);
 
         $instantiator = $this->getTesteeInstance();
 
-        $instantiator->from($incoming);
-
-        self::fail(sprintf('Exception was not thrown. Color: "%s".', $incoming));
+        $instantiator->from($value);
     }
 
     #[Test]
-    #[DataProvider('supportsFormatDataProvider')]
-    public function supportsFormat(string $format): void
+    #[DataProvider('canNotInstantiateDataProvider')]
+    public function canNotInstantiateTryFrom(mixed $value): void
     {
-        self::assertTrue(HSLInstantiator::isSupported($format));
+        $instantiator = $this->getTesteeInstance();
+
+        self::assertNull($instantiator->tryFrom($value));
     }
 
     #[Test]
-    #[DataProvider('doesNotSupportFormatDataProvider')]
-    public function doesNotSupportFormat(string $format): void
+    #[DataProvider('canIsSupportedDataProvider')]
+    public function canIsSupported(mixed $value): void
     {
-        self::assertFalse(HSLInstantiator::isSupported($format));
+        self::assertTrue(HSLInstantiator::isSupported($value));
+    }
+
+    #[Test]
+    #[DataProvider('notIsSupportedDataProvider')]
+    public function notIsSupported(mixed $value): void
+    {
+        self::assertFalse(HSLInstantiator::isSupported($value));
     }
 }

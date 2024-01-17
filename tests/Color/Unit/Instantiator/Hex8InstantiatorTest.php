@@ -69,6 +69,7 @@ final class Hex8InstantiatorTest extends TestCase
     public static function notIsSupportedDataProvider(): iterable
     {
         yield from [
+            [new DHSL(0, 0, 0)],
             ['slaTeGray'],
             ['slategray'],
             ['rgba(0, 0, 0, 0.5)'],

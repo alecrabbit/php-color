@@ -108,6 +108,15 @@ final class HexInstantiatorTest extends TestCase
 
     #[Test]
     #[DataProvider('canNotInstantiateDataProvider')]
+    public function canNotInstantiateTryFrom(mixed $value): void
+    {
+        $instantiator = $this->getTesteeInstance();
+
+        self::assertNull($instantiator->tryFrom($value));
+    }
+
+    #[Test]
+    #[DataProvider('canNotInstantiateDataProvider')]
     public function canNotInstantiate(mixed $value, string $exceptionClass, string $exceptionMessage): void
     {
         $this->expectException($exceptionClass);
@@ -127,7 +136,7 @@ final class HexInstantiatorTest extends TestCase
 
     #[Test]
     #[DataProvider('notIsSupportedDataProvider')]
-    public function doesNotSupportFormat(mixed $value): void
+    public function notIsSupported(mixed $value): void
     {
         self::assertFalse(HexInstantiator::isSupported($value));
     }
