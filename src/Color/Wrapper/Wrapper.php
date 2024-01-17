@@ -23,12 +23,12 @@ final readonly class Wrapper implements IWrapper
     private string $instantiator;
 
     /**
-     * @param class-string<IInstantiator> $instantiator
      * @param class-string<IToConverter> $converter
+     * @param class-string<IInstantiator> $instantiator
      */
     public function __construct(
-        string $instantiator,
         string $converter,
+        string $instantiator,
     ) {
         self::assertConverter($converter);
 

@@ -31,8 +31,8 @@ final class WrapperTest extends TestCase
         string $instantiator = null,
     ): IWrapper {
         return new Wrapper(
-            instantiator: $instantiator ?? RGBInstantiator::class,
             converter: $converter ?? ToRGBConverter::class,
+            instantiator: $instantiator ?? RGBInstantiator::class,
         );
     }
 

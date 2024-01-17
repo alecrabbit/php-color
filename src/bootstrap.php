@@ -23,28 +23,28 @@ use AlecRabbit\Color\Wrapper\Wrapper;
 
 Package::add(
     new Wrapper(
-        instantiator: HexInstantiator::class,
         converter: To\ToHexConverter::class,
+        instantiator: HexInstantiator::class,
     ),
     new Wrapper(
-        instantiator: Hex8Instantiator::class,
         converter: To\ToHex8Converter::class,
+        instantiator: Hex8Instantiator::class,
     ),
     new Wrapper(
-        instantiator: RGBInstantiator::class,
         converter: To\ToRGBConverter::class,
+        instantiator: RGBInstantiator::class,
     ),
     new Wrapper(
-        instantiator: RGBAInstantiator::class,
         converter: To\ToRGBAConverter::class,
+        instantiator: RGBAInstantiator::class,
     ),
     new Wrapper(
-        instantiator: HSLInstantiator::class,
         converter: To\ToHSLConverter::class,
+        instantiator: HSLInstantiator::class,
     ),
     new Wrapper(
-        instantiator: HSLAInstantiator::class,
         converter: To\ToHSLAConverter::class,
+        instantiator: HSLAInstantiator::class,
     ),
 );
 
