@@ -6,17 +6,22 @@ namespace AlecRabbit\Tests\Color\Unit\Instantiator;
 
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Exception\UnrecognizedColorString;
+use AlecRabbit\Color\Exception\UnsupportedValue;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\Instantiator\HexInstantiator;
+use AlecRabbit\Color\Model\DTO\DHSL;
+use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use stdClass;
 
 final class HexInstantiatorTest extends TestCase
 {
     public static function canInstantiateDataProvider(): iterable
     {
         yield from [
+            [new DRGB(0, 0, 0)],
             ['#ff0000'],
             ['ff0000'],
             ['fF00A0'],
@@ -30,13 +35,31 @@ final class HexInstantiatorTest extends TestCase
     public static function canNotInstantiateDataProvider(): iterable
     {
         yield from [
-            ['invalid'],
+            [
+                new stdClass(),
+                UnsupportedValue::class,
+                'Unsupported value of type "stdClass" provided.'
+            ],
+            [
+                new DHSL(0, 0, 0),
+                UnsupportedValue::class,
+                'Unsupported value of type "AlecRabbit\Color\Model\DTO\DHSL" provided.'
+            ],
+            ['hsl(22, 100%, 50%)', UnrecognizedColorString::class, 'Unrecognized color string: "hsl(22, 100%, 50%)".'],
+            [
+                'hsla(56, 100%, 50%, 1)',
+                UnrecognizedColorString::class,
+                'Unrecognized color string: "hsla(56, 100%, 50%, 1)".'
+            ],
+            ['rgb(23, 0, 255)', UnrecognizedColorString::class, 'Unrecognized color string: "rgb(23, 0, 255)".'],
+            ['invalid', UnrecognizedColorString::class, 'Unrecognized color string: "invalid".'],
         ];
     }
 
-    public static function supportsFormatDataProvider(): iterable
+    public static function canIsSupportedDataProvider(): iterable
     {
         yield from [
+            [new DRGB(0, 0, 0)],
             ['slaTeGray'],
             ['ff0000'],
             ['ff0'],
@@ -47,9 +70,10 @@ final class HexInstantiatorTest extends TestCase
         ];
     }
 
-    public static function doesNotSupportFormatDataProvider(): iterable
+    public static function notIsSupportedDataProvider(): iterable
     {
         yield from [
+            [new DHSL(0, 0, 0)],
             ['rgba(0, 0, 0, 0.5)'],
             ['rgba(0, 2, 255, 1)'],
             ['hsl(22, 100%, 50%)'],
@@ -73,40 +97,38 @@ final class HexInstantiatorTest extends TestCase
 
     #[Test]
     #[DataProvider('canInstantiateDataProvider')]
-    public function canInstantiate(string $colorString): void
+    public function canInstantiate(mixed $value): void
     {
         $instantiator = $this->getTesteeInstance();
-        $color = $instantiator->from($colorString);
+
+        $color = $instantiator->from($value);
+
         self::assertInstanceOf(Hex::class, $color);
     }
 
     #[Test]
     #[DataProvider('canNotInstantiateDataProvider')]
-    public function canNotInstantiate(string $incoming): void
+    public function canNotInstantiate(mixed $value, string $exceptionClass, string $exceptionMessage): void
     {
-        $this->expectException(UnrecognizedColorString::class);
-        $this->expectExceptionMessage(
-            sprintf(
-                'Unrecognized color string: "%s".',
-                $incoming
-            )
-        );
+        $this->expectException($exceptionClass);
+        $this->expectExceptionMessage($exceptionMessage);
+
         $instantiator = $this->getTesteeInstance();
 
-        $instantiator->from($incoming);
+        $instantiator->from($value);
     }
 
     #[Test]
-    #[DataProvider('supportsFormatDataProvider')]
-    public function supportsFormat(string $format): void
+    #[DataProvider('canIsSupportedDataProvider')]
+    public function canIsSupported(mixed $value): void
     {
-        self::assertTrue(HexInstantiator::isSupported($format));
+        self::assertTrue(HexInstantiator::isSupported($value));
     }
 
     #[Test]
-    #[DataProvider('doesNotSupportFormatDataProvider')]
-    public function doesNotSupportFormat(string $format): void
+    #[DataProvider('notIsSupportedDataProvider')]
+    public function doesNotSupportFormat(mixed $value): void
     {
-        self::assertFalse(HexInstantiator::isSupported($format));
+        self::assertFalse(HexInstantiator::isSupported($value));
     }
 }
