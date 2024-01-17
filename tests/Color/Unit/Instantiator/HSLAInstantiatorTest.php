@@ -8,6 +8,7 @@ use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Exception\UnrecognizedColorString;
 use AlecRabbit\Color\HSLA;
 use AlecRabbit\Color\Instantiator\HSLAInstantiator;
+use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -23,10 +24,10 @@ final class HSLAInstantiatorTest extends TestCase
         ];
     }
 
-    public static function canInstantiateHSLADataProvider(): iterable
+    public static function canInstantiateDataProvider(): iterable
     {
         yield from [
-            ['hsla(56, 100%, 50%, 1)'],
+            [new DHSL(0, 0, 0)],['hsla(56, 100%, 50%, 1)'],
             ['hsla(56, 100%, 50%, 0)'],
             ['hsla(56, 100%, 0%, 0)'],
             ['hsla(22, 0%, 0%, 0)'],
@@ -108,11 +109,13 @@ final class HSLAInstantiatorTest extends TestCase
     }
 
     #[Test]
-    #[DataProvider('canInstantiateHSLADataProvider')]
-    public function canInstantiateHSLA(string $colorString): void
+    #[DataProvider('canInstantiateDataProvider')]
+    public function canInstantiate(mixed $value): void
     {
         $instantiator = $this->getTesteeInstance();
-        $color = $instantiator->from($colorString);
+
+        $color = $instantiator->from($value);
+
         self::assertInstanceOf(HSLA::class, $color);
     }
 
