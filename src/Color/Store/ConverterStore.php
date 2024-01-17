@@ -9,7 +9,6 @@ use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Store\IConverterStore;
 use AlecRabbit\Color\Exception\ConverterUnavailable;
 use AlecRabbit\Color\Exception\InvalidArgument;
-use RuntimeException;
 
 class ConverterStore implements IConverterStore
 {
@@ -19,18 +18,14 @@ class ConverterStore implements IConverterStore
     protected static array $registered = [];
 
     /**
-     * @param class-string<IColor> $class
+     * @param class-string<IToConverter> $converterClass
      */
-    protected static function assertTargetClass(string $class): void
+    public static function register(string $converterClass): void
     {
-        if (!is_subclass_of($class, IColor::class)) {
-            throw new InvalidArgument(
-                sprintf(
-                    'Class "%s" is not a "%s" subclass.',
-                    $class,
-                    IColor::class
-                )
-            );
+        self::assertConverterClass($converterClass);
+        foreach ($converterClass::getTargets() as $targetClass) {
+            self::assertTargetClass($targetClass);
+            self::$registered[$targetClass] = $converterClass;
         }
     }
 
@@ -51,16 +46,29 @@ class ConverterStore implements IConverterStore
     }
 
     /**
-     * @param class-string<IToConverter> $converterClass
+     * @param class-string<IColor> $class
      */
-    public static function register(string $converterClass): void
+    protected static function assertTargetClass(string $class): void
     {
-        self::assertConverterClass($converterClass);
-        foreach ($converterClass::getTargets() as $targetClass){
-            self::assertTargetClass($targetClass);
-            self::$registered[$targetClass] = $converterClass;
+        if (!is_subclass_of($class, IColor::class)) {
+            throw new InvalidArgument(
+                sprintf(
+                    'Class "%s" is not a "%s" subclass.',
+                    $class,
+                    IColor::class
+                )
+            );
         }
+    }
 
+    /**
+     * @inheritDoc
+     */
+    public function getByTarget(string $class): IToConverter
+    {
+        self::assertTargetClass($class);
+
+        return self::createConverter($class);
     }
 
     /**
@@ -95,15 +103,5 @@ class ConverterStore implements IConverterStore
             throw new ConverterUnavailable(
                 sprintf('Converter class for "%s" is not available.', $class)
             );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getByTarget(string $class): IToConverter
-    {
-        self::assertTargetClass($class);
-
-        return self::createConverter($class);
     }
 }

@@ -20,11 +20,6 @@ class RGBAInstantiator extends AInstantiator
 {
     protected const REGEXP_RGBA = '/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)$/';
 
-    protected static function canInstantiateFromDTO(DColor $color): bool
-    {
-        return $color instanceof DRGB;
-    }
-
     /** @inheritDoc */
     protected function createFromString(string $value): ?IColor
     {
@@ -59,5 +54,10 @@ class RGBAInstantiator extends AInstantiator
         }
 
         return null;
+    }
+
+    protected static function canInstantiateFromDTO(DColor $color): bool
+    {
+        return $color instanceof DRGB;
     }
 }

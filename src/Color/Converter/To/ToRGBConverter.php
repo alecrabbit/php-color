@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Converter\To;
 
-use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Converter\To\A\AToConverter;
 use AlecRabbit\Color\Instantiator\RGBInstantiator;
-use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Model\ModelRGB;
 use AlecRabbit\Color\RGB;
@@ -18,7 +16,7 @@ use Traversable;
 /**
  * @extends AToConverter<IRGBColor>
  */
-class ToRGBConverter extends AToConverter
+final class ToRGBConverter extends AToConverter
 {
     public static function getTargets(): Traversable
     {
@@ -33,10 +31,5 @@ class ToRGBConverter extends AToConverter
     protected function getTargetColorModel(): IColorModel
     {
         return new ModelRGB();
-    }
-
-    protected function createColorFromDTO(DColor $dto): IColor
-    {
-        return RGB::fromDTO($dto);
     }
 }

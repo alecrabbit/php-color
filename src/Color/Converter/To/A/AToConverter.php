@@ -48,15 +48,12 @@ abstract class AToConverter implements IToConverter
 
     public function convert(IColor $color): IColor
     {
-        return $this->createColorFromDTO($this->convertToTargetDTO($color));
+        /** @var class-string<IInstantiator<T>> $instantiatorClass */
+        $instantiatorClass = static::getInstantiatorClass();
+        return (new $instantiatorClass())->from($this->convertToTargetDTO($color));
     }
 
-    /**
-     * @param DColor $dto
-     *
-     * @psalm-return T
-     */
-    abstract protected function createColorFromDTO(DColor $dto): IColor;
+    abstract public static function getInstantiatorClass(): string;
 
     protected function convertToTargetDTO(IColor $color): DColor
     {
@@ -70,6 +67,4 @@ abstract class AToConverter implements IToConverter
             to: $this->getTargetColorModel(),
         );
     }
-
-    abstract public static function getInstantiatorClass(): string;
 }

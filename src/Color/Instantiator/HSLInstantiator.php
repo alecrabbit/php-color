@@ -18,11 +18,6 @@ class HSLInstantiator extends AInstantiator
 {
     protected const REGEXP_HSLA = '/^hsla?\((\d+)(?:,\s*|\s*)(\d+)%(?:,\s*|\s*)(\d+)%(?:(?:,\s*|\s*\/\s*)(([\d.]+)|(\d+%)))?\)$/';
 
-    protected static function canInstantiateFromDTO(DColor $color): bool
-    {
-        return $color instanceof DHSL;
-    }
-
     /** @inheritDoc */
     protected function createFromString(string $value): ?IColor
     {
@@ -55,5 +50,10 @@ class HSLInstantiator extends AInstantiator
         }
 
         return null;
+    }
+
+    protected static function canInstantiateFromDTO(DColor $color): bool
+    {
+        return $color instanceof DHSL;
     }
 }

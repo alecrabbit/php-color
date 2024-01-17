@@ -7,13 +7,7 @@ namespace AlecRabbit\Color\Util;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IRegistry;
-use AlecRabbit\Color\Contract\Store\IConverterStore;
-use AlecRabbit\Color\Contract\Store\IInstantiatorStore;
-use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Registry\Registry;
-use AlecRabbit\Color\Store\ConverterStore;
-use AlecRabbit\Color\Store\InstantiatorStore;
 
 /**
  * Utility class for convenient color instantiation.
@@ -41,6 +35,11 @@ final class Color
         return self::getRegistry()->getInstantiator($value)->from($value);
     }
 
+    private static function getRegistry(): IRegistry
+    {
+        return new Registry();
+    }
+
     /**
      * @template T of IColor
      *
@@ -51,10 +50,5 @@ final class Color
     public static function to(string $target): IToConverter
     {
         return self::getRegistry()->getToConverter($target);
-    }
-
-    private static function getRegistry(): IRegistry
-    {
-        return new Registry();
     }
 }

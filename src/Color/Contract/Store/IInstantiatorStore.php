@@ -6,7 +6,6 @@ namespace AlecRabbit\Color\Contract\Store;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
-use AlecRabbit\Color\Model\Contract\DTO\DColor;
 
 interface IInstantiatorStore
 {

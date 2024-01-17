@@ -169,11 +169,6 @@ class HexInstantiator extends AInstantiator
         'yellowgreen' => '#9ACD32',
     ];
 
-    protected static function canInstantiateFromDTO(DColor $color): bool
-    {
-        return $color instanceof DRGB;
-    }
-
     protected static function canInstantiateFromString(string $color): bool
     {
         return self::isNamedColor($color) || self::isHexString($color);
@@ -231,5 +226,10 @@ class HexInstantiator extends AInstantiator
         }
 
         return null;
+    }
+
+    protected static function canInstantiateFromDTO(DColor $color): bool
+    {
+        return $color instanceof DRGB;
     }
 }

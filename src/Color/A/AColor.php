@@ -20,7 +20,7 @@ abstract class AColor implements IColor
     ) {
     }
 
-    abstract public static function from(IColor $color): IColor;
+    abstract public static function fromString(string $value): IColor;
 
     protected static function assertDTO(DColor $dto): void
     {
@@ -80,7 +80,7 @@ abstract class AColor implements IColor
         return Color::from($color);
     }
 
-    abstract public static function fromString(string $value): IColor;
+    abstract public static function from(IColor $color): IColor;
 
     public function __toString(): string
     {
