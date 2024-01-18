@@ -61,20 +61,18 @@ final class InstantiatorStore implements IInstantiatorStore
             }
         }
 
-        $message = \is_string($value)
-            ? sprintf(
-                'Instantiator for color "%s" is not registered.',
-                $value,
-            ) : sprintf(
-                'Instantiator for value of type "%s" is not registered.',
-                get_debug_type($value),
-            );
-
-        throw new InvalidArgument($message);
+        throw new InvalidArgument($this->createErrorMessage($value));
     }
 
     private function getRegistered(): array
     {
         return \array_reverse(self::$registered, true);
+    }
+
+    private function createErrorMessage(mixed $value): string
+    {
+        return \is_string($value)
+            ? sprintf('Instantiator for color "%s" is not registered.', $value)
+            : sprintf('Instantiator for value of type "%s" is not registered.', get_debug_type($value));
     }
 }
