@@ -457,7 +457,7 @@ final class Hex8Test extends TestCase
     {
         $testee = self::getTesteeFromInteger8(0x01020300);
 
-        $dto = $testee->toDTO();
+        $dto = $testee->to(DRGB::class);
 
         self::assertInstanceOf(DRGB::class, $dto);
         self::assertSame(0.003922, $dto->red);

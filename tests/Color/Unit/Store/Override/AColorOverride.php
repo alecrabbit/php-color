@@ -26,9 +26,4 @@ final class AColorOverride extends AColor
     {
         throw new RuntimeException('INTENTIONALLY Not implemented.');
     }
-
-    public function toDTO(): DColor
-    {
-        throw new RuntimeException('INTENTIONALLY Not implemented.');
-    }
 }

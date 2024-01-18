@@ -253,7 +253,7 @@ final class HSLTest extends TestCase
             ]
         );
 
-        $dto = $testee->toDTO();
+        $dto = $testee->to(DHSL::class);
 
         self::assertInstanceOf(DHSL::class, $dto);
         self::assertSame(0.002778, $dto->hue);

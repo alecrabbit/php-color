@@ -45,7 +45,7 @@ class HSL extends AColor implements IHSLColor
         return round(max(0.0, min(1.0, $value)), 2);
     }
 
-    public function toDTO(): DColor
+    protected function toDTO(): DColor
     {
         return new DHSL(
             hue: round($this->getHue() / 360, self::CALC_PRECISION),

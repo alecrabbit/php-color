@@ -203,7 +203,7 @@ final class HexTest extends TestCase
     {
         $testee = self::getTesteeFromInteger(0x010203);
 
-        $dto = $testee->toDTO();
+        $dto = $testee->to(DRGB::class);
 
         self::assertInstanceOf(DRGB::class, $dto);
         self::assertSame(0.003922, $dto->red);

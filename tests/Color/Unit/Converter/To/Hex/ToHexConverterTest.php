@@ -11,6 +11,7 @@ use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Contract\IRegistry;
 use AlecRabbit\Color\Converter\To\ToHexConverter;
 use AlecRabbit\Color\Hex;
+use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
 use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\DTO\DRGB;
@@ -58,9 +59,10 @@ final class ToHexConverterTest extends TestCase
             ->expects(self::once())
             ->method('getColorModel')
             ->willReturn($modelFrom);
+
         $incoming
             ->expects(self::once())
-            ->method('toDTO')
+            ->method('to')
             ->willReturn($dtoFrom);
 
         $registry = $this->getConverterRegistryMock();

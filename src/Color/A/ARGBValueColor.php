@@ -34,7 +34,7 @@ abstract class ARGBValueColor extends AColor
             ) & self::MAX;
     }
 
-    public function toDTO(): DColor
+    protected function toDTO(): DColor
     {
         return new DRGB(
             red: round($this->getRed() / self::COMPONENT, self::CALC_PRECISION),
