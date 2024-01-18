@@ -12,7 +12,7 @@ use Traversable;
 /**
  * @template-covariant T of IColor
  */
-interface IToConverter
+interface IToConverter extends IColorConverter
 {
     /**
      * Returns traversable of color classes/interfaces for which this converter is applicable.

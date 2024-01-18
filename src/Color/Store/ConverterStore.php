@@ -115,6 +115,7 @@ class ConverterStore implements IConverterStore
             foreach (self::$registered as $converterClass) {
                 /** @var IToConverter $instance */
                 $instance = new $converterClass();
+                // TODO (2024-01-18 16:33) [Alec Rabbit]: [0f579dfe-000a-43f4-82b1-833c7173017d]
                 if ($instance->getTargetColorModel()->dtoType() === $target) {
                     return $converterClass;
                 }
