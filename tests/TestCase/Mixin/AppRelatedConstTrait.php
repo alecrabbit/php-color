@@ -43,6 +43,8 @@ trait AppRelatedConstTrait
     final protected const PREFIX = 'prefix';
     final protected const RED = 'red';
     final protected const RESULT = 'result';
+    final protected const DTO = 'dto';
+    final protected const TYPE = 'type';
     final protected const SATURATION = 'saturation';
     final protected const SECOND = 'second';
     final protected const SEQUENCE = 'sequence';

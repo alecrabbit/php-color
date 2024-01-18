@@ -8,6 +8,8 @@ use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
+use AlecRabbit\Color\Model\DTO\DHSL;
+use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -151,6 +153,32 @@ final class HSLTest extends TestCase
         ];
     }
 
+    public static function canBeConvertedToDTODataProvider(): iterable
+    {
+        foreach (self::canBeConvertedToDTODataFeeder() as $item) {
+            [$left, $right] = $item;
+            yield [
+                [
+                    self::RESULT => [
+                        self::DTO => $right,
+                    ],
+                ],
+                [
+                    self::VALUE => $left,
+                ]
+            ];
+        }
+    }
+
+    private static function canBeConvertedToDTODataFeeder(): iterable
+    {
+        yield from [
+            // (left)string, (right)[dto],
+            ['hsl(124 0% 50%)', new DRGB(0,0,0, 1)],
+            ['hsl(124 0% 50%)', new DHSL(0.344444,0,0.5, 1)],
+        ];
+    }
+
     #[Test]
     #[DataProvider('canBeCreatedFromDataProvider')]
     public function canBeCreatedFrom(IColor $expected, IColor $incoming): void
@@ -165,20 +193,24 @@ final class HSLTest extends TestCase
     {
         $result = $expected[self::RESULT];
         $hsl = $incoming[self::VALUE];
-        $testee = self::getTesteeFromHSL($hsl);
+        $testee = self::getTestee($hsl);
         self::assertSame($result[self::HUE], $testee->getHue());
         self::assertSame($result[self::SATURATION], $testee->getSaturation());
         self::assertSame($result[self::LIGHTNESS], $testee->getLightness());
     }
 
-    private static function getTesteeFromHSL(array $hsl): IHSLColor
+    private static function getTestee(mixed $value): IHSLColor
     {
-        return
-            HSL::fromHSL(
-                $hsl[self::HUE],
-                $hsl[self::SATURATION],
-                $hsl[self::LIGHTNESS],
-            );
+        if (\is_array($value)) {
+            return
+                HSL::fromHSL(
+                    $value[self::HUE],
+                    $value[self::SATURATION],
+                    $value[self::LIGHTNESS],
+                );
+        }
+
+        return HSL::from($value);
     }
 
     #[Test]
@@ -187,8 +219,22 @@ final class HSLTest extends TestCase
     {
         $result = $expected[self::RESULT];
         $hsl = $incoming[self::VALUE];
-        $testee = self::getTesteeFromHSL($hsl);
+        $testee = self::getTestee($hsl);
         self::assertSame($result, $testee->toString());
+    }
+
+    #[Test]
+    #[DataProvider('canBeConvertedToDTODataProvider')]
+    public function canBeConvertedToDTO(array $expected, array $incoming): void
+    {
+        $result = $expected[self::RESULT];
+        $value = $incoming[self::VALUE];
+
+        $dto = $result[self::DTO];
+
+        $testee = self::getTestee($value);
+        self::assertEquals($dto, $testee->to($dto::class));
+
     }
 
     #[Test]
@@ -197,21 +243,16 @@ final class HSLTest extends TestCase
     {
         $result = $expected[self::RESULT];
         $hsl = $incoming[self::VALUE];
-        $testee = self::getTesteeFromString($hsl);
+        $testee = self::getTestee($hsl);
         self::assertEquals($result[self::HUE], $testee->getHue());
         self::assertEquals($result[self::SATURATION], $testee->getSaturation());
         self::assertEquals($result[self::LIGHTNESS], $testee->getLightness());
     }
 
-    private static function getTesteeFromString(string $hsl): IHSLColor
-    {
-        return HSL::from($hsl);
-    }
-
     #[Test]
     public function canBeModifiedWithHue(): void
     {
-        $original = self::getTesteeFromHSL(
+        $original = self::getTestee(
             [
                 self::HUE => 0,
                 self::SATURATION => 0,
@@ -227,7 +268,7 @@ final class HSLTest extends TestCase
     #[Test]
     public function canBeModifiedWithSaturation(): void
     {
-        $original = self::getTesteeFromHSL(
+        $original = self::getTestee(
             [
                 self::HUE => 0,
                 self::SATURATION => 0,
@@ -250,7 +291,7 @@ final class HSLTest extends TestCase
     #[Test]
     public function canBeModifiedWithLightness(): void
     {
-        $original = self::getTesteeFromHSL(
+        $original = self::getTestee(
             [
                 self::HUE => 0,
                 self::SATURATION => 0,
