@@ -12,22 +12,7 @@ use RuntimeException;
 
 final class AColorOverride extends AColor
 {
-    public static function fromDTO(DColor $dto): IColor
-    {
-        throw new RuntimeException('INTENTIONALLY Not implemented.');
-    }
-
     public static function from(mixed $color): IColor
-    {
-        throw new RuntimeException('INTENTIONALLY Not implemented.');
-    }
-
-    public static function fromString(string $value): IColor
-    {
-        throw new RuntimeException('INTENTIONALLY Not implemented.');
-    }
-
-    protected static function dtoType(): string
     {
         throw new RuntimeException('INTENTIONALLY Not implemented.');
     }

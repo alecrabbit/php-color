@@ -45,11 +45,6 @@ class HSL extends AColor implements IHSLColor
         return round(max(0.0, min(1.0, $value)), 2);
     }
 
-    protected static function dtoType(): string
-    {
-        return DHSL::class;
-    }
-
     public function toDTO(): DColor
     {
         return new DHSL(
