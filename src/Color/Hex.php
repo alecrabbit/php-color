@@ -20,7 +20,7 @@ class Hex extends ARGBValueColor implements IHexColor
         return self::getFromString($value)->to(IHexColor::class);
     }
 
-    public static function from(IColor $color): IHexColor
+    public static function from(mixed $color): IHexColor
     {
         return $color->to(IHexColor::class);
     }
@@ -28,13 +28,6 @@ class Hex extends ARGBValueColor implements IHexColor
     public static function fromInteger(int $value): IHexColor
     {
         return new self(abs($value) & (int)static::MAX);
-    }
-
-    public static function fromDTO(DColor $dto): IHexColor
-    {
-        self::assertDTO($dto);
-
-        return self::createFromDTO($dto);
     }
 
     protected static function createFromDTO(DColor $dto): IHexColor

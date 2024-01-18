@@ -36,7 +36,7 @@ class RGBA extends RGB implements IRGBAColor
             );
     }
 
-    public static function from(IColor $color): IRGBAColor
+    public static function from(mixed $color): IRGBAColor
     {
         return $color->to(IRGBAColor::class);
     }
@@ -44,13 +44,6 @@ class RGBA extends RGB implements IRGBAColor
     public static function fromString(string $value): IRGBAColor
     {
         return self::getFromString($value)->to(IRGBAColor::class);
-    }
-
-    public static function fromDTO(DColor $dto): IRGBAColor
-    {
-        self::assertDTO($dto);
-
-        return self::createFromDTO($dto);
     }
 
     protected static function createFromDTO(DColor $dto): IRGBAColor

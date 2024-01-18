@@ -19,9 +19,7 @@ interface IRGBColor extends IColor,
 
     public static function fromRGB(int $r, int $g, int $b): IRGBColor;
 
-    public static function fromDTO(DColor $dto): IRGBColor;
-
-    public static function from(IColor $color): IRGBColor;
+    public static function from(mixed $color): IRGBColor;
 
     public static function fromString(string $value): IRGBColor;
 

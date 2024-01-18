@@ -12,7 +12,7 @@ use AlecRabbit\Color\Registry\Registry;
 /**
  * Utility class for convenient color instantiation.
  */
-final class Color
+final class Color implements IColorUtil
 {
     /**
      * @codeCoverageIgnore

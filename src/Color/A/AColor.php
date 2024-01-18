@@ -45,17 +45,18 @@ abstract class AColor implements IColor
     abstract protected static function createFromDTO(DColor $dto): IColor;
 
     /**
-     * @template T of IColor
+     * @template T of IColor|DColor
      *
      * @param class-string<T> $to
      *
      * @psalm-return T
      */
-    protected static function convert(IColor $color, string $to): IColor
+    protected static function convert(IColor $color, string $to): IColor|DColor
     {
         if ($color::class === $to) {
             return $color;
         }
+
 
         /** @var IToConverter<T> $converter */
         $converter = Color::to($to);
@@ -64,13 +65,13 @@ abstract class AColor implements IColor
     }
 
     /**
-     * @template T of IColor
+     * @template T of IColor|DColor
      *
      * @param class-string<T> $class
      *
      * @psalm-return T
      */
-    public function to(string $class): IColor
+    public function to(string $class): IColor|DColor
     {
         return self::convert($this, $class);
     }
@@ -80,7 +81,10 @@ abstract class AColor implements IColor
         return Color::from($color);
     }
 
-    abstract public static function from(IColor $color): IColor;
+    public static function from(mixed $color): IColor
+    {
+        return $color->to(static::class);
+    }
 
     public function __toString(): string
     {

@@ -17,7 +17,7 @@ final class AColorOverride extends AColor
         throw new RuntimeException('INTENTIONALLY Not implemented.');
     }
 
-    public static function from(IColor $color): IColor
+    public static function from(mixed $color): IColor
     {
         throw new RuntimeException('INTENTIONALLY Not implemented.');
     }

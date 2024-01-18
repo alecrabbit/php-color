@@ -19,16 +19,9 @@ class RGB extends ARGBValueColor implements IRGBColor
         return parent::getFromString($value)->to(IRGBColor::class);
     }
 
-    public static function from(IColor $color): IRGBColor
+    public static function from(mixed $color): IRGBColor
     {
         return $color->to(IRGBColor::class);
-    }
-
-    public static function fromDTO(DColor $dto): IRGBColor
-    {
-        self::assertDTO($dto);
-
-        return self::createFromDTO($dto);
     }
 
     protected static function createFromDTO(DColor $dto): IRGBColor

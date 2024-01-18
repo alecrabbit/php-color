@@ -232,15 +232,4 @@ final class HexTest extends TestCase
     {
         return $this->createMock($colorClass ?? IColor::class);
     }
-
-    #[Test]
-    public function throwsIfPassedDTOIsInvalid(): void
-    {
-        $this->expectException(InvalidArgument::class);
-        $this->expectExceptionMessage(
-            'Color must be instance of "AlecRabbit\Color\Model\DTO\DRGB", "AlecRabbit\Tests\Color\Unit\Override\DColorOverride" given.'
-        );
-
-        Hex::fromDTO(new DColorOverride());
-    }
 }

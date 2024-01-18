@@ -282,15 +282,4 @@ final class HSLTest extends TestCase
     {
         return $this->createMock($colorClass ?? IColor::class);
     }
-
-    #[Test]
-    public function throwsIfPassedDTOIsInvalid(): void
-    {
-        $this->expectException(InvalidArgument::class);
-        $this->expectExceptionMessage(
-            'Color must be instance of "AlecRabbit\Color\Model\DTO\DHSL", "AlecRabbit\Tests\Color\Unit\Override\DColorOverride" given.'
-        );
-
-        HSL::fromDTO(new DColorOverride());
-    }
 }

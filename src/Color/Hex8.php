@@ -23,7 +23,7 @@ class Hex8 extends Hex implements IHex8Color
         parent::__construct($value);
     }
 
-    public static function from(IColor $color): IHex8Color
+    public static function from(mixed $color): IHex8Color
     {
         return $color->to(IHex8Color::class);
     }
@@ -36,13 +36,6 @@ class Hex8 extends Hex implements IHex8Color
     public static function fromInteger(int $value, ?int $alpha = null): IHex8Color
     {
         return new self($value, $alpha ?? 0xFF);
-    }
-
-    public static function fromDTO(DColor $dto): IHex8Color
-    {
-        self::assertDTO($dto);
-
-        return self::createFromDTO($dto);
     }
 
     protected static function createFromDTO(DColor $dto): IHex8Color

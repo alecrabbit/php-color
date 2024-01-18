@@ -16,11 +16,7 @@ interface IColor extends IHasFromString,
     final public const CALC_PRECISION = IDCoreConverter::CALC_PRECISION;
     final public const FLOAT_PRECISION = 3;
 
-    public static function from(IColor $color): IColor;
-
-    public static function fromString(string $value): IColor;
-
-    public static function fromDTO(DColor $dto): IColor;
+    public static function from(mixed $color): IColor;
 
     public function getColorModel(): IColorModel;
 
@@ -31,7 +27,7 @@ interface IColor extends IHasFromString,
      *
      * @psalm-return T
      */
-    public function to(string $class): IColor;
+    public function to(string $class): IColor|DColor;
 
     public function toDTO(): DColor;
 }
