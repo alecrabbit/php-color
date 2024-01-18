@@ -174,7 +174,8 @@ final class HSLTest extends TestCase
     {
         yield from [
             // (left)string, (right)[dto],
-            ['hsl(124 0% 50%)', new DRGB(0,0,0, 1)],
+            ['hsl(124 0% 50%)', new DRGB(0.5,0.5,0.5, 1)],
+            ['hsl(169 100% 50%)', new DRGB(0,1,0.816664, 1)],
             ['hsl(124 0% 50%)', new DHSL(0.344444,0,0.5, 1)],
         ];
     }

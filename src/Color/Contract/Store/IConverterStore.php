@@ -18,9 +18,9 @@ interface IConverterStore
     /**
      * @template T of IColor
      *
-     * @param class-string<T> $class
+     * @param class-string<T> $target
      *
      * @psalm-return IToConverter<T>
      */
-    public function getByTarget(string $class): IToConverter;
+    public function getByTarget(string $target): IToConverter;
 }

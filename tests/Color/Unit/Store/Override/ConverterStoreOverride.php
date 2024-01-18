@@ -23,7 +23,7 @@ final class ConverterStoreOverride implements IConverterStore
     /**
      * @inheritDoc
      */
-    public function getByTarget(string $class): IToConverter
+    public function getByTarget(string $target): IToConverter
     {
         throw new RuntimeException('INTENTIONALLY Not implemented.');
     }

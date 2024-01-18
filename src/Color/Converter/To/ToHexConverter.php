@@ -28,7 +28,7 @@ final class ToHexConverter extends AToConverter
         return HexInstantiator::class;
     }
 
-    protected function getTargetColorModel(): IColorModel
+    public function getTargetColorModel(): IColorModel
     {
         return new ModelRGB();
     }

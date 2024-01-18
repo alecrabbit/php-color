@@ -28,7 +28,7 @@ final class ToRGBConverter extends AToConverter
         return RGBInstantiator::class;
     }
 
-    protected function getTargetColorModel(): IColorModel
+    public function getTargetColorModel(): IColorModel
     {
         return new ModelRGB();
     }

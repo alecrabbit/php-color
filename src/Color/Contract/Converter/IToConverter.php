@@ -30,4 +30,6 @@ interface IToConverter
      * @psalm-return T
      */
     public function convert(IColor $color): IColor;
+
+    public function partialConvert(IColor $color): DColor;
 }

@@ -42,7 +42,7 @@ abstract class AToConverter implements IToConverter
         return $dtoType ?? $this->getTargetColorModel()->dtoType();
     }
 
-    abstract protected function getTargetColorModel(): IColorModel;
+    abstract public function getTargetColorModel(): IColorModel;
 
     abstract public static function getTargets(): Traversable;
 
@@ -50,19 +50,20 @@ abstract class AToConverter implements IToConverter
     {
         /** @var class-string<IInstantiator<T>> $instantiatorClass */
         $instantiatorClass = static::getInstantiatorClass();
-        return (new $instantiatorClass())->from($this->convertToTargetDTO($color));
+
+        return (new $instantiatorClass())->from($this->partialConvert($color));
     }
 
     abstract public static function getInstantiatorClass(): string;
 
-    protected function convertToTargetDTO(IColor $color): DColor
+    public function partialConvert(IColor $color): DColor
     {
         $from = $color->getColorModel();
 
-        $type = $from->dtoType();
+        $fromType = $from->dtoType();
 
         return $this->getModelConverter($from, $this->getTargetColorModel())
-            ->convert($color->to($type));
+            ->convert($color->to($fromType));
     }
 
     protected function getModelConverter(IColorModel $from, IColorModel $to): IDColorConverter

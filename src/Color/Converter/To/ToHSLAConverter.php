@@ -28,7 +28,7 @@ final class ToHSLAConverter extends AToConverter
         return HSLAInstantiator::class;
     }
 
-    protected function getTargetColorModel(): IColorModel
+    public function getTargetColorModel(): IColorModel
     {
         return new ModelHSL();
     }
