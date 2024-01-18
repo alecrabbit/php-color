@@ -49,8 +49,8 @@ final class ColorMethodToTest extends TestCase
             [To\ToRGBConverter::class, RGB::class],
             [To\ToRGBConverter::class, IRGBColor::class],
 
-            [To\ToHexConverter::class, DRGB::class],
-            [To\ToHSLConverter::class, DHSL::class],
+            [To\ToRGBAConverter::class, DRGB::class],
+            [To\ToHSLAConverter::class, DHSL::class],
         ];
     }
 

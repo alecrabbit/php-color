@@ -11,7 +11,7 @@ use AlecRabbit\Color\Exception\ConverterUnavailable;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 
-class ConverterStore implements IConverterStore
+final class ConverterStore implements IConverterStore
 {
     /**
      * @var Array<class-string<IColor>, class-string<IToConverter<IColor>>>
@@ -70,7 +70,7 @@ class ConverterStore implements IConverterStore
     {
         self::assertTargetClass($target);
 
-        return self::getConverter($target);
+        return $this->getConverter($target);
     }
 
     /**
@@ -80,9 +80,9 @@ class ConverterStore implements IConverterStore
      *
      * @psalm-return IToConverter<T>
      */
-    protected static function getConverter(string $target): IToConverter
+    private function getConverter(string $target): IToConverter
     {
-        $converterClass = self::getConverterClass($target);
+        $converterClass = $this->getConverterClass($target);
         return
             new $converterClass();
     }
@@ -94,10 +94,10 @@ class ConverterStore implements IConverterStore
      *
      * @return class-string<IToConverter<T>>
      */
-    protected static function getConverterClass(string $target): string
+    private function getConverterClass(string $target): string
     {
         return
-            self::searchForConverter($target)
+            $this->searchForConverter($target)
             ??
             throw new ConverterUnavailable(
                 sprintf('Converter class for "%s" is not available.', $target)
@@ -109,10 +109,10 @@ class ConverterStore implements IConverterStore
      *
      * @return null|class-string<IToConverter>
      */
-    private static function searchForConverter(string $target): ?string
+    private function searchForConverter(string $target): ?string
     {
         if (is_subclass_of($target, DColor::class)) {
-            foreach (self::$registered as $converterClass) {
+            foreach ($this->getRegistered() as $converterClass) {
                 /** @var IToConverter $instance */
                 $instance = new $converterClass();
                 // TODO (2024-01-18 16:33) [Alec Rabbit]: [0f579dfe-000a-43f4-82b1-833c7173017d]
@@ -123,5 +123,10 @@ class ConverterStore implements IConverterStore
         }
 
         return self::$registered[$target] ?? null;
+    }
+
+    private function getRegistered(): array
+    {
+        return \array_reverse(self::$registered, true);
     }
 }

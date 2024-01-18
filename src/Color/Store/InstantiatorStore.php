@@ -9,7 +9,7 @@ use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Contract\Store\IInstantiatorStore;
 use AlecRabbit\Color\Exception\InvalidArgument;
 
-class InstantiatorStore implements IInstantiatorStore
+final class InstantiatorStore implements IInstantiatorStore
 {
     /** @var Array<class-string<IInstantiator>> */
     protected static array $registered = [];
@@ -55,16 +55,26 @@ class InstantiatorStore implements IInstantiatorStore
     public function getByValue(mixed $value): IInstantiator
     {
         /** @var class-string<IInstantiator> $class */
-        foreach (self::$registered as $class) {
+        foreach ($this->getRegistered() as $class) {
             if ($class::isSupported($value)) {
                 return new $class();
             }
         }
-        throw new InvalidArgument(
-            sprintf(
+
+        $message = \is_string($value)
+            ? sprintf(
                 'Instantiator for color "%s" is not registered.',
                 $value,
-            )
-        );
+            ) : sprintf(
+                'Instantiator for value of type "%s" is not registered.',
+                get_debug_type($value),
+            );
+
+        throw new InvalidArgument($message);
+    }
+
+    private function getRegistered(): array
+    {
+        return \array_reverse(self::$registered, true);
     }
 }

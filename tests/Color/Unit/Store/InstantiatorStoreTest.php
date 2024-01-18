@@ -28,11 +28,14 @@ final class InstantiatorStoreTest extends TestCase
         ];
     }
 
-    public static function throwsIfProvidedColorStringIsInvalidDataProvider(): iterable
+    public static function throwsIfProvidedValueIsInvalidDataProvider(): iterable
     {
         yield from [
-            [''],
-            ['blabla'],
+            ['', 'Instantiator for color "" is not registered.'],
+            ['blabla', 'Instantiator for color "blabla" is not registered.'],
+            [1, 'Instantiator for value of type "int" is not registered.'],
+            [new \stdClass(), 'Instantiator for value of type "stdClass" is not registered.'],
+            [stdClass::class, 'Instantiator for color "stdClass" is not registered.'],
         ];
     }
 
@@ -72,18 +75,13 @@ final class InstantiatorStoreTest extends TestCase
     }
 
     #[Test]
-    #[DataProvider('throwsIfProvidedColorStringIsInvalidDataProvider')]
-    public function throwsIfProvidedColorStringIsInvalid(string $color): void
+    #[DataProvider('throwsIfProvidedValueIsInvalidDataProvider')]
+    public function throwsIfProvidedColorStringIsInvalid(mixed $value, string $message): void
     {
         $this->expectException(InvalidArgument::class);
-        $this->expectExceptionMessage(
-            sprintf(
-                'Instantiator for color "%s" is not registered.',
-                $color,
-            )
-        );
+        $this->expectExceptionMessage($message);
 
-        $this->getTestee()->getByValue($color);
+        $this->getTestee()->getByValue($value);
 
         self::fail('Exception was not thrown.');
     }

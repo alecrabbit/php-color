@@ -10,6 +10,7 @@ use AlecRabbit\Color\Hex8;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
+use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
@@ -38,7 +39,8 @@ final class ColorMethodFromTest extends TestCase
             [Hex8::class, '#ffffffff'],
             [RGBA::class, 'rgba(255, 0, 255, 1)'],
             [HSL::class, 'hsl(234, 100%, 50%)'],
-            [Hex::class, new DRGB(255, 0, 255)],
+            [RGBA::class, new DRGB(255, 0, 255)],
+            [HSLA::class, new DHSL(0, 0, 0)],
             [HSLA::class, 'hsla(234, 100%, 50%, 1)'],
             [RGB::class, 'rgb(255, 0, 255)'],
             [RGB::class, RGB::fromRGB(0, 0, 0)],
