@@ -20,7 +20,7 @@ interface IColor extends IHasToString,
     public function getColorModel(): IColorModel;
 
     /**
-     * @template T of IColor
+     * @template T of IColor|DColor
      *
      * @param class-string<T> $class
      *

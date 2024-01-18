@@ -6,10 +6,11 @@ namespace AlecRabbit\Color\Contract\Converter;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use Traversable;
 
 /**
- * @template-covariant T of IColor
+ * @template-covariant T of IColor|DColor
  */
 interface IToConverter
 {
@@ -28,5 +29,5 @@ interface IToConverter
     /**
      * @psalm-return T
      */
-    public function convert(IColor $color): IColor;
+    public function convert(IColor $color): IColor|DColor;
 }

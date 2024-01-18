@@ -6,6 +6,7 @@ namespace AlecRabbit\Color\Contract\Store;
 
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 
 interface IConverterStore
 {
@@ -15,7 +16,7 @@ interface IConverterStore
     public static function register(string $converterClass): void;
 
     /**
-     * @template T of IColor
+     * @template T of IColor|DColor
      *
      * @param class-string<T> $class
      *

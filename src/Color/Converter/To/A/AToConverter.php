@@ -46,7 +46,7 @@ abstract class AToConverter implements IToConverter
 
     abstract public static function getTargets(): Traversable;
 
-    public function convert(IColor $color): IColor
+    public function convert(IColor $color): IColor|DColor
     {
         /** @var class-string<IInstantiator<T>> $instantiatorClass */
         $instantiatorClass = static::getInstantiatorClass();

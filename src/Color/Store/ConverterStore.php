@@ -9,11 +9,12 @@ use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Store\IConverterStore;
 use AlecRabbit\Color\Exception\ConverterUnavailable;
 use AlecRabbit\Color\Exception\InvalidArgument;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 
 class ConverterStore implements IConverterStore
 {
     /**
-     * @var Array<class-string<IColor>, class-string<IToConverter<IColor>>>
+     * @var Array<class-string<IColor|DColor>, class-string<IToConverter<IColor|DColor>>>
      */
     protected static array $registered = [];
 
@@ -46,7 +47,7 @@ class ConverterStore implements IConverterStore
     }
 
     /**
-     * @param class-string<IColor> $class
+     * @param class-string<IColor|DColor> $class
      */
     protected static function assertTargetClass(string $class): void
     {

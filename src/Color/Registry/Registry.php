@@ -11,6 +11,7 @@ use AlecRabbit\Color\Contract\IRegistry;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\Contract\Converter\IDColorConverter;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Model\Converter\Store\ConverterStore as ModelConverterStore;
 use AlecRabbit\Color\Store\ConverterStore;
@@ -47,7 +48,7 @@ final class Registry implements IRegistry
     }
 
     /**
-     * @template T of IColor
+     * @template T of IColor|DColor
      *
      * @param class-string<T> $target
      *

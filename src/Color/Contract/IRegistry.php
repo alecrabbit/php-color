@@ -9,6 +9,7 @@ use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
 use AlecRabbit\Color\Model\Contract\Converter\IDColorConverter;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 
 interface IRegistry
@@ -24,7 +25,7 @@ interface IRegistry
     public function getColorConverter(IColorModel $from, IColorModel $to): IDColorConverter;
 
     /**
-     * @template T of IColor
+     * @template T of IColor|DColor
      *
      * @param class-string<T> $target
      *
