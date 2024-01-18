@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Color\Functional\Util;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Hex;
+use AlecRabbit\Color\Hex8;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
@@ -34,6 +35,7 @@ final class ColorMethodFromTest extends TestCase
         yield from [
             // (expected)class-string<IColor>, (incoming)IColor|DColor|string
             [Hex::class, '#ff00ff'],
+            [Hex8::class, '#ffffffff'],
             [RGBA::class, 'rgba(255, 0, 255, 1)'],
             [HSL::class, 'hsl(234, 100%, 50%)'],
             [Hex::class, new DRGB(255, 0, 255)],
