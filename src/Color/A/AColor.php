@@ -7,6 +7,7 @@ namespace AlecRabbit\Color\A;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Exception\InvalidArgument;
+use AlecRabbit\Color\Exception\UnsupportedValue;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Util\Color;
@@ -18,6 +19,26 @@ abstract class AColor implements IColor
     public function __construct(
         protected readonly IColorModel $colorModel
     ) {
+    }
+
+    public static function from(mixed $color): IColor
+    {
+        if (\is_string($color) || $color instanceof DColor) {
+            $color = Color::from($color);
+        }
+
+        if ($color instanceof IColor) {
+            return $color->to(static::class);
+        }
+
+        throw new UnsupportedValue(
+            sprintf(
+                '%s::%s: Unsupported value of type "%s" provided.',
+                get_debug_type($color),
+                static::class,
+                __FUNCTION__
+            ),
+        );
     }
 
     protected static function assertDTO(DColor $dto): void
@@ -39,8 +60,6 @@ abstract class AColor implements IColor
      * @return class-string<DColor>
      */
     abstract protected static function dtoType(): string;
-
-    abstract protected static function createFromDTO(DColor $dto): IColor;
 
     /**
      * @template T of IColor|DColor
@@ -70,21 +89,11 @@ abstract class AColor implements IColor
      */
     public function to(string $class): IColor|DColor
     {
-        return self::convert($this, $class);
-    }
-
-    protected static function getFromString(string $color): IColor
-    {
-        return Color::from($color);
-    }
-
-    public static function from(mixed $color): IColor
-    {
-        if(\is_string($color)) {
-            return static::getFromString($color)->to(static::class);
+        if ($class === static::dtoType()) {
+            return static::toDTO();
         }
 
-        return $color->to(static::class);
+        return self::convert($this, $class);
     }
 
     public function __toString(): string

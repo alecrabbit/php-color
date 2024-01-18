@@ -20,16 +20,6 @@ class Hex extends ARGBValueColor implements IHexColor
         return new self(abs($value) & (int)static::MAX);
     }
 
-    protected static function createFromDTO(DColor $dto): IHexColor
-    {
-        /** @var DRGB $dto */
-        return self::fromRGB(
-            (int)round($dto->red * self::COMPONENT),
-            (int)round($dto->green * self::COMPONENT),
-            (int)round($dto->blue * self::COMPONENT),
-        );
-    }
-
     public static function fromRGB(int $r, int $g, int $b): IHexColor
     {
         return

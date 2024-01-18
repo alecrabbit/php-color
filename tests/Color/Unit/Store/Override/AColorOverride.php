@@ -32,11 +32,6 @@ final class AColorOverride extends AColor
         throw new RuntimeException('INTENTIONALLY Not implemented.');
     }
 
-    protected static function createFromDTO(DColor $dto): IColor
-    {
-        throw new RuntimeException('INTENTIONALLY Not implemented.');
-    }
-
     public function toString(): string
     {
         throw new RuntimeException('INTENTIONALLY Not implemented.');

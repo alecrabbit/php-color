@@ -20,17 +20,6 @@ class HSLA extends HSL implements IHSLAColor
         parent::__construct($hue, $saturation, $lightness);
     }
 
-    protected static function createFromDTO(DColor $dto): IHSLAColor
-    {
-        /** @var DHSL $dto */
-        return self::fromHSLA(
-            (int)round($dto->hue * 360),
-            $dto->saturation,
-            $dto->lightness,
-            $dto->alpha,
-        );
-    }
-
     public static function fromHSLA(
         int $hue,
         float $saturation = 1.0,

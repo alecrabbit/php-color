@@ -14,17 +14,6 @@ use function sprintf;
 
 class RGB extends ARGBValueColor implements IRGBColor
 {
-
-    protected static function createFromDTO(DColor $dto): IRGBColor
-    {
-        /** @var DRGB $dto */
-        return self::fromRGB(
-            (int)round($dto->red * self::COMPONENT),
-            (int)round($dto->green * self::COMPONENT),
-            (int)round($dto->blue * self::COMPONENT),
-        );
-    }
-
     public static function fromRGB(int $r, int $g, int $b): IRGBColor
     {
         return

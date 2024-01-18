@@ -36,17 +36,6 @@ class RGBA extends RGB implements IRGBAColor
             );
     }
 
-    protected static function createFromDTO(DColor $dto): IRGBAColor
-    {
-        /** @var DRGB $dto */
-        return self::fromRGBO(
-            (int)round($dto->red * self::COMPONENT),
-            (int)round($dto->green * self::COMPONENT),
-            (int)round($dto->blue * self::COMPONENT),
-            $dto->alpha,
-        );
-    }
-
     public static function fromRGBO(int $r, int $g, int $b, float $opacity = 1.0): IRGBAColor
     {
         $alpha = (int)(abs($opacity) * self::COMPONENT) & self::COMPONENT;

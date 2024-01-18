@@ -28,17 +28,6 @@ class Hex8 extends Hex implements IHex8Color
         return new self($value, $alpha ?? 0xFF);
     }
 
-    protected static function createFromDTO(DColor $dto): IHex8Color
-    {
-        /** @var DRGB $dto */
-        return self::fromRGBO(
-            (int)round($dto->red * self::COMPONENT),
-            (int)round($dto->green * self::COMPONENT),
-            (int)round($dto->blue * self::COMPONENT),
-            $dto->alpha,
-        );
-    }
-
     public static function fromRGBO(int $r, int $g, int $b, float $opacity = 1.0): IHex8Color
     {
         $alpha = (int)(abs($opacity) * self::COMPONENT) & self::COMPONENT;
