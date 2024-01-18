@@ -20,22 +20,22 @@ abstract class AColor implements IColor
     ) {
     }
 
-    public static function from(mixed $color): IColor
+    public static function from(mixed $value): IColor
     {
-        if (\is_string($color) || $color instanceof DColor) {
-            $color = Color::from($color);
+        if (\is_string($value) || $value instanceof DColor) {
+            $value = Color::from($value);
         }
 
-        if ($color instanceof IColor) {
-            return $color->to(static::class);
+        if ($value instanceof IColor) {
+            return $value->to(static::class);
         }
 
         throw new UnsupportedValue(
             sprintf(
-                '%s::%s: Unsupported value of type "%s" provided.',
-                get_debug_type($color),
+                '%s::%s(): Unsupported value of type "%s" provided.',
                 static::class,
-                __FUNCTION__
+                __FUNCTION__,
+                get_debug_type($value),
             ),
         );
     }
@@ -43,17 +43,17 @@ abstract class AColor implements IColor
     /**
      * @template T of IColor|DColor
      *
-     * @param class-string<T> $class
+     * @param class-string<T> $to
      *
      * @psalm-return T
      */
-    public function to(string $class): IColor|DColor
+    public function to(string $to): IColor|DColor
     {
-        if ($class === $this->dtoType()) {
+        if ($to === $this->dtoType()) {
             return $this->toDTO();
         }
 
-        return $this->convert($class);
+        return $this->convert($to);
     }
 
     /**
@@ -108,6 +108,8 @@ abstract class AColor implements IColor
     {
         return $this->toDTO();
     }
+
+    abstract protected function toDTO(): DColor;
 
     public function __toString(): string
     {
