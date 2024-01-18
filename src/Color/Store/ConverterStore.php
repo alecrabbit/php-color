@@ -14,7 +14,7 @@ use AlecRabbit\Color\Model\Contract\DTO\DColor;
 class ConverterStore implements IConverterStore
 {
     /**
-     * @var Array<class-string<IColor|DColor>, class-string<IToConverter<IColor|DColor>>>
+     * @var Array<class-string<IColor>, class-string<IToConverter<IColor>>>
      */
     protected static array $registered = [];
 
@@ -47,7 +47,7 @@ class ConverterStore implements IConverterStore
     }
 
     /**
-     * @param class-string<IColor|DColor> $class
+     * @param class-string<IColor> $class
      */
     protected static function assertTargetClass(string $class): void
     {

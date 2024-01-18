@@ -25,7 +25,7 @@ interface IRegistry
     public function getColorConverter(IColorModel $from, IColorModel $to): IDColorConverter;
 
     /**
-     * @template T of IColor|DColor
+     * @template T of IColor
      *
      * @param class-string<T> $target
      *

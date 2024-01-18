@@ -53,7 +53,7 @@ abstract class AColor implements IColor
             return $this->toDTO();
         }
 
-        return self::convert($this, $class);
+        return $this->convert($class);
     }
 
     /**
@@ -71,16 +71,42 @@ abstract class AColor implements IColor
      *
      * @psalm-return T
      */
-    protected static function convert(IColor $color, string $to): IColor|DColor
+    protected function convert(string $to): IColor|DColor
     {
-        if ($color::class === $to) {
-            return $color;
+        if ($this::class === $to) {
+            return $this;
         }
+        return match (true) {
+            is_subclass_of($to, IColor::class) => $this->convertToColor($to),
+            default => $this->convertToDTO($to),
+        };
+    }
 
+    /**
+     * @template T of IColor
+     *
+     * @param class-string<T> $to
+     *
+     * @psalm-return T
+     */
+    protected function convertToColor(string $to): IColor
+    {
         /** @var IToConverter<T> $converter */
         $converter = Color::to($to);
 
-        return $converter->convert($color);
+        return $converter->convert($this);
+    }
+
+    /**
+     * @template T of DColor
+     *
+     * @param class-string<DColor> $to
+     *
+     * @psalm-return T
+     */
+    protected function convertToDTO(string $to): DColor
+    {
+        return $this->toDTO();
     }
 
     public function __toString(): string

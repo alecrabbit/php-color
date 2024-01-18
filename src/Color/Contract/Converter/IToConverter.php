@@ -10,7 +10,7 @@ use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use Traversable;
 
 /**
- * @template-covariant T of IColor|DColor
+ * @template-covariant T of IColor
  */
 interface IToConverter
 {
@@ -29,5 +29,5 @@ interface IToConverter
     /**
      * @psalm-return T
      */
-    public function convert(IColor $color): IColor|DColor;
+    public function convert(IColor $color): IColor;
 }

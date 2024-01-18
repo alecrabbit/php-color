@@ -42,7 +42,7 @@ final class Color implements IColorUtil
     }
 
     /**
-     * @template T of IColor|DColor
+     * @template T of IColor
      *
      * @param class-string<T> $target
      *

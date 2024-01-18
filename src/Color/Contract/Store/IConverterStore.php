@@ -16,7 +16,7 @@ interface IConverterStore
     public static function register(string $converterClass): void;
 
     /**
-     * @template T of IColor|DColor
+     * @template T of IColor
      *
      * @param class-string<T> $class
      *
