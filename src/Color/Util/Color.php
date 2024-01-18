@@ -7,7 +7,6 @@ namespace AlecRabbit\Color\Util;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IRegistry;
-use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Registry\Registry;
 
 /**

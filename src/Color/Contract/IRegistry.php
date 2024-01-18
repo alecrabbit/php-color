@@ -9,7 +9,6 @@ use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
 use AlecRabbit\Color\Model\Contract\Converter\IDColorConverter;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
-use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 
 interface IRegistry

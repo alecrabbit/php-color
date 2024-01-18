@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Contract;
 
-use AlecRabbit\Color\Model\Contract\DTO\DColor;
-
 interface IRGBColor extends IColor,
                             IHasValue,
                             IHasRed,

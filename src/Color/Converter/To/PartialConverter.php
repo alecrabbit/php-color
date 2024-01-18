@@ -32,7 +32,7 @@ final readonly class PartialConverter implements IPartialConverter
     {
         return $this->registry->getColorConverter(
             from: $from,
-            to:  $this->targetColorModel,
+            to: $this->targetColorModel,
         );
     }
 }

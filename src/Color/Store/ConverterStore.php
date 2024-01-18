@@ -11,6 +11,8 @@ use AlecRabbit\Color\Exception\ConverterUnavailable;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 
+use function array_reverse;
+
 final class ConverterStore implements IConverterStore
 {
     /**
@@ -127,6 +129,6 @@ final class ConverterStore implements IConverterStore
 
     private function getRegistered(): array
     {
-        return \array_reverse(self::$registered, true);
+        return array_reverse(self::$registered, true);
     }
 }

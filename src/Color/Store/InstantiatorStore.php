@@ -9,6 +9,9 @@ use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Contract\Store\IInstantiatorStore;
 use AlecRabbit\Color\Exception\InvalidArgument;
 
+use function array_reverse;
+use function is_string;
+
 final class InstantiatorStore implements IInstantiatorStore
 {
     /** @var Array<class-string<IInstantiator>> */
@@ -66,12 +69,12 @@ final class InstantiatorStore implements IInstantiatorStore
 
     private function getRegistered(): array
     {
-        return \array_reverse(self::$registered, true);
+        return array_reverse(self::$registered, true);
     }
 
     private function createErrorMessage(mixed $value): string
     {
-        return \is_string($value)
+        return is_string($value)
             ? sprintf('Instantiator for color "%s" is not registered.', $value)
             : sprintf('Instantiator for value of type "%s" is not registered.', get_debug_type($value));
     }

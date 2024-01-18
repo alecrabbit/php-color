@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\A\AColor;
-use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHasOpacity;
 use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
@@ -23,6 +22,22 @@ class HSL extends AColor implements IHSLColor
         parent::__construct(
             colorModel: new ModelHSL(),
         );
+    }
+
+    public function toString(): string
+    {
+        return
+            sprintf(
+                (string)static::FORMAT_HSL,
+                $this->hue,
+                round($this->saturation * 100),
+                round($this->lightness * 100),
+            );
+    }
+
+    public function withHue(int $hue): IHSLColor
+    {
+        return self::fromHSL($hue, $this->saturation, $this->lightness);
     }
 
     public static function fromHSL(int $hue, float $saturation = 1.0, float $lightness = 0.5): IHSLColor
@@ -43,6 +58,16 @@ class HSL extends AColor implements IHSLColor
     protected static function refineValue(float $value): float
     {
         return round(max(0.0, min(1.0, $value)), 2);
+    }
+
+    public function withSaturation(float $saturation): IHSLColor
+    {
+        return self::fromHSL($this->hue, $saturation, $this->lightness);
+    }
+
+    public function withLightness(float $lightness): IHSLColor
+    {
+        return self::fromHSL($this->hue, $this->saturation, $lightness);
     }
 
     protected function toDTO(): DColor
@@ -68,32 +93,6 @@ class HSL extends AColor implements IHSLColor
     public function getLightness(): float
     {
         return $this->lightness;
-    }
-
-    public function toString(): string
-    {
-        return
-            sprintf(
-                (string)static::FORMAT_HSL,
-                $this->hue,
-                round($this->saturation * 100),
-                round($this->lightness * 100),
-            );
-    }
-
-    public function withHue(int $hue): IHSLColor
-    {
-        return self::fromHSL($hue, $this->saturation, $this->lightness);
-    }
-
-    public function withSaturation(float $saturation): IHSLColor
-    {
-        return self::fromHSL($this->hue, $saturation, $this->lightness);
-    }
-
-    public function withLightness(float $lightness): IHSLColor
-    {
-        return self::fromHSL($this->hue, $this->saturation, $lightness);
     }
 
 

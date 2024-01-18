@@ -11,6 +11,8 @@ use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Util\Color;
 
+use function is_string;
+
 abstract class AColor implements IColor
 {
     protected const COMPONENT = 0xFF;
@@ -22,7 +24,7 @@ abstract class AColor implements IColor
 
     public static function from(mixed $value): IColor
     {
-        if (\is_string($value) || $value instanceof DColor) {
+        if (is_string($value) || $value instanceof DColor) {
             $value = Color::from($value);
         }
 

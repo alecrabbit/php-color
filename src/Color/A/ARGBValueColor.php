@@ -34,6 +34,13 @@ abstract class ARGBValueColor extends AColor
             ) & self::MAX;
     }
 
+    abstract public function toString(): string;
+
+    public function getValue(): int
+    {
+        return $this->value;
+    }
+
     protected function toDTO(): DColor
     {
         return new DRGB(
@@ -57,12 +64,5 @@ abstract class ARGBValueColor extends AColor
     public function getBlue(): int
     {
         return (self::BLUE & $this->value) >> 0;
-    }
-
-    abstract public function toString(): string;
-
-    public function getValue(): int
-    {
-        return $this->value;
     }
 }
