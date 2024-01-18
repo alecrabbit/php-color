@@ -34,7 +34,7 @@ final class InstantiatorStoreTest extends TestCase
             ['', 'Instantiator for color "" is not registered.'],
             ['blabla', 'Instantiator for color "blabla" is not registered.'],
             [1, 'Instantiator for value of type "int" is not registered.'],
-            [new \stdClass(), 'Instantiator for value of type "stdClass" is not registered.'],
+            [new stdClass(), 'Instantiator for value of type "stdClass" is not registered.'],
             [stdClass::class, 'Instantiator for color "stdClass" is not registered.'],
         ];
     }

@@ -29,7 +29,7 @@ final class HSLAInstantiatorTest extends TestCase
             [
                 new DRGB(0, 0, 0),
                 UnsupportedValue::class,
-                'Unsupported value of type "AlecRabbit\Color\Model\DTO\DRGB" provided.'
+                'Unsupported dto value of type "AlecRabbit\Color\Model\DTO\DRGB" provided.'
             ],
             ['hsl(22, 100%, 50%)', UnrecognizedColorString::class, 'Unrecognized color string: "hsl(22, 100%, 50%)".'],
             [

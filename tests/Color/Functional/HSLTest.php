@@ -15,6 +15,8 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
+use function is_array;
+
 final class HSLTest extends TestCase
 {
     public static function canBeCreatedFromHSLDataProvider(): iterable
@@ -174,9 +176,9 @@ final class HSLTest extends TestCase
     {
         yield from [
             // (left)string, (right)[dto],
-            ['hsl(124 0% 50%)', new DRGB(0.5,0.5,0.5, 1)],
-            ['hsl(169 100% 50%)', new DRGB(0,1,0.816664, 1)],
-            ['hsl(124 0% 50%)', new DHSL(0.344444,0,0.5, 1)],
+            ['hsl(124 0% 50%)', new DRGB(0.5, 0.5, 0.5, 1)],
+            ['hsl(169 100% 50%)', new DRGB(0, 1, 0.816664, 1)],
+            ['hsl(124 0% 50%)', new DHSL(0.344444, 0, 0.5, 1)],
         ];
     }
 
@@ -202,7 +204,7 @@ final class HSLTest extends TestCase
 
     private static function getTestee(mixed $value): IHSLColor
     {
-        if (\is_array($value)) {
+        if (is_array($value)) {
             return
                 HSL::fromHSL(
                     $value[self::HUE],
@@ -235,7 +237,6 @@ final class HSLTest extends TestCase
 
         $testee = self::getTestee($value);
         self::assertEquals($dto, $testee->to($dto::class));
-
     }
 
     #[Test]

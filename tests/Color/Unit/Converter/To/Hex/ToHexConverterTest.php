@@ -11,7 +11,6 @@ use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Contract\IRegistry;
 use AlecRabbit\Color\Converter\To\ToHexConverter;
 use AlecRabbit\Color\Hex;
-use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
 use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\DTO\DRGB;
