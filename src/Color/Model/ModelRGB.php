@@ -7,7 +7,6 @@ namespace AlecRabbit\Color\Model;
 use AlecRabbit\Color\Model\Contract\IModelRGB;
 use AlecRabbit\Color\Model\DTO\DRGB;
 
-/** @internal */
 final class ModelRGB implements IModelRGB
 {
     /** @inheritDoc */
