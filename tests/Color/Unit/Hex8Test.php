@@ -294,7 +294,7 @@ final class Hex8Test extends TestCase
 
     private static function getTesteeFromString(string $value): IHex8Color
     {
-        return Hex8::fromString($value);
+        return Hex8::from($value);
     }
 
     #[Test]
@@ -472,9 +472,9 @@ final class Hex8Test extends TestCase
     }
 
     #[Test]
-    public function canFrom(): void
+    public function canBeCreatedFromOtherColor(): void
     {
-        $colorClass = IHex8Color::class;
+        $colorClass = Hex8::class;
 
         $result = $this->getColorMock($colorClass);
 

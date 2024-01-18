@@ -9,8 +9,7 @@ use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use Stringable;
 
-interface IColor extends IHasFromString,
-                         IHasToString,
+interface IColor extends IHasToString,
                          Stringable
 {
     final public const CALC_PRECISION = IDCoreConverter::CALC_PRECISION;

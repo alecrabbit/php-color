@@ -15,16 +15,6 @@ use function sprintf;
 
 class Hex extends ARGBValueColor implements IHexColor
 {
-    public static function fromString(string $value): IHexColor
-    {
-        return self::getFromString($value)->to(IHexColor::class);
-    }
-
-    public static function from(mixed $color): IHexColor
-    {
-        return $color->to(IHexColor::class);
-    }
-
     public static function fromInteger(int $value): IHexColor
     {
         return new self(abs($value) & (int)static::MAX);

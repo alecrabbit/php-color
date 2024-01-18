@@ -150,7 +150,7 @@ final class HSLATest extends TestCase
 
     private static function getTesteeFromString(string $hsla): IHSLAColor
     {
-        return HSLA::fromString($hsla);
+        return HSLA::from($hsla);
     }
 
     #[Test]
@@ -318,9 +318,9 @@ final class HSLATest extends TestCase
     }
 
     #[Test]
-    public function canFrom(): void
+    public function canBeCreatedFromOtherColor(): void
     {
-        $colorClass = IHSLAColor::class;
+        $colorClass = HSLA::class;
 
         $result = $this->getColorMock($colorClass);
 

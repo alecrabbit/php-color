@@ -205,7 +205,7 @@ final class HSLTest extends TestCase
 
     private static function getTesteeFromString(string $hsl): IHSLColor
     {
-        return HSL::fromString($hsl);
+        return HSL::from($hsl);
     }
 
     #[Test]
@@ -241,9 +241,9 @@ final class HSLTest extends TestCase
     }
 
     #[Test]
-    public function canFrom(): void
+    public function canBeCreatedFromStringWithConversion(): void
     {
-        $color = Hex::fromString('black');
+        $color = Hex::from('black');
         self::assertInstanceOf(HSL::class, HSL::from($color));
     }
 

@@ -170,7 +170,7 @@ final class RGBATest extends TestCase
         ];
     }
 
-    public static function canBeInstantiatedFromStringDataProvider(): iterable
+    public static function canBeCreatedFromStringDataProvider(): iterable
     {
         yield from [
             ['rgb(0, 0, 0)', 0, 0, 0, 1.0],
@@ -194,10 +194,10 @@ final class RGBATest extends TestCase
     }
 
     #[Test]
-    #[DataProvider('canBeInstantiatedFromStringDataProvider')]
-    public function canBeInstantiatedFromString(string $color, int $r, int $g, int $b, float $o): void
+    #[DataProvider('canBeCreatedFromStringDataProvider')]
+    public function canBeCreatedFromString(string $color, int $r, int $g, int $b, float $o): void
     {
-        $testee = RGBA::fromString($color);
+        $testee = RGBA::from($color);
         self::assertSame($r, $testee->getRed());
         self::assertSame($g, $testee->getGreen());
         self::assertSame($b, $testee->getBlue());
@@ -390,9 +390,9 @@ final class RGBATest extends TestCase
     }
 
     #[Test]
-    public function canFrom(): void
+    public function canBeCreatedFromOtherColor(): void
     {
-        $colorClass = IRGBAColor::class;
+        $colorClass = RGBA::class;
 
         $result = $this->getColorMock($colorClass);
 

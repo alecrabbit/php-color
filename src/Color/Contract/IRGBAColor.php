@@ -18,10 +18,6 @@ interface IRGBAColor extends IRGBColor,
 
     public static function fromRGBO(int $r, int $g, int $b, float $opacity = 1.0): IRGBAColor;
 
-    public static function from(mixed $color): IRGBAColor;
-
-    public static function fromString(string $value): IRGBAColor;
-
     public function withRed(int $red): IRGBAColor;
 
     public function withGreen(int $green): IRGBAColor;

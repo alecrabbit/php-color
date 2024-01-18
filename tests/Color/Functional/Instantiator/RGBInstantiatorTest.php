@@ -43,7 +43,7 @@ final class RGBInstantiatorTest extends TestCase
         ];
     }
 
-    public static function canBeInstantiatedFromStringDataProvider(): iterable
+    public static function canBeCreatedFromStringDataProvider(): iterable
     {
         yield from [
             ['rgb(0, 0, 0)', 0, 0, 0],
@@ -86,8 +86,8 @@ final class RGBInstantiatorTest extends TestCase
     }
 
     #[Test]
-    #[DataProvider('canBeInstantiatedFromStringDataProvider')]
-    public function canBeInstantiatedFromString(string $color, int $r, int $g, int $b): void
+    #[DataProvider('canBeCreatedFromStringDataProvider')]
+    public function canBeCreatedFromString(string $color, int $r, int $g, int $b): void
     {
         $instantiator = $this->getTesteeInstance();
         $testee = $instantiator->from($color);

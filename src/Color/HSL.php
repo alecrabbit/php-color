@@ -25,16 +25,6 @@ class HSL extends AColor implements IHSLColor
         );
     }
 
-    public static function from(mixed $color): IHSLColor
-    {
-        return $color->to(IHSLColor::class);
-    }
-
-    public static function fromString(string $value): IHSLColor
-    {
-        return self::getFromString($value)->to(self::class);
-    }
-
     protected static function createFromDTO(DColor $dto): IHSLColor
     {
         /** @var DHSL $dto */

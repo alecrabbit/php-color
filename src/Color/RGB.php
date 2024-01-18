@@ -14,15 +14,6 @@ use function sprintf;
 
 class RGB extends ARGBValueColor implements IRGBColor
 {
-    public static function fromString(string $value): IRGBColor
-    {
-        return parent::getFromString($value)->to(IRGBColor::class);
-    }
-
-    public static function from(mixed $color): IRGBColor
-    {
-        return $color->to(IRGBColor::class);
-    }
 
     protected static function createFromDTO(DColor $dto): IRGBColor
     {

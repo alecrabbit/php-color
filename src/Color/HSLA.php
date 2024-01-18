@@ -20,11 +20,6 @@ class HSLA extends HSL implements IHSLAColor
         parent::__construct($hue, $saturation, $lightness);
     }
 
-    public static function fromString(string $value): IHSLAColor
-    {
-        return self::getFromString($value)->to(self::class);
-    }
-
     protected static function createFromDTO(DColor $dto): IHSLAColor
     {
         /** @var DHSL $dto */
@@ -48,11 +43,6 @@ class HSLA extends HSL implements IHSLAColor
             self::refineValue($lightness),
             self::refineValue($alpha),
         );
-    }
-
-    public static function from(mixed $color): IHSLAColor
-    {
-        return $color->to(IHSLAColor::class);
     }
 
     public function toString(): string

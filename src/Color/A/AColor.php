@@ -20,8 +20,6 @@ abstract class AColor implements IColor
     ) {
     }
 
-    abstract public static function fromString(string $value): IColor;
-
     protected static function assertDTO(DColor $dto): void
     {
         if (is_a($dto, static::dtoType(), true)) {
@@ -57,7 +55,6 @@ abstract class AColor implements IColor
             return $color;
         }
 
-
         /** @var IToConverter<T> $converter */
         $converter = Color::to($to);
 
@@ -83,6 +80,10 @@ abstract class AColor implements IColor
 
     public static function from(mixed $color): IColor
     {
+        if(\is_string($color)) {
+            return static::getFromString($color)->to(static::class);
+        }
+
         return $color->to(static::class);
     }
 

@@ -169,7 +169,7 @@ final class Hex8Test extends TestCase
 
     private static function getTesteeFromString(string $value): IHex8Color
     {
-        return Hex8::fromString($value);
+        return Hex8::from($value);
     }
 
     #[Test]
@@ -197,9 +197,9 @@ final class Hex8Test extends TestCase
     }
 
     #[Test]
-    public function canFrom(): void
+    public function canBeCreatedFromStringWithConversion(): void
     {
-        $color = HSL::fromString('black');
+        $color = HSL::from('black');
         self::assertInstanceOf(Hex8::class, Hex8::from($color));
     }
 
