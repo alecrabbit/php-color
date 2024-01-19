@@ -21,7 +21,7 @@ class HSLAInstantiator extends AInstantiator
     /** @inheritDoc */
     protected function createFromString(string $value): ?IColor
     {
-        if (self::canInstantiateFromString($value) && preg_match(self::REGEXP_HSLA, $value, $matches)) {
+        if (self::canInstantiateFromString($value, $matches)) {
             return
                 HSLA::fromHSLA(
                     (int)$matches[1],
@@ -39,9 +39,11 @@ class HSLAInstantiator extends AInstantiator
     protected static function canInstantiateFromString(string $value, &$matches = null): bool
     {
         return
-            str_starts_with($value, 'hsla(')
-            ||
-            (str_starts_with($value, 'hsl(') && str_contains($value, '/'));
+            (
+                str_starts_with($value, 'hsla(')
+                ||
+                (str_starts_with($value, 'hsl(') && str_contains($value, '/'))
+            ) && preg_match(self::REGEXP_HSLA, $value, $matches);
     }
 
     private function extractOpacity(string $value): float

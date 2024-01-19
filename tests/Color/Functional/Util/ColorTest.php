@@ -62,6 +62,8 @@ final class ColorTest extends TestCase
             // (resulting)class, (incoming)value
             [null, 'sgda#ff00ff'],
             [null, 'rgba(255, 0, 255, 1.1'],
+            [null, 'rgba(255,\ 0, 255, 1.1)'],
+            [null, 'hsla(255, 0, 255, 1.1'],
         ];
     }
 
