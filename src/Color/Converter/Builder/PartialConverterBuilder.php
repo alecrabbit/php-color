@@ -23,8 +23,11 @@ final class PartialConverterBuilder extends AbstractBuilder implements IPartialC
     {
         $this->validate();
 
+        /** @var IColorModel $model */
+        $model = $this->targetColorModel;
+        
         return new PartialConverter(
-            $this->targetColorModel,
+            $model,
             $this->registry,
         );
     }
