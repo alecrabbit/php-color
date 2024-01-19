@@ -1,6 +1,0 @@
-deptrac:
-  layers:
-    - name: Helper
-      collectors:
-        - type: className
-          value: '%namespace%\\Helper\\.*'

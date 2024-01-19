@@ -1,76 +1,23 @@
 deptrac:
   skip_violations:
-    AlecRabbit\Color\Contract\Converter\IColorConverter:
-      - AlecRabbit\Color\Model\Contract\DTO\DColor
-    AlecRabbit\Color\Contract\Converter\IPartialConverter:
-      - AlecRabbit\Color\Model\Contract\DTO\DColor
-    AlecRabbit\Color\Contract\Converter\IToConverter:
-      - AlecRabbit\Color\Model\Contract\DTO\DColor
-    AlecRabbit\Color\Contract\IColor:
-      - AlecRabbit\Color\Model\Contract\Converter\Core\IDCoreConverter
-      - AlecRabbit\Color\Model\Contract\DTO\DColor
-      - AlecRabbit\Color\Model\Contract\IColorModel
-    AlecRabbit\Color\Contract\IHSLAColor:
-      - AlecRabbit\Color\Model\Contract\Converter\Core\IDCoreConverter
-      - AlecRabbit\Color\Model\Contract\DTO\DColor
-      - AlecRabbit\Color\Model\Contract\IColorModel
-    AlecRabbit\Color\Contract\IHSLColor:
-      - AlecRabbit\Color\Model\Contract\Converter\Core\IDCoreConverter
-      - AlecRabbit\Color\Model\Contract\DTO\DColor
-      - AlecRabbit\Color\Model\Contract\IColorModel
-    AlecRabbit\Color\Contract\IHex8Color:
-      - AlecRabbit\Color\Model\Contract\Converter\Core\IDCoreConverter
-      - AlecRabbit\Color\Model\Contract\DTO\DColor
-      - AlecRabbit\Color\Model\Contract\IColorModel
-    AlecRabbit\Color\Contract\IHexColor:
-      - AlecRabbit\Color\Model\Contract\Converter\Core\IDCoreConverter
-      - AlecRabbit\Color\Model\Contract\DTO\DColor
-      - AlecRabbit\Color\Model\Contract\IColorModel
-    AlecRabbit\Color\Contract\IRGBAColor:
-      - AlecRabbit\Color\Model\Contract\Converter\Core\IDCoreConverter
-      - AlecRabbit\Color\Model\Contract\DTO\DColor
-      - AlecRabbit\Color\Model\Contract\IColorModel
-    AlecRabbit\Color\Contract\IRGBColor:
-      - AlecRabbit\Color\Model\Contract\Converter\Core\IDCoreConverter
-      - AlecRabbit\Color\Model\Contract\DTO\DColor
-      - AlecRabbit\Color\Model\Contract\IColorModel
-    AlecRabbit\Color\Contract\IRegistry:
-      - AlecRabbit\Color\Model\Contract\Converter\IDColorConverter
-      - AlecRabbit\Color\Model\Contract\Converter\IModelConverter
-      - AlecRabbit\Color\Model\Contract\IColorModel
-    AlecRabbit\Color\HSL:
-      - AlecRabbit\Color\Model\Contract\Converter\Core\IDCoreConverter
-      - AlecRabbit\Color\Model\Contract\DTO\DColor
-      - AlecRabbit\Color\Model\Contract\IColorModel
-      - AlecRabbit\Color\Model\DTO\DHSL
-      - AlecRabbit\Color\Model\ModelHSL
-    AlecRabbit\Color\HSLA:
-      - AlecRabbit\Color\Model\Contract\Converter\Core\IDCoreConverter
-      - AlecRabbit\Color\Model\Contract\DTO\DColor
-      - AlecRabbit\Color\Model\Contract\IColorModel
-      - AlecRabbit\Color\Model\DTO\DHSL
-      - AlecRabbit\Color\Model\ModelHSL
-    AlecRabbit\Color\Hex:
-      - AlecRabbit\Color\Model\Contract\Converter\Core\IDCoreConverter
-      - AlecRabbit\Color\Model\Contract\DTO\DColor
-      - AlecRabbit\Color\Model\Contract\IColorModel
-      - AlecRabbit\Color\Model\DTO\DRGB
-      - AlecRabbit\Color\Model\ModelRGB
-    AlecRabbit\Color\Hex8:
-      - AlecRabbit\Color\Model\Contract\Converter\Core\IDCoreConverter
-      - AlecRabbit\Color\Model\Contract\DTO\DColor
-      - AlecRabbit\Color\Model\Contract\IColorModel
-      - AlecRabbit\Color\Model\DTO\DRGB
-      - AlecRabbit\Color\Model\ModelRGB
-    AlecRabbit\Color\RGB:
-      - AlecRabbit\Color\Model\Contract\Converter\Core\IDCoreConverter
-      - AlecRabbit\Color\Model\Contract\DTO\DColor
-      - AlecRabbit\Color\Model\Contract\IColorModel
-      - AlecRabbit\Color\Model\DTO\DRGB
-      - AlecRabbit\Color\Model\ModelRGB
-    AlecRabbit\Color\RGBA:
-      - AlecRabbit\Color\Model\Contract\Converter\Core\IDCoreConverter
-      - AlecRabbit\Color\Model\Contract\DTO\DColor
-      - AlecRabbit\Color\Model\Contract\IColorModel
-      - AlecRabbit\Color\Model\DTO\DRGB
-      - AlecRabbit\Color\Model\ModelRGB
+    AlecRabbit\Color\Model\Contract\Converter\Store\IConverterStore:
+      - AlecRabbit\Color\Exception\UnsupportedColorConversion
+    AlecRabbit\Color\Model\Converter\Builder\ChainConverterBuilder:
+      - AlecRabbit\Color\Exception\UnsupportedColorConversion
+    AlecRabbit\Color\Model\Converter\Core\A\ACoreConverter:
+      - AlecRabbit\Color\Exception\InvalidArgument
+    AlecRabbit\Color\Model\Converter\Core\CMYKToCMY:
+      - AlecRabbit\Color\Exception\InvalidArgument
+    AlecRabbit\Color\Model\Converter\Core\CMYToCMYK:
+      - AlecRabbit\Color\Exception\InvalidArgument
+    AlecRabbit\Color\Model\Converter\Core\CMYToRGB:
+      - AlecRabbit\Color\Exception\InvalidArgument
+    AlecRabbit\Color\Model\Converter\Core\HSLToRGB:
+      - AlecRabbit\Color\Exception\InvalidArgument
+    AlecRabbit\Color\Model\Converter\Core\RGBToCMY:
+      - AlecRabbit\Color\Exception\InvalidArgument
+    AlecRabbit\Color\Model\Converter\Core\RGBToHSL:
+      - AlecRabbit\Color\Exception\InvalidArgument
+    AlecRabbit\Color\Model\Converter\Store\ConverterStore:
+      - AlecRabbit\Color\Exception\InvalidArgument
+      - AlecRabbit\Color\Exception\UnsupportedColorConversion
