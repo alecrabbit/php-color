@@ -4,6 +4,7 @@ include ${_APP_DIR}/tests.Makefile
 include ${_APP_DIR}/phploc.Makefile
 include ${_APP_DIR}/psalm.Makefile
 include ${_APP_DIR}/phpcs.Makefile
+include ${_APP_DIR}/deptrac.Makefile
 
 ##
 ## —— Application 📦 ———————————————————————————————————————————————————————————
@@ -13,7 +14,3 @@ a_tools_run: test_full a_phploc_run a_php_cs_fixer_full a_deptrac_run_full a_psa
 
 a_utils_run: _app_composer_normalize a_phpinsights_summary ## Run all utils
 	@${_NO_OP};
-
-a_deptrac_run_full:
-	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}Deptrac run...${_C_STOP}\n";
-	@${_ECHO_DISABLED};

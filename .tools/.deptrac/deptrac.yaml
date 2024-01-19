@@ -1,0 +1,36 @@
+parameters:
+  namespace: 'AlecRabbit\\Color'
+
+# Add module files here
+imports:
+  - .common/paths.yaml
+  - module/contract.yaml
+  - module/exception.yaml
+  - module/model.yaml
+  - module/helper.yaml
+  - module/mixin.yaml
+  - module/root.yaml
+
+deptrac:
+  ruleset:
+    Contract:
+      - +Exception
+    Exception: ~
+    Model:
+      - +Contract
+      - +Exception
+      - +Helper
+      - +Mixin
+      - +VendorSymfony
+    Helper:
+      - +Contract
+      - +Exception
+      - +Mixin
+    Mixin: ~
+    Root:
+      - +Contract
+      - +Exception
+      - +Helper
+#  skip_violations:
+#    NS\Class:
+#      - AnotherNS\Class
