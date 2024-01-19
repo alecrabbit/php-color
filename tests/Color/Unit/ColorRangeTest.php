@@ -31,8 +31,8 @@ final class ColorRangeTest extends TestCase
             ],
             [
                 [
-                    self::START => $start = HSL::fromString('hsl(0, 0%, 0%)'),
-                    self::END => $end = RGB::fromString('rgb(255, 255, 255)'),
+                    self::START => $start = HSL::from('hsl(0, 0%, 0%)'),
+                    self::END => $end = RGB::from('rgb(255, 255, 255)'),
                 ],
                 [
                     self::ARGUMENTS => [$start, $end],

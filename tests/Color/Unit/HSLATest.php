@@ -6,7 +6,6 @@ namespace AlecRabbit\Tests\Color\Unit;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
-use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
@@ -14,7 +13,6 @@ use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\ModelHSL;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
-use AlecRabbit\Tests\Color\Unit\Override\DColorOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -150,7 +148,7 @@ final class HSLATest extends TestCase
 
     private static function getTesteeFromString(string $hsla): IHSLAColor
     {
-        return HSLA::fromString($hsla);
+        return HSLA::from($hsla);
     }
 
     #[Test]
@@ -308,7 +306,7 @@ final class HSLATest extends TestCase
             ]
         );
 
-        $dto = $testee->toDTO();
+        $dto = $testee->to(DHSL::class);
 
         self::assertInstanceOf(DHSL::class, $dto);
         self::assertSame(0.008333, $dto->hue);
@@ -318,9 +316,9 @@ final class HSLATest extends TestCase
     }
 
     #[Test]
-    public function canFrom(): void
+    public function canBeCreatedFromOtherColor(): void
     {
-        $colorClass = IHSLAColor::class;
+        $colorClass = HSLA::class;
 
         $result = $this->getColorMock($colorClass);
 
@@ -336,16 +334,5 @@ final class HSLATest extends TestCase
     private function getColorMock(?string $colorClass = null): MockObject&IColor
     {
         return $this->createMock($colorClass ?? IColor::class);
-    }
-
-    #[Test]
-    public function throwsIfPassedDTOIsInvalid(): void
-    {
-        $this->expectException(InvalidArgument::class);
-        $this->expectExceptionMessage(
-            'Color must be instance of "AlecRabbit\Color\Model\DTO\DHSL", "AlecRabbit\Tests\Color\Unit\Override\DColorOverride" given.'
-        );
-
-        HSLA::fromDTO(new DColorOverride());
     }
 }

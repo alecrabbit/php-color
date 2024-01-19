@@ -11,9 +11,9 @@ use AlecRabbit\Color\Model\DTO\DRGB as RGB;
 
 final readonly class HSLToRGB extends ACoreConverter
 {
-    protected static function inputType(): string
+    public function __construct(int $precision = self::CALC_PRECISION)
     {
-        return HSL::class;
+        parent::__construct(HSL::class, $precision);
     }
 
     protected function doConvert(DColor $color): DColor

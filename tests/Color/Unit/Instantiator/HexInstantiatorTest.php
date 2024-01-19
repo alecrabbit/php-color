@@ -43,7 +43,7 @@ final class HexInstantiatorTest extends TestCase
             [
                 new DHSL(0, 0, 0),
                 UnsupportedValue::class,
-                'Unsupported value of type "AlecRabbit\Color\Model\DTO\DHSL" provided.'
+                'Unsupported dto value of type "AlecRabbit\Color\Model\DTO\DHSL" provided.'
             ],
             ['hsl(22, 100%, 50%)', UnrecognizedColorString::class, 'Unrecognized color string: "hsl(22, 100%, 50%)".'],
             [

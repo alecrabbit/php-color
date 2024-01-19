@@ -11,18 +11,18 @@ use AlecRabbit\Color\Model\DTO\DRGB as RGB;
 
 final readonly class RGBToCMY extends ACoreConverter
 {
-    protected static function inputType(): string
+    public function __construct(int $precision = self::CALC_PRECISION)
     {
-        return RGB::class;
+        parent::__construct(RGB::class, $precision);
     }
 
     protected function doConvert(DColor $color): DColor
     {
         /** @var RGB $color */
         return new CMY(
-            round(1 - $color->red / 255, $this->precision),
-            round(1 - $color->green / 255, $this->precision),
-            round(1 - $color->blue / 255, $this->precision),
+            round(1 - $color->red, $this->precision),
+            round(1 - $color->green, $this->precision),
+            round(1 - $color->blue, $this->precision),
             round($color->alpha, $this->precision),
         );
     }

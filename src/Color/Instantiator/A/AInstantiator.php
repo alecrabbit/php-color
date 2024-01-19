@@ -60,23 +60,14 @@ abstract class AInstantiator implements IInstantiator
 
     abstract protected static function canInstantiateFromDTO(DColor $color): bool;
 
-    abstract protected static function canInstantiateFromString(string $color): bool;
+    abstract protected static function canInstantiateFromString(string $value, array &$matches = []): bool;
 
     /** @inheritDoc */
     public function from(mixed $value): IColor
     {
-        static::assertValueType($value);
-
-        return
-            $value instanceof DColor
-                ? $this->fromDTO($value)
-                : $this->fromString($value);
-    }
-
-    protected static function assertValueType(mixed $value): void
-    {
-        match (true) {
-            $value instanceof DColor, is_string($value) => null,
+        return match (true) {
+            $value instanceof DColor => $this->fromDTO($value),
+            is_string($value) => $this->fromString($value),
             default => throw new UnsupportedValue(
                 sprintf(
                     'Unsupported value of type "%s" provided.',
@@ -96,7 +87,7 @@ abstract class AInstantiator implements IInstantiator
             ??
             throw new UnsupportedValue(
                 sprintf(
-                    'Unsupported value of type "%s" provided.',
+                    'Unsupported dto value of type "%s" provided.',
                     $dto::class
                 )
             );
@@ -119,7 +110,8 @@ abstract class AInstantiator implements IInstantiator
             ??
             throw new UnrecognizedColorString(
                 sprintf(
-                    'Unrecognized color string: "%s".',
+                    '%s: Unrecognized color string: "%s".',
+                    static::class,
                     $value
                 )
             );

@@ -12,7 +12,7 @@ use AlecRabbit\Color\Registry\Registry;
 /**
  * Utility class for convenient color instantiation.
  */
-final class Color
+final class Color implements IColorUtil
 {
     /**
      * @codeCoverageIgnore
@@ -20,6 +20,24 @@ final class Color
     private function __construct()
     {
         // Can not be instantiated
+    }
+
+    public static function tryFrom(mixed $value): ?IColor
+    {
+        return match (true) {
+            $value instanceof IColor => $value,
+            default => self::tryFromValue($value),
+        };
+    }
+
+    private static function tryFromValue(mixed $value): ?IColor
+    {
+        return self::getRegistry()->findInstantiator($value)?->tryFrom($value);
+    }
+
+    private static function getRegistry(): IRegistry
+    {
+        return new Registry();
     }
 
     public static function from(mixed $value): IColor
@@ -30,14 +48,9 @@ final class Color
         };
     }
 
-    protected static function fromValue(mixed $value): IColor
+    private static function fromValue(mixed $value): IColor
     {
         return self::getRegistry()->getInstantiator($value)->from($value);
-    }
-
-    private static function getRegistry(): IRegistry
-    {
-        return new Registry();
     }
 
     /**

@@ -6,6 +6,7 @@ namespace AlecRabbit\Color\Contract;
 
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
+use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Exception\UnsupportedColorConversion;
 use AlecRabbit\Color\Model\Contract\Converter\IDColorConverter;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
@@ -32,5 +33,10 @@ interface IRegistry
      */
     public function getToConverter(string $target): IToConverter;
 
+    /**
+     * @throws InvalidArgument
+     */
     public function getInstantiator(mixed $value): IInstantiator;
+
+    public function findInstantiator(mixed $value): ?IInstantiator;
 }

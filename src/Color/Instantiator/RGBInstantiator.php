@@ -23,7 +23,8 @@ class RGBInstantiator extends AInstantiator
     /** @inheritDoc */
     protected function createFromString(string $value): ?IColor
     {
-        if (self::canInstantiateFromString($value) && preg_match(self::REGEXP_RGB, $value, $matches)) {
+        $matches = [];
+        if (self::canInstantiateFromString($value, $matches)) {
             return
                 RGB::fromRGB(
                     (int)$matches[1],
@@ -35,9 +36,9 @@ class RGBInstantiator extends AInstantiator
         return null;
     }
 
-    protected static function canInstantiateFromString(string $color): bool
+    protected static function canInstantiateFromString(string $value, array &$matches = []): bool
     {
-        return str_starts_with($color, 'rgb(');
+        return str_starts_with($value, 'rgb(') && preg_match(self::REGEXP_RGB, $value, $matches);
     }
 
     protected function createFromDTO(DColor $value): ?IColor

@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Color\Unit\Model\Converter;
 
 
 use AlecRabbit\Color\Model\Contract\Converter\Core\IDCoreConverter;
+use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
 use AlecRabbit\Color\Model\Converter\RGBToHSLModelConverter;
 use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\DTO\DRGB;
@@ -57,7 +58,7 @@ final class RGBToHSLModelConverterTest extends TestCase
 
     protected function getTesteeInstance(
         ?IDCoreConverter $converter = null,
-    ): RGBToHSLModelConverter {
+    ): IModelConverter {
         return new RGBToHSLModelConverter(
             converter: $converter ?? $this->getConverterMock(),
         );

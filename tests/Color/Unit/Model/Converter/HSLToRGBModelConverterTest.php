@@ -6,9 +6,9 @@ namespace AlecRabbit\Tests\Color\Unit\Model\Converter;
 
 
 use AlecRabbit\Color\Model\Contract\Converter\Core\IDCoreConverter;
+use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Converter\HSLToRGBModelConverter;
-use AlecRabbit\Color\Model\DTO\DHSL;
-use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelHSL;
 use AlecRabbit\Color\Model\ModelRGB;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -32,8 +32,8 @@ final class HSLToRGBModelConverterTest extends TestCase
     #[Test]
     public function canConvert(): void
     {
-        $input = new DHSL(0, 0, 0);
-        $expected = new DRGB(0, 0, 0);
+        $input = $this->getDColorMock();
+        $expected = $this->getDColorMock();
 
         $converter = $this->getConverterMock();
         $converter
@@ -50,6 +50,11 @@ final class HSLToRGBModelConverterTest extends TestCase
         self::assertSame($expected, $result);
     }
 
+    private function getDColorMock(): MockObject&DColor
+    {
+        return $this->createMock(DColor::class);
+    }
+
     protected function getConverterMock(): MockObject&IDCoreConverter
     {
         return $this->createMock(IDCoreConverter::class);
@@ -57,7 +62,7 @@ final class HSLToRGBModelConverterTest extends TestCase
 
     protected function getTesteeInstance(
         ?IDCoreConverter $converter = null,
-    ): HSLToRGBModelConverter {
+    ): IModelConverter {
         return new HSLToRGBModelConverter(
             converter: $converter ?? $this->getConverterMock(),
         );

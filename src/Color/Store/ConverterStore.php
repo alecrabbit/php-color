@@ -9,8 +9,11 @@ use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Store\IConverterStore;
 use AlecRabbit\Color\Exception\ConverterUnavailable;
 use AlecRabbit\Color\Exception\InvalidArgument;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 
-class ConverterStore implements IConverterStore
+use function array_reverse;
+
+final class ConverterStore implements IConverterStore
 {
     /**
      * @var Array<class-string<IColor>, class-string<IToConverter<IColor>>>
@@ -50,7 +53,8 @@ class ConverterStore implements IConverterStore
      */
     protected static function assertTargetClass(string $class): void
     {
-        if (!is_subclass_of($class, IColor::class)) {
+        if (!(is_subclass_of($class, IColor::class) || is_subclass_of($class, DColor::class))) {
+//        if (!is_subclass_of($class, IColor::class)) {
             throw new InvalidArgument(
                 sprintf(
                     'Class "%s" is not a "%s" subclass.',
@@ -64,23 +68,23 @@ class ConverterStore implements IConverterStore
     /**
      * @inheritDoc
      */
-    public function getByTarget(string $class): IToConverter
+    public function getByTarget(string $target): IToConverter
     {
-        self::assertTargetClass($class);
+        self::assertTargetClass($target);
 
-        return self::createConverter($class);
+        return $this->getConverter($target);
     }
 
     /**
      * @template T of IColor
      *
-     * @param class-string<T> $class
+     * @param class-string<T> $target
      *
      * @psalm-return IToConverter<T>
      */
-    protected static function createConverter(string $class): IToConverter
+    private function getConverter(string $target): IToConverter
     {
-        $converterClass = self::getConverterClass($class);
+        $converterClass = $this->getConverterClass($target);
         return
             new $converterClass();
     }
@@ -88,20 +92,43 @@ class ConverterStore implements IConverterStore
     /**
      * @template T of IColor
      *
-     * @param class-string<T> $class
+     * @param class-string<T> $target
      *
      * @return class-string<IToConverter<T>>
      */
-    protected static function getConverterClass(string $class): string
+    private function getConverterClass(string $target): string
     {
-        /** @var null|class-string<IToConverter<T>> $var */
-        $var = self::$registered[$class] ?? null;
-
         return
-            $var
+            $this->searchForConverter($target)
             ??
             throw new ConverterUnavailable(
-                sprintf('Converter class for "%s" is not available.', $class)
+                sprintf('Converter class for "%s" is not available.', $target)
             );
+    }
+
+    /**
+     * @param class-string<DColor> $target
+     *
+     * @return null|class-string<IToConverter>
+     */
+    private function searchForConverter(string $target): ?string
+    {
+        if (is_subclass_of($target, DColor::class)) {
+            foreach ($this->getRegistered() as $converterClass) {
+                /** @var IToConverter $instance */
+                $instance = new $converterClass();
+                // TODO (2024-01-18 16:33) [Alec Rabbit]: [0f579dfe-000a-43f4-82b1-833c7173017d]
+                if ($instance->getTargetColorModel()->dtoType() === $target) {
+                    return $converterClass;
+                }
+            }
+        }
+
+        return self::$registered[$target] ?? null;
+    }
+
+    private function getRegistered(): array
+    {
+        return array_reverse(self::$registered, true);
     }
 }

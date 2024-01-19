@@ -26,8 +26,8 @@ final class ToRGBConverterTest extends TestCase
             [RGB::fromRGB(0, 0, 0), RGBA::fromRGB(0, 0, 0)],
             [RGB::fromRGB(12, 250, 77), RGBA::fromRGB(12, 250, 77)],
             [RGB::fromRGB(0, 0, 0), RGB::fromRGB(0, 0, 0)],
-            [RGB::fromRGB(0, 0, 0), HSL::fromString('hsl(0, 0%, 0%)')],
-            [RGB::fromRGB(0, 0, 0), HSLA::fromString('hsla(0, 0%, 0%, 0.55)')],
+            [RGB::fromRGB(0, 0, 0), HSL::from('hsl(0, 0%, 0%)')],
+            [RGB::fromRGB(0, 0, 0), HSLA::from('hsla(0, 0%, 0%, 0.55)')],
             [RGB::fromRGB(0, 0, 0), Hex::fromInteger(0)],
             [RGB::fromRGB(0x22, 0x33, 0x44), Hex::fromInteger(0x223344)],
         ];

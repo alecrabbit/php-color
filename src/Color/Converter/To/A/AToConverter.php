@@ -8,7 +8,7 @@ use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Contract\IRegistry;
-use AlecRabbit\Color\Model\Contract\Converter\IDColorConverter;
+use AlecRabbit\Color\Converter\To\PartialConverter;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Registry\Registry;
@@ -42,7 +42,10 @@ abstract class AToConverter implements IToConverter
         return $dtoType ?? $this->getTargetColorModel()->dtoType();
     }
 
-    abstract protected function getTargetColorModel(): IColorModel;
+    /**
+     * // TODO (2024-01-18 16:33) [Alec Rabbit]: make protected again [0f579dfe-000a-43f4-82b1-833c7173017d]
+     */
+    abstract public function getTargetColorModel(): IColorModel;
 
     abstract public static function getTargets(): Traversable;
 
@@ -50,21 +53,14 @@ abstract class AToConverter implements IToConverter
     {
         /** @var class-string<IInstantiator<T>> $instantiatorClass */
         $instantiatorClass = static::getInstantiatorClass();
-        return (new $instantiatorClass())->from($this->convertToTargetDTO($color));
+
+        return (new $instantiatorClass())->from($this->partialConvert($color));
     }
 
     abstract public static function getInstantiatorClass(): string;
 
-    protected function convertToTargetDTO(IColor $color): DColor
+    public function partialConvert(IColor $color): DColor
     {
-        return $this->getModelConverter($color)->convert($color->toDTO());
-    }
-
-    protected function getModelConverter(IColor $color): IDColorConverter
-    {
-        return $this->registry->getColorConverter(
-            from: $color->getColorModel(),
-            to: $this->getTargetColorModel(),
-        );
+        return (new PartialConverter($this->getTargetColorModel(), $this->registry))->convert($color);
     }
 }

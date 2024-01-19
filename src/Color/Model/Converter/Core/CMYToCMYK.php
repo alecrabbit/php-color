@@ -11,9 +11,9 @@ use AlecRabbit\Color\Model\DTO\DCMYK as CMYK;
 
 final readonly class CMYToCMYK extends ACoreConverter
 {
-    protected static function inputType(): string
+    public function __construct(int $precision = self::CALC_PRECISION)
     {
-        return CMY::class;
+        parent::__construct(CMY::class, $precision);
     }
 
     protected function doConvert(DColor $color): DColor
