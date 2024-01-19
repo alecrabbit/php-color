@@ -1,23 +1,2 @@
 deptrac:
-  skip_violations:
-    AlecRabbit\Color\Model\Contract\Converter\Store\IConverterStore:
-      - AlecRabbit\Color\Exception\UnsupportedColorConversion
-    AlecRabbit\Color\Model\Converter\Builder\ChainConverterBuilder:
-      - AlecRabbit\Color\Exception\UnsupportedColorConversion
-    AlecRabbit\Color\Model\Converter\Core\A\ACoreConverter:
-      - AlecRabbit\Color\Exception\InvalidArgument
-    AlecRabbit\Color\Model\Converter\Core\CMYKToCMY:
-      - AlecRabbit\Color\Exception\InvalidArgument
-    AlecRabbit\Color\Model\Converter\Core\CMYToCMYK:
-      - AlecRabbit\Color\Exception\InvalidArgument
-    AlecRabbit\Color\Model\Converter\Core\CMYToRGB:
-      - AlecRabbit\Color\Exception\InvalidArgument
-    AlecRabbit\Color\Model\Converter\Core\HSLToRGB:
-      - AlecRabbit\Color\Exception\InvalidArgument
-    AlecRabbit\Color\Model\Converter\Core\RGBToCMY:
-      - AlecRabbit\Color\Exception\InvalidArgument
-    AlecRabbit\Color\Model\Converter\Core\RGBToHSL:
-      - AlecRabbit\Color\Exception\InvalidArgument
-    AlecRabbit\Color\Model\Converter\Store\ConverterStore:
-      - AlecRabbit\Color\Exception\InvalidArgument
-      - AlecRabbit\Color\Exception\UnsupportedColorConversion
+  skip_violations: {  }

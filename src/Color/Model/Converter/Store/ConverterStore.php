@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Model\Converter\Store;
 
-use AlecRabbit\Color\Exception\InvalidArgument;
+use AlecRabbit\Color\Model\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\Contract\Converter\Builder\IChainConverterBuilder;
 use AlecRabbit\Color\Model\Contract\Converter\IDColorConverter;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
