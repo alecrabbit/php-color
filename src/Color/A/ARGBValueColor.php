@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\A;
 
 use AlecRabbit\Color\Contract\IHasOpacity;
-use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelRGB;
 
@@ -34,12 +34,14 @@ abstract class ARGBValueColor extends AColor
             ) & self::MAX;
     }
 
-    protected static function dtoType(): string
+    abstract public function toString(): string;
+
+    public function getValue(): int
     {
-        return DRGB::class;
+        return $this->value;
     }
 
-    public function toDTO(): IColorDTO
+    protected function toDTO(): DColor
     {
         return new DRGB(
             red: round($this->getRed() / self::COMPONENT, self::CALC_PRECISION),
@@ -62,12 +64,5 @@ abstract class ARGBValueColor extends AColor
     public function getBlue(): int
     {
         return (self::BLUE & $this->value) >> 0;
-    }
-
-    abstract public function toString(): string;
-
-    public function getValue(): int
-    {
-        return $this->value;
     }
 }

@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Model\DTO;
 
-use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 
 /**
- * @internal
  * @codeCoverageIgnore
  */
-final readonly class DRGB implements IColorDTO
+final readonly class DRGB implements DColor
 {
     public function __construct(
         public float $red,

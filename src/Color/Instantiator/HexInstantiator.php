@@ -5,9 +5,15 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Instantiator;
 
 use AlecRabbit\Color\Contract\IColor;
+use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
+use AlecRabbit\Color\Model\DTO\DRGB;
 
+/**
+ * @extends AInstantiator<IHexColor>
+ */
 class HexInstantiator extends AInstantiator
 {
     protected const REGEXP_HEX = '/^#?(?:([a-f\d]{2}){3}|([a-f\d]){3})$/i';
@@ -163,16 +169,9 @@ class HexInstantiator extends AInstantiator
         'yellowgreen' => '#9ACD32',
     ];
 
-    public static function isSupported(string $color): bool
+    protected static function canInstantiateFromString(string $value, array &$matches = []): bool
     {
-        $color = self::normalize($color);
-
-        return self::canInstantiate($color);
-    }
-
-    protected static function canInstantiate(string $color): bool
-    {
-        return self::isNamedColor($color) || self::isHexString($color);
+        return self::isNamedColor($value) || self::isHexString($value);
     }
 
     protected static function isNamedColor(string $color): bool
@@ -185,19 +184,15 @@ class HexInstantiator extends AInstantiator
         return (bool)preg_match(self::REGEXP_HEX, $color);
     }
 
-    public static function getTargetClass(): string
+    /** @inheritDoc */
+    protected function createFromString(string $value): ?IColor
     {
-        return Hex::class;
-    }
-
-    protected function instantiate(string $color): ?IColor
-    {
-        if (self::isNamedColor($color)) {
-            $color = self::NAMED_COLORS[$color];
+        if (self::isNamedColor($value)) {
+            $value = self::NAMED_COLORS[$value];
         }
 
-        if (self::isHexString($color)) {
-            return Hex::fromInteger(self::extractInteger($color));
+        if (self::isHexString($value)) {
+            return Hex::fromInteger(self::extractInteger($value));
         }
 
         return null;
@@ -217,5 +212,24 @@ class HexInstantiator extends AInstantiator
         }
 
         return $hex;
+    }
+
+    protected function createFromDTO(DColor $value): ?IColor
+    {
+        if (self::canInstantiateFromDTO($value)) {
+            /** @var DRGB $value */
+            return Hex::fromRGB(
+                (int)round($value->red * 0xFF),
+                (int)round($value->green * 0xFF),
+                (int)round($value->blue * 0xFF),
+            );
+        }
+
+        return null;
+    }
+
+    protected static function canInstantiateFromDTO(DColor $color): bool
+    {
+        return $color instanceof DRGB;
     }
 }

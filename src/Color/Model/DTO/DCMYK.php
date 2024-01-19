@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Model\DTO;
 
-use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 
 /**
- * @internal
  * @codeCoverageIgnore
  */
-final readonly class DCMYK implements IColorDTO
+final readonly class DCMYK implements DColor
 {
     public function __construct(
         public float $cyan,

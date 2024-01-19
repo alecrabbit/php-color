@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Gradient;
 
+use AlecRabbit\Color\Contract\Gradient\IColorRange;
 use AlecRabbit\Color\Contract\IColor;
-use AlecRabbit\Color\Contract\IColorRange;
 
 
 final readonly class ColorRange implements IColorRange

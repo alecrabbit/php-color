@@ -25,7 +25,8 @@
             "AlecRabbit\\Color\\": "src\\Color\\"
         },
         "files": [
-            "src/bootstrap.php"
+            "src/bootstrap.php",
+            "src/Color/Model/bootstrap.php"
         ]
     },
     "autoload-dev": {

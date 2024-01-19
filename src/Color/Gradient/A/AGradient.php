@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Gradient\A;
 
+use AlecRabbit\Color\Contract\Gradient\IColorRange;
 use AlecRabbit\Color\Contract\Gradient\IGradient;
 use AlecRabbit\Color\Contract\IColor;
-use AlecRabbit\Color\Contract\IColorRange;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Util\Color;
 use Traversable;
@@ -57,7 +57,7 @@ abstract readonly class AGradient implements IGradient
 
     protected function createColor(int $index): IColor
     {
-        return Color::fromString(
+        return Color::from(
             $this->getColorString($index),
         );
     }
@@ -80,6 +80,6 @@ abstract readonly class AGradient implements IGradient
             return $color;
         }
 
-        return Color::fromString($color);
+        return Color::from($color);
     }
 }

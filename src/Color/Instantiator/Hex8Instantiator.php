@@ -5,43 +5,32 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Instantiator;
 
 use AlecRabbit\Color\Contract\IColor;
+use AlecRabbit\Color\Contract\IHex8Color;
 use AlecRabbit\Color\Hex8;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
+use AlecRabbit\Color\Model\DTO\DRGB;
 
+/**
+ * @extends AInstantiator<IHex8Color>
+ */
 class Hex8Instantiator extends AInstantiator
 {
     protected const REGEXP_HEX = '/^#?(?:([a-f\d]{2}){4}|([a-f\d]){4})$/i';
 
-
-    public static function getTargetClass(): string
+    /** @inheritDoc */
+    protected function createFromString(string $value): ?IColor
     {
-        return Hex8::class;
-    }
-
-    public static function isSupported(string $color): bool
-    {
-        $color = self::normalize($color);
-
-        return self::canInstantiate($color);
-    }
-
-    protected static function canInstantiate(string $color): bool
-    {
-        return self::isHexString($color);
-    }
-
-    protected static function isHexString(string $color): bool
-    {
-        return (bool)preg_match(self::REGEXP_HEX, $color);
-    }
-
-    protected function instantiate(string $color): ?IColor
-    {
-        if (self::isHexString($color)) {
-            return Hex8::fromInteger8(self::extractInteger($color));
+        if (self::canInstantiateFromString($value)) {
+            return Hex8::fromInteger8(self::extractInteger($value));
         }
 
         return null;
+    }
+
+    protected static function canInstantiateFromString(string $value, array &$matches = []): bool
+    {
+        return (bool)preg_match(self::REGEXP_HEX, $value);
     }
 
     protected static function extractInteger(string $color): int
@@ -58,5 +47,25 @@ class Hex8Instantiator extends AInstantiator
         }
 
         return $hex;
+    }
+
+    protected function createFromDTO(DColor $value): ?IColor
+    {
+        if (self::canInstantiateFromDTO($value)) {
+            /** @var DRGB $value */
+            return Hex8::fromRGBA(
+                (int)round($value->red * 0xFF),
+                (int)round($value->green * 0xFF),
+                (int)round($value->blue * 0xFF),
+                (int)round($value->alpha * 0xFF),
+            );
+        }
+
+        return null;
+    }
+
+    protected static function canInstantiateFromDTO(DColor $color): bool
+    {
+        return $color instanceof DRGB;
     }
 }

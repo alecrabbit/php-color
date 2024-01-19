@@ -121,12 +121,13 @@ final class HexTest extends TestCase
 
     private static function getTesteeFromString(string $value): IHexColor
     {
-        return Hex::fromString($value);
+        return Hex::from($value);
     }
+
     #[Test]
-    public function canFrom(): void
+    public function canBeCreatedFromStringWithConversion(): void
     {
-        $color = HSL::fromString('black');
+        $color = HSL::from('black');
         self::assertInstanceOf(Hex::class, Hex::from($color));
     }
 

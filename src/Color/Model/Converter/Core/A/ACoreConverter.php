@@ -4,51 +4,44 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Model\Converter\Core\A;
 
-use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Model\Contract\Converter\Core\ICoreConverter;
-use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Exception\InvalidArgument;
+use AlecRabbit\Color\Model\Contract\Converter\Core\IDCoreConverter;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 
-abstract readonly class ACoreConverter implements ICoreConverter
+abstract readonly class ACoreConverter implements IDCoreConverter
 {
-    protected const FLOAT_PRECISION = ICoreConverter::PRECISION;
-
-    /** @var class-string<IColorDTO> */
+    /** @var class-string<DColor> */
     protected string $inputType;
 
+    /** @param class-string<DColor> $inputType */
     public function __construct(
-        string $type = null,
-        protected int $precision = self::FLOAT_PRECISION,
+        string $inputType,
+        protected int $precision,
     ) {
-        /** @var null|class-string<IColorDTO> $type */
-        $this->inputType = $type ?? static::inputType();
+        $this->inputType = $inputType;
     }
 
-    /**
-     * @return class-string<IColorDTO>
-     */
-    abstract protected static function inputType(): string;
-
-    public function convert(IColorDTO $color): IColorDTO
+    public function convert(DColor $color): DColor
     {
         $this->assertColor($color);
 
         return $this->doConvert($color);
     }
 
-    protected function assertColor(IColorDTO $color): void
+    protected function assertColor(DColor $color): void
     {
-        if (is_a($color, $this->inputType, true)) {
-            return;
-        }
-
-        throw new InvalidArgument(
-            sprintf(
-                'Color must be instance of "%s", "%s" given.',
-                $this->inputType,
-                $color::class,
+        match (true) {
+            is_a($color, $this->inputType, true) => null,
+            default => throw new InvalidArgument(
+                sprintf(
+                    '%s: Color must be instance of "%s", "%s" given.',
+                    static::class,
+                    $this->inputType,
+                    $color::class,
+                ),
             ),
-        );
+        };
     }
 
-    abstract protected function doConvert(IColorDTO $color): IColorDTO;
+    abstract protected function doConvert(DColor $color): DColor;
 }

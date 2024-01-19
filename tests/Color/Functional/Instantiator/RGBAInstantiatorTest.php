@@ -44,7 +44,7 @@ final class RGBAInstantiatorTest extends TestCase
         ];
     }
 
-    public static function canBeInstantiatedFromStringDataProvider(): iterable
+    public static function canBeCreatedFromStringDataProvider(): iterable
     {
         yield from [
             ['rgba(0, 0, 0, 0)', 0, 0, 0, 0, 0],
@@ -68,7 +68,7 @@ final class RGBAInstantiatorTest extends TestCase
 
         $instantiator = $this->getTesteeInstance();
 
-        $color = $instantiator->fromString($incoming);
+        $color = $instantiator->from($incoming);
         self::assertInstanceOf(IRGBColor::class, $color);
         self::assertSame($expected, $color->getValue());
     }
@@ -85,7 +85,7 @@ final class RGBAInstantiatorTest extends TestCase
         [$value, $opacity, $alpha] = $expected;
         $instantiator = $this->getTesteeInstance();
 
-        $color = $instantiator->fromString($incoming);
+        $color = $instantiator->from($incoming);
         self::assertInstanceOf(IRGBAColor::class, $color);
         self::assertSame($value, $color->getValue());
         self::assertSame($opacity, $color->getOpacity());
@@ -93,11 +93,11 @@ final class RGBAInstantiatorTest extends TestCase
     }
 
     #[Test]
-    #[DataProvider('canBeInstantiatedFromStringDataProvider')]
-    public function canBeInstantiatedFromString(string $color, int $r, int $g, int $b, float $opacity, int $alpha): void
+    #[DataProvider('canBeCreatedFromStringDataProvider')]
+    public function canBeCreatedFromString(string $color, int $r, int $g, int $b, float $opacity, int $alpha): void
     {
         $instantiator = $this->getTesteeInstance();
-        $testee = $instantiator->fromString($color);
+        $testee = $instantiator->from($color);
         self::assertInstanceOf(RGBA::class, $testee);
         self::assertSame($r, $testee->getRed());
         self::assertSame($g, $testee->getGreen());

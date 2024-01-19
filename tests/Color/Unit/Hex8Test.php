@@ -6,13 +6,9 @@ namespace AlecRabbit\Tests\Color\Unit;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHex8Color;
-use AlecRabbit\Color\Contract\IHexColor;
-use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\Hex8;
 use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelRGB;
-use AlecRabbit\Tests\Color\Unit\Override\ColorDTOOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -296,7 +292,7 @@ final class Hex8Test extends TestCase
 
     private static function getTesteeFromString(string $value): IHex8Color
     {
-        return Hex8::fromString($value);
+        return Hex8::from($value);
     }
 
     #[Test]
@@ -459,7 +455,7 @@ final class Hex8Test extends TestCase
     {
         $testee = self::getTesteeFromInteger8(0x01020300);
 
-        $dto = $testee->toDTO();
+        $dto = $testee->to(DRGB::class);
 
         self::assertInstanceOf(DRGB::class, $dto);
         self::assertSame(0.003922, $dto->red);
@@ -474,9 +470,9 @@ final class Hex8Test extends TestCase
     }
 
     #[Test]
-    public function canFrom(): void
+    public function canBeCreatedFromOtherColor(): void
     {
-        $colorClass = IHex8Color::class;
+        $colorClass = Hex8::class;
 
         $result = $this->getColorMock($colorClass);
 
@@ -492,16 +488,5 @@ final class Hex8Test extends TestCase
     private function getColorMock(?string $colorClass = null): MockObject&IColor
     {
         return $this->createMock($colorClass ?? IColor::class);
-    }
-
-    #[Test]
-    public function throwsIfPassedDTOIsInvalid(): void
-    {
-        $this->expectException(InvalidArgument::class);
-        $this->expectExceptionMessage(
-            'Color must be instance of "AlecRabbit\Color\Model\DTO\DRGB", "AlecRabbit\Tests\Color\Unit\Override\ColorDTOOverride" given.'
-        );
-
-        Hex8::fromDTO(new ColorDTOOverride());
     }
 }
