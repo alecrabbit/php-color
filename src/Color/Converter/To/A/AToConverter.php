@@ -21,25 +21,9 @@ use Traversable;
  */
 abstract class AToConverter implements IToConverter
 {
-    /** @var class-string<DColor> */
-    protected string $inputType;
-
     public function __construct(
         private readonly IRegistry $registry = new Registry(),
-        ?string $dtoType = null,
     ) {
-        /** @var null|class-string<DColor> $dtoType */
-        $this->inputType = $this->refineInputType($dtoType);
-    }
-
-    /**
-     * @param class-string<DColor>|null $dtoType
-     *
-     * @return class-string<DColor>
-     */
-    protected function refineInputType(?string $dtoType): string
-    {
-        return $dtoType ?? $this->getTargetColorModel()->dtoType();
     }
 
     /**
