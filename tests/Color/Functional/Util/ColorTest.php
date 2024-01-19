@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Color\Functional\Util;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Hex;
+use AlecRabbit\Color\Hex8;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
 use AlecRabbit\Color\RGB;
@@ -19,51 +20,42 @@ final class ColorTest extends TestCase
 {
     public static function canCreateColorFromDataProvider(): iterable
     {
-        foreach (self::canCreateColorFromDataFeeder() as $item) {
-            yield [
-                $item[0],
-                $item[1]
-            ];
-        }
+        yield from self::canCreateColorFromDataFeeder();
     }
 
     private static function canCreateColorFromDataFeeder(): iterable
     {
         yield from [
-            // (resulting)class, (incoming)value
             [Hex::class, '#ff00ff'],
             [RGBA::class, 'rgba(255, 0, 255, 1)'],
             [HSL::class, 'hsl(234, 100%, 50%)'],
             [HSLA::class, 'hsla(234, 100%, 50%, 1)'],
             [RGBA::class, RGBA::from('rgba(255, 0, 255, 1)')],
+            [RGB::class, RGB::from('rgba(255, 0, 255, 1)')],
+            [Hex::class, Hex::from('rgba(255, 0, 255, 1)')],
+            [Hex8::class, Hex8::from('rgba(255, 0, 255, 1)')],
+            [HSL::class, HSL::from('hsla(255 0% 50% / 1)')],
+            [HSLA::class, HSLA::from('hsla(255 0% 50% / 1)')],
             [RGB::class, 'rgb(255, 0, 255)'],
         ];
     }
 
     public static function canCreateColorTryFromDataProvider(): iterable
     {
-        foreach (self::canCreateColorFromDataFeeder() as $item) {
-            yield [
-                $item[0],
-                $item[1]
-            ];
-        }
-        foreach (self::canCreateColorTryFromDataFeeder() as $item) {
-            yield [
-                $item[0],
-                $item[1]
-            ];
-        }
+        yield from self::canCreateColorFromDataFeeder();
+        yield from self::canCreateColorTryFromDataFeeder();
     }
 
     private static function canCreateColorTryFromDataFeeder(): iterable
     {
         yield from [
-            // (resulting)class, (incoming)value
             [null, 'sgda#ff00ff'],
             [null, 'rgba(255, 0, 255, 1.1'],
             [null, 'rgba(255,\ 0, 255, 1.1)'],
+            [null, 'rgb(255,\ 0, 255, 1.1)'],
             [null, 'hsla(255, 0, 255, 1.1'],
+            [null, 'hsl(255, 0, 255, 1.1'],
+            [null, 'hsla(255 0% 50% \ 1)'],
         ];
     }
 
