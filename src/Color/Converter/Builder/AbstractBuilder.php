@@ -6,12 +6,16 @@ namespace AlecRabbit\Color\Converter\Builder;
 
 abstract class AbstractBuilder
 {
+    abstract public function build(): mixed;
+
+    /**
+     * @param mixed $value
+     * @return ($value is IDummy ? true : false)
+     */
     protected function isDummy(mixed $value): bool
     {
         return $value instanceof IDummy;
     }
 
     abstract protected function validate(): void;
-
-    abstract public function build(): mixed;
 }

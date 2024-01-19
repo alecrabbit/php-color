@@ -19,15 +19,15 @@ final class PartialConverterBuilder extends AbstractBuilder implements IPartialC
     ) {
     }
 
+    /**
+     * @psalm-suppress PossiblyInvalidArgument
+     */
     public function build(): IPartialConverter
     {
         $this->validate();
 
-        /** @var IColorModel $model */
-        $model = $this->targetColorModel;
-        
         return new PartialConverter(
-            $model,
+            $this->targetColorModel,
             $this->registry,
         );
     }
