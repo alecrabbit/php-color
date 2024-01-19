@@ -18,7 +18,7 @@ use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use stdClass;
 
-final class StoreTest extends TestCase
+final class ConverterStoreTest extends TestCase
 {
     private const MODEL_CONVERTERS = 'modelConverters';
     private static array $modelConverters = [];

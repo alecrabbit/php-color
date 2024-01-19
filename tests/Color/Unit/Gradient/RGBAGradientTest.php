@@ -7,16 +7,17 @@ namespace AlecRabbit\Tests\Color\Unit\Gradient;
 
 use AlecRabbit\Color\Contract\Gradient\IColorRange;
 use AlecRabbit\Color\Contract\Gradient\IGradient;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Gradient\ColorRange;
 use AlecRabbit\Color\Gradient\RGBAGradient;
-use AlecRabbit\Color\Model\Contract\Converter\Core\ICoreConverter;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\FactoryAwareTestCase;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-final class RGBAGradientTest extends FactoryAwareTestCase
+final class RGBAGradientTest extends TestCase
 {
     public static function canProduceGradientDataProvider(): iterable
     {
@@ -250,7 +251,7 @@ final class RGBAGradientTest extends FactoryAwareTestCase
             range: $range ?? $this->getColorRange(),
             count: $count ?? 2,
             max: $max ?? 1000,
-            precision: $precision ?? ICoreConverter::PRECISION,
+            precision: $precision ?? IColor::CALC_PRECISION,
         );
     }
 

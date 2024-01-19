@@ -20,11 +20,11 @@ final class ToHSLConverterTest extends TestCase
     public static function canConvertDataProvider(): iterable
     {
         yield from [
-            [HSL::fromString('hsla(0, 0%, 0%)'), RGBA::fromRGBO(0, 0, 0, 0.55)],
+            [HSL::from('hsla(0, 0%, 0%)'), RGBA::fromRGBO(0, 0, 0, 0.55)],
 //            [HSLA::fromRGB(0, 0, 0), HSLA::fromRGB(0, 0, 0)],
 //            [HSLA::fromRGB(12, 250, 77), HSLA::fromRGB(12, 250, 77)],
 //            [HSLA::fromRGB(0, 0, 0), RGB::fromRGB(0, 0, 0)],
-//            [HSLA::fromRGB(0, 0, 0), HSL::fromString('hsl(0, 0%, 0%)')],
+//            [HSLA::fromRGB(0, 0, 0), HSL::from('hsl(0, 0%, 0%)')],
 //            [HSLA::fromRGB(0, 0, 0), Hex::fromInteger(0)],
 //            [HSLA::fromRGB(0x22, 0x33, 0x44), Hex::fromInteger(0x223344)],
         ];

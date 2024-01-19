@@ -5,40 +5,15 @@ declare(strict_types=1);
 namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\A\ARGBValueColor;
-use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IRGBColor;
-use AlecRabbit\Color\Model\Contract\DTO\DColor;
-use AlecRabbit\Color\Model\DTO\DRGB;
 
 use function sprintf;
 
 class RGB extends ARGBValueColor implements IRGBColor
 {
-    public static function fromString(string $value): IRGBColor
+    public function withRed(int $red): IRGBColor
     {
-        return parent::getFromString($value)->to(IRGBColor::class);
-    }
-
-    public static function from(IColor $color): IRGBColor
-    {
-        return $color->to(IRGBColor::class);
-    }
-
-    public static function fromDTO(DColor $dto): IRGBColor
-    {
-        self::assertDTO($dto);
-
-        return self::createFromDTO($dto);
-    }
-
-    protected static function createFromDTO(DColor $dto): IRGBColor
-    {
-        /** @var DRGB $dto */
-        return self::fromRGB(
-            (int)round($dto->red * self::COMPONENT),
-            (int)round($dto->green * self::COMPONENT),
-            (int)round($dto->blue * self::COMPONENT),
-        );
+        return self::fromRGB($red, $this->getGreen(), $this->getBlue());
     }
 
     public static function fromRGB(int $r, int $g, int $b): IRGBColor
@@ -47,11 +22,6 @@ class RGB extends ARGBValueColor implements IRGBColor
             new self(
                 self::componentsToValue($r, $g, $b),
             );
-    }
-
-    public function withRed(int $red): IRGBColor
-    {
-        return self::fromRGB($red, $this->getGreen(), $this->getBlue());
     }
 
     public function withGreen(int $green): IRGBColor

@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color;
 
-use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
-use AlecRabbit\Color\Model\Contract\DTO\DColor;
-use AlecRabbit\Color\Model\DTO\DHSL;
 
 class HSLA extends HSL implements IHSLAColor
 {
@@ -18,48 +15,6 @@ class HSLA extends HSL implements IHSLAColor
         protected float $alpha,
     ) {
         parent::__construct($hue, $saturation, $lightness);
-    }
-
-    public static function fromString(string $value): IHSLAColor
-    {
-        return self::getFromString($value)->to(self::class);
-    }
-
-    public static function fromDTO(DColor $dto): IHSLAColor
-    {
-        self::assertDTO($dto);
-
-        return self::createFromDTO($dto);
-    }
-
-    protected static function createFromDTO(DColor $dto): IHSLAColor
-    {
-        /** @var DHSL $dto */
-        return self::fromHSLA(
-            (int)round($dto->hue * 360),
-            $dto->saturation,
-            $dto->lightness,
-            $dto->alpha,
-        );
-    }
-
-    public static function fromHSLA(
-        int $hue,
-        float $saturation = 1.0,
-        float $lightness = 0.5,
-        float $alpha = 1.0,
-    ): IHSLAColor {
-        return new self(
-            self::refineHue($hue),
-            self::refineValue($saturation),
-            self::refineValue($lightness),
-            self::refineValue($alpha),
-        );
-    }
-
-    public static function from(IColor $color): IHSLAColor
-    {
-        return $color->to(IHSLAColor::class);
     }
 
     public function toString(): string
@@ -77,6 +32,20 @@ class HSLA extends HSL implements IHSLAColor
     public function withHue(int $hue): IHSLAColor
     {
         return self::fromHSLA($hue, $this->saturation, $this->lightness, $this->alpha);
+    }
+
+    public static function fromHSLA(
+        int $hue,
+        float $saturation = 1.0,
+        float $lightness = 0.5,
+        float $alpha = 1.0,
+    ): IHSLAColor {
+        return new self(
+            self::refineHue($hue),
+            self::refineValue($saturation),
+            self::refineValue($lightness),
+            self::refineValue($alpha),
+        );
     }
 
     public function withSaturation(float $saturation): IHSLAColor

@@ -11,21 +11,13 @@ use RuntimeException;
 final class InstantiatorStoreOverride implements IInstantiatorStore
 {
 
-    public static function register(string $class): void
+    public static function register(string $targetClass, string $instantiatorClass): void
     {
-        // TODO: Implement registerInstantiator() method.
-        throw new RuntimeException('Not implemented.');
+        throw new RuntimeException('INTENTIONALLY Not implemented.');
     }
 
-    public function getByString(string $value): IInstantiator
+    public function getByValue(mixed $value): IInstantiator
     {
-        // TODO: Implement getInstantiator() method.
-        throw new RuntimeException('Not implemented.');
-    }
-
-    public function getByTarget(string $target): IInstantiator
-    {
-        // TODO: Implement getByTarget() method.
-        throw new RuntimeException('Not implemented.');
+        throw new RuntimeException('INTENTIONALLY Not implemented.');
     }
 }

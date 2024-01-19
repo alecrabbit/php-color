@@ -48,7 +48,7 @@ final class HexInstantiatorTest extends TestCase
     {
         $instantiator = $this->getTesteeInstance();
 
-        $color = $instantiator->fromString($incoming);
+        $color = $instantiator->from($incoming);
         self::assertInstanceOf(IHexColor::class, $color);
         self::assertSame($expected, $color->getValue());
     }

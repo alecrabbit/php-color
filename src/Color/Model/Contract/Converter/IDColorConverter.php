@@ -6,7 +6,7 @@ namespace AlecRabbit\Color\Model\Contract\Converter;
 
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 
-interface IColorDTOConverter
+interface IDColorConverter
 {
     public function convert(DColor $color): DColor;
 }

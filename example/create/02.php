@@ -10,7 +10,7 @@ require_once __DIR__ . '/../bootstrap.php';
 
 $source = '#fff';
 
-$rgb = RGBA::fromString($source);
+$rgb = RGBA::from($source);
 $hsla = $rgb->to(IHSLAColor::class);
 $hex = $hsla->to(IHexColor::class);
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit\Store;
 
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
+use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Contract\Store\IInstantiatorStore;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Instantiator\HexInstantiator;
@@ -27,11 +28,14 @@ final class InstantiatorStoreTest extends TestCase
         ];
     }
 
-    public static function throwsIfProvidedColorStringIsInvalidDataProvider(): iterable
+    public static function throwsIfProvidedValueIsInvalidDataProvider(): iterable
     {
         yield from [
-            [''],
-            ['blabla'],
+            ['', 'Instantiator for color "" is not registered.'],
+            ['blabla', 'Instantiator for color "blabla" is not registered.'],
+            [1, 'Instantiator for value of type "int" is not registered.'],
+            [new stdClass(), 'Instantiator for value of type "stdClass" is not registered.'],
+            [stdClass::class, 'Instantiator for color "stdClass" is not registered.'],
         ];
     }
 
@@ -40,7 +44,7 @@ final class InstantiatorStoreTest extends TestCase
     public function canProvideInstantiator(string $class, string $color): void
     {
         $factory = $this->getTestee();
-        $instantiator = $factory->getByString($color);
+        $instantiator = $factory->getByValue($color);
 
         /** @noinspection UnnecessaryAssertionInspection */
         self::assertInstanceOf($class, $instantiator);
@@ -59,30 +63,25 @@ final class InstantiatorStoreTest extends TestCase
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage(
             sprintf(
-                'Class "%s" must implement "%s" interface.',
+                'Instantiator class "%s" must implement "%s" interface.',
                 $class,
                 IInstantiator::class,
             )
         );
 
-        InstantiatorStore::register($class);
+        InstantiatorStore::register(IRGBColor::class, $class);
 
         self::fail('Exception was not thrown.');
     }
 
     #[Test]
-    #[DataProvider('throwsIfProvidedColorStringIsInvalidDataProvider')]
-    public function throwsIfProvidedColorStringIsInvalid(string $color): void
+    #[DataProvider('throwsIfProvidedValueIsInvalidDataProvider')]
+    public function throwsIfProvidedColorStringIsInvalid(mixed $value, string $message): void
     {
         $this->expectException(InvalidArgument::class);
-        $this->expectExceptionMessage(
-            sprintf(
-                'Instantiator for color "%s" is not registered.',
-                $color,
-            )
-        );
+        $this->expectExceptionMessage($message);
 
-        $this->getTestee()->getByString($color);
+        $this->getTestee()->getByValue($value);
 
         self::fail('Exception was not thrown.');
     }

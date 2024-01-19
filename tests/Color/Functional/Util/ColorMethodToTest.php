@@ -13,6 +13,8 @@ use AlecRabbit\Color\Converter\To;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
+use AlecRabbit\Color\Model\DTO\DHSL;
+use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\RGBA;
 use AlecRabbit\Color\Util\Color;
@@ -20,7 +22,7 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-final class ColorToMethodTest extends TestCase
+final class ColorMethodToTest extends TestCase
 {
     public static function canGetConverterFromClassStringDataProvider(): iterable
     {
@@ -46,6 +48,9 @@ final class ColorToMethodTest extends TestCase
             [To\ToHSLAConverter::class, IHSLAColor::class],
             [To\ToRGBConverter::class, RGB::class],
             [To\ToRGBConverter::class, IRGBColor::class],
+
+            [To\ToRGBAConverter::class, DRGB::class],
+            [To\ToHSLAConverter::class, DHSL::class],
         ];
     }
 

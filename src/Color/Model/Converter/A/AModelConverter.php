@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Model\Converter\A;
 
-use AlecRabbit\Color\Model\Contract\Converter\Core\ICoreConverter;
+use AlecRabbit\Color\Model\Contract\Converter\Core\IDCoreConverter;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Contract\IColorModel;
@@ -13,9 +13,9 @@ abstract readonly class AModelConverter implements IModelConverter
 {
     /** @var class-string<DColor> */
     protected string $inputType;
-    protected ICoreConverter $converter;
+    protected IDCoreConverter $converter;
 
-    public function __construct(string $type = null, ICoreConverter $converter = null)
+    public function __construct(string $type = null, IDCoreConverter $converter = null)
     {
         /** @var null|class-string<DColor> $type */
         $this->inputType = $type ?? static::from()->dtoType();
@@ -32,13 +32,13 @@ abstract readonly class AModelConverter implements IModelConverter
      */
     abstract protected static function getSourceModelClass(): string;
 
-    protected static function createConverter(): ICoreConverter
+    protected static function createConverter(): IDCoreConverter
     {
         return new (static::getConverterClass())();
     }
 
     /**
-     * @return class-string<ICoreConverter>
+     * @return class-string<IDCoreConverter>
      */
     abstract protected static function getConverterClass(): string;
 

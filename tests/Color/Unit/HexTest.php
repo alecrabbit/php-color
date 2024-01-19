@@ -6,11 +6,9 @@ namespace AlecRabbit\Tests\Color\Unit;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHexColor;
-use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelRGB;
-use AlecRabbit\Tests\Color\Unit\Override\DColorOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -149,7 +147,7 @@ final class HexTest extends TestCase
 
     private static function getTesteeFromString(string $value): IHexColor
     {
-        return Hex::fromString($value);
+        return Hex::from($value);
     }
 
     #[Test]
@@ -203,7 +201,7 @@ final class HexTest extends TestCase
     {
         $testee = self::getTesteeFromInteger(0x010203);
 
-        $dto = $testee->toDTO();
+        $dto = $testee->to(DRGB::class);
 
         self::assertInstanceOf(DRGB::class, $dto);
         self::assertSame(0.003922, $dto->red);
@@ -213,9 +211,9 @@ final class HexTest extends TestCase
     }
 
     #[Test]
-    public function canFrom(): void
+    public function canBeCreatedFromOtherColor(): void
     {
-        $colorClass = IHexColor::class;
+        $colorClass = Hex::class;
 
         $result = $this->getColorMock($colorClass);
 
@@ -231,16 +229,5 @@ final class HexTest extends TestCase
     private function getColorMock(?string $colorClass = null): MockObject&IColor
     {
         return $this->createMock($colorClass ?? IColor::class);
-    }
-
-    #[Test]
-    public function throwsIfPassedDTOIsInvalid(): void
-    {
-        $this->expectException(InvalidArgument::class);
-        $this->expectExceptionMessage(
-            'Color must be instance of "AlecRabbit\Color\Model\DTO\DRGB", "AlecRabbit\Tests\Color\Unit\Override\DColorOverride" given.'
-        );
-
-        Hex::fromDTO(new DColorOverride());
     }
 }

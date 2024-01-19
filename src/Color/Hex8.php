@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color;
 
-use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHex8Color;
-use AlecRabbit\Color\Model\Contract\DTO\DColor;
-use AlecRabbit\Color\Model\DTO\DRGB;
 
 use function abs;
 use function sprintf;
@@ -23,54 +20,9 @@ class Hex8 extends Hex implements IHex8Color
         parent::__construct($value);
     }
 
-    public static function from(IColor $color): IHex8Color
-    {
-        return $color->to(IHex8Color::class);
-    }
-
-    public static function fromString(string $value): IHex8Color
-    {
-        return self::getFromString($value)->to(IHex8Color::class);
-    }
-
     public static function fromInteger(int $value, ?int $alpha = null): IHex8Color
     {
         return new self($value, $alpha ?? 0xFF);
-    }
-
-    public static function fromDTO(DColor $dto): IHex8Color
-    {
-        self::assertDTO($dto);
-
-        return self::createFromDTO($dto);
-    }
-
-    protected static function createFromDTO(DColor $dto): IHex8Color
-    {
-        /** @var DRGB $dto */
-        return self::fromRGBO(
-            (int)round($dto->red * self::COMPONENT),
-            (int)round($dto->green * self::COMPONENT),
-            (int)round($dto->blue * self::COMPONENT),
-            $dto->alpha,
-        );
-    }
-
-    public static function fromRGBO(int $r, int $g, int $b, float $opacity = 1.0): IHex8Color
-    {
-        $alpha = (int)(abs($opacity) * self::COMPONENT) & self::COMPONENT;
-
-        return
-            self::fromRGBA($r, $g, $b, $alpha);
-    }
-
-    public static function fromRGBA(int $r, int $g, int $b, int $alpha = 0xFF): IHex8Color
-    {
-        return
-            new self(
-                self::componentsToValue($r, $g, $b),
-                (abs($alpha) & self::COMPONENT)
-            );
     }
 
     public static function fromInteger8(int $value8): IHex8Color
@@ -123,10 +75,27 @@ class Hex8 extends Hex implements IHex8Color
             self::fromRGBA($this->getRed(), $this->getGreen(), $this->getBlue(), $alpha);
     }
 
+    public static function fromRGBA(int $r, int $g, int $b, int $alpha = 0xFF): IHex8Color
+    {
+        return
+            new self(
+                self::componentsToValue($r, $g, $b),
+                (abs($alpha) & self::COMPONENT)
+            );
+    }
+
     public function withOpacity(float $opacity): IHex8Color
     {
         return
             self::fromRGBO($this->getRed(), $this->getGreen(), $this->getBlue(), $opacity);
+    }
+
+    public static function fromRGBO(int $r, int $g, int $b, float $opacity = 1.0): IHex8Color
+    {
+        $alpha = (int)(abs($opacity) * self::COMPONENT) & self::COMPONENT;
+
+        return
+            self::fromRGBA($r, $g, $b, $alpha);
     }
 
     public function getValue8(): int

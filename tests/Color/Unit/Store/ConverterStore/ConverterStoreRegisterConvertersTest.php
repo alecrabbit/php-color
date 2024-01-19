@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Color\Unit\Store\ConverterStore;
 
+use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Converter\To\ToRGBConverter;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\RGB;
@@ -20,11 +21,13 @@ final class ConverterStoreRegisterConvertersTest extends TestCase
     public function convertersCanBeRegistered(): void
     {
         self::assertEmpty($this->getRegisteredConverters());
-        ConverterStore::registerOld(RGB::class, ToRGBConverter::class);
+        ConverterStore::register(ToRGBConverter::class);
 
         $registeredConverters = $this->getRegisteredConverters();
         self::assertArrayHasKey(RGB::class, $registeredConverters);
+        self::assertArrayHasKey(IRGBColor::class, $registeredConverters);
         self::assertSame(ToRGBConverter::class, $registeredConverters[RGB::class]);
+        self::assertSame(ToRGBConverter::class, $registeredConverters[IRGBColor::class]);
     }
 
     protected function getRegisteredConverters(): array
@@ -38,19 +41,14 @@ final class ConverterStoreRegisterConvertersTest extends TestCase
     }
 
     #[Test]
-    public function throwsIfTargetClassIsInvalid(): void
-    {
-        $this->expectException(InvalidArgument::class);
-
-        ConverterStore::registerOld(stdClass::class, ToRGBConverter::class);
-    }
-
-    #[Test]
     public function throwsIfConverterClassIsInvalid(): void
     {
         $this->expectException(InvalidArgument::class);
+        $this->expectExceptionMessage(
+            'Class "stdClass" is not a "AlecRabbit\Color\Contract\Converter\IToConverter" subclass.'
+        );
 
-        ConverterStore::registerOld(RGB::class, stdClass::class);
+        ConverterStore::register(stdClass::class);
     }
 
     protected function setUp(): void
