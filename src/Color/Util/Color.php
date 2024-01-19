@@ -4,23 +4,16 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Util;
 
-use AlecRabbit\Color\Contract\Factory\IInstantiatorFactory;
+use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
-use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Factory\InstantiatorFactory;
+use AlecRabbit\Color\Contract\IRegistry;
+use AlecRabbit\Color\Registry\Registry;
 
 /**
- * // TODO (2024-01-05 15:24) [Alec Rabbit]: move tests InstantiatorTest to test this class
  * Utility class for convenient color instantiation.
- *
- * @codeCoverageIgnore
  */
-final class Color
+final class Color implements IColorUtil
 {
-    /** @var class-string<IInstantiatorFactory> */
-    private static string $factoryClass = InstantiatorFactory::class;
-    private static ?IInstantiatorFactory $factory = null;
-
     /**
      * @codeCoverageIgnore
      */
@@ -29,43 +22,46 @@ final class Color
         // Can not be instantiated
     }
 
-    public static function fromString(string $color): IColor
+    public static function tryFrom(mixed $value): ?IColor
     {
-        return self::getInstantiatorFactory()->getInstantiator($color)->fromString($color);
+        return match (true) {
+            $value instanceof IColor => $value,
+            default => self::tryFromValue($value),
+        };
     }
 
-    private static function getInstantiatorFactory(): IInstantiatorFactory
+    private static function tryFromValue(mixed $value): ?IColor
     {
-        if (self::$factory === null) {
-            self::$factory = self::createFactory();
-        }
-        return self::$factory;
+        return self::getRegistry()->findInstantiator($value)?->tryFrom($value);
     }
 
-    private static function createFactory(): IInstantiatorFactory
+    private static function getRegistry(): IRegistry
     {
-        return new self::$factoryClass();
+        return new Registry();
+    }
+
+    public static function from(mixed $value): IColor
+    {
+        return match (true) {
+            $value instanceof IColor => $value,
+            default => self::fromValue($value),
+        };
+    }
+
+    private static function fromValue(mixed $value): IColor
+    {
+        return self::getRegistry()->getInstantiator($value)->from($value);
     }
 
     /**
-     * @param class-string<IInstantiatorFactory> $factoryClass
+     * @template T of IColor
+     *
+     * @param class-string<T> $target
+     *
+     * @psalm-return IToConverter<T>
      */
-    public static function setFactoryClass(string $factoryClass): void
+    public static function to(string $target): IToConverter
     {
-        self::assertFactoryClass($factoryClass);
-        self::$factoryClass = $factoryClass;
-    }
-
-    private static function assertFactoryClass(string $factoryClass): void
-    {
-        if (!is_subclass_of($factoryClass, IInstantiatorFactory::class)) {
-            throw new InvalidArgument(
-                sprintf(
-                    'Class "%s" is not a "%s" subclass.',
-                    $factoryClass,
-                    IInstantiatorFactory::class
-                )
-            );
-        }
+        return self::getRegistry()->getToConverter($target);
     }
 }

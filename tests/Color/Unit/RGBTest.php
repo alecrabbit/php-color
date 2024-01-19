@@ -5,14 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit;
 
 use AlecRabbit\Color\Contract\IColor;
-use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Contract\IRGBColor;
-use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelRGB;
 use AlecRabbit\Color\RGB;
-use AlecRabbit\Tests\Color\Unit\Override\ColorDTOOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -113,7 +109,7 @@ final class RGBTest extends TestCase
         ];
     }
 
-    public static function canBeInstantiatedFromStringDataProvider(): iterable
+    public static function canBeCreatedFromStringDataProvider(): iterable
     {
         yield from [
             ['rgb(0, 0, 0)', 0, 0, 0,],
@@ -195,10 +191,10 @@ final class RGBTest extends TestCase
     }
 
     #[Test]
-    #[DataProvider('canBeInstantiatedFromStringDataProvider')]
-    public function canBeInstantiatedFromString(string $color, int $r, int $g, int $b): void
+    #[DataProvider('canBeCreatedFromStringDataProvider')]
+    public function canBeCreatedFromString(string $color, int $r, int $g, int $b): void
     {
-        $testee = RGB::fromString($color);
+        $testee = RGB::from($color);
         self::assertSame($r, $testee->getRed());
         self::assertSame($g, $testee->getGreen());
         self::assertSame($b, $testee->getBlue());
@@ -217,7 +213,7 @@ final class RGBTest extends TestCase
     {
         $testee = RGB::fromRGB(0x01, 0x02, 0x03);
 
-        $dto = $testee->toDTO();
+        $dto = $testee->to(DRGB::class);
 
         self::assertInstanceOf(DRGB::class, $dto);
         self::assertSame(0.003922, $dto->red);
@@ -225,10 +221,11 @@ final class RGBTest extends TestCase
         self::assertSame(0.011765, $dto->blue);
         self::assertSame(1.0, $dto->alpha);
     }
+
     #[Test]
-    public function canFrom(): void
+    public function canBeCreatedFromOtherColor(): void
     {
-        $colorClass = IRGBColor::class;
+        $colorClass = RGB::class;
 
         $result = $this->getColorMock($colorClass);
 
@@ -244,17 +241,5 @@ final class RGBTest extends TestCase
     private function getColorMock(?string $colorClass = null): MockObject&IColor
     {
         return $this->createMock($colorClass ?? IColor::class);
-    }
-
-
-    #[Test]
-    public function throwsIfPassedDTOIsInvalid(): void
-    {
-        $this->expectException(InvalidArgument::class);
-        $this->expectExceptionMessage(
-            'Color must be instance of "AlecRabbit\Color\Model\DTO\DRGB", "AlecRabbit\Tests\Color\Unit\Override\ColorDTOOverride" given.'
-        );
-
-        RGB::fromDTO(new ColorDTOOverride());
     }
 }

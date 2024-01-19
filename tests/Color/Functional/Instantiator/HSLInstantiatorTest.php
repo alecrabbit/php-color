@@ -51,7 +51,7 @@ final class HSLInstantiatorTest extends TestCase
         [$h, $s, $l] = $expected;
         $instantiator = $this->getTesteeInstance();
 
-        $color = $instantiator->fromString($incoming);
+        $color = $instantiator->from($incoming);
         self::assertInstanceOf(HSL::class, $color);
         self::assertSame($h, $color->getHue());
         self::assertSame($s, $color->getSaturation());
@@ -77,7 +77,7 @@ final class HSLInstantiatorTest extends TestCase
 
         $instantiator = $this->getTesteeInstance();
 
-        $instantiator->fromString($incoming);
+        $instantiator->from($incoming);
 
         self::fail(sprintf('Exception was not thrown. Color: "%s".', $incoming));
     }

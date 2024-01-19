@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Color\Unit;
 
+use AlecRabbit\Color\Contract\Gradient\IColorRange;
 use AlecRabbit\Color\Contract\IColor;
-use AlecRabbit\Color\Contract\IColorRange;
 use AlecRabbit\Color\Gradient\ColorRange;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Tests\TestCase\FactoryAwareTestCase;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class ColorRangeTest extends FactoryAwareTestCase
+final class ColorRangeTest extends TestCase
 {
     public static function canBeInstantiatedWithParamsDataProvider(): iterable
     {
@@ -30,8 +31,8 @@ final class ColorRangeTest extends FactoryAwareTestCase
             ],
             [
                 [
-                    self::START => $start = HSL::fromString('hsl(0, 0%, 0%)'),
-                    self::END => $end = RGB::fromString('rgb(255, 255, 255)'),
+                    self::START => $start = HSL::from('hsl(0, 0%, 0%)'),
+                    self::END => $end = RGB::from('rgb(255, 255, 255)'),
                 ],
                 [
                     self::ARGUMENTS => [$start, $end],

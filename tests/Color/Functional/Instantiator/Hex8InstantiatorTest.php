@@ -37,7 +37,7 @@ final class Hex8InstantiatorTest extends TestCase
     {
         $instantiator = $this->getTesteeInstance();
 
-        $color = $instantiator->fromString($incoming);
+        $color = $instantiator->from($incoming);
         self::assertInstanceOf(IHex8Color::class, $color);
         self::assertSame($value, $color->getValue());
         self::assertSame($alpha, $color->getAlpha());

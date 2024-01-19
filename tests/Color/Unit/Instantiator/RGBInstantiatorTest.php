@@ -6,17 +6,22 @@ namespace AlecRabbit\Tests\Color\Unit\Instantiator;
 
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Exception\UnrecognizedColorString;
+use AlecRabbit\Color\Exception\UnsupportedValue;
 use AlecRabbit\Color\Instantiator\RGBInstantiator;
+use AlecRabbit\Color\Model\DTO\DHSL;
+use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use stdClass;
 
 final class RGBInstantiatorTest extends TestCase
 {
-    public static function canInstantiateRGBDataProvider(): iterable
+    public static function canInstantiateDataProvider(): iterable
     {
         yield from [
+            [new DRGB(0, 0, 0)],
             ['rgb(23, 0, 255)'],
             ['rgb(213, 30, 25)'],
             ['rgb(13, 230, 125)'],
@@ -25,19 +30,35 @@ final class RGBInstantiatorTest extends TestCase
         ];
     }
 
-    public static function canNotInstantiateRGBADataProvider(): iterable
+    public static function canNotInstantiateDataProvider(): iterable
     {
         yield from [
-            ['rgba(0, 0, 0, 0.5)'],
-            ['rgba(0, 2, 255, 1)'],
-            ['rgba(255, 11, 255, 0)'],
-            ['rgba(255, 11, 255, 0.1)'],
+            [
+                new stdClass(),
+                UnsupportedValue::class,
+                'Unsupported value of type "stdClass" provided.'
+            ],
+            [
+                new DHSL(0, 0, 0),
+                UnsupportedValue::class,
+                'Unsupported dto value of type "AlecRabbit\Color\Model\DTO\DHSL" provided.'
+            ],
+            ['hsl(22, 100%, 50%)', UnrecognizedColorString::class, 'Unrecognized color string: "hsl(22, 100%, 50%)".'],
+            [
+                'hsla(56, 100%, 50%, 1)',
+                UnrecognizedColorString::class,
+                'Unrecognized color string: "hsla(56, 100%, 50%, 1)".'
+            ],
+            ['rgba(0, 0, 0, 0.5)', UnrecognizedColorString::class, 'Unrecognized color string: "rgba(0, 0, 0, 0.5)".'],
+            ['slategray', UnrecognizedColorString::class, 'Unrecognized color string: "slategray".'],
+            ['invalid', UnrecognizedColorString::class, 'Unrecognized color string: "invalid".'],
         ];
     }
 
-    public static function supportsFormatDataProvider(): iterable
+    public static function canIsSupportedDataProvider(): iterable
     {
         yield from [
+            [new DRGB(0, 0, 0)],
             ['rgb(23, 0, 255)'],
             ['rgb(213, 30, 25)'],
             ['rgb(13, 230, 125)'],
@@ -46,9 +67,10 @@ final class RGBInstantiatorTest extends TestCase
         ];
     }
 
-    public static function doesNotSupportFormatDataProvider(): iterable
+    public static function notIsSupportedDataProvider(): iterable
     {
         yield from [
+            [new DHSL(0, 0, 0)],
             ['#ff0000'],
             ['ff0000'],
             ['rgba(255, 11, 255, 0)'],
@@ -78,49 +100,48 @@ final class RGBInstantiatorTest extends TestCase
     }
 
     #[Test]
-    #[DataProvider('canInstantiateRGBDataProvider')]
-    public function canInstantiateRGB(string $colorString): void
+    #[DataProvider('canInstantiateDataProvider')]
+    public function canInstantiate(mixed $value): void
     {
         $instantiator = $this->getTesteeInstance();
-        $color = $instantiator->fromString($colorString);
+
+        $color = $instantiator->from($value);
+
         self::assertInstanceOf(RGB::class, $color);
     }
 
     #[Test]
-    #[DataProvider('canNotInstantiateRGBADataProvider')]
-    public function canNotInstantiateRGBA(string $colorString): void
+    #[DataProvider('canNotInstantiateDataProvider')]
+    public function canNotInstantiateFrom(mixed $value, string $exceptionClass, string $exceptionMessage): void
     {
-        $this->expectException(UnrecognizedColorString::class);
-        $this->expectExceptionMessage(
-            sprintf(
-                'Unrecognized color string: "%s".',
-                $colorString
-            )
-        );
+        $this->expectException($exceptionClass);
+        $this->expectExceptionMessage($exceptionMessage);
 
         $instantiator = $this->getTesteeInstance();
-        $instantiator->fromString($colorString);
 
-        self::fail(sprintf('Exception was not thrown. Color: "%s".', $colorString));
+        $instantiator->from($value);
     }
 
     #[Test]
-    #[DataProvider('supportsFormatDataProvider')]
-    public function supportsFormat(string $format): void
+    #[DataProvider('canNotInstantiateDataProvider')]
+    public function canNotInstantiateTryFrom(mixed $value): void
     {
-        self::assertTrue(RGBInstantiator::isSupported($format));
+        $instantiator = $this->getTesteeInstance();
+
+        self::assertNull($instantiator->tryFrom($value));
     }
 
     #[Test]
-    #[DataProvider('doesNotSupportFormatDataProvider')]
-    public function doesNotSupportFormat(string $format): void
+    #[DataProvider('canIsSupportedDataProvider')]
+    public function canIsSupported(mixed $value): void
     {
-        self::assertFalse(RGBInstantiator::isSupported($format));
-    }
-    #[Test]
-    public function canGetTargetClass(): void
-    {
-        self::assertSame(RGB::class, RGBInstantiator::getTargetClass());
+        self::assertTrue(RGBInstantiator::isSupported($value));
     }
 
+    #[Test]
+    #[DataProvider('notIsSupportedDataProvider')]
+    public function notIsSupported(mixed $value): void
+    {
+        self::assertFalse(RGBInstantiator::isSupported($value));
+    }
 }

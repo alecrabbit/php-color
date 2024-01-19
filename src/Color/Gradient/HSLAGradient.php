@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Gradient;
 
+use AlecRabbit\Color\Contract\Gradient\IColorRange;
 use AlecRabbit\Color\Contract\Gradient\Vector\IVector;
 use AlecRabbit\Color\Contract\IColor;
-use AlecRabbit\Color\Contract\IColorRange;
 use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Gradient\A\AGradient;
 use AlecRabbit\Color\Gradient\Vector\Vector;

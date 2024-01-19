@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Model\Converter\Core;
 
-use AlecRabbit\Color\Model\Contract\DTO\IColorDTO;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Converter\Core\A\ACoreConverter;
 use AlecRabbit\Color\Model\DTO\DHSL as HSL;
 use AlecRabbit\Color\Model\DTO\DRGB as RGB;
 
 final readonly class HSLToRGB extends ACoreConverter
 {
-    protected static function inputType(): string
+    public function __construct(int $precision = self::CALC_PRECISION)
     {
-        return HSL::class;
+        parent::__construct(HSL::class, $precision);
     }
 
-    protected function doConvert(IColorDTO $color): IColorDTO
+    protected function doConvert(DColor $color): DColor
     {
         /** @var HSL $color */
         $c = (1 - abs(2 * $color->lightness - 1)) * $color->saturation;

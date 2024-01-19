@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Registry;
 
-use AlecRabbit\Color\Contract\Converter\IRegistry;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
+use AlecRabbit\Color\Contract\IRegistry;
 use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Model\Contract\Converter\IColorDTOConverter;
+use AlecRabbit\Color\Model\Contract\Converter\IDColorConverter;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
 use AlecRabbit\Color\Model\Contract\IColorModel;
-use AlecRabbit\Color\Model\Converter\Store\ConverterStore;
-use RuntimeException;
+use AlecRabbit\Color\Model\Store\ConverterStore as ModelConverterStore;
+use AlecRabbit\Color\Store\ConverterStore;
+use AlecRabbit\Color\Store\InstantiatorStore;
 
 final class Registry implements IRegistry
 {
@@ -21,27 +23,54 @@ final class Registry implements IRegistry
     {
         foreach ($classes as $class) {
             match (true) {
-                is_subclass_of($class, IModelConverter::class) => ConverterStore::add($class),
+                is_subclass_of($class, IModelConverter::class) => self::attachModelConverter($class),
+                is_subclass_of($class, IToConverter::class) => self::attachToConverter($class),
                 default => throw new InvalidArgument(sprintf('Invalid class "%s".', $class)),
             };
         }
     }
 
-    public function getToConverter(string $target): ?IToConverter
+    /** @param class-string<IModelConverter> $class */
+    private static function attachModelConverter(string $class): void
     {
-        // TODO: Implement getToConverter() method.
-        throw new RuntimeException(__METHOD__ . ' Not implemented.');
+        ModelConverterStore::add($class);
     }
 
-    public function getInstantiator(string $color): IInstantiator
+    /** @param class-string<IToConverter> $class */
+    private static function attachToConverter(string $class): void
     {
-        // TODO: Implement getInstantiator() method.
-        throw new RuntimeException(__METHOD__ . ' Not implemented.');
+        ConverterStore::register($class);
+        /** @var class-string<IColor> $target */
+        foreach ($class::getTargets() as $target) {
+            InstantiatorStore::register($target, $class::getInstantiatorClass());
+        }
+    }
+
+    /**
+     * @template T of IColor
+     *
+     * @param class-string<T> $target
+     *
+     * @psalm-return IToConverter<T>
+     */
+    public function getToConverter(string $target): IToConverter
+    {
+        return (new ConverterStore())->getByTarget($target);
+    }
+
+    public function getInstantiator(mixed $value): IInstantiator
+    {
+        return (new InstantiatorStore())->getByValue($value);
     }
 
     /** @inheritDoc */
-    public function getColorConverter(IColorModel $from, IColorModel $to): IColorDTOConverter
+    public function getColorConverter(IColorModel $from, IColorModel $to): IDColorConverter
     {
-        return (new ConverterStore())->getColorConverter($from, $to);
+        return (new ModelConverterStore())->getColorConverter($from, $to);
+    }
+
+    public function findInstantiator(mixed $value): ?IInstantiator
+    {
+        return (new InstantiatorStore())->findByValue($value);
     }
 }
