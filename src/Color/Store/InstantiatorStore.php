@@ -57,6 +57,13 @@ final class InstantiatorStore implements IInstantiatorStore
 
     public function getByValue(mixed $value): IInstantiator
     {
+        return $this->findByValue($value)
+            ??
+            throw new InvalidArgument($this->createErrorMessage($value));
+    }
+
+    public function findByValue(mixed $value): ?IInstantiator
+    {
         /** @var class-string<IInstantiator> $class */
         foreach ($this->getRegistered() as $class) {
             if ($class::isSupported($value)) {
@@ -64,7 +71,7 @@ final class InstantiatorStore implements IInstantiatorStore
             }
         }
 
-        throw new InvalidArgument($this->createErrorMessage($value));
+        return null;
     }
 
     private function getRegistered(): array

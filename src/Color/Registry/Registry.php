@@ -68,4 +68,9 @@ final class Registry implements IRegistry
     {
         return (new ModelConverterStore())->getColorConverter($from, $to);
     }
+
+    public function findInstantiator(mixed $value): ?IInstantiator
+    {
+        return (new InstantiatorStore())->findByValue($value);
+    }
 }

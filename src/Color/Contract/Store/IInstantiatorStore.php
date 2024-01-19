@@ -6,6 +6,7 @@ namespace AlecRabbit\Color\Contract\Store;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
+use AlecRabbit\Color\Exception\InvalidArgument;
 
 interface IInstantiatorStore
 {
@@ -15,5 +16,10 @@ interface IInstantiatorStore
      */
     public static function register(string $targetClass, string $instantiatorClass): void;
 
+    /**
+     * @throws InvalidArgument
+     */
     public function getByValue(mixed $value): IInstantiator;
+
+    public function findByValue(mixed $value): ?IInstantiator;
 }

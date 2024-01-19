@@ -36,12 +36,12 @@ class HSLAInstantiator extends AInstantiator
         return null;
     }
 
-    protected static function canInstantiateFromString(string $color): bool
+    protected static function canInstantiateFromString(string $value, &$matches = null): bool
     {
         return
-            str_starts_with($color, 'hsla(')
+            str_starts_with($value, 'hsla(')
             ||
-            (str_starts_with($color, 'hsl(') && str_contains($color, '/'));
+            (str_starts_with($value, 'hsl(') && str_contains($value, '/'));
     }
 
     private function extractOpacity(string $value): float

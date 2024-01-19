@@ -11,6 +11,8 @@ interface IColorUtil
 {
     public static function from(mixed $value): IColor;
 
+    public static function tryFrom(mixed $value): ?IColor;
+
     /**
      * @template T of IColor
      *

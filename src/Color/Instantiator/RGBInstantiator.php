@@ -35,9 +35,9 @@ class RGBInstantiator extends AInstantiator
         return null;
     }
 
-    protected static function canInstantiateFromString(string $color): bool
+    protected static function canInstantiateFromString(string $value, &$matches = null): bool
     {
-        return str_starts_with($color, 'rgb(');
+        return str_starts_with($value, 'rgb(');
     }
 
     protected function createFromDTO(DColor $value): ?IColor

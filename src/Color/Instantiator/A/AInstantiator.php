@@ -60,7 +60,7 @@ abstract class AInstantiator implements IInstantiator
 
     abstract protected static function canInstantiateFromDTO(DColor $color): bool;
 
-    abstract protected static function canInstantiateFromString(string $color): bool;
+    abstract protected static function canInstantiateFromString(string $value, &$matches = null): bool;
 
     /** @inheritDoc */
     public function from(mixed $value): IColor
@@ -110,7 +110,8 @@ abstract class AInstantiator implements IInstantiator
             ??
             throw new UnrecognizedColorString(
                 sprintf(
-                    'Unrecognized color string: "%s".',
+                    '%s: Unrecognized color string: "%s".',
+                    static::class,
                     $value
                 )
             );
