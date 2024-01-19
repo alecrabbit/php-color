@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Functional\Model\Converter;
 
 
-use AlecRabbit\Color\Exception\InvalidArgument;
+use AlecRabbit\Color\Model\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Converter\RGBToCMYModelConverter;

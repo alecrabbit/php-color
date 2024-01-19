@@ -12,7 +12,7 @@ use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\Contract\Converter\IDColorConverter;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
 use AlecRabbit\Color\Model\Contract\IColorModel;
-use AlecRabbit\Color\Model\Converter\Store\ConverterStore as ModelConverterStore;
+use AlecRabbit\Color\Model\Store\ConverterStore as ModelConverterStore;
 use AlecRabbit\Color\Store\ConverterStore;
 use AlecRabbit\Color\Store\InstantiatorStore;
 

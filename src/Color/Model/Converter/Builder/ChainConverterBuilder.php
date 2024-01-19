@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Model\Converter\Builder;
 
-use AlecRabbit\Color\Exception\UnsupportedColorConversion;
+use AlecRabbit\Color\Model\Exception\UnsupportedModelConversion;
 use AlecRabbit\Color\Model\Contract\Converter\Builder\IChainConverterBuilder;
 use AlecRabbit\Color\Model\Contract\Converter\IDColorConverter;
+use AlecRabbit\Color\Model\Contract\Converter\IChainConverter;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Model\Converter\ChainConverter;
@@ -26,7 +27,7 @@ final class ChainConverterBuilder implements IChainConverterBuilder
     /** @var iterable<class-string<IDColorConverter>> */
     private iterable $chainConverters;
 
-    public function build(): IDColorConverter
+    public function build(): IChainConverter
     {
         $this->validate();
 
@@ -98,7 +99,7 @@ final class ChainConverterBuilder implements IChainConverterBuilder
             }
         }
 
-        throw new UnsupportedColorConversion(
+        throw new UnsupportedModelConversion(
             sprintf(
                 'Converter from "%s" to "%s" not found.',
                 $prev,

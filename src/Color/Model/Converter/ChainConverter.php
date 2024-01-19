@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Model\Converter;
 
+use AlecRabbit\Color\Model\Contract\Converter\IChainConverter;
 use AlecRabbit\Color\Model\Contract\Converter\IDColorConverter;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 
@@ -11,7 +12,7 @@ use AlecRabbit\Color\Model\Contract\DTO\DColor;
  * @internal
  * @codeCoverageIgnore
  */
-final readonly class ChainConverter implements IDColorConverter
+final readonly class ChainConverter implements IChainConverter
 {
     /** @param iterable<class-string<IDColorConverter>> $chain */
     public function __construct(

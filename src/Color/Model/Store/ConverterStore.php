@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color\Model\Converter\Store;
+namespace AlecRabbit\Color\Model\Store;
 
-use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\Contract\Converter\Builder\IChainConverterBuilder;
 use AlecRabbit\Color\Model\Contract\Converter\IDColorConverter;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
-use AlecRabbit\Color\Model\Contract\Converter\Store\IConverterStore;
 use AlecRabbit\Color\Model\Contract\IColorModel;
+use AlecRabbit\Color\Model\Contract\Store\IConverterStore;
 use AlecRabbit\Color\Model\Converter\Builder\ChainConverterBuilder;
+use AlecRabbit\Color\Model\Exception\InvalidArgument;
 use ArrayObject;
 use SplQueue;
 use Traversable;
