@@ -9,8 +9,6 @@ use AlecRabbit\Color\Model\Contract\Converter\Core\IDCoreConverter;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Converter\HSLToRGBModelConverter;
-use AlecRabbit\Color\Model\DTO\DHSL;
-use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelHSL;
 use AlecRabbit\Color\Model\ModelRGB;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -29,11 +27,6 @@ final class HSLToRGBModelConverterTest extends TestCase
     public function returnsCorrectModelFrom(): void
     {
         self::assertEquals(new ModelHSL(), HSLToRGBModelConverter::from());
-    }
-
-    private function getDColorMock(): MockObject&DColor
-    {
-        return $this->createMock(DColor::class);
     }
 
     #[Test]
@@ -55,6 +48,11 @@ final class HSLToRGBModelConverterTest extends TestCase
         $result = $testee->convert($input);
 
         self::assertSame($expected, $result);
+    }
+
+    private function getDColorMock(): MockObject&DColor
+    {
+        return $this->createMock(DColor::class);
     }
 
     protected function getConverterMock(): MockObject&IDCoreConverter

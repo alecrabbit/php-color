@@ -9,9 +9,6 @@ use AlecRabbit\Color\Model\Contract\Converter\Core\IDCoreConverter;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Converter\CMYToRGBModelConverter;
-use AlecRabbit\Color\Model\DTO\DCMY;
-use AlecRabbit\Color\Model\DTO\DHSL;
-use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelCMY;
 use AlecRabbit\Color\Model\ModelRGB;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -53,6 +50,11 @@ final class CMYToRGBModelConverterTest extends TestCase
         self::assertSame($expected, $result);
     }
 
+    private function getDColorMock(): MockObject&DColor
+    {
+        return $this->createMock(DColor::class);
+    }
+
     protected function getConverterMock(): MockObject&IDCoreConverter
     {
         return $this->createMock(IDCoreConverter::class);
@@ -64,10 +66,5 @@ final class CMYToRGBModelConverterTest extends TestCase
         return new CMYToRGBModelConverter(
             converter: $converter ?? $this->getConverterMock(),
         );
-    }
-
-    private function getDColorMock(): MockObject&DColor
-    {
-        return $this->createMock(DColor::class);
     }
 }

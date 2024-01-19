@@ -22,7 +22,7 @@ final class ModelHSLTest extends TestCase
         self::assertEquals(DHSL::class, $model->dtoType());
     }
 
-    private function getTesteeInstance():IColorModel
+    private function getTesteeInstance(): IColorModel
     {
         return new ModelHSL();
     }

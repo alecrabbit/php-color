@@ -169,7 +169,7 @@ class HexInstantiator extends AInstantiator
         'yellowgreen' => '#9ACD32',
     ];
 
-    protected static function canInstantiateFromString(string $value, &$matches = null): bool
+    protected static function canInstantiateFromString(string $value, array &$matches = []): bool
     {
         return self::isNamedColor($value) || self::isHexString($value);
     }

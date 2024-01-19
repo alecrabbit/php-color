@@ -21,6 +21,7 @@ class HSLInstantiator extends AInstantiator
     /** @inheritDoc */
     protected function createFromString(string $value): ?IColor
     {
+        $matches = [];
         if (self::canInstantiateFromString($value, $matches)) {
             return
                 HSL::fromHSL(
@@ -33,7 +34,7 @@ class HSLInstantiator extends AInstantiator
         return null;
     }
 
-    protected static function canInstantiateFromString(string $value, &$matches = null): bool
+    protected static function canInstantiateFromString(string $value, array &$matches = []): bool
     {
         return (str_starts_with($value, 'hsl(') && !str_contains($value, '/'))
             &&

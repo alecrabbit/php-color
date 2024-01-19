@@ -60,7 +60,7 @@ abstract class AInstantiator implements IInstantiator
 
     abstract protected static function canInstantiateFromDTO(DColor $color): bool;
 
-    abstract protected static function canInstantiateFromString(string $value, &$matches = null): bool;
+    abstract protected static function canInstantiateFromString(string $value, array &$matches = []): bool;
 
     /** @inheritDoc */
     public function from(mixed $value): IColor

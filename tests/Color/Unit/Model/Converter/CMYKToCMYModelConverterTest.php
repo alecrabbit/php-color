@@ -11,7 +11,6 @@ use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Converter\CMYKToCMYModelConverter;
 use AlecRabbit\Color\Model\ModelCMY;
 use AlecRabbit\Color\Model\ModelCMYK;
-use AlecRabbit\Color\Model\ModelRGB;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -28,11 +27,6 @@ final class CMYKToCMYModelConverterTest extends TestCase
     public function returnsCorrectModelFrom(): void
     {
         self::assertEquals(new ModelCMYK(), CMYKToCMYModelConverter::from());
-    }
-
-    private function getDColorMock(): MockObject&DColor
-    {
-        return $this->createMock(DColor::class);
     }
 
     #[Test]
@@ -54,6 +48,11 @@ final class CMYKToCMYModelConverterTest extends TestCase
         $result = $testee->convert($input);
 
         self::assertSame($expected, $result);
+    }
+
+    private function getDColorMock(): MockObject&DColor
+    {
+        return $this->createMock(DColor::class);
     }
 
     protected function getConverterMock(): MockObject&IDCoreConverter

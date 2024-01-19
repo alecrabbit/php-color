@@ -31,7 +31,7 @@ final class CMYToCMYKModelConverterTest extends TestCase
         yield from [
             [new DHSL(0, 0, 0), DCMY::class, DHSL::class],
             [new DRGB(0, 0, 0, 0), DCMY::class, DRGB::class],
-            [new DCMYK(0, 0, 0,1), DCMY::class, DCMYK::class],
+            [new DCMYK(0, 0, 0, 1), DCMY::class, DCMYK::class],
         ];
     }
 

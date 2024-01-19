@@ -22,7 +22,7 @@ final class ModelCMYKTest extends TestCase
         self::assertEquals(DCMYK::class, $model->dtoType());
     }
 
-    private function getTesteeInstance():IColorModel
+    private function getTesteeInstance(): IColorModel
     {
         return new ModelCMYK();
     }

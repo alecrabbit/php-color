@@ -9,11 +9,7 @@ use AlecRabbit\Color\Model\Contract\Converter\Core\IDCoreConverter;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Converter\RGBToCMYModelConverter;
-use AlecRabbit\Color\Model\DTO\DCMY;
-use AlecRabbit\Color\Model\DTO\DHSL;
-use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelCMY;
-use AlecRabbit\Color\Model\ModelHSL;
 use AlecRabbit\Color\Model\ModelRGB;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -31,11 +27,6 @@ final class RGBToCMYModelConverterTest extends TestCase
     public function returnsCorrectModelFrom(): void
     {
         self::assertEquals(new ModelRGB(), RGBToCMYModelConverter::from());
-    }
-
-    private function getDColorMock(): MockObject&DColor
-    {
-        return $this->createMock(DColor::class);
     }
 
     #[Test]
@@ -57,6 +48,11 @@ final class RGBToCMYModelConverterTest extends TestCase
         $result = $testee->convert($input);
 
         self::assertSame($expected, $result);
+    }
+
+    private function getDColorMock(): MockObject&DColor
+    {
+        return $this->createMock(DColor::class);
     }
 
     protected function getConverterMock(): MockObject&IDCoreConverter

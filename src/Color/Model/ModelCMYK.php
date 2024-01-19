@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Model;
 
+use AlecRabbit\Color\Model\A\AColorModel;
 use AlecRabbit\Color\Model\Contract\IModelCMYK;
 use AlecRabbit\Color\Model\DTO\DCMYK;
 
-final class ModelCMYK implements IModelCMYK
+final class ModelCMYK extends AColorModel implements IModelCMYK
 {
-    /** @inheritDoc */
-    public function dtoType(): string
+    public function __construct()
     {
-        return DCMYK::class;
+        parent::__construct(
+            DCMYK::class
+        );
     }
 }

@@ -22,7 +22,7 @@ final class ModelCMYTest extends TestCase
         self::assertEquals(DCMY::class, $model->dtoType());
     }
 
-    private function getTesteeInstance():IColorModel
+    private function getTesteeInstance(): IColorModel
     {
         return new ModelCMY();
     }

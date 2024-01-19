@@ -28,7 +28,7 @@ class Hex8Instantiator extends AInstantiator
         return null;
     }
 
-    protected static function canInstantiateFromString(string $value, &$matches = null): bool
+    protected static function canInstantiateFromString(string $value, array &$matches = []): bool
     {
         return (bool)preg_match(self::REGEXP_HEX, $value);
     }

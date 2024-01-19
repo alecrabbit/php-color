@@ -22,7 +22,7 @@ final class ModelRGBTest extends TestCase
         self::assertEquals(DRGB::class, $model->dtoType());
     }
 
-    private function getTesteeInstance():IColorModel
+    private function getTesteeInstance(): IColorModel
     {
         return new ModelRGB();
     }

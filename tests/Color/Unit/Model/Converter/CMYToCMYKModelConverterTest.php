@@ -29,11 +29,6 @@ final class CMYToCMYKModelConverterTest extends TestCase
         self::assertEquals(new ModelCMY(), CMYToCMYKModelConverter::from());
     }
 
-    private function getDColorMock(): MockObject&DColor
-    {
-        return $this->createMock(DColor::class);
-    }
-
     #[Test]
     public function canConvert(): void
     {
@@ -53,6 +48,11 @@ final class CMYToCMYKModelConverterTest extends TestCase
         $result = $testee->convert($input);
 
         self::assertSame($expected, $result);
+    }
+
+    private function getDColorMock(): MockObject&DColor
+    {
+        return $this->createMock(DColor::class);
     }
 
     protected function getConverterMock(): MockObject&IDCoreConverter

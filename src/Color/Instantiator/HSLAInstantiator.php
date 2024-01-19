@@ -21,6 +21,7 @@ class HSLAInstantiator extends AInstantiator
     /** @inheritDoc */
     protected function createFromString(string $value): ?IColor
     {
+        $matches = [];
         if (self::canInstantiateFromString($value, $matches)) {
             return
                 HSLA::fromHSLA(
@@ -28,7 +29,7 @@ class HSLAInstantiator extends AInstantiator
                     round(((int)$matches[2]) / 100, $this->precision),
                     round(((int)$matches[3]) / 100, $this->precision),
                     isset($matches[4])
-                        ? $this->extractOpacity($matches[4])
+                        ? $this->extractOpacity((string)$matches[4])
                         : 1.0,
                 );
         }
@@ -36,7 +37,7 @@ class HSLAInstantiator extends AInstantiator
         return null;
     }
 
-    protected static function canInstantiateFromString(string $value, &$matches = null): bool
+    protected static function canInstantiateFromString(string $value, array &$matches = []): bool
     {
         return
             (

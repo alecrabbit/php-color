@@ -6,7 +6,6 @@ namespace AlecRabbit\Color\Util;
 
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
-use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Contract\IRegistry;
 use AlecRabbit\Color\Registry\Registry;
 
@@ -36,6 +35,11 @@ final class Color implements IColorUtil
         return self::getRegistry()->findInstantiator($value)?->tryFrom($value);
     }
 
+    private static function getRegistry(): IRegistry
+    {
+        return new Registry();
+    }
+
     public static function from(mixed $value): IColor
     {
         return match (true) {
@@ -47,11 +51,6 @@ final class Color implements IColorUtil
     private static function fromValue(mixed $value): IColor
     {
         return self::getRegistry()->getInstantiator($value)->from($value);
-    }
-
-    private static function getRegistry(): IRegistry
-    {
-        return new Registry();
     }
 
     /**

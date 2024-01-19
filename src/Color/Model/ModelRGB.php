@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Model;
 
+use AlecRabbit\Color\Model\A\AColorModel;
 use AlecRabbit\Color\Model\Contract\IModelRGB;
 use AlecRabbit\Color\Model\DTO\DRGB;
 
-final class ModelRGB implements IModelRGB
+final class ModelRGB extends AColorModel implements IModelRGB
 {
-    /** @inheritDoc */
-    public function dtoType(): string
+    public function __construct()
     {
-        return DRGB::class;
+        parent::__construct(
+            DRGB::class
+        );
     }
 }
