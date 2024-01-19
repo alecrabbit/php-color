@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-// @codeCoverageIgnoreStart
 
 use AlecRabbit\Color\Converter\To;
 use AlecRabbit\Color\Registry\Registry;
+
+// @codeCoverageIgnoreStart
 
 Registry::attach(
     To\ToHexConverter::class,
@@ -15,4 +16,5 @@ Registry::attach(
     To\ToHSLConverter::class,
     To\ToHSLAConverter::class,
 );
+
 // @codeCoverageIgnoreEnd

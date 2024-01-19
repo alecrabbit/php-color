@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Color\Unit\Model\Model\Builder;
+namespace AlecRabbit\Tests\Color\Unit\Model\Builder;
 
 use AlecRabbit\Color\Model\Contract\Converter\Builder\IChainConverterBuilder;
 use AlecRabbit\Color\Model\Converter\Builder\ChainConverterBuilder;
