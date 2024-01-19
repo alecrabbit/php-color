@@ -9,7 +9,7 @@ use AlecRabbit\Color\Model\Converter\CMYToRGBModelConverter;
 use AlecRabbit\Color\Model\Converter\HSLToRGBModelConverter;
 use AlecRabbit\Color\Model\Converter\RGBToCMYModelConverter;
 use AlecRabbit\Color\Model\Converter\RGBToHSLModelConverter;
-use AlecRabbit\Color\Model\Converter\Store\ConverterStore;
+use AlecRabbit\Color\Model\Store\ConverterStore;
 
 // @codeCoverageIgnoreStart
 
