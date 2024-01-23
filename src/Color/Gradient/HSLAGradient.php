@@ -7,7 +7,6 @@ namespace AlecRabbit\Color\Gradient;
 use AlecRabbit\Color\Contract\Gradient\IColorRange;
 use AlecRabbit\Color\Contract\Gradient\Vector\IVector;
 use AlecRabbit\Color\Contract\IColor;
-use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Gradient\A\AGradient;
 use AlecRabbit\Color\Gradient\Vector\Vector;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
@@ -24,30 +23,28 @@ final readonly class HSLAGradient extends AGradient
         IColorRange $range,
         int $count = self::MIN,
         int $max = self::MAX,
-        int $precision = self::FLOAT_PRECISION,
     ) {
         parent::__construct(
             range: $range,
             count: $count,
             max: $max,
-            precision: $precision,
         );
 
         $count = $this->count - 1;
-        /** @var IHSLAColor $start */
-        $start = $this->toHSLA($this->range->getStart());
-        /** @var IHSLAColor $end */
-        $end = $this->toHSLA($this->range->getEnd());
+        /** @var DHSL $start */
+        $start = $this->dto($this->range->getStart());
+        /** @var DHSL $end */
+        $end = $this->dto($this->range->getEnd());
 
-        $this->h = Vector::create($start->getHue() / 360, $end->getHue() / 360, $count);
-        $this->s = Vector::create($start->getSaturation(), $end->getSaturation(), $count);
-        $this->l = Vector::create($start->getLightness(), $end->getLightness(), $count);
-        $this->o = Vector::create($start->getOpacity(), $end->getOpacity(), $count);
+        $this->h = Vector::create($start->hue, $end->hue, $count);
+        $this->s = Vector::create($start->saturation, $end->saturation, $count);
+        $this->l = Vector::create($start->lightness, $end->lightness, $count);
+        $this->o = Vector::create($start->alpha, $end->alpha, $count);
     }
 
-    private function toHSLA(IColor|string $color): IColor
+    private function dto(IColor|string $color): DColor
     {
-        return $this->ensureConvertable($color)->to(IHSLAColor::class);
+        return $this->ensureColor($color)->to(DHSL::class);
     }
 
     protected function getColor(int $index): DColor

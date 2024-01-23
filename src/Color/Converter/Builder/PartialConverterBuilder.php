@@ -10,6 +10,7 @@ use AlecRabbit\Color\Contract\IRegistry;
 use AlecRabbit\Color\Converter\To\PartialConverter;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Registry\Registry;
+use LogicException;
 
 final class PartialConverterBuilder extends AbstractBuilder implements IPartialConverterBuilder
 {
@@ -35,7 +36,7 @@ final class PartialConverterBuilder extends AbstractBuilder implements IPartialC
     protected function validate(): void
     {
         match (true) {
-            $this->isDummy($this->targetColorModel) => throw new \LogicException(
+            $this->isDummy($this->targetColorModel) => throw new LogicException(
                 'Target color model is not set.'
             ),
             default => null,

@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit\Model\Converter\Core;
 
 
-use AlecRabbit\Color\Model\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\Contract\Converter\Core\IDCoreConverter;
 use AlecRabbit\Color\Model\Converter\Core\CMYToRGB;
 use AlecRabbit\Color\Model\DTO\DCMY;
 use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\DTO\DRGB;
+use AlecRabbit\Color\Model\Exception\InvalidArgument;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;

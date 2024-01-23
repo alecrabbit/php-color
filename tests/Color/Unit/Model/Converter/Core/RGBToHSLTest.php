@@ -6,11 +6,11 @@ namespace AlecRabbit\Tests\Color\Unit\Model\Converter\Core;
 
 
 use AlecRabbit\Color\Contract\IColor;
-use AlecRabbit\Color\Model\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\Contract\Converter\Core\IDCoreConverter;
 use AlecRabbit\Color\Model\Converter\Core\RGBToHSL;
 use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\DTO\DRGB;
+use AlecRabbit\Color\Model\Exception\InvalidArgument;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;

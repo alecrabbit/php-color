@@ -7,7 +7,6 @@ namespace AlecRabbit\Tests\Color\Unit\Gradient;
 
 use AlecRabbit\Color\Contract\Gradient\IColorRange;
 use AlecRabbit\Color\Contract\Gradient\IGradient;
-use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Gradient\ColorRange;
 use AlecRabbit\Color\Gradient\HSLAGradient;
@@ -209,6 +208,22 @@ final class HSLAGradientTest extends TestCase
             ],
             [
                 [
+                    self::RESULT => HSLA::from('hsla(0, 0%, 0%, 1.0)'),
+                ],
+                [
+                    self::ARGUMENTS => [-10, '#000', '#fff', 2],
+                ],
+            ],
+            [
+                [
+                    self::RESULT => HSLA::from('hsla(0, 0%, 0%, 1.0)'),
+                ],
+                [
+                    self::ARGUMENTS => [0, '#000', '#fff', 2],
+                ],
+            ],
+            [
+                [
                     self::RESULT => HSLA::from('hsla(0, 0%, 100%, 1.0)'),
                 ],
                 [
@@ -276,13 +291,11 @@ final class HSLAGradientTest extends TestCase
         ?IColorRange $range = null,
         ?int $count = null,
         ?int $max = null,
-        ?int $precision = null,
     ): IGradient {
         return new HSLAGradient(
             range: $range ?? $this->getColorRange(),
             count: $count ?? 2,
             max: $max ?? 1000,
-            precision: $precision ?? IColor::CALC_PRECISION,
         );
     }
 

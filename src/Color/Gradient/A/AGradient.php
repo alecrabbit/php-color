@@ -22,7 +22,6 @@ abstract readonly class AGradient implements IGradient
         protected IColorRange $range,
         protected int $count,
         protected int $max,
-        protected int $precision,
     ) {
         $this->assertCount($count);
     }
@@ -75,12 +74,8 @@ abstract readonly class AGradient implements IGradient
         return $this->count;
     }
 
-    protected function ensureConvertable(IColor|string $color): IColor
+    protected function ensureColor(IColor|string $color): IColor
     {
-        if ($color instanceof IColor) {
-            return $color;
-        }
-
         return Color::from($color);
     }
 }

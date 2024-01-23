@@ -10,6 +10,7 @@ use AlecRabbit\Color\Converter\Builder\PartialConverterBuilder;
 use AlecRabbit\Color\Converter\To\PartialConverter;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Tests\TestCase\TestCase;
+use LogicException;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
@@ -77,7 +78,7 @@ final class PartialConverterBuilderTest extends TestCase
     #[Test]
     public function throwsIfColorModelIsNotSet(): void
     {
-        $this->expectException(\LogicException::class);
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Target color model is not set.');
 
         $this->getTesteeInstance()->build();

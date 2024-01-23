@@ -7,7 +7,6 @@ namespace AlecRabbit\Tests\Color\Unit\Gradient;
 
 use AlecRabbit\Color\Contract\Gradient\IColorRange;
 use AlecRabbit\Color\Contract\Gradient\IGradient;
-use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Gradient\ColorRange;
 use AlecRabbit\Color\Gradient\RGBAGradient;
@@ -230,6 +229,14 @@ final class RGBAGradientTest extends TestCase
                     self::ARGUMENTS => [-1, '#000000', '#ffffff', 12],
                 ],
             ],
+            [
+                [
+                    self::RESULT => RGBA::fromRGBO(0, 0, 0, 1),
+                ],
+                [
+                    self::ARGUMENTS => [-154, '#000000', '#ffffff', 12],
+                ],
+            ],
         ];
     }
 
@@ -245,13 +252,11 @@ final class RGBAGradientTest extends TestCase
         ?IColorRange $range = null,
         ?int $count = null,
         ?int $max = null,
-        ?int $precision = null,
     ): IGradient {
         return new RGBAGradient(
             range: $range ?? $this->getColorRange(),
             count: $count ?? 2,
             max: $max ?? 1000,
-            precision: $precision ?? IColor::CALC_PRECISION,
         );
     }
 
