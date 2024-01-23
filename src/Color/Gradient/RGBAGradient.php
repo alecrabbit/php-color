@@ -51,7 +51,7 @@ final readonly class RGBAGradient extends AGradient
         return $this->ensureConvertable($color)->to(IRGBAColor::class);
     }
 
-    protected function getColorString(int $index): string
+    protected function getColor(int $index): string
     {
         return sprintf(
             $this->format,

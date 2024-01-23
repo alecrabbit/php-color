@@ -8,6 +8,7 @@ use AlecRabbit\Color\Contract\Gradient\IColorRange;
 use AlecRabbit\Color\Contract\Gradient\IGradient;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Exception\InvalidArgument;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Util\Color;
 use Traversable;
 
@@ -16,6 +17,7 @@ abstract readonly class AGradient implements IGradient
     protected const MAX = 1000;
     protected const MIN = 2;
     protected const FLOAT_PRECISION = 3;
+    protected const CALC_PRECISION = 6;
 
     public function __construct(
         protected IColorRange $range,
@@ -58,11 +60,11 @@ abstract readonly class AGradient implements IGradient
     protected function createColor(int $index): IColor
     {
         return Color::from(
-            $this->getColorString($index),
+            $this->getColor($index),
         );
     }
 
-    abstract protected function getColorString(int $index): string;
+    abstract protected function getColor(int $index): DColor|string;
 
     protected function refineIndex(int $index): int
     {
