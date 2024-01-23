@@ -25,7 +25,7 @@ final class ConverterStore implements IConverterStore
     public function __construct(
         ArrayObject $models = new ArrayObject(),
         ArrayObject $graph = new ArrayObject(),
-        private readonly IChainConverterBuilder $modelConverterBuilder = new ChainConverterBuilder(),
+        private readonly IChainConverterBuilder $chainConverterBuilder = new ChainConverterBuilder(),
     ) {
         $this->models = $models;
         $this->graph = $graph;
@@ -126,7 +126,7 @@ final class ConverterStore implements IConverterStore
      */
     private function createColorConverter(iterable $conversionPath): IDColorConverter
     {
-        return $this->modelConverterBuilder
+        return $this->chainConverterBuilder
             ->withConverters($this->getModelConverters())
             ->forPath($conversionPath)
             ->build();
