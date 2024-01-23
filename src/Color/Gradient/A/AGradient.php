@@ -17,7 +17,6 @@ abstract readonly class AGradient implements IGradient
     protected const MAX = 1000;
     protected const MIN = 2;
     protected const FLOAT_PRECISION = 3;
-    protected const CALC_PRECISION = 6;
 
     public function __construct(
         protected IColorRange $range,

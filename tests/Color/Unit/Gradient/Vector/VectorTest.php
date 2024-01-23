@@ -20,13 +20,23 @@ final class VectorTest extends TestCase
     public static function canGetProvider(): iterable
     {
         yield from [
-            [1, 1, 1, null],
-            [2, 1, 1, 1],
-            [2.0, 1.0, 1, 1],
-            [3.0, 1.0, 1, 2],
-            [5.5368552, 0.0123, 0.3452847, 16],
-            [0.000781999999, 0.00003, 0.000047, 16],
-            [0.001064, 0.00003, 0.000047, 22],
+            // expected, start, end, index, precision
+            [1.0, 1, 1, null, 6],
+            [2.0, 1, 1, 1, 6],
+            [2.0, 1.0, 1, 1, 6],
+            [3.0, 1.0, 1, 2, 6],
+            [5.536855, 0.0123, 0.3452847, 16, 6],
+            [0.000782, 0.00003, 0.000047, 16, 6],
+            [0.001064, 0.00003, 0.000047, 22, 6],
+            [1.0, 1, 1, null, 9],
+            [2.0, 1, 1, 1, 9],
+            [2.0, 1.0, 1, 1, 9],
+            [3.0, 1.0, 1, 2, 9],
+            [5.5368552, 0.0123, 0.3452847, 16, 9],
+            [0.00078199999, 0.00003, 0.000047, 16, 10],
+            [0.001064, 0.00003, 0.000047, 22, 12],
+            [0.000547, 0.00003, 0.000047, 11, 12],
+            [0.0005, 0.00003, 0.000047, 10, 12],
         ];
     }
 
@@ -54,24 +64,28 @@ final class VectorTest extends TestCase
     private function getTesteeInstance(
         null|int|float $start = null,
         null|int|float $step = null,
+        null|int $precision = null,
     ): IVector {
         return new Vector(
             x: $start ?? 0,
             step: $step ?? 0,
+            precision: $precision ?? 6,
         );
     }
 
     #[Test]
     #[DataProvider('canGetProvider')]
     public function canGet(
-        int|float $expected,
+        float $expected,
         int|float $start,
         int|float $step,
         ?int $index = null,
+        ?int $precision = null,
     ): void {
         $vector = $this->getTesteeInstance(
             start: $start,
             step: $step,
+            precision: $precision,
         );
 
         $result = $vector->get($index);

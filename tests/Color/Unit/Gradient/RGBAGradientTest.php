@@ -61,7 +61,7 @@ final class RGBAGradientTest extends TestCase
             [
                 [
                     RGBA::fromRGBO(0, 0, 0, 0),
-                    RGBA::fromRGBO(128, 128, 128, 0.5),
+                    RGBA::fromRGBA(128, 128, 128, 128),
                     RGBA::fromRGBO(255, 255, 255, 1),
                 ],
                 ['rgba(0, 0, 0, 0)', RGBA::fromRGBO(255, 255, 255, 1), 3],

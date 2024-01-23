@@ -10,9 +10,12 @@ use function abs;
 
 final readonly class Vector implements IVector
 {
+    // TODO (2024-01-23 15:57) [Alec Rabbit]: add namespaced const CALCULATION_PRECISION = 6; [c16baba0-8d27-42f4-bc27-bf9d771c16f7]
+
     public function __construct(
         public int|float $x,
         public int|float $step,
+        private int $precision,
     ) {
     }
 
@@ -20,10 +23,12 @@ final readonly class Vector implements IVector
         int|float $start,
         int|float $end,
         int $count = null,
+        int $precision = null,
     ): IVector {
         return new self(
             $start,
             self::calculateStep($start, $end, $count),
+            $precision ?? 6, // todo [c16baba0-8d27-42f4-bc27-bf9d771c16f7]
         );
     }
 
@@ -32,10 +37,12 @@ final readonly class Vector implements IVector
         return ($count === null || $count === 0) ? 0 : ($end - $start) / abs($count);
     }
 
-    public function get(int|float $y = null): int|float
+    public function get(int|float $y = null): float
     {
-        return $y === null
+        $value = $y === null
             ? $this->x
             : $this->x + $this->step * $y;
+
+        return round($value, $this->precision);
     }
 }

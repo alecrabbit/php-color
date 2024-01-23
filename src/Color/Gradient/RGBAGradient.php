@@ -10,6 +10,8 @@ use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Gradient\A\AGradient;
 use AlecRabbit\Color\Gradient\Vector\Vector;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
+use AlecRabbit\Color\Model\DTO\DRGB;
 
 final readonly class RGBAGradient extends AGradient
 {
@@ -38,12 +40,10 @@ final readonly class RGBAGradient extends AGradient
         /** @var IRGBAColor $end */
         $end = $this->toRGBA($this->range->getEnd());
 
-        $this->r = Vector::create($start->getRed(), $end->getRed(), $count);
-        $this->g = Vector::create($start->getGreen(), $end->getGreen(), $count);
-        $this->b = Vector::create($start->getBlue(), $end->getBlue(), $count);
+        $this->r = Vector::create($start->getRed() / 255, $end->getRed()/ 255, $count);
+        $this->g = Vector::create($start->getGreen()/ 255, $end->getGreen()/ 255, $count);
+        $this->b = Vector::create($start->getBlue()/ 255, $end->getBlue()/ 255, $count);
         $this->o = Vector::create($start->getOpacity(), $end->getOpacity(), $count);
-
-        $this->format = "rgba(%s, %s, %s, %.3f)";
     }
 
     private function toRGBA(IColor|string $color): IColor
@@ -51,14 +51,13 @@ final readonly class RGBAGradient extends AGradient
         return $this->ensureConvertable($color)->to(IRGBAColor::class);
     }
 
-    protected function getColor(int $index): string
+    protected function getColor(int $index): DColor
     {
-        return sprintf(
-            $this->format,
-            (int)round($this->r->get($index)),
-            (int)round($this->g->get($index)),
-            (int)round($this->b->get($index)),
-            round($this->o->get($index), $this->precision),
+        return new DRGB(
+            red: $this->r->get($index),
+            green: $this->g->get($index),
+            blue: $this->b->get($index),
+            alpha: $this->o->get($index),
         );
     }
 }

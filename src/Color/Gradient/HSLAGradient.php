@@ -24,7 +24,7 @@ final readonly class HSLAGradient extends AGradient
         IColorRange $range,
         int $count = self::MIN,
         int $max = self::MAX,
-        int $precision = self::CALC_PRECISION,
+        int $precision = self::FLOAT_PRECISION,
     ) {
         parent::__construct(
             range: $range,
@@ -53,10 +53,10 @@ final readonly class HSLAGradient extends AGradient
     protected function getColor(int $index): DColor
     {
         return new DHSL(
-            hue: round($this->h->get($index), $this->precision),
-            saturation: round($this->s->get($index), $this->precision),
-            lightness: round($this->l->get($index), $this->precision),
-            alpha: round($this->o->get($index), $this->precision),
+            hue: $this->h->get($index),
+            saturation: $this->s->get($index),
+            lightness: $this->l->get($index),
+            alpha: $this->o->get($index),
         );
     }
 }
