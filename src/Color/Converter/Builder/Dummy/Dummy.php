@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color\Converter\Builder;
+namespace AlecRabbit\Color\Converter\Builder\Dummy;
 
 /**
  * @internal
