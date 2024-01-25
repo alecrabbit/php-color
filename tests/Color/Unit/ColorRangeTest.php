@@ -8,8 +8,11 @@ use AlecRabbit\Color\Contract\Gradient\IColorRange;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Gradient\ColorRange;
 use AlecRabbit\Color\HSL;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
+use AlecRabbit\Color\Model\DTO\DHSL;
+use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\RGB;
-use AlecRabbit\Tests\TestCase\FactoryAwareTestCase;
+
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -38,6 +41,24 @@ final class ColorRangeTest extends TestCase
                     self::ARGUMENTS => [$start, $end],
                 ],
             ],
+            [
+                [
+                    self::START => $start = new DHSL(0, 0, 0),
+                    self::END => $end = new DRGB(255, 255, 255),
+                ],
+                [
+                    self::ARGUMENTS => [$start, $end],
+                ],
+            ],
+            [
+                [
+                    self::START => $start = new DRGB(255, 255, 255),
+                    self::END => $end = new DHSL(0, 0, 0),
+                ],
+                [
+                    self::ARGUMENTS => [$start, $end],
+                ],
+            ],
         ];
     }
 
@@ -50,8 +71,8 @@ final class ColorRangeTest extends TestCase
     }
 
     private function getTesteeInstance(
-        null|IColor|string $start = null,
-        null|IColor|string $end = null,
+        null|DColor|IColor|string $start = null,
+        null|DColor|IColor|string $end = null,
     ): IColorRange {
         return new ColorRange(
             start: $start ?? $this->getColorMock(),

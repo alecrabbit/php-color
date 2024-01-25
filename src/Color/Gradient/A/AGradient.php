@@ -6,8 +6,10 @@ namespace AlecRabbit\Color\Gradient\A;
 
 use AlecRabbit\Color\Contract\Gradient\IColorRange;
 use AlecRabbit\Color\Contract\Gradient\IGradient;
+use AlecRabbit\Color\Contract\Gradient\Vector\IVector;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Exception\InvalidArgument;
+use AlecRabbit\Color\Gradient\Vector\Vector;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Util\Color;
 use Traversable;
@@ -16,10 +18,8 @@ abstract readonly class AGradient implements IGradient
 {
     protected const MAX = 1000;
     protected const MIN = 2;
-    protected const FLOAT_PRECISION = 3;
 
     public function __construct(
-        protected IColorRange $range,
         protected int $count,
         protected int $max,
     ) {
@@ -39,6 +39,22 @@ abstract readonly class AGradient implements IGradient
         };
     }
 
+    /**
+     * @template T of DColor
+     *
+     * @param class-string<T> $type
+     *
+     * @psalm-return T
+     */
+    protected function dto(DColor|IColor|string $color, string $type): DColor
+    {
+        if (\is_a($color, $type, true)) {
+            return $color;
+        }
+
+        return $this->ensureColor($color)->to($type);
+    }
+
     /** @inheritDoc */
     public function unwrap(): Traversable
     {
@@ -52,6 +68,20 @@ abstract readonly class AGradient implements IGradient
     public function getOne(int $index): IColor
     {
         return $this->createColor($this->refineIndex($index));
+    }
+
+    protected function createVector(float $start, float $end, int $count): IVector
+    {
+        return new Vector(
+            $start,
+            $this->calculateStep($start, $end, $count),
+            $count
+        );
+    }
+
+    protected function calculateStep(float $start, float $end, ?int $count): float
+    {
+        return ($count === null || $count === 0) ? 0 : ($end - $start) / abs($count);
     }
 
 
@@ -74,7 +104,7 @@ abstract readonly class AGradient implements IGradient
         return $this->count;
     }
 
-    protected function ensureColor(IColor|string $color): IColor
+    protected function ensureColor(DColor|IColor|string $color): IColor
     {
         return Color::from($color);
     }

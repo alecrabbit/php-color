@@ -90,25 +90,6 @@ final class VectorTest extends TestCase
 
         $result = $vector->get($index);
 
-        if (is_int($expected)) {
-            self::assertSame($expected, $result);
-        }
-
-        if (is_float($expected)) {
-            self::assertEqualsWithDelta($expected, $result, self::FLOAT_EQUALITY_DELTA);
-        }
-    }
-
-    #[Test]
-    #[DataProvider('canBeCreatedWithRangeDataProvider')]
-    public function canBeCreatedWithRange(
-        int|float $start,
-        int|float $step,
-        array $input,
-    ): void {
-        $vector = Vector::create(...$input);
-
-        self::assertEqualsWithDelta($start, $vector->x, self::FLOAT_EQUALITY_DELTA);
-        self::assertEqualsWithDelta($step, $vector->step, self::FLOAT_EQUALITY_DELTA);
+        self::assertEqualsWithDelta($expected, $result, self::FLOAT_EQUALITY_DELTA);
     }
 }

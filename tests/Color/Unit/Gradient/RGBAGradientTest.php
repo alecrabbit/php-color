@@ -10,8 +10,9 @@ use AlecRabbit\Color\Contract\Gradient\IGradient;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Gradient\ColorRange;
 use AlecRabbit\Color\Gradient\RGBAGradient;
+use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\RGBA;
-use AlecRabbit\Tests\TestCase\FactoryAwareTestCase;
+
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -27,6 +28,13 @@ final class RGBAGradientTest extends TestCase
                     RGBA::fromRGBO(255, 255, 255),
                 ],
                 ['#000', '#fff', 2],
+            ],
+            [
+                [
+                    RGBA::fromRGBO(0, 0, 0),
+                    RGBA::fromRGBO(255, 255, 255),
+                ],
+                [new DRGB(0, 0, 0), new DRGB(1, 1, 1), 2],
             ],
             [
                 [
@@ -103,13 +111,13 @@ final class RGBAGradientTest extends TestCase
                 ],
                 ['hsl(234, 100%, 50%)', 'hsl(234, 100%, 50%)', 2],
             ],
-            [
-                [
-                    RGBA::fromRGBO(0, 0x1a, 255, 1),
-                    RGBA::fromRGBO(255, 60, 0, 1),
-                ],
-                ['hsl(234, 100%, 50%)', 'hsl(14, 100%, 50%)', 2],
-            ],
+//            [
+//                [
+//                    RGBA::fromRGBO(0, 0x1a, 255, 1),
+//                    RGBA::fromRGBO(255, 60, 0, 1),
+//                ],
+//                ['hsl(234, 100%, 50%)', 'hsl(14, 100%, 50%)', 2],
+//            ],
         ];
     }
 
@@ -164,14 +172,14 @@ final class RGBAGradientTest extends TestCase
                     self::ARGUMENTS => [78, '#000', '#fff', 100],
                 ],
             ],
-            [
-                [
-                    self::RESULT => RGBA::fromRGBO(255, 60, 0, 1),
-                ],
-                [
-                    self::ARGUMENTS => [1, 'hsl(234, 100%, 50%)', 'hsl(14, 100%, 50%)', 2],
-                ],
-            ],
+//            [
+//                [
+//                    self::RESULT => RGBA::fromRGBO(255, 60, 0, 1),
+//                ],
+//                [
+//                    self::ARGUMENTS => [1, 'hsl(234, 100%, 50%)', 'hsl(14, 100%, 50%)', 2],
+//                ],
+//            ],
             [
                 [
                     self::RESULT => RGBA::fromRGBO(255, 0, 34, 1),

@@ -25,26 +25,19 @@ final readonly class HSLAGradient extends AGradient
         int $max = self::MAX,
     ) {
         parent::__construct(
-            range: $range,
             count: $count,
             max: $max,
         );
 
         $count = $this->count - 1;
-        /** @var DHSL $start */
-        $start = $this->dto($this->range->getStart());
-        /** @var DHSL $end */
-        $end = $this->dto($this->range->getEnd());
 
-        $this->h = Vector::create($start->hue, $end->hue, $count);
-        $this->s = Vector::create($start->saturation, $end->saturation, $count);
-        $this->l = Vector::create($start->lightness, $end->lightness, $count);
-        $this->o = Vector::create($start->alpha, $end->alpha, $count);
-    }
+        $start = $this->dto($range->getStart(), DHSL::class);
+        $end = $this->dto($range->getEnd(), DHSL::class);
 
-    private function dto(IColor|string $color): DColor
-    {
-        return $this->ensureColor($color)->to(DHSL::class);
+        $this->h = $this->createVector($start->hue, $end->hue, $count);
+        $this->s = $this->createVector($start->saturation, $end->saturation, $count);
+        $this->l = $this->createVector($start->lightness, $end->lightness, $count);
+        $this->o = $this->createVector($start->alpha, $end->alpha, $count);
     }
 
     protected function getColor(int $index): DColor

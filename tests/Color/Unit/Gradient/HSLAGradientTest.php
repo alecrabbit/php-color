@@ -11,7 +11,7 @@ use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Gradient\ColorRange;
 use AlecRabbit\Color\Gradient\HSLAGradient;
 use AlecRabbit\Color\HSLA;
-use AlecRabbit\Tests\TestCase\FactoryAwareTestCase;
+use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -29,6 +29,17 @@ final class HSLAGradientTest extends TestCase
                 [
                     HSLA::from('hsla(0, 0%, 0%, 0.0)'),
                     HSLA::from('hsla(360, 100%, 100%, 1.0)'),
+                    2
+                ],
+            ],
+            [
+                [
+                    HSLA::from('hsla(0, 0%, 0%, 0.0)'),
+                    HSLA::from('hsla(360, 100%, 100%, 1.0)'),
+                ],
+                [
+                    new DHSL(0, 0, 0, 0),
+                    new DHSL(1, 1, 1, 1),
                     2
                 ],
             ],
