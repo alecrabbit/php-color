@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Gradient\A;
 
-use AlecRabbit\Color\Contract\Gradient\IColorRange;
 use AlecRabbit\Color\Contract\Gradient\IGradient;
 use AlecRabbit\Color\Contract\Gradient\Vector\IVector;
 use AlecRabbit\Color\Contract\IColor;
@@ -39,22 +38,6 @@ abstract readonly class AGradient implements IGradient
         };
     }
 
-    /**
-     * @template T of DColor
-     *
-     * @param class-string<T> $type
-     *
-     * @psalm-return T
-     */
-    protected function dto(DColor|IColor|string $color, string $type): DColor
-    {
-        if (\is_a($color, $type, true)) {
-            return $color;
-        }
-
-        return $this->ensureColor($color)->to($type);
-    }
-
     /** @inheritDoc */
     public function unwrap(): Traversable
     {
@@ -69,21 +52,6 @@ abstract readonly class AGradient implements IGradient
     {
         return $this->createColor($this->refineIndex($index));
     }
-
-    protected function createVector(float $start, float $end, int $count): IVector
-    {
-        return new Vector(
-            $start,
-            $this->calculateStep($start, $end, $count),
-            $count
-        );
-    }
-
-    protected function calculateStep(float $start, float $end, ?int $count): float
-    {
-        return ($count === null || $count === 0) ? 0 : ($end - $start) / abs($count);
-    }
-
 
     protected function createColor(int $index): IColor
     {
@@ -104,8 +72,36 @@ abstract readonly class AGradient implements IGradient
         return $this->count;
     }
 
+    /**
+     * @template T of DColor
+     *
+     * @param class-string<T> $type
+     *
+     * @psalm-return T
+     */
+    protected function dto(DColor|IColor|string $color, string $type): DColor
+    {
+        if (\is_a($color, $type, true)) {
+            return $color;
+        }
+
+        return $this->ensureColor($color)->to($type);
+    }
+
     protected function ensureColor(DColor|IColor|string $color): IColor
     {
         return Color::from($color);
+    }
+
+    protected function createVector(float $start, float $end, int $count): IVector
+    {
+        $step = $this->calculateStep($start, $end, $count);
+
+        return new Vector($start, $step, $count);
+    }
+
+    protected function calculateStep(float $start, float $end, int $count): float
+    {
+        return  $count === 0 ? 0.0 : ($end - $start) / abs($count);
     }
 }
