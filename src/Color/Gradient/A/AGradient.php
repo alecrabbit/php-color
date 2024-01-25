@@ -97,7 +97,7 @@ abstract readonly class AGradient implements IGradient
     {
         $step = $this->calculateStep($start, $end, $count);
 
-        return new Vector($start, $step, $count);
+        return new Vector($start, $step);
     }
 
     protected function calculateStep(float $start, float $end, int $count): float

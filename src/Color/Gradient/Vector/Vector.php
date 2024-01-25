@@ -12,11 +12,14 @@ final readonly class Vector implements IVector
 {
     private const CALCULATION_PRECISION = 6;
 
+    public int|float $step;
+
     public function __construct(
         public int|float $x,
-        public int|float $step,
+        int|float $step,
         private int $precision = self::CALCULATION_PRECISION,
     ) {
+        $this->step = $this->round($step);
     }
 
     public function get(int|float $y = null): float
@@ -25,6 +28,11 @@ final readonly class Vector implements IVector
             ? $this->x
             : $this->x + $this->step * $y;
 
+        return $this->round($value);
+    }
+
+    protected function round(float|int $value): float
+    {
         return round($value, $this->precision);
     }
 }
