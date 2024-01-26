@@ -6,7 +6,8 @@ namespace AlecRabbit\Color\Model\DTO;
 
 abstract readonly class ABounded
 {
-    public static function bounded(float ...$values): static {
+    public static function bounded(float ...$values): static
+    {
         return new static(
             ...array_map(self::refineValue(...), $values),
         );

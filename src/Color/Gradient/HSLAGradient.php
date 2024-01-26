@@ -6,9 +6,7 @@ namespace AlecRabbit\Color\Gradient;
 
 use AlecRabbit\Color\Contract\Gradient\IColorRange;
 use AlecRabbit\Color\Contract\Gradient\Vector\IVector;
-use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Gradient\A\AGradient;
-use AlecRabbit\Color\Gradient\Vector\Vector;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\DTO\DHSL;
 

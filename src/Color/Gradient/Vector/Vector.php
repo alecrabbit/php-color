@@ -6,8 +6,6 @@ namespace AlecRabbit\Color\Gradient\Vector;
 
 use AlecRabbit\Color\Contract\Gradient\Vector\IVector;
 
-use function abs;
-
 final readonly class Vector implements IVector
 {
     private const CALCULATION_PRECISION = 6;
@@ -22,6 +20,11 @@ final readonly class Vector implements IVector
         $this->step = $this->round($step);
     }
 
+    private function round(float|int $value): float
+    {
+        return round($value, $this->precision);
+    }
+
     public function get(int|float $y = null): float
     {
         $value = $y === null
@@ -29,10 +32,5 @@ final readonly class Vector implements IVector
             : $this->x + $this->step * $y;
 
         return $this->round($value);
-    }
-
-    protected function round(float|int $value): float
-    {
-        return round($value, $this->precision);
     }
 }

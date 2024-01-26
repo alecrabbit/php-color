@@ -11,9 +11,6 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-use function is_float;
-use function is_int;
-
 final class VectorTest extends TestCase
 {
 

@@ -13,6 +13,8 @@ use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Util\Color;
 use Traversable;
 
+use function is_a;
+
 abstract readonly class AGradient implements IGradient
 {
     protected const MAX = 1000;
@@ -81,7 +83,7 @@ abstract readonly class AGradient implements IGradient
      */
     protected function dto(DColor|IColor|string $color, string $type): DColor
     {
-        if (\is_a($color, $type, true)) {
+        if (is_a($color, $type, true)) {
             return $color;
         }
 
@@ -102,6 +104,6 @@ abstract readonly class AGradient implements IGradient
 
     protected function calculateStep(float $start, float $end, int $count): float
     {
-        return  $count === 0 ? 0.0 : ($end - $start) / abs($count);
+        return $count === 0 ? 0.0 : ($end - $start) / abs($count);
     }
 }
