@@ -17,14 +17,37 @@ use function is_a;
 
 abstract readonly class AGradient implements IGradient
 {
-    protected const MAX = 1000;
     protected const MIN = 2;
 
-    public function __construct(
-        protected int $count,
-        protected int $max,
-    ) {
+    /** @inheritDoc */
+    public function unwrap(int $count): Traversable
+    {
+        for ($i = 0; $i < $count; $i++) {
+            yield $this->getOne($i, $count);
+        }
+    }
+
+    /** @inheritDoc */
+
+    public function getOne(int $index, int $count = 100): IColor
+    {
         $this->assertCount($count);
+
+        return $this->createColor($this->refineIndex($index, $count), $count);
+    }
+
+    protected function createColor(int $index, int $count): IColor
+    {
+        return Color::from(
+            $this->getColor($index, $count),
+        );
+    }
+
+    abstract protected function getColor(int $index, int $count): DColor|string;
+
+    protected function refineIndex(int $index, int $count): int
+    {
+        return max(0, min($index, $count - 1));
     }
 
     protected function assertCount(int $count): void
@@ -33,45 +56,8 @@ abstract readonly class AGradient implements IGradient
             $count < self::MIN => throw new InvalidArgument(
                 sprintf('Number of colors must be greater than %s.', self::MIN)
             ),
-            $count > $this->max => throw new InvalidArgument(
-                sprintf('Number of colors must be less than %s.', $this->max)
-            ),
             default => null,
         };
-    }
-
-    /** @inheritDoc */
-    public function unwrap(): Traversable
-    {
-        for ($i = 0; $i < $this->count; $i++) {
-            yield $this->getOne($i);
-        }
-    }
-
-    /** @inheritDoc */
-
-    public function getOne(int $index): IColor
-    {
-        return $this->createColor($this->refineIndex($index));
-    }
-
-    protected function createColor(int $index): IColor
-    {
-        return Color::from(
-            $this->getColor($index),
-        );
-    }
-
-    abstract protected function getColor(int $index): DColor|string;
-
-    protected function refineIndex(int $index): int
-    {
-        return max(0, min($index, $this->count - 1));
-    }
-
-    public function getCount(): int
-    {
-        return $this->count;
     }
 
     /**

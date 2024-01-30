@@ -253,17 +253,6 @@ final class HSLAGradientTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgument::class,
-                        self::MESSAGE => 'Number of colors must be less than 1000.',
-                    ],
-                ],
-                [
-                    self::ARGUMENTS => [1, '#000000', '#ffffff', 2000],
-                ],
-            ],
-            [
-                [
-                    self::EXCEPTION => [
-                        self::CLASS_ => InvalidArgument::class,
                         self::MESSAGE => 'Number of colors must be greater than 2.',
                     ],
                 ],
@@ -300,13 +289,9 @@ final class HSLAGradientTest extends TestCase
 
     private function getTesteeInstance(
         ?IColorRange $range = null,
-        ?int $count = null,
-        ?int $max = null,
     ): IGradient {
         return new HSLAGradient(
             range: $range ?? $this->getColorRange(),
-            count: $count ?? 2,
-            max: $max ?? 1000,
         );
     }
 
@@ -331,28 +316,12 @@ final class HSLAGradientTest extends TestCase
 
         $gradient = $this->getTesteeInstance(
             range: $colorRange,
-            count: $count,
         );
 
-        $result = iterator_to_array($gradient->unwrap());
+        $result = iterator_to_array($gradient->unwrap($count));
 
         self::assertEquals($expected, $result);
         self::assertCount($count, $result);
-        self::assertEquals($count, $gradient->getCount());
-    }
-
-    #[Test]
-    public function throwsIfGetOneCountGreaterThenMax(): void
-    {
-        $this->expectException(InvalidArgument::class);
-        $this->expectExceptionMessage('Number of colors must be less than 5.');
-
-        $gradient = $this->getTesteeInstance(
-            count: 6,
-            max: 5,
-        );
-
-        self::fail('Exception was not thrown.');
     }
 
     #[Test]
@@ -361,11 +330,9 @@ final class HSLAGradientTest extends TestCase
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage('Number of colors must be greater than 2.');
 
-        $gradient = $this->getTesteeInstance(
-            count: 1,
-        );
+        $gradient = $this->getTesteeInstance();
 
-        $gradient->getOne(1);
+        $gradient->getOne(1, 1);
 
         self::fail('Exception was not thrown.');
     }
@@ -390,12 +357,13 @@ final class HSLAGradientTest extends TestCase
             end: array_shift($args),
         );
 
+        $count = array_shift($args);
+
         $gradient = $this->getTesteeInstance(
             range: $colorRange,
-            count: array_shift($args),
         );
 
-        $result = $gradient->getOne($index);
+        $result = $gradient->getOne($index, $count);
 
         if ($expectedException) {
             self::fail(

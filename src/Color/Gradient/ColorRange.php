@@ -26,4 +26,14 @@ final readonly class ColorRange implements IColorRange
     {
         return $this->end;
     }
+
+    public function invert(): IColorRange
+    {
+        return new self($this->end, $this->start);
+    }
+
+    public function continueWith(IColor|DColor|string $to): IColorRange
+    {
+        return new self($this->end, $to);
+    }
 }

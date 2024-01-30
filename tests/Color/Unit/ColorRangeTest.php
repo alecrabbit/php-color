@@ -101,7 +101,6 @@ final class ColorRangeTest extends TestCase
 
         $range = $this->getTesteeInstance(...$args);
 
-
         if ($expectedException) {
             self::fail(
                 'Exception was not thrown.' . ' ' . $exceptionMessage
@@ -109,5 +108,15 @@ final class ColorRangeTest extends TestCase
         }
         self::assertEquals($expected[self::START], $range->getStart());
         self::assertEquals($expected[self::END], $range->getEnd());
+
+        $continued = $range->continueWith($expected[self::START]);
+
+        self::assertEquals($expected[self::START], $continued->getEnd());
+        self::assertEquals($expected[self::END], $continued->getStart());
+
+        $inverted = $range->invert();
+
+        self::assertEquals($expected[self::START], $inverted->getEnd());
+        self::assertEquals($expected[self::END], $inverted->getStart());
     }
 }

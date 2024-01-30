@@ -12,39 +12,25 @@ use AlecRabbit\Color\Model\DTO\DRGB;
 
 final readonly class RGBAGradient extends AGradient
 {
-    private IVector $r;
-    private IVector $g;
-    private IVector $b;
-    private IVector $o;
+    private DRGB $start;
+    private DRGB $end;
 
     public function __construct(
         IColorRange $range,
-        int $count = self::MIN,
-        int $max = self::MAX,
     ) {
-        parent::__construct(
-            count: $count,
-            max: $max,
-        );
-
-        $count = $this->count - 1;
-
-        $start = $this->dto($range->getStart(), DRGB::class);
-        $end = $this->dto($range->getEnd(), DRGB::class);
-
-        $this->r = $this->createVector($start->red, $end->red, $count);
-        $this->g = $this->createVector($start->green, $end->green, $count);
-        $this->b = $this->createVector($start->blue, $end->blue, $count);
-        $this->o = $this->createVector($start->alpha, $end->alpha, $count);
+        $this->start = $this->dto($range->getStart(), DRGB::class);
+        $this->end = $this->dto($range->getEnd(), DRGB::class);
     }
 
-    protected function getColor(int $index): DColor
+    protected function getColor(int $index, int $count): DColor
     {
+        $count--;
+
         return new DRGB(
-            red: $this->r->get($index),
-            green: $this->g->get($index),
-            blue: $this->b->get($index),
-            alpha: $this->o->get($index),
+            red: $this->createVector($this->start->red, $this->end->red, $count)->get($index),
+            green: $this->createVector($this->start->green, $this->end->green, $count)->get($index),
+            blue: $this->createVector($this->start->blue, $this->end->blue, $count)->get($index),
+            alpha: $this->createVector($this->start->alpha, $this->end->alpha, $count)->get($index),
         );
     }
 }
