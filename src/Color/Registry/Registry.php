@@ -12,6 +12,7 @@ use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\Contract\Converter\IDColorConverter;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
 use AlecRabbit\Color\Model\Contract\IColorModel;
+use AlecRabbit\Color\Model\Exception\UnsupportedModelConversion;
 use AlecRabbit\Color\Model\Store\ConverterStore as ModelConverterStore;
 use AlecRabbit\Color\Store\ConverterStore;
 use AlecRabbit\Color\Store\InstantiatorStore;
@@ -66,7 +67,7 @@ final class Registry implements IRegistry
     /** @inheritDoc */
     public function getModelConverter(IColorModel $from, IColorModel $to): IDColorConverter
     {
-        return (new ModelConverterStore())->getColorConverter($from, $to);
+        return (new ModelConverterStore())->getConverter($from, $to);
     }
 
     public function findInstantiator(mixed $value): ?IInstantiator
