@@ -4,8 +4,59 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0e8eb594ce5ce6d06b86a675d75541df",
-    "packages": [],
+    "content-hash": "29e3da56690a55cd02a61c0b697a1bcf",
+    "packages": [
+        {
+            "name": "alecrabbit/php-color-models",
+            "version": "1.0.0-ALPHA.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alecrabbit/php-color-models.git",
+                "reference": "0651a59de985e6833f23b3b6ad882ef2e120b4c0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alecrabbit/php-color-models/zipball/0651a59de985e6833f23b3b6ad882ef2e120b4c0",
+                "reference": "0651a59de985e6833f23b3b6ad882ef2e120b4c0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2"
+            },
+            "require-dev": {
+                "nunomaduro/collision": "*",
+                "phpunit/php-code-coverage": "*",
+                "phpunit/phpunit": "^10.0",
+                "symfony/console": "*",
+                "symfony/var-dumper": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/bootstrap.php"
+                ],
+                "psr-4": {
+                    "AlecRabbit\\Color\\": "src\\Color\\"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Package for color models",
+            "keywords": [
+                "color",
+                "convert",
+                "model",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/alecrabbit/php-color-models/issues",
+                "source": "https://github.com/alecrabbit/php-color-models/tree/1.0.0-ALPHA.0"
+            },
+            "time": "2024-02-01T12:38:39+00:00"
+        }
+    ],
     "packages-dev": [
         {
             "name": "filp/whoops",
@@ -2658,7 +2709,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "alecrabbit/php-color-models": 15
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

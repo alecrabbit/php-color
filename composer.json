@@ -10,7 +10,8 @@
         "convert"
     ],
     "require": {
-        "php": ">=8.2"
+        "php": ">=8.2",
+        "alecrabbit/php-color-models": "1.0.0-ALPHA.0"
     },
     "require-dev": {
         "nunomaduro/collision": "*",
@@ -25,8 +26,7 @@
             "AlecRabbit\\Color\\": "src\\Color\\"
         },
         "files": [
-            "src/bootstrap.php",
-            "src/Color/Model/bootstrap.php"
+            "src/bootstrap.php"
         ]
     },
     "autoload-dev": {
