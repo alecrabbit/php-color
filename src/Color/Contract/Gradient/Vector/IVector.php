@@ -6,5 +6,5 @@ namespace AlecRabbit\Color\Contract\Gradient\Vector;
 
 interface IVector
 {
-    public function get(int|float $y = null): float;
+    public function get(int|float $y): float;
 }

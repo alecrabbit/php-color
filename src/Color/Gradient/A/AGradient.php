@@ -36,6 +36,16 @@ abstract readonly class AGradient implements IGradient
         return $this->createColor($this->refineIndex($index, $count), $count);
     }
 
+    protected function assertCount(int $count): void
+    {
+        match (true) {
+            $count < self::MIN => throw new InvalidArgument(
+                sprintf('Number of colors must be greater than %s.', self::MIN)
+            ),
+            default => null,
+        };
+    }
+
     protected function createColor(int $index, int $count): IColor
     {
         return Color::from(
@@ -48,16 +58,6 @@ abstract readonly class AGradient implements IGradient
     protected function refineIndex(int $index, int $count): int
     {
         return max(0, min($index, $count - 1));
-    }
-
-    protected function assertCount(int $count): void
-    {
-        match (true) {
-            $count < self::MIN => throw new InvalidArgument(
-                sprintf('Number of colors must be greater than %s.', self::MIN)
-            ),
-            default => null,
-        };
     }
 
     /**

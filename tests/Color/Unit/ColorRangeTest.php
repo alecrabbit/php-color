@@ -109,14 +109,14 @@ final class ColorRangeTest extends TestCase
         self::assertEquals($expected[self::START], $range->getStart());
         self::assertEquals($expected[self::END], $range->getEnd());
 
-        $continued = $range->continueWith($expected[self::START]);
+        $continued = $range->extend($expected[self::START]);
 
         self::assertEquals($expected[self::START], $continued->getEnd());
         self::assertEquals($expected[self::END], $continued->getStart());
 
-        $inverted = $range->invert();
+        $flipped = $range->flip();
 
-        self::assertEquals($expected[self::START], $inverted->getEnd());
-        self::assertEquals($expected[self::END], $inverted->getStart());
+        self::assertEquals($expected[self::START], $flipped->getEnd());
+        self::assertEquals($expected[self::END], $flipped->getStart());
     }
 }

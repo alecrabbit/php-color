@@ -24,18 +24,18 @@ interface IColorRange
     public function getEnd(): DColor|IColor|string;
 
     /**
-     * Creates a new instance with inverted start and end colors.
+     * Creates a new instance with flipped start and end colors.
      *
-     * @return IColorRange The new color range with inverted colors.
+     * @return IColorRange The new color range with flipped colors.
      */
-    public function invert(): IColorRange;
+    public function flip(): IColorRange;
 
     /**
      * Creates a new instance with the start color from the previous end color
      * and the end color set to the provided color.
      *
-     * @param DColor|IColor|string $to The color to set as the end color.
-     * @return IColorRange The new color range with updated colors.
+     * @param DColor|IColor|string $color The color to set as the new end color.
+     * @return IColorRange The new color range instance with updated colors.
      */
-    public function continueWith(DColor|IColor|string $to): IColorRange;
+    public function extend(DColor|IColor|string $color): IColorRange;
 }

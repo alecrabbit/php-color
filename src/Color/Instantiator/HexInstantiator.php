@@ -176,6 +176,11 @@ class HexInstantiator extends AInstantiator
         return self::isNamedColor($value) || self::isHexString($value);
     }
 
+    protected static function normalizeName(string $color): string
+    {
+        return str_replace('-', '', $color);
+    }
+
     protected static function isNamedColor(string $color): bool
     {
         return array_key_exists($color, self::NAMED_COLORS);
@@ -184,11 +189,6 @@ class HexInstantiator extends AInstantiator
     protected static function isHexString(string $color): bool
     {
         return (bool)preg_match(self::REGEXP_HEX, $color);
-    }
-
-    protected static function normalizeName(string $color): string
-    {
-        return str_replace('-', '', $color);
     }
 
     /** @inheritDoc */

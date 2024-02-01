@@ -25,12 +25,8 @@ final readonly class Vector implements IVector
         return round($value, $this->precision);
     }
 
-    public function get(int|float $y = null): float
+    public function get(int|float $y): float
     {
-        $value = $y === null
-            ? $this->x
-            : $this->x + $this->step * $y;
-
-        return $this->round($value);
+        return $this->round($this->x + $this->step * $y);
     }
 }
