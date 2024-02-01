@@ -57,6 +57,7 @@ final class ChainConverterBuilder implements IChainConverterBuilder
      * @param iterable<class-string<IColorModel>> $conversionPath
      *
      * @return Traversable<class-string<IDColorConverter>>
+     * @throws UnsupportedModelConversion
      */
     private function getChainConvertersFromPath(iterable $conversionPath): Traversable
     {
@@ -77,6 +78,7 @@ final class ChainConverterBuilder implements IChainConverterBuilder
      * @param class-string<IColorModel> $model
      *
      * @return class-string<IDColorConverter>
+     * @throws UnsupportedModelConversion
      */
     private function getConverterClass(string $prev, string $model): string
     {
@@ -116,7 +118,7 @@ final class ChainConverterBuilder implements IChainConverterBuilder
     /**
      * @param class-string<IModelConverter> $converter
      */
-    private static function createKey(mixed $converter): string
+    private static function createKey(string $converter): string
     {
         return self::concatKey($converter::from()::class, $converter::to()::class);
     }
