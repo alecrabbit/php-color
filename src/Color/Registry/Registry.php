@@ -64,7 +64,7 @@ final class Registry implements IRegistry
     }
 
     /** @inheritDoc */
-    public function getColorConverter(IColorModel $from, IColorModel $to): IDColorConverter
+    public function getModelConverter(IColorModel $from, IColorModel $to): IDColorConverter
     {
         return (new ModelConverterStore())->getColorConverter($from, $to);
     }

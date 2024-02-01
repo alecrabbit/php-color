@@ -22,7 +22,7 @@ interface IRegistry
     /**
      * @throws UnsupportedColorConversion
      */
-    public function getColorConverter(IColorModel $from, IColorModel $to): IDColorConverter;
+    public function getModelConverter(IColorModel $from, IColorModel $to): IDColorConverter;
 
     /**
      * @template T of IColor
