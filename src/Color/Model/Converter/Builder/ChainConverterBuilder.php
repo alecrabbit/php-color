@@ -80,14 +80,7 @@ final class ChainConverterBuilder implements IChainConverterBuilder
      */
     private function getConverterClass(string $prev, string $model): string
     {
-        if (!isset($this->convertersCache)) {
-            $this->convertersCache = [];
-            foreach ($this->converters as $converter) {
-                if (is_subclass_of($converter, IModelConverter::class)) {
-                    $this->convertersCache[self::createKey($converter)] = $converter;
-                }
-            }
-        }
+        $this->ensureConvertersCache();
 
         /**
          * @var string $key
@@ -106,6 +99,18 @@ final class ChainConverterBuilder implements IChainConverterBuilder
                 $model,
             )
         );
+    }
+
+    private function ensureConvertersCache(): void
+    {
+        if (!isset($this->convertersCache)) {
+            $this->convertersCache = [];
+            foreach ($this->converters as $converter) {
+                if (is_subclass_of($converter, IModelConverter::class)) {
+                    $this->convertersCache[self::createKey($converter)] = $converter;
+                }
+            }
+        }
     }
 
     /**
