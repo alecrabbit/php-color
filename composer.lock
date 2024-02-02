@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b96c08c5e5cd234fce95493e66baa366",
+    "content-hash": "72e74fbf5771ebbe9bd08e0da4aa0e78",
     "packages": [
         {
             "name": "alecrabbit/php-color-models",
-            "version": "1.0.0-ALPHA.1",
+            "version": "dev-prepare-next",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alecrabbit/php-color-models.git",
-                "reference": "5030fed5f7782fcfa7fa9189a7c51e118385d042"
+                "reference": "d44de5f6466485a0997ccd801ef3b24abd21429e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alecrabbit/php-color-models/zipball/5030fed5f7782fcfa7fa9189a7c51e118385d042",
-                "reference": "5030fed5f7782fcfa7fa9189a7c51e118385d042",
+                "url": "https://api.github.com/repos/alecrabbit/php-color-models/zipball/d44de5f6466485a0997ccd801ef3b24abd21429e",
+                "reference": "d44de5f6466485a0997ccd801ef3b24abd21429e",
                 "shasum": ""
             },
             "require": {
@@ -33,10 +33,11 @@
             "type": "library",
             "autoload": {
                 "files": [
-                    "src/bootstrap.php"
+                    "src/Color/bootstrap.php"
                 ],
                 "psr-4": {
-                    "AlecRabbit\\Color\\": "src\\Color\\"
+                    "AlecRabbit\\Color\\": "src\\Color\\",
+                    "AlecRabbit\\Builder\\": "src\\Builder\\"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -52,9 +53,9 @@
             ],
             "support": {
                 "issues": "https://github.com/alecrabbit/php-color-models/issues",
-                "source": "https://github.com/alecrabbit/php-color-models/tree/1.0.0-ALPHA.1"
+                "source": "https://github.com/alecrabbit/php-color-models/tree/prepare-next"
             },
-            "time": "2024-02-01T12:58:36+00:00"
+            "time": "2024-02-02T11:44:16+00:00"
         }
     ],
     "packages-dev": [
@@ -2710,7 +2711,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "alecrabbit/php-color-models": 15
+        "alecrabbit/php-color-models": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -7,7 +7,7 @@ namespace AlecRabbit\Color\Contract;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Model\Contract\Converter\IDColorConverter;
+use AlecRabbit\Color\Model\Contract\Converter\IConverter;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Model\Exception\UnsupportedModelConversion;
@@ -22,7 +22,10 @@ interface IRegistry
     /**
      * @throws UnsupportedModelConversion
      */
-    public function getModelConverter(IColorModel $from, IColorModel $to): IDColorConverter;
+    public function getModelConverter(
+        IColorModel $from,
+        IColorModel $to
+    ): IConverter;
 
     /**
      * @template T of IColor

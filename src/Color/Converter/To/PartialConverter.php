@@ -7,7 +7,7 @@ namespace AlecRabbit\Color\Converter\To;
 use AlecRabbit\Color\Contract\Converter\IPartialConverter;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IRegistry;
-use AlecRabbit\Color\Model\Contract\Converter\IDColorConverter;
+use AlecRabbit\Color\Model\Contract\Converter\IConverter;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 
@@ -28,7 +28,7 @@ final readonly class PartialConverter implements IPartialConverter
     }
 
 
-    private function getModelConverter(IColorModel $from): IDColorConverter
+    private function getModelConverter(IColorModel $from): IConverter
     {
         return $this->registry->getModelConverter(
             from: $from,
