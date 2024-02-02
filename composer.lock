@@ -4,11 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "89ae190e44ae22d49d1f1a1f78c41465",
+    "content-hash": "157203d69fa558b70be1dec20ad6af5f",
     "packages": [
         {
             "name": "alecrabbit/php-color-models",
-            "version": "dev-1.x-dev",
+            "version": "1.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alecrabbit/php-color-models.git",
