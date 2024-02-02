@@ -11,7 +11,7 @@
     ],
     "require": {
         "php": ">=8.2",
-        "alecrabbit/php-color-models": "dev-prepare-next"
+        "alecrabbit/php-color-models": "1.x-dev"
     },
     "require-dev": {
         "nunomaduro/collision": "*",

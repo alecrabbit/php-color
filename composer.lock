@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "72e74fbf5771ebbe9bd08e0da4aa0e78",
+    "content-hash": "89ae190e44ae22d49d1f1a1f78c41465",
     "packages": [
         {
             "name": "alecrabbit/php-color-models",
-            "version": "dev-prepare-next",
+            "version": "dev-1.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alecrabbit/php-color-models.git",
-                "reference": "d44de5f6466485a0997ccd801ef3b24abd21429e"
+                "reference": "ed77bad11629b31a72456fbac67324841e1ae2dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alecrabbit/php-color-models/zipball/d44de5f6466485a0997ccd801ef3b24abd21429e",
-                "reference": "d44de5f6466485a0997ccd801ef3b24abd21429e",
+                "url": "https://api.github.com/repos/alecrabbit/php-color-models/zipball/ed77bad11629b31a72456fbac67324841e1ae2dd",
+                "reference": "ed77bad11629b31a72456fbac67324841e1ae2dd",
                 "shasum": ""
             },
             "require": {
@@ -55,7 +55,7 @@
                 "issues": "https://github.com/alecrabbit/php-color-models/issues",
                 "source": "https://github.com/alecrabbit/php-color-models/tree/prepare-next"
             },
-            "time": "2024-02-02T11:44:16+00:00"
+            "time": "2024-02-02T11:51:22+00:00"
         }
     ],
     "packages-dev": [
