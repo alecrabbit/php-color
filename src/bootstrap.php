@@ -10,6 +10,7 @@ use AlecRabbit\Color\Registry\Registry;
 
 Registry::attach(
     To\ToHexConverter::class,
+    To\ToAHexConverter::class,
     To\ToHex8Converter::class,
     To\ToRGBConverter::class,
     To\ToRGBAConverter::class,
