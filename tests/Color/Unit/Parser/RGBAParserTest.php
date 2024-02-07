@@ -8,12 +8,12 @@ use AlecRabbit\Color\Contract\Parser\IParser;
 use AlecRabbit\Color\Contract\Parser\IDRGBParser;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\DTO\DRGB;
-use AlecRabbit\Color\Parser\DRGBParser;
+use AlecRabbit\Color\Parser\RGBAParser;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-final class DRGBParserTest extends TestCase
+final class RGBAParserTest extends TestCase
 {
     public static function canParseDataProvider(): iterable
     {
@@ -33,6 +33,15 @@ final class DRGBParserTest extends TestCase
                 ],
                 'hsl(0 0% 0% / 0.5)',
             ],
+            [
+                [
+                    self::EXCEPTION => [
+                        self::CLASS_ => InvalidArgument::class,
+                        self::MESSAGE => 'Invalid color format: "#fff".',
+                    ],
+                ],
+                '#fff',
+            ],
         ];
     }
 
@@ -51,12 +60,12 @@ final class DRGBParserTest extends TestCase
         $parser = $this->getTesteeInstance();
 
         self::assertInstanceOf(IDRGBParser::class, $parser);
-        self::assertInstanceOf(DRGBParser::class, $parser);
+        self::assertInstanceOf(RGBAParser::class, $parser);
     }
 
     protected function getTesteeInstance(): IParser
     {
-        return new DRGBParser();
+        return new RGBAParser();
     }
 
     #[Test]

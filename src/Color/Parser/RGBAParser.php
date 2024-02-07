@@ -8,7 +8,7 @@ use AlecRabbit\Color\Contract\Parser\IDRGBParser;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\DTO\DRGB;
 
-final class DRGBParser implements IDRGBParser
+final class RGBAParser implements IDRGBParser
 {
     protected const REGEXP_RGBA = '/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)$/';
 
