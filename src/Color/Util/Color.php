@@ -50,7 +50,6 @@ final class Color implements IColorUtil
 
     private static function fromValue(mixed $value): IColor
     {
-        dump(static::class);
         return self::getRegistry()->getInstantiator($value)->from($value);
     }
 
