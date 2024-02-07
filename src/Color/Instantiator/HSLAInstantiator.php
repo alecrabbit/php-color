@@ -61,9 +61,9 @@ class HSLAInstantiator extends AInstantiator
         if (self::canInstantiateFromDTO($value)) {
             /** @var DHSL $value */
             return HSLA::fromHSLA(
-                (int)round($value->hue * 360),
-                $value->saturation,
-                $value->lightness,
+                (int)round($value->h * 360),
+                $value->s,
+                $value->l,
                 $value->alpha,
             );
         }

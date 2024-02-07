@@ -73,9 +73,9 @@ class HSL extends AColor implements IHSLColor
     protected function toDTO(): DColor
     {
         return new DHSL(
-            hue: round($this->getHue() / 360, self::CALC_PRECISION),
-            saturation: $this->getSaturation(),
-            lightness: $this->getLightness(),
+            h: round($this->getHue() / 360, self::CALC_PRECISION),
+            s: $this->getSaturation(),
+            l: $this->getLightness(),
             alpha: $this instanceof IHasOpacity ? $this->getOpacity() : 1.0,
         );
     }

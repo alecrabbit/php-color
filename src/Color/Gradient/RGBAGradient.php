@@ -26,9 +26,9 @@ final readonly class RGBAGradient extends AGradient
         $count--;
 
         return new DRGB(
-            red: $this->createVector($this->start->red, $this->end->red, $count)->get($index),
-            green: $this->createVector($this->start->green, $this->end->green, $count)->get($index),
-            blue: $this->createVector($this->start->blue, $this->end->blue, $count)->get($index),
+            r: $this->createVector($this->start->r, $this->end->r, $count)->get($index),
+            g: $this->createVector($this->start->g, $this->end->g, $count)->get($index),
+            b: $this->createVector($this->start->b, $this->end->b, $count)->get($index),
             alpha: $this->createVector($this->start->alpha, $this->end->alpha, $count)->get($index),
         );
     }

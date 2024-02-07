@@ -54,9 +54,9 @@ class Hex8Instantiator extends AInstantiator
         if (self::canInstantiateFromDTO($value)) {
             /** @var DRGB $value */
             return Hex8::fromRGBA(
-                (int)round($value->red * 0xFF),
-                (int)round($value->green * 0xFF),
-                (int)round($value->blue * 0xFF),
+                (int)round($value->r * 0xFF),
+                (int)round($value->g * 0xFF),
+                (int)round($value->b * 0xFF),
                 (int)round($value->alpha * 0xFF),
             );
         }

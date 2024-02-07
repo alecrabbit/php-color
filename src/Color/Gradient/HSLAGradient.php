@@ -26,9 +26,9 @@ final readonly class HSLAGradient extends AGradient
         $count--;
 
         return new DHSL(
-            hue: $this->createVector($this->start->hue, $this->end->hue, $count)->get($index),
-            saturation: $this->createVector($this->start->saturation, $this->end->saturation, $count)->get($index),
-            lightness: $this->createVector($this->start->lightness, $this->end->lightness, $count)->get($index),
+            h: $this->createVector($this->start->h, $this->end->h, $count)->get($index),
+            s: $this->createVector($this->start->s, $this->end->s, $count)->get($index),
+            l: $this->createVector($this->start->l, $this->end->l, $count)->get($index),
             alpha: $this->createVector($this->start->alpha, $this->end->alpha, $count)->get($index),
         );
     }

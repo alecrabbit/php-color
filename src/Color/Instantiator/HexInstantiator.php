@@ -228,9 +228,9 @@ class HexInstantiator extends AInstantiator
         if (self::canInstantiateFromDTO($value)) {
             /** @var DRGB $value */
             return Hex::fromRGB(
-                (int)round($value->red * 0xff),
-                (int)round($value->green * 0xff),
-                (int)round($value->blue * 0xff),
+                (int)round($value->r * 0xff),
+                (int)round($value->g * 0xff),
+                (int)round($value->b * 0xff),
             );
         }
 
