@@ -117,6 +117,7 @@ final class AHexTest extends TestCase
             [[0xff00ff, 0xff, 0x00, 0xff, 1.0, 0xff, '#ffff00ff'], ['#ff00ffff']],
             [[0x00ff00, 0x00, 0xff, 0x00, 1.0, 0xff, '#ff00ff00'], ['#00ff00ff']],
             [[0x0000ff, 0x00, 0x00, 0xff, 1.0, 0xff, '#ff0000ff'], ['#0000ffff']],
+            [[0x0000ff, 0x00, 0x00, 0xff, 0.0, 0x00, '#000000ff'], ['#0000ff00']],
             [[0x000000, 0x00, 0x00, 0x00, 1.0, 0xff, '#ff000000'], ['#000000ff']],
             [[0xffffff, 0xff, 0xff, 0xff, 1.0, 0xff, '#ffffffff'], ['ffffffff']],
             [[0xffffff, 0xff, 0xff, 0xff, 1.0, 0xff, '#ffffffff'], ['ffff']],
@@ -435,7 +436,7 @@ final class AHexTest extends TestCase
     #[DataProvider('canGetValue8DataProvider')]
     public function canGetValue8(array $expected, int $incoming): void
     {
-        $testee = AHex::fromInteger($incoming);
+        $testee = self::getTesteeFromInteger($incoming);
 
         self::assertSame($expected[self::VALUE], $testee->getValue());
         self::assertSame($expected[self::VALUE_8], $testee->getValue8());
@@ -455,7 +456,7 @@ final class AHexTest extends TestCase
     #[Test]
     public function canToDTO(): void
     {
-        $testee = self::getTesteeFromInteger8(0x00010203);
+        $testee = self::getTesteeFromInteger(0x00010203);
 
         $dto = $testee->to(DRGB::class);
 
@@ -464,11 +465,6 @@ final class AHexTest extends TestCase
         self::assertSame(0.007843, $dto->g);
         self::assertSame(0.011765, $dto->b);
         self::assertSame(0.0, $dto->alpha);
-    }
-
-    private static function getTesteeFromInteger8(int $value8): IAHexColor
-    {
-        return AHex::fromInteger($value8);
     }
 
     #[Test]

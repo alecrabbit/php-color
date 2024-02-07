@@ -25,7 +25,7 @@ abstract class AColor implements IColor
     public static function from(mixed $value): IColor
     {
         if (is_string($value) || $value instanceof DColor) {
-            $value = Color::from($value);
+            $value = self::instantiateColor($value);
         }
 
         if ($value instanceof IColor) {
@@ -40,6 +40,11 @@ abstract class AColor implements IColor
                 get_debug_type($value),
             ),
         );
+    }
+
+    protected static function instantiateColor(DColor|string $value): IColor
+    {
+        return Color::from($value);
     }
 
     /**
@@ -94,11 +99,16 @@ abstract class AColor implements IColor
     protected function doConvert(string $to): IColor|DColor
     {
         /** @var IToConverter<T> $converter */
-        $converter = Color::to($to);
+        $converter = $this->getConverter($to);
 
         return is_subclass_of($to, DColor::class)
             ? $converter->partialConvert($this)
             : $converter->convert($this);
+    }
+
+    protected function getConverter(string $to): IToConverter
+    {
+        return Color::to($to);
     }
 
     public function __toString(): string
