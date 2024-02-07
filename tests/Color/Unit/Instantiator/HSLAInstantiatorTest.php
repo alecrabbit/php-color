@@ -98,7 +98,7 @@ final class HSLAInstantiatorTest extends TestCase
     }
 
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $instantiator = $this->getTesteeInstance();
 
