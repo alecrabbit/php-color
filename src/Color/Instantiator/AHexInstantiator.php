@@ -46,7 +46,7 @@ class AHexInstantiator extends AInstantiator
             $hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2] . $hex[3] . $hex[3];
         }
 
-        return dump($hex);
+        return $hex;
     }
 
     protected function createFromDTO(DColor $value): ?IColor
