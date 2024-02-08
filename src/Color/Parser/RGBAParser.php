@@ -12,7 +12,7 @@ use AlecRabbit\Color\PrecisionAdjuster;
 
 final readonly class RGBAParser implements IDRGBParser
 {
-    protected const REGEXP_RGBA = '/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)$/';
+    private const REGEXP_RGBA = '/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)$/';
 
     public function __construct(
         private IPrecisionAdjuster $precision = new PrecisionAdjuster(),
