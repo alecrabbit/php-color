@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Instantiator;
 
-use AlecRabbit\Color\Contract\IColor;
-use AlecRabbit\Color\Contract\IAHexColor;
 use AlecRabbit\Color\AHex;
+use AlecRabbit\Color\Contract\IAHexColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Instantiator\A\AInstantiator;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\DTO\DRGB;

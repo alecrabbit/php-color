@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Converter\To;
 
+use AlecRabbit\Color\AHex;
 use AlecRabbit\Color\Contract\IAHexColor;
 use AlecRabbit\Color\Converter\To\A\AToConverter;
-use AlecRabbit\Color\AHex;
 use AlecRabbit\Color\Instantiator\AHexInstantiator;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Model\ModelRGB;

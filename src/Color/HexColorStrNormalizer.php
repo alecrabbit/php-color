@@ -20,7 +20,7 @@ final readonly class HexColorStrNormalizer implements IHexColorStrNormalizer
         }
 
         if ($len === 4) {
-            $v = $v[0] . $v[0] . $v[1] . $v[1] . $v[2] . $v[2]. $v[3] . $v[3];
+            $v = $v[0] . $v[0] . $v[1] . $v[1] . $v[2] . $v[2] . $v[3] . $v[3];
         }
 
         return $v;

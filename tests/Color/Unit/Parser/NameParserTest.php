@@ -68,12 +68,12 @@ final class NameParserTest extends TestCase
         yield from [
             [new DRGB(0.545098, 0, 0.545098), 'darkmagenta'],
             [new DRGB(0, 0, 1), 'blue'],
-            [new DRGB(0.627451,0.321569,0.176471), 'sienna'],
-            [new DRGB(0.254902,0.411765,0.882353), 'royalblue'],
-            [new DRGB(1.0,0.980392,0.980392), 'snow'],
-            [new DRGB(0.933333,0.509804,0.933333), 'violet'],
-            [new DRGB(0.603922,0.803922,0.196078), 'yellowgreen'],
-            [new DRGB(1,0.713725,0.756863), 'lightpink'],
+            [new DRGB(0.627451, 0.321569, 0.176471), 'sienna'],
+            [new DRGB(0.254902, 0.411765, 0.882353), 'royalblue'],
+            [new DRGB(1.0, 0.980392, 0.980392), 'snow'],
+            [new DRGB(0.933333, 0.509804, 0.933333), 'violet'],
+            [new DRGB(0.603922, 0.803922, 0.196078), 'yellowgreen'],
+            [new DRGB(1, 0.713725, 0.756863), 'lightpink'],
         ];
     }
 

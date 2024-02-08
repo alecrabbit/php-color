@@ -53,11 +53,11 @@ final class HEXAParserTest extends TestCase
             [new DRGB(0, 0, 0, 0), '(#0000)'],
             [new DRGB(0, 0, 0, 0.666667), '(#a000)'],
             [new DRGB(0, 0, 0, 0), '0000'],
-            [new DRGB(1,1,1,1), 'ffff'],
-            [new DRGB(1,1,1,1), '(ffff)'],
-            [new DRGB(1,1,1,1), '(#ffff)'],
+            [new DRGB(1, 1, 1, 1), 'ffff'],
+            [new DRGB(1, 1, 1, 1), '(ffff)'],
+            [new DRGB(1, 1, 1, 1), '(#ffff)'],
             [new DRGB(0.066667, 0.133333, 0.2, 0.266667), '11223344'],
-            [new DRGB(0.666667,0.733333,0.8,0.866667), '#abcd'],
+            [new DRGB(0.666667, 0.733333, 0.8, 0.866667), '#abcd'],
         ];
     }
 

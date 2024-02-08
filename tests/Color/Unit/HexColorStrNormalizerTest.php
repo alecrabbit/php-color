@@ -42,7 +42,7 @@ final class HexColorStrNormalizerTest extends TestCase
     {
         return new HexColorStrNormalizer();
     }
-    
+
     #[Test]
     #[DataProvider('canNormalizeDataProvider')]
     public function canNormalize(string $expected, string $input): void

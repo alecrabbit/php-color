@@ -6,6 +6,8 @@ namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\Contract\IPrecisionAdjuster;
 
+use function round;
+
 /**
  * @codeCoverageIgnore
  */
@@ -21,6 +23,6 @@ final readonly class PrecisionAdjuster implements IPrecisionAdjuster
 
     public function adjust(float $v): float
     {
-        return \round($v, $this->precision, $this->mode);
+        return round($v, $this->precision, $this->mode);
     }
 }

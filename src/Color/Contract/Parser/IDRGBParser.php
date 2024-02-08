@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Contract\Parser;
 
-use AlecRabbit\Color\Contract\Parser\IParser;
 use AlecRabbit\Color\Model\DTO\DRGB;
 
 interface IDRGBParser extends IParser

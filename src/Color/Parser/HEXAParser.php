@@ -12,6 +12,13 @@ use AlecRabbit\Color\HexColorStrNormalizer;
 use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\PrecisionAdjuster;
 
+use function hexdec;
+use function ltrim;
+use function preg_match;
+use function rtrim;
+use function sprintf;
+use function strlen;
+
 final readonly class HEXAParser implements IDRGBParser
 {
     private const REGEXP_HEXA = '/^\(?#?(?:[a-f\d]{3}|[a-f\d]{4}|[a-f\d]{6}|[a-f\d]{8})\)?$/i';
@@ -24,20 +31,17 @@ final readonly class HEXAParser implements IDRGBParser
 
     public function parse(string $value): DRGB
     {
-        if (\preg_match(self::REGEXP_HEXA, $value, $matches)) {
+        if (preg_match(self::REGEXP_HEXA, $value, $matches)) {
             $m = $this->removePrentheses((string)$matches[0]);
 
             $hex = $this->hex->normalize($m);
+            $auxNotation = $this->auxNotation($value);
 
-            if (\strlen($hex) === 6) {
-                if ($this->auxNotation($value)) {
-                    $hex = 'ff' . $hex;
-                } else {
-                    $hex .= 'ff';
-                }
+            if (strlen($hex) === 6) {
+                $hex = $auxNotation ? 'ff' . $hex : $hex . 'ff';
             }
 
-            if ($this->auxNotation($value)) {
+            if ($auxNotation) {
                 $hex = $hex[2] . $hex[3] . $hex[4] . $hex[5] . $hex[6] . $hex[7] . $hex[0] . $hex[1];
             }
 
@@ -47,19 +51,24 @@ final readonly class HEXAParser implements IDRGBParser
             $a = $hex[6] . $hex[7];
 
             return new DRGB(
-                $this->precision->adjust(\hexdec($r) / 255),
-                $this->precision->adjust(\hexdec($g) / 255),
-                $this->precision->adjust(\hexdec($b) / 255),
-                $this->precision->adjust(\hexdec($a) / 255),
+                $this->precision->adjust(hexdec($r) / 255),
+                $this->precision->adjust(hexdec($g) / 255),
+                $this->precision->adjust(hexdec($b) / 255),
+                $this->precision->adjust(hexdec($a) / 255),
             );
         }
 
         throw new InvalidArgument(
-            \sprintf(
+            sprintf(
                 'Invalid color format: "%s".',
                 $value,
             )
         );
+    }
+
+    private function removePrentheses(string $v): string
+    {
+        return ltrim(rtrim($v, ')'), '(');
     }
 
     protected function auxNotation(string $value): bool
@@ -70,10 +79,5 @@ final readonly class HEXAParser implements IDRGBParser
     public function isSupported(string $value): bool
     {
         return preg_match(self::REGEXP_HEXA, $value) === 1;
-    }
-
-    private function removePrentheses(string $v): string
-    {
-        return \ltrim(\rtrim($v, ')'), '(');
     }
 }

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Color\Unit\Parser;
 
-use AlecRabbit\Color\Contract\Parser\IParser;
 use AlecRabbit\Color\Contract\Parser\IDRGBParser;
+use AlecRabbit\Color\Contract\Parser\IParser;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Parser\RGBAParser;
@@ -52,7 +52,7 @@ final class RGBAParserTest extends TestCase
             [new DRGB(0, 0, 0, 0), 'rgba(0, 0, 0, 0)'],
             [new DRGB(1, 1, 1, 0), 'rgba(255, 255, 255, 0)'],
             [new DRGB(0.501961, 0.501961, 0.501961, 0.5), 'rgba(128, 128, 128, 0.5)'],
-            [new DRGB(0.12549,0.176471,0.305882, 0.78), 'rgb(32, 45, 78, 0.78)'],
+            [new DRGB(0.12549, 0.176471, 0.305882, 0.78), 'rgb(32, 45, 78, 0.78)'],
 //            [new DRGB(0.12549,0.176471,0.305882, 0.78), 'rgb(32 45 78 / 78%)'],
         ];
     }

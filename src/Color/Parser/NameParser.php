@@ -8,6 +8,8 @@ use AlecRabbit\Color\Contract\Parser\IDRGBParser;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\DTO\DRGB;
 
+use function sprintf;
+
 final readonly class NameParser implements IDRGBParser
 {
     private const NAMED_COLORS = [
@@ -172,7 +174,7 @@ final readonly class NameParser implements IDRGBParser
         }
 
         throw new InvalidArgument(
-            \sprintf(
+            sprintf(
                 'Invalid color format: "%s".',
                 $value,
             )

@@ -23,7 +23,7 @@ class AHex extends Hex implements IAHexColor
 
     public static function fromInteger(int $value): IAHexColor
     {
-    return new self($value & self::MAX_NO_ALPHA, ($value & self::ALPHA) >> 24);
+        return new self($value & self::MAX_NO_ALPHA, ($value & self::ALPHA) >> 24);
     }
 
     public function toString(): string
