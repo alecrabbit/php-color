@@ -12,7 +12,7 @@ use AlecRabbit\Color\PrecisionAdjuster;
 
 final readonly class HSLAParser implements IDHSLParser
 {
-    private const REGEXP_HSLA = '/^hsla?\((\d+)(?:,\s*|\s*)(\d+)%(?:,\s*|\s*)(\d+)%(?:(?:,\s*|\s*\/\s*)(([\d.]+)|(\d.+%)))?\)$/';
+    private const REGEXP_HSLA = '/^hsla?\((\d+(\.\d+)?%?)(?:,\s*|\s*)(\d+(\.\d+)?%?)(?:,\s*|\s*)(\d+(\.\d+)?%?)(?:(?:,\s*|\s*\/\s*)(\d+(\.\d+)?%?))?\)$/';
 
     public function __construct(
         private IPrecisionAdjuster $precision = new PrecisionAdjuster(),
@@ -23,14 +23,10 @@ final readonly class HSLAParser implements IDHSLParser
     {
         if (preg_match(self::REGEXP_HSLA, $value, $matches)) {
             return new DHSL(
-                $this->precision->adjust((int)$matches[1] / 360),
-                $this->precision->adjust((int)$matches[2] / 100),
-                $this->precision->adjust((int)$matches[3] / 100),
-                $this->precision->adjust(
-                    isset($matches[4])
-                        ? $this->extractValue((string)$matches[4])
-                        : 1.0
-                ),
+                $this->precision->adjust($this->extractValue((string)$matches[1], 360)),
+                $this->precision->adjust($this->extractValue((string)$matches[3])),
+                $this->precision->adjust($this->extractValue((string)$matches[5])),
+                $this->precision->adjust($this->extractValue((string)($matches[7] ?? '1'))),
             );
         }
 
@@ -42,13 +38,13 @@ final readonly class HSLAParser implements IDHSLParser
         );
     }
 
-    private function extractValue(string $value): float
+    private function extractValue(string $value, float $div = 1): float
     {
-        if (str_contains($value, '%')) {
+        if (str_ends_with($value, '%')) {
             return (float)$value / 100;
         }
 
-        return (float)$value;
+        return (float)$value / $div;
     }
 
     public function isSupported(string $value): bool
