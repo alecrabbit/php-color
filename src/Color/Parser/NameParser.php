@@ -170,7 +170,7 @@ final readonly class NameParser implements IDRGBParser
     public function parse(string $value): DRGB
     {
         if ($this->isSupported($value)) {
-            return $this->hex->parse(self::NAMED_COLORS[$value]);
+            return $this->createDRGB($value);
         }
 
         throw new InvalidArgument(
@@ -183,11 +183,18 @@ final readonly class NameParser implements IDRGBParser
 
     public function isSupported(string $value): bool
     {
-        return self::isNamedColor($value);
+        return array_key_exists($value, self::NAMED_COLORS);
     }
 
-    private static function isNamedColor(string $color): bool
+    private function getHexColorString(string $value): string
     {
-        return array_key_exists($color, self::NAMED_COLORS);
+        return self::NAMED_COLORS[$value];
+    }
+
+    private function createDRGB(string $value): DRGB
+    {
+        return $this->hex->parse(
+            $this->getHexColorString($value)
+        );
     }
 }
