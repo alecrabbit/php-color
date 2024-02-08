@@ -9,6 +9,10 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
+/**
+ * This test does not test any package class.
+ * It is used to test regular expression pattern.
+ */
 final class RegExpTest extends TestCase
 {
     private const REGEXP_PATTERN = '/^hsla?\((\d+(\.\d+)?%?)(?:,\s*|\s*)(\d+(\.\d+)?%?)(?:,\s*|\s*)(\d+(\.\d+)?%?)(?:(?:,\s*|\s*\/\s*)(\d+(\.\d+)?%?))?\)$/';
