@@ -34,7 +34,7 @@ final readonly class HEXAParser implements IDRGBParser
         if (preg_match(self::REGEXP_HEXA, $value, $matches)) {
             $hex = $this->normalize(
                 $this->removeParentheses((string)$matches[0]),
-                $this->auxNotation($value),
+                $this->isAuxNotation($value),
             );
 
             return $this->createDRGB($hex);
@@ -68,7 +68,7 @@ final readonly class HEXAParser implements IDRGBParser
         return ltrim(rtrim($v, ')'), '(');
     }
 
-    private function auxNotation(string $value): bool
+    private function isAuxNotation(string $value): bool
     {
         return str_starts_with($value, '(');
     }
