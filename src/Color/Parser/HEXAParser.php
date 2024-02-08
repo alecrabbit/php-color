@@ -32,30 +32,12 @@ final readonly class HEXAParser implements IDRGBParser
     public function parse(string $value): DRGB
     {
         if (preg_match(self::REGEXP_HEXA, $value, $matches)) {
-            $m = $this->removePrentheses((string)$matches[0]);
-
-            $hex = $this->hex->normalize($m);
-            $auxNotation = $this->auxNotation($value);
-
-            if (strlen($hex) === 6) {
-                $hex = $auxNotation ? 'ff' . $hex : $hex . 'ff';
-            }
-
-            if ($auxNotation) {
-                $hex = $hex[2] . $hex[3] . $hex[4] . $hex[5] . $hex[6] . $hex[7] . $hex[0] . $hex[1];
-            }
-
-            $r = $hex[0] . $hex[1];
-            $g = $hex[2] . $hex[3];
-            $b = $hex[4] . $hex[5];
-            $a = $hex[6] . $hex[7];
-
-            return new DRGB(
-                $this->precision->adjust(hexdec($r) / 255),
-                $this->precision->adjust(hexdec($g) / 255),
-                $this->precision->adjust(hexdec($b) / 255),
-                $this->precision->adjust(hexdec($a) / 255),
+            $hex = $this->normalize(
+                $this->removeParentheses((string)$matches[0]),
+                $this->auxNotation($value),
             );
+
+            return $this->createDRGB($hex);
         }
 
         throw new InvalidArgument(
@@ -66,14 +48,44 @@ final readonly class HEXAParser implements IDRGBParser
         );
     }
 
-    private function removePrentheses(string $v): string
+    private function normalize(string $matches, bool $swapAlpha): string
+    {
+        $hex = $this->hex->normalize($matches);
+
+        if (strlen($hex) === 6) {
+            $hex = $swapAlpha ? 'ff' . $hex : $hex . 'ff';
+        }
+
+        if ($swapAlpha) {
+            $hex = $hex[2] . $hex[3] . $hex[4] . $hex[5] . $hex[6] . $hex[7] . $hex[0] . $hex[1];
+        }
+
+        return $hex;
+    }
+
+    private function removeParentheses(string $v): string
     {
         return ltrim(rtrim($v, ')'), '(');
     }
 
-    protected function auxNotation(string $value): bool
+    private function auxNotation(string $value): bool
     {
         return str_starts_with($value, '(');
+    }
+
+    private function createDRGB(string $hex): DRGB
+    {
+        $r = hexdec($hex[0] . $hex[1]) / 255;
+        $g = hexdec($hex[2] . $hex[3]) / 255;
+        $b = hexdec($hex[4] . $hex[5]) / 255;
+        $a = hexdec($hex[6] . $hex[7]) / 255;
+
+        return new DRGB(
+            $this->precision->adjust($r),
+            $this->precision->adjust($g),
+            $this->precision->adjust($b),
+            $this->precision->adjust($a),
+        );
     }
 
     public function isSupported(string $value): bool
