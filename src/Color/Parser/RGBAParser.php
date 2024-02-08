@@ -12,7 +12,7 @@ use AlecRabbit\Color\PrecisionAdjuster;
 
 final readonly class RGBAParser implements IDRGBParser
 {
-    private const REGEXP_RGBA = '/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)$/';
+    private const REGEXP_RGBA = '/^rgba?\((\d+(\.\d+)?%?)(?:,\s*|\s*)(\d+(\.\d+)?%?)(?:,\s*|\s*)(\d+(\.\d+)?%?)(?:(?:,\s*|\s*\/\s*)(\d+(\.\d+)?%?))?\)$/';
 
     public function __construct(
         private IPrecisionAdjuster $precision = new PrecisionAdjuster(),
@@ -23,10 +23,11 @@ final readonly class RGBAParser implements IDRGBParser
     {
         if (preg_match(self::REGEXP_RGBA, $value, $matches)) {
             return new DRGB(
-                $this->precision->adjust((int)$matches[1] / 255),
-                $this->precision->adjust((int)$matches[2] / 255),
-                $this->precision->adjust((int)$matches[3] / 255),
-                $this->precision->adjust(isset($matches[4]) ? (float)$matches[4] : 1.0),
+                $this->precision->adjust($this->extractValue((string)$matches[1], 255)),
+                $this->precision->adjust($this->extractValue((string)$matches[3], 255)),
+                $this->precision->adjust($this->extractValue((string)$matches[5], 255)),
+                $this->precision->adjust($this->extractValue((string)($matches[7] ?? '1'))),
+
             );
         }
 
@@ -38,6 +39,14 @@ final readonly class RGBAParser implements IDRGBParser
         );
     }
 
+    private function extractValue(string $value, float $div = 1): float
+    {
+        if (str_ends_with($value, '%')) {
+            return (float)$value / 100;
+        }
+
+        return (float)$value / $div;
+    }
     public function isSupported(string $value): bool
     {
         return
