@@ -15,9 +15,7 @@ use PHPUnit\Framework\Attributes\Test;
  */
 final class RegExpTest extends TestCase
 {
-    private const REGEXP_PATTERN = '/^hsla?\((\d+(\.\d+)?%?)(?:,\s*|\s*)(\d+(\.\d+)?%?)(?:,\s*|\s*)(\d+(\.\d+)?%?)(?:(?:,\s*|\s*\/\s*)(\d+(\.\d+)?%?))?\)$/';
-
-    public static function validateRegexpDataProvider(): iterable
+    public static function hslaRegExpDataFeeder(): iterable
     {
         yield from        [
             [['150', '3.5%', '60%', '80%'], 'hsla(150 3.5% 60% / 80%)',],
@@ -35,11 +33,47 @@ final class RegExpTest extends TestCase
         ];
     }
 
+    public static function rgbaRegExpDataFeeder(): iterable
+    {
+        yield from        [
+            [['150', '3.5%', '60%', '80%'], 'rgba(150 3.5% 60% / 80%)',],
+            [['145.12', '13.5%', '22.3%', '1.0'], 'rgb(145.12, 13.5%, 22.3%)',],
+            [['145.12', '13.5%', '22.3%', '0.5'], 'rgb(145.12, 13.5%, 22.3% / 0.5)',],
+            [['188', '18%', '24%', '0.5',], 'rgba(188 18% 24% / 0.5)',],
+            [['188', '18%', '24%', '0.5',], 'rgba(188, 18%, 24% / 0.5)',],
+            [['188.0', '18%', '24%', '0.5',], 'rgb(188.0 18% 24% / 0.5)',],
+            [['145.12', '13.5%', '22%', '0.5',], 'rgba(145.12 13.5% 22% / 0.5)',],
+            [['145.12', '13.5%', '22.3%', '1',], 'rgba(145.12 13.5% 22.3% / 1)',],
+            [['145.12', '0%', '22.3%', '12.2%',], 'rgb(145.12 0% 22.3% / 12.2%)',],
+            [['145.12', '13.5%', '22.3%', '0.5',], 'rgba(145.12, 13.5%, 22.3% / 0.5)',],
+            [['145.12', '13.5%', '22.3%', '100%',], 'rgba(145.12 13.5% 22.3% / 100%)',],
+            [['145.12', '13.5%', '22.3%', '100%',], 'rgba(145.12, 13.5%, 22.3%, 100%)',],
+        ];
+    }
+
+    public static function validateRegexpDataProvider(): iterable
+    {
+        foreach (self::hslaRegExpDataFeeder() as $item) {
+            yield [
+                '/^hsla?\((\d+(\.\d+)?%?)(?:,\s*|\s*)(\d+(\.\d+)?%?)(?:,\s*|\s*)(\d+(\.\d+)?%?)(?:(?:,\s*|\s*\/\s*)(\d+(\.\d+)?%?))?\)$/',
+                $item[0],
+                $item[1],
+            ];
+        }
+        foreach (self::rgbaRegExpDataFeeder() as $item) {
+            yield [
+                '/^rgba?\((\d+(\.\d+)?%?)(?:,\s*|\s*)(\d+(\.\d+)?%?)(?:,\s*|\s*)(\d+(\.\d+)?%?)(?:(?:,\s*|\s*\/\s*)(\d+(\.\d+)?%?))?\)$/',
+                $item[0],
+                $item[1],
+            ];
+        }
+    }
+
     #[Test]
     #[DataProvider('validateRegexpDataProvider')]
-    public function validateRegexp(array $expected, string $input): void
+    public function validateRegexp(string $pattern ,array $expected, string $input): void
     {
-        preg_match(self::REGEXP_PATTERN, $input, $matches);
+        preg_match($pattern, $input, $matches);
 
         $result = [
             $matches[1],
