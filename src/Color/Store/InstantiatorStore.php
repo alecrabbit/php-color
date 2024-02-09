@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Store;
 
-use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Contract\Store\IInstantiatorStore;
 use AlecRabbit\Color\Exception\InvalidArgument;
@@ -18,29 +17,15 @@ final class InstantiatorStore implements IInstantiatorStore
     protected static array $registered = [];
 
     /**
-     * @param class-string<IColor> $targetClass
      * @param class-string<IInstantiator> $instantiatorClass
      */
-    public static function register(string $targetClass, string $instantiatorClass): void
+    public static function register(string $instantiatorClass): void
     {
-        self::assertTargetClass($targetClass);
         self::assertClass($instantiatorClass);
 
-        self::$registered[$targetClass] = $instantiatorClass;
+        self::$registered[] = $instantiatorClass;
     }
 
-    protected static function assertTargetClass(string $class): void
-    {
-        if (!is_subclass_of($class, IColor::class)) {
-            throw new InvalidArgument(
-                sprintf(
-                    'Target class "%s" is not a "%s" subclass.',
-                    $class,
-                    IColor::class
-                )
-            );
-        }
-    }
 
     protected static function assertClass(string $class): void
     {

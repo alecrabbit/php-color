@@ -28,6 +28,7 @@ final class Registry implements IRegistry
             match (true) {
                 is_subclass_of($class, IModelConverter::class) => self::attachModelConverter($class),
                 is_subclass_of($class, IToConverter::class) => self::attachToConverter($class),
+                is_subclass_of($class, IInstantiator::class) => self::attachInstantiator($class),
                 default => throw new InvalidArgument(sprintf('Invalid class "%s".', $class)),
             };
         }
@@ -43,10 +44,11 @@ final class Registry implements IRegistry
     private static function attachToConverter(string $class): void
     {
         ConverterStore::register($class);
-        /** @var class-string<IColor> $target */
-        foreach ($class::getTargets() as $target) {
-            InstantiatorStore::register($target, $class::getInstantiatorClass());
-        }
+    }
+
+    private static function attachInstantiator(string $class): void
+    {
+        InstantiatorStore::register($class);
     }
 
     /**

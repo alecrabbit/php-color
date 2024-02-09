@@ -6,7 +6,6 @@ namespace AlecRabbit\Tests\Color\Functional\Instantiator;
 
 use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
-use AlecRabbit\Color\Exception\UnrecognizedColorString;
 use AlecRabbit\Color\Exception\UnsupportedValue;
 use AlecRabbit\Color\Instantiator\HSLAInstantiator;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
@@ -22,7 +21,7 @@ final class HSLAInstantiatorTest extends TestCase
     {
         yield from [
             // [[(int)h, (float)s, (float)l]expected, (string)incoming]
-            [ new DRGB(0, 0, 0)],
+            [new DRGB(0, 0, 0)],
         ];
     }
 

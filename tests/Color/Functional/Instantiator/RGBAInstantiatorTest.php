@@ -6,8 +6,6 @@ namespace AlecRabbit\Tests\Color\Functional\Instantiator;
 
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Contract\IRGBAColor;
-use AlecRabbit\Color\Contract\IRGBColor;
-use AlecRabbit\Color\Exception\UnrecognizedColorString;
 use AlecRabbit\Color\Exception\UnsupportedValue;
 use AlecRabbit\Color\Instantiator\RGBAInstantiator;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit\Instantiator;
 
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
-use AlecRabbit\Color\Exception\UnrecognizedColorString;
 use AlecRabbit\Color\Exception\UnsupportedValue;
 use AlecRabbit\Color\HSLA;
 use AlecRabbit\Color\Instantiator\HSLAInstantiator;

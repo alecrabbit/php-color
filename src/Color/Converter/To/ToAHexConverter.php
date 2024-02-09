@@ -6,8 +6,9 @@ namespace AlecRabbit\Color\Converter\To;
 
 use AlecRabbit\Color\AHex;
 use AlecRabbit\Color\Contract\IAHexColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Converter\To\A\AToConverter;
-use AlecRabbit\Color\Instantiator\AHexInstantiator;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Model\ModelRGB;
 use ArrayObject;
@@ -23,13 +24,13 @@ final class ToAHexConverter extends AToConverter
         return new ArrayObject([AHex::class, IAHexColor::class]);
     }
 
-    public static function getInstantiatorClass(): string
-    {
-        return AHexInstantiator::class;
-    }
-
     public function getTargetColorModel(): IColorModel
     {
         return new ModelRGB();
+    }
+
+    protected function getInstance(DColor $dto): IColor
+    {
+        return AHex::from($dto);
     }
 }

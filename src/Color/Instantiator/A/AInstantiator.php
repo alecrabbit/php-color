@@ -10,7 +10,6 @@ use AlecRabbit\Color\Exception\UnrecognizedColorString;
 use AlecRabbit\Color\Exception\UnsupportedValue;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 
-use function is_string;
 use function strtolower;
 use function trim;
 
@@ -39,11 +38,6 @@ abstract class AInstantiator implements IInstantiator
     public static function isSupported(mixed $value): bool
     {
         return static::canInstantiate($value);
-    }
-
-    protected static function normalizeString(string $value): string
-    {
-        return strtolower(trim($value));
     }
 
     protected static function canInstantiate(mixed $color): bool
@@ -108,6 +102,11 @@ abstract class AInstantiator implements IInstantiator
                     $value
                 )
             );
+    }
+
+    protected static function normalizeString(string $value): string
+    {
+        return strtolower(trim($value));
     }
 
     /**

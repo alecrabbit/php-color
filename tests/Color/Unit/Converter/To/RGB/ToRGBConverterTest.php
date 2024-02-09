@@ -59,7 +59,7 @@ final class ToRGBConverterTest extends TestCase
             ->method('getColorModel')
             ->willReturn($modelFrom);
 
-         $incoming
+        $incoming
             ->expects(self::once())
             ->method('dto')
             ->willReturn($dtoFrom);

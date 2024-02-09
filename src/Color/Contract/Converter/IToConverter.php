@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Contract\Converter;
 
 use AlecRabbit\Color\Contract\IColor;
-use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use Traversable;
 
@@ -20,11 +19,6 @@ interface IToConverter extends IColorConverter
      * @return Traversable<class-string<T>>
      */
     public static function getTargets(): Traversable;
-
-    /**
-     * @return class-string<IInstantiator>
-     */
-    public static function getInstantiatorClass(): string;
 
     /**
      * @psalm-return T

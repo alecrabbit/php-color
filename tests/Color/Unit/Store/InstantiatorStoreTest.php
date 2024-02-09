@@ -73,7 +73,7 @@ final class InstantiatorStoreTest extends TestCase
             )
         );
 
-        InstantiatorStore::register(IRGBColor::class, $class);
+        InstantiatorStore::register($class);
 
         self::fail('Exception was not thrown.');
     }

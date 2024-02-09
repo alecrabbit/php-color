@@ -8,7 +8,6 @@ use AlecRabbit\Color\Contract\Parser\IDHSLParser;
 use AlecRabbit\Color\Contract\Service\IFloatExtractor;
 use AlecRabbit\Color\Contract\Service\IPrecisionAdjuster;
 use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Service\FloatExtractor;
 use AlecRabbit\Color\Service\PrecisionAdjuster;

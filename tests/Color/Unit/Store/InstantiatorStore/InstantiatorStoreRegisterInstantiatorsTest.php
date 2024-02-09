@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Color\Unit\Store\InstantiatorStore;
 
 use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Exception\InvalidArgument;
+use AlecRabbit\Color\Instantiator\RGBAInstantiator;
 use AlecRabbit\Color\Instantiator\RGBInstantiator;
 use AlecRabbit\Color\RGB;
 use AlecRabbit\Color\Store\InstantiatorStore;
@@ -22,9 +23,9 @@ final class InstantiatorStoreRegisterInstantiatorsTest extends TestCase
     {
         self::assertEmpty($this->getRegisteredInstantiators());
 
-        InstantiatorStore::register(IRGBColor::class, RGBInstantiator::class);
+        InstantiatorStore::register(RGBAInstantiator::class);
 
-        self::assertContains(RGBInstantiator::class, $this->getRegisteredInstantiators());
+        self::assertContains(RGBAInstantiator::class, $this->getRegisteredInstantiators());
     }
 
     protected function getRegisteredInstantiators(): array

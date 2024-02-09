@@ -70,7 +70,7 @@ final class ToHSLConverterTest extends TestCase
             ->method('getColorModel')
             ->willReturn($modelFrom);
 
-         $incoming
+        $incoming
             ->expects(self::once())
             ->method('dto')
             ->willReturn($dtoFrom);

@@ -11,6 +11,8 @@ use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Registry\Registry;
 use AlecRabbit\Color\Util\Contract\IColorUtility;
 
+use function is_string;
+
 /**
  * Utility class for convenient color instantiation.
  */
@@ -52,7 +54,7 @@ final class Color implements IColorUtility
     {
         $registry = self::getRegistry();
 
-        if (\is_string($value)) {
+        if (is_string($value)) {
             $value = $registry->findParser($value)?->tryParse($value);
         }
 

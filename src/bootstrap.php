@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 
 use AlecRabbit\Color\Converter;
+use AlecRabbit\Color\Instantiator;
 use AlecRabbit\Color\Parser;
 use AlecRabbit\Color\Registry\Registry;
 use AlecRabbit\Color\Store\ParserStore;
@@ -18,6 +19,8 @@ Registry::attach(
     Converter\To\ToRGBAConverter::class,
     Converter\To\ToHSLConverter::class,
     Converter\To\ToHSLAConverter::class,
+    Instantiator\RGBAInstantiator::class,
+    Instantiator\HSLAInstantiator::class,
 );
 
 ParserStore::register(Parser\RGBAParser::class);
