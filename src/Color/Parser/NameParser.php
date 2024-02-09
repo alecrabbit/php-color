@@ -181,9 +181,12 @@ final readonly class NameParser implements IDRGBParser
         );
     }
 
-    public function isSupported(string $value): bool
+    public function isSupported(mixed $value): bool
     {
-        return array_key_exists($value, self::NAMED_COLORS);
+        return match (true) {
+            is_string($value) => $this->isNamedColor($value),
+            default => false,
+        };
     }
 
     private function getHexColorString(string $value): string
@@ -196,5 +199,10 @@ final readonly class NameParser implements IDRGBParser
         return $this->hex->parse(
             $this->getHexColorString($value)
         );
+    }
+
+    private function isNamedColor(string $value): bool
+    {
+        return array_key_exists($value, self::NAMED_COLORS);
     }
 }

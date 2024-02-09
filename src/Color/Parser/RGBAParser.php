@@ -47,10 +47,12 @@ final readonly class RGBAParser implements IDRGBParser
 
         return (float)$value / $div;
     }
-    public function isSupported(string $value): bool
+    public function isSupported(mixed $value): bool
     {
-        return
-            str_starts_with($value, 'rgb(') ||
-            str_starts_with($value, 'rgba(');
+        return match (true) {
+            is_string($value) => str_starts_with($value, 'rgb(') ||
+                str_starts_with($value, 'rgba('),
+            default => false,
+        };
     }
 }

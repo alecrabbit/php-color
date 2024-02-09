@@ -88,8 +88,11 @@ final readonly class HEXAParser implements IDRGBParser
         );
     }
 
-    public function isSupported(string $value): bool
+    public function isSupported(mixed $value): bool
     {
-        return preg_match(self::REGEXP_HEXA, $value) === 1;
+        return match (true) {
+            is_string($value) => preg_match(self::REGEXP_HEXA, $value) === 1,
+            default => false,
+        };
     }
 }

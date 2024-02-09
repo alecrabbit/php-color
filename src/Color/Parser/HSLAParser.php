@@ -47,10 +47,12 @@ final readonly class HSLAParser implements IDHSLParser
         return (float)$value / $div;
     }
 
-    public function isSupported(string $value): bool
+    public function isSupported(mixed $value): bool
     {
-        return
-            str_starts_with($value, 'hsl(') ||
-            str_starts_with($value, 'hsla(');
+        return match (true) {
+            is_string($value) => str_starts_with($value, 'hsl(') ||
+                str_starts_with($value, 'hsla('),
+            default => false,
+        };
     }
 }

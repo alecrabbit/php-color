@@ -3,19 +3,26 @@
 declare(strict_types=1);
 
 
-use AlecRabbit\Color\Converter\To;
+use AlecRabbit\Color\Converter;
+use AlecRabbit\Color\Parser;
 use AlecRabbit\Color\Registry\Registry;
+use AlecRabbit\Color\Store\ParserStore;
 
 // @codeCoverageIgnoreStart
 
 Registry::attach(
-    To\ToHexConverter::class,
-    To\ToAHexConverter::class,
-    To\ToHex8Converter::class,
-    To\ToRGBConverter::class,
-    To\ToRGBAConverter::class,
-    To\ToHSLConverter::class,
-    To\ToHSLAConverter::class,
+    Converter\To\ToHexConverter::class,
+    Converter\To\ToAHexConverter::class,
+    Converter\To\ToHex8Converter::class,
+    Converter\To\ToRGBConverter::class,
+    Converter\To\ToRGBAConverter::class,
+    Converter\To\ToHSLConverter::class,
+    Converter\To\ToHSLAConverter::class,
 );
+
+ParserStore::register(Parser\RGBAParser::class);
+ParserStore::register(Parser\HEXAParser::class);
+ParserStore::register(Parser\HSLAParser::class);
+ParserStore::register(Parser\NameParser::class);
 
 // @codeCoverageIgnoreEnd
