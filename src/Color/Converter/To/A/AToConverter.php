@@ -45,5 +45,8 @@ abstract class AToConverter implements IToConverter
      */
     abstract public function getTargetColorModel(): IColorModel;
 
+    /**
+     * @psalm-return T
+     */
     abstract protected function getInstance(DColor $dto): IColor;
 }

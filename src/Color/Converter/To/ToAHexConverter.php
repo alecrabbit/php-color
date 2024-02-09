@@ -29,6 +29,7 @@ final class ToAHexConverter extends AToConverter
         return new ModelRGB();
     }
 
+    /** @inheritDoc */
     protected function getInstance(DColor $dto): IColor
     {
         return AHex::from($dto);
