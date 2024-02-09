@@ -20,13 +20,6 @@ use function trim;
  */
 abstract class AInstantiator implements IInstantiator
 {
-    final protected const PRECISION = 3;
-
-    public function __construct(
-        protected int $precision = self::PRECISION,
-    ) {
-    }
-
     /**
      * @inheritDoc
      */
@@ -85,32 +78,4 @@ abstract class AInstantiator implements IInstantiator
      */
     abstract protected function createFromDTO(DColor $value): ?IColor;
 
-    /**
-     * @psalm-return T
-     */
-    protected function fromString(string $value): IColor
-    {
-        $value = self::normalizeString($value);
-
-        return
-            $this->createFromString($value)
-            ??
-            throw new UnrecognizedColorString(
-                sprintf(
-                    '%s: Unrecognized color string: "%s".',
-                    static::class,
-                    $value
-                )
-            );
-    }
-
-    protected static function normalizeString(string $value): string
-    {
-        return strtolower(trim($value));
-    }
-
-    /**
-     * @psalm-return null|T
-     */
-    abstract protected function createFromString(string $value): ?IColor;
 }

@@ -14,47 +14,8 @@ use AlecRabbit\Color\Model\DTO\DHSL;
 /**
  * @extends AInstantiator<IHSLAColor>
  */
-class HSLAInstantiator extends AInstantiator
+final class HSLAInstantiator extends AInstantiator
 {
-    protected const REGEXP_HSLA = '/^hsla?\((\d+)(?:,\s*|\s*)(\d+)%(?:,\s*|\s*)(\d+)%(?:(?:,\s*|\s*\/\s*)(([\d.]+)|(\d+%)))?\)$/';
-
-    /** @inheritDoc */
-    protected function createFromString(string $value): ?IColor
-    {
-        $matches = [];
-        if (self::canInstantiateFromString($value, $matches)) {
-            return
-                HSLA::fromHSLA(
-                    (int)$matches[1],
-                    round(((int)$matches[2]) / 100, $this->precision),
-                    round(((int)$matches[3]) / 100, $this->precision),
-                    isset($matches[4])
-                        ? $this->extractOpacity((string)$matches[4])
-                        : 1.0,
-                );
-        }
-
-        return null;
-    }
-
-    protected static function canInstantiateFromString(string $value, array &$matches = []): bool
-    {
-        return
-            (
-                str_starts_with($value, 'hsla(')
-                ||
-                (str_starts_with($value, 'hsl(') && str_contains($value, '/'))
-            ) && preg_match(self::REGEXP_HSLA, $value, $matches);
-    }
-
-    private function extractOpacity(string $value): float
-    {
-        if (str_contains($value, '%')) {
-            return round(((int)$value) / 100, $this->precision);
-        }
-
-        return round((float)$value, $this->precision);
-    }
 
     protected function createFromDTO(DColor $value): ?IColor
     {

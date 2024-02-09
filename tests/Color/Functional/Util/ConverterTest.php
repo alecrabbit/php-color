@@ -19,6 +19,7 @@ final class ConverterTest extends TestCase
     {
         yield from [
             [To\ToRGBConverter::class, Color\RGB::class],
+            [To\ToAHexConverter::class, Color\AHex::class],
             [To\ToRGBAConverter::class, Color\RGBA::class],
             [To\ToHSLConverter::class, Color\HSL::class],
             [To\ToHSLAConverter::class, Color\HSLA::class],
