@@ -8,6 +8,8 @@ use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IRegistry;
 use AlecRabbit\Color\Converter\To\PartialConverter;
+use AlecRabbit\Color\Model\Contract\Converter\IConverter;
+use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Registry\Registry;
@@ -30,11 +32,16 @@ abstract class AToConverter implements IToConverter
 
     public function convert(IColor $color): IColor
     {
-        $dto = $this->partialConvert($color);
+        $converter = $this->getModelConverter($color->getColorModel(), $this->getTargetColorModel());
+        $dto = $converter->convert($color->dto());
 
         return $this->getInstance($dto);
     }
 
+    private function getModelConverter(IColorModel $from, IColorModel $to): IConverter
+    {
+        return $this->registry->getModelConverter($from, $to);
+    }
     public function partialConvert(IColor $color): DColor
     {
         return (new PartialConverter($this->getTargetColorModel(), $this->registry))->convert($color);
