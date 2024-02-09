@@ -24,6 +24,8 @@ abstract class AColor implements IColor
     ) {
     }
 
+    abstract protected static function colorModel(): IColorModel;
+
     public static function from(mixed $value): IColor
     {
         if (is_string($value) || $value instanceof DColor) {
@@ -58,38 +60,18 @@ abstract class AColor implements IColor
      */
     public function to(string $to): IColor|DColor
     {
-        if ($to === $this->dtoType()) {
+        if ($to === $this->colorModel->dtoType()) {
             return $this->toDTO();
         }
 
-        return $this->convert($to);
-    }
-
-    /**
-     * @return class-string<DColor>
-     */
-    protected function dtoType(): string
-    {
-        return $this->colorModel->dtoType();
-    }
-
-    abstract protected function toDTO(): DColor;
-
-    /**
-     * @template T of IColor|DColor
-     *
-     * @param class-string<T> $to
-     *
-     * @psalm-return T
-     */
-    protected function convert(string $to): IColor|DColor
-    {
         if ($this::class === $to) {
             return $this;
         }
 
         return $this->doConvert($to);
     }
+
+    abstract protected function toDTO(): DColor;
 
     /**
      * @template T of IColor

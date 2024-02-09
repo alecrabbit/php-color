@@ -6,6 +6,7 @@ namespace AlecRabbit\Color\A;
 
 use AlecRabbit\Color\Contract\IHasOpacity;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
+use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelRGB;
 
@@ -21,10 +22,14 @@ abstract class ARGBValueColor extends AColor
         protected readonly int $value,
     ) {
         parent::__construct(
-            colorModel: new ModelRGB(),
+            colorModel: static::colorModel(),
         );
     }
 
+    protected static function colorModel(): IColorModel
+    {
+        return new ModelRGB();
+    }
     protected static function componentsToValue(int $r, int $g, int $b): int
     {
         return (

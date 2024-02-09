@@ -8,6 +8,7 @@ use AlecRabbit\Color\A\AColor;
 use AlecRabbit\Color\Contract\IHasOpacity;
 use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
+use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\ModelHSL;
 
@@ -20,8 +21,13 @@ class HSL extends AColor implements IHSLColor
         protected float $lightness,
     ) {
         parent::__construct(
-            colorModel: new ModelHSL(),
+            colorModel: static::colorModel(),
         );
+    }
+
+    protected static function colorModel(): IColorModel
+    {
+        return new ModelHSL();
     }
 
     public function toString(): string
