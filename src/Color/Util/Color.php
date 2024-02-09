@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Util;
 
-use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IRegistry;
+use AlecRabbit\Color\Exception\UnsupportedValue;
 use AlecRabbit\Color\Registry\Registry;
 use AlecRabbit\Color\Util\Contract\IColorUtility;
 
@@ -23,6 +23,22 @@ final class Color implements IColorUtility
         // Can not be instantiated
     }
 
+    /** @inheritDoc */
+    public static function from(mixed $value): IColor
+    {
+        $color = self::tryFrom($value);
+
+        return $color
+            ??
+            throw new UnsupportedValue(
+                sprintf(
+                    'Failed to instantiate color from value of type "%s".',
+                    get_debug_type($value),
+                ),
+            );
+    }
+
+    /** @inheritDoc */
     public static function tryFrom(mixed $value): ?IColor
     {
         return match (true) {
@@ -39,18 +55,5 @@ final class Color implements IColorUtility
     private static function getRegistry(): IRegistry
     {
         return new Registry();
-    }
-
-    public static function from(mixed $value): IColor
-    {
-        return match (true) {
-            $value instanceof IColor => $value,
-            default => self::fromValue($value),
-        };
-    }
-
-    private static function fromValue(mixed $value): IColor
-    {
-        return self::getRegistry()->getInstantiator($value)->from($value);
     }
 }
