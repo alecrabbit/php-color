@@ -10,7 +10,6 @@ use AlecRabbit\Color\Exception\UnsupportedValue;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Util\Color;
-
 use AlecRabbit\Color\Util\Converter;
 
 use function is_string;
@@ -23,8 +22,6 @@ abstract class AColor implements IColor
         protected readonly IColorModel $colorModel
     ) {
     }
-
-    abstract protected static function colorModel(): IColorModel;
 
     public static function from(mixed $value): IColor
     {
@@ -48,8 +45,23 @@ abstract class AColor implements IColor
 
     protected static function instantiateColor(DColor|string $value): IColor
     {
+        if ($value instanceof DColor && $value::class === self::getDtoType()) {
+            return static::fromDTO($value);
+        }
         return Color::from($value);
     }
+
+    /**
+     * @return class-string<DColor>
+     */
+    protected static function getDtoType(): string
+    {
+        return static::colorModel()->dtoType();
+    }
+
+    abstract protected static function colorModel(): IColorModel;
+
+    abstract protected static function fromDTO(DColor $dto): IColor;
 
     /**
      * @template T of IColor|DColor
@@ -60,7 +72,7 @@ abstract class AColor implements IColor
      */
     public function to(string $to): IColor|DColor
     {
-        if ($to === $this->colorModel->dtoType()) {
+        if ($to === self::getDtoType($this)) {
             return $this->toDTO();
         }
 

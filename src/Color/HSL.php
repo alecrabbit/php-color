@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\A\AColor;
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHasOpacity;
 use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
@@ -102,4 +103,13 @@ class HSL extends AColor implements IHSLColor
     }
 
 
+    protected static function fromDTO(DColor $dto): IColor
+    {
+        /** @var DHSL $dto */
+        return self::fromHSL(
+            (int)round($dto->h * 360),
+            $dto->s,
+            $dto->l,
+        );
+    }
 }

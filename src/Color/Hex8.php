@@ -4,7 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color;
 
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHex8Color;
+
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
+
+use AlecRabbit\Color\Model\DTO\DRGB;
 
 use function abs;
 use function sprintf;
@@ -18,6 +23,17 @@ class Hex8 extends Hex implements IHex8Color
         protected readonly int $alpha,
     ) {
         parent::__construct($value);
+    }
+
+    protected static function fromDTO(DColor $dto): IColor
+    {
+        /** @var DRGB $dto */
+        return self::fromRGBA(
+            (int)round($dto->r * 0xFF),
+            (int)round($dto->g * 0xFF),
+            (int)round($dto->b * 0xFF),
+            (int)round($dto->alpha * 0xFF),
+        );
     }
 
     public static function fromInteger(int $value, ?int $alpha = null): IHex8Color
