@@ -7,6 +7,7 @@ namespace AlecRabbit\Tests\Color\Unit;
 use AlecRabbit\Color\AHex;
 use AlecRabbit\Color\Contract\IAHexColor;
 use AlecRabbit\Color\Contract\IColor;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelRGB;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -293,10 +294,31 @@ final class AHexTest extends TestCase
         self::assertSame($result[self::VALUE], $testee->getValue());
     }
 
+    public static function canBeCreatedFromDTODataProvider(): iterable
+    {
+        yield from [
+            [AHex::class, new DRGB(0, 0, 0)],
+        ];
+    }
+
+    #[Test]
+    #[DataProvider('canBeCreatedFromDTODataProvider')]
+    public function canBeCreatedFromDTO(string $expected, DColor $input): void
+    {
+        $testee = self::getTesteeFrom($input);
+        self::assertEquals($expected, $testee::class);
+    }
+
+    private static function getTesteeFrom(mixed $value): IAHexColor
+    {
+        return AHex::from($value);
+    }
+
     private static function getTesteeFromString(string $value): IAHexColor
     {
         return AHex::from($value);
     }
+
 
     #[Test]
     #[DataProvider('canBeCreatedFromRGBDataProvider')]

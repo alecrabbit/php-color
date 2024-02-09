@@ -9,6 +9,7 @@ use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelRGB;
 use AlecRabbit\Color\RGB;
@@ -142,6 +143,26 @@ final class RGBATest extends TestCase
                 ]
             ];
         }
+    }
+
+    public static function canBeCreatedFromDTODataProvider(): iterable
+    {
+        yield from [
+            [RGBA::class, new DRGB(0, 0, 0)],
+        ];
+    }
+
+    #[Test]
+    #[DataProvider('canBeCreatedFromDTODataProvider')]
+    public function canBeCreatedFromDTO(string $expected, DColor $input): void
+    {
+        $testee = self::getTesteeFrom($input);
+        self::assertEquals($expected, $testee::class);
+    }
+
+    private static function getTesteeFrom(mixed $value): IRGBAColor
+    {
+        return RGBA::from($value);
     }
 
     private static function stringAndRGBADataFeeder(): iterable

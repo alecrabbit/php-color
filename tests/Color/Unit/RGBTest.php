@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Color\Unit;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IRGBColor;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelRGB;
 use AlecRabbit\Color\RGB;
@@ -107,6 +108,26 @@ final class RGBTest extends TestCase
             [['rgb(0, 0, 0)'], [256, -256, 256,]],
             [['rgb(0, 0, 0)'], [256, 256, -256,]],
         ];
+    }
+
+    public static function canBeCreatedFromDTODataProvider(): iterable
+    {
+        yield from [
+            [RGB::class, new DRGB(0, 0, 0)],
+        ];
+    }
+
+    #[Test]
+    #[DataProvider('canBeCreatedFromDTODataProvider')]
+    public function canBeCreatedFromDTO(string $expected, DColor $input): void
+    {
+        $testee = self::getTesteeFrom($input);
+        self::assertEquals($expected, $testee::class);
+    }
+
+    private static function getTesteeFrom(mixed $value): IRGBColor
+    {
+        return RGB::from($value);
     }
 
     public static function canBeCreatedFromStringDataProvider(): iterable

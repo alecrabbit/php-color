@@ -7,6 +7,7 @@ namespace AlecRabbit\Tests\Color\Unit;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHex8Color;
 use AlecRabbit\Color\Hex8;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelRGB;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -377,6 +378,26 @@ final class Hex8Test extends TestCase
         self::assertNotSame($testee, $modifiedBlue);
         self::assertSame(0x00, $testee->getBlue());
         self::assertSame(0xFF, $modifiedBlue->getBlue());
+    }
+
+    public static function canBeCreatedFromDTODataProvider(): iterable
+    {
+        yield from [
+            [Hex8::class, new DRGB(0, 0, 0)],
+        ];
+    }
+
+    #[Test]
+    #[DataProvider('canBeCreatedFromDTODataProvider')]
+    public function canBeCreatedFromDTO(string $expected, DColor $input): void
+    {
+        $testee = self::getTesteeFrom($input);
+        self::assertEquals($expected, $testee::class);
+    }
+
+    private static function getTesteeFrom(mixed $value): IHex8Color
+    {
+        return Hex8::from($value);
     }
 
     #[Test]
