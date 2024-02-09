@@ -1,12 +1,12 @@
 
- -------------------- ----- 
-  Report                    
- -------------------- ----- 
-  Violations           0    
-  Skipped violations   0    
-  Uncovered            43   
-  Allowed              845  
-  Warnings             0    
-  Errors               0    
- -------------------- ----- 
+ -------------------- ------ 
+  Report                     
+ -------------------- ------ 
+  Violations           0     
+  Skipped violations   0     
+  Uncovered            79    
+  Allowed              1171  
+  Warnings             0     
+  Errors               0     
+ -------------------- ------ 
 

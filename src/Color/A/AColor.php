@@ -18,11 +18,6 @@ abstract class AColor implements IColor
 {
     protected const COMPONENT = 0xFF;
 
-    public function __construct(
-        protected readonly IColorModel $colorModel
-    ) {
-    }
-
     public static function from(mixed $value): IColor
     {
         if (is_string($value) || $value instanceof DColor) {
@@ -72,7 +67,7 @@ abstract class AColor implements IColor
      */
     public function to(string $to): IColor|DColor
     {
-        if ($to === self::getDtoType($this)) {
+        if ($to === self::getDtoType()) {
             return $this->toDTO();
         }
 
@@ -102,6 +97,13 @@ abstract class AColor implements IColor
             : $converter->convert($this);
     }
 
+    /**
+     * @template T of IColor
+     *
+     * @param class-string<T> $to
+     *
+     * @psalm-return IToConverter<T>
+     */
     protected function getConverter(string $to): IToConverter
     {
         return Converter::to($to);
@@ -116,6 +118,6 @@ abstract class AColor implements IColor
 
     public function getColorModel(): IColorModel
     {
-        return $this->colorModel;
+        return static::colorModel();
     }
 }

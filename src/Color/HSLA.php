@@ -31,6 +31,20 @@ class HSLA extends HSL implements IHSLAColor
         );
     }
 
+    public static function fromHSLA(
+        int $hue,
+        float $saturation = 1.0,
+        float $lightness = 0.5,
+        float $alpha = 1.0,
+    ): IHSLAColor {
+        return new self(
+            self::refineHue($hue),
+            self::refineValue($saturation),
+            self::refineValue($lightness),
+            self::refineValue($alpha),
+        );
+    }
+
     public function toString(): string
     {
         return
@@ -46,20 +60,6 @@ class HSLA extends HSL implements IHSLAColor
     public function withHue(int $hue): IHSLAColor
     {
         return self::fromHSLA($hue, $this->saturation, $this->lightness, $this->alpha);
-    }
-
-    public static function fromHSLA(
-        int $hue,
-        float $saturation = 1.0,
-        float $lightness = 0.5,
-        float $alpha = 1.0,
-    ): IHSLAColor {
-        return new self(
-            self::refineHue($hue),
-            self::refineValue($saturation),
-            self::refineValue($lightness),
-            self::refineValue($alpha),
-        );
     }
 
     public function withSaturation(float $saturation): IHSLAColor

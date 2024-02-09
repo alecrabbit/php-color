@@ -117,6 +117,17 @@ final class RGBTest extends TestCase
         ];
     }
 
+    public static function canBeCreatedFromStringDataProvider(): iterable
+    {
+        yield from [
+            ['rgb(0, 0, 0)', 0, 0, 0,],
+            ['rgba(0, 0, 0, 1.0)', 0, 0, 0,],
+            ['rgba(0, 12, 33, 0.333)', 0, 12, 33,],
+            ['rgba(0, 0, 1, 1.0)', 0, 0, 1,],
+            ['rgb(0, 12, 1)', 0, 12, 1,],
+        ];
+    }
+
     #[Test]
     #[DataProvider('canBeCreatedFromDTODataProvider')]
     public function canBeCreatedFromDTO(string $expected, DColor $input): void
@@ -128,17 +139,6 @@ final class RGBTest extends TestCase
     private static function getTesteeFrom(mixed $value): IRGBColor
     {
         return RGB::from($value);
-    }
-
-    public static function canBeCreatedFromStringDataProvider(): iterable
-    {
-        yield from [
-            ['rgb(0, 0, 0)', 0, 0, 0,],
-            ['rgba(0, 0, 0, 1.0)', 0, 0, 0,],
-            ['rgba(0, 12, 33, 0.333)', 0, 12, 33,],
-            ['rgba(0, 0, 1, 1.0)', 0, 0, 1,],
-            ['rgb(0, 12, 1)', 0, 12, 1,],
-        ];
     }
 
     #[Test]

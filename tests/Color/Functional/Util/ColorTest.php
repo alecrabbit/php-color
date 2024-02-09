@@ -19,6 +19,7 @@ use AlecRabbit\Color\Util\Color;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use stdClass;
 
 final class ColorTest extends TestCase
 {
@@ -68,7 +69,7 @@ final class ColorTest extends TestCase
         yield from [
             [1],
             [1.1],
-            [new \stdClass()],
+            [new stdClass()],
             [null],
             [false],
             [true],

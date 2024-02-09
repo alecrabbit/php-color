@@ -26,10 +26,10 @@ final readonly class RGBAParser implements IDRGBParser
     {
         if (preg_match(self::REGEXP_RGBA, $value, $matches)) {
             return new DRGB(
-                $this->precision->adjust($this->extract->value((string)$matches[1], 255)),
-                $this->precision->adjust($this->extract->value((string)$matches[3], 255)),
-                $this->precision->adjust($this->extract->value((string)$matches[5], 255)),
-                $this->precision->adjust($this->extract->value((string)($matches[7] ?? '1'))),
+                $this->precision->adjust($this->extract->value($matches[1], 255)),
+                $this->precision->adjust($this->extract->value($matches[3], 255)),
+                $this->precision->adjust($this->extract->value($matches[5], 255)),
+                $this->precision->adjust($this->extract->value(($matches[7] ?? '1'))),
 
             );
         }

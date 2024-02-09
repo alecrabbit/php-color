@@ -256,6 +256,13 @@ final class Hex8Test extends TestCase
         ];
     }
 
+    public static function canBeCreatedFromDTODataProvider(): iterable
+    {
+        yield from [
+            [Hex8::class, new DRGB(0, 0, 0)],
+        ];
+    }
+
     #[Test]
     #[DataProvider('canBeCreatedFromIntegerDataProvider')]
     public function canBeCreatedFromInteger(array $expected, array $incoming): void
@@ -378,13 +385,6 @@ final class Hex8Test extends TestCase
         self::assertNotSame($testee, $modifiedBlue);
         self::assertSame(0x00, $testee->getBlue());
         self::assertSame(0xFF, $modifiedBlue->getBlue());
-    }
-
-    public static function canBeCreatedFromDTODataProvider(): iterable
-    {
-        yield from [
-            [Hex8::class, new DRGB(0, 0, 0)],
-        ];
     }
 
     #[Test]

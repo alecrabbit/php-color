@@ -6,9 +6,7 @@ namespace AlecRabbit\Color;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHex8Color;
-
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
-
 use AlecRabbit\Color\Model\DTO\DRGB;
 
 use function abs;
@@ -25,6 +23,16 @@ class Hex8 extends Hex implements IHex8Color
         parent::__construct($value);
     }
 
+    public static function fromInteger(int $value, ?int $alpha = null): IHex8Color
+    {
+        return new self($value, $alpha ?? 0xFF);
+    }
+
+    public static function fromInteger8(int $value8): IHex8Color
+    {
+        return new self((abs($value8) & (int)static::MAX8_NO_ALPHA) >> 8, $value8 & 0x000000FF);
+    }
+
     protected static function fromDTO(DColor $dto): IColor
     {
         /** @var DRGB $dto */
@@ -36,14 +44,13 @@ class Hex8 extends Hex implements IHex8Color
         );
     }
 
-    public static function fromInteger(int $value, ?int $alpha = null): IHex8Color
+    public static function fromRGBA(int $r, int $g, int $b, int $alpha = 0xFF): IHex8Color
     {
-        return new self($value, $alpha ?? 0xFF);
-    }
-
-    public static function fromInteger8(int $value8): IHex8Color
-    {
-        return new self((abs($value8) & (int)static::MAX8_NO_ALPHA) >> 8, $value8 & 0x000000FF);
+        return
+            new self(
+                self::componentsToValue($r, $g, $b),
+                (abs($alpha) & self::COMPONENT)
+            );
     }
 
     public function toString(): string
@@ -89,15 +96,6 @@ class Hex8 extends Hex implements IHex8Color
     {
         return
             self::fromRGBA($this->getRed(), $this->getGreen(), $this->getBlue(), $alpha);
-    }
-
-    public static function fromRGBA(int $r, int $g, int $b, int $alpha = 0xFF): IHex8Color
-    {
-        return
-            new self(
-                self::componentsToValue($r, $g, $b),
-                (abs($alpha) & self::COMPONENT)
-            );
     }
 
     public function withOpacity(float $opacity): IHex8Color

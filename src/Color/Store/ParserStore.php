@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Store;
 
-use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Parser\IParser;
 use AlecRabbit\Color\Contract\Store\IParserStore;
 use AlecRabbit\Color\Exception\InvalidArgument;

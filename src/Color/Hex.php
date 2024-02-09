@@ -7,9 +7,7 @@ namespace AlecRabbit\Color;
 use AlecRabbit\Color\A\ARGBValueColor;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHexColor;
-
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
-
 use AlecRabbit\Color\Model\DTO\DRGB;
 
 use function abs;
@@ -20,6 +18,16 @@ class Hex extends ARGBValueColor implements IHexColor
     public static function fromInteger(int $value): IHexColor
     {
         return new self(abs($value) & (int)static::MAX);
+    }
+
+    protected static function fromDTO(DColor $dto): IColor
+    {
+        /** @var DRGB $dto */
+        return self::fromRGB(
+            (int)round($dto->r * 0xFF),
+            (int)round($dto->g * 0xFF),
+            (int)round($dto->b * 0xFF),
+        );
     }
 
     public function toString(): string
@@ -48,15 +56,5 @@ class Hex extends ARGBValueColor implements IHexColor
     public function withBlue(int $blue): IHexColor
     {
         return self::fromRGB($this->getRed(), $this->getGreen(), $blue);
-    }
-
-    protected static function fromDTO(DColor $dto): IColor
-    {
-        /** @var DRGB $dto */
-        return self::fromRGB(
-            (int)round($dto->r * 0xFF),
-            (int)round($dto->g * 0xFF),
-            (int)round($dto->b * 0xFF),
-        );
     }
 }

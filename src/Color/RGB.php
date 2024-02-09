@@ -7,7 +7,6 @@ namespace AlecRabbit\Color;
 use AlecRabbit\Color\A\ARGBValueColor;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IRGBColor;
-
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\DTO\DRGB;
 
@@ -15,6 +14,16 @@ use function sprintf;
 
 class RGB extends ARGBValueColor implements IRGBColor
 {
+    protected static function fromDTO(DColor $dto): IColor
+    {
+        /** @var DRGB $dto */
+        return self::fromRGB(
+            (int)round($dto->r * 0xFF),
+            (int)round($dto->g * 0xFF),
+            (int)round($dto->b * 0xFF),
+        );
+    }
+
     public function withRed(int $red): IRGBColor
     {
         return self::fromRGB($red, $this->getGreen(), $this->getBlue());
@@ -47,15 +56,5 @@ class RGB extends ARGBValueColor implements IRGBColor
                 $this->getGreen(),
                 $this->getBlue(),
             );
-    }
-
-    protected static function fromDTO(DColor $dto): IColor
-    {
-        /** @var DRGB $dto */
-        return self::fromRGB(
-            (int)round($dto->r * 0xFF),
-            (int)round($dto->g * 0xFF),
-            (int)round($dto->b * 0xFF),
-        );
     }
 }

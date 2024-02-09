@@ -33,7 +33,7 @@ final readonly class HEXAParser implements IDRGBParser
     {
         if (preg_match(self::REGEXP_HEXA, $value, $matches)) {
             $hex = $this->normalize(
-                $this->removeParentheses((string)$matches[0]),
+                $this->removeParentheses($matches[0]),
                 $this->isAuxNotation($value),
             );
 

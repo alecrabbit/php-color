@@ -145,26 +145,6 @@ final class RGBATest extends TestCase
         }
     }
 
-    public static function canBeCreatedFromDTODataProvider(): iterable
-    {
-        yield from [
-            [RGBA::class, new DRGB(0, 0, 0)],
-        ];
-    }
-
-    #[Test]
-    #[DataProvider('canBeCreatedFromDTODataProvider')]
-    public function canBeCreatedFromDTO(string $expected, DColor $input): void
-    {
-        $testee = self::getTesteeFrom($input);
-        self::assertEquals($expected, $testee::class);
-    }
-
-    private static function getTesteeFrom(mixed $value): IRGBAColor
-    {
-        return RGBA::from($value);
-    }
-
     private static function stringAndRGBADataFeeder(): iterable
     {
         yield from [
@@ -189,6 +169,13 @@ final class RGBATest extends TestCase
         ];
     }
 
+    public static function canBeCreatedFromDTODataProvider(): iterable
+    {
+        yield from [
+            [RGBA::class, new DRGB(0, 0, 0)],
+        ];
+    }
+
     public static function canBeCreatedFromStringDataProvider(): iterable
     {
         yield from [
@@ -210,6 +197,19 @@ final class RGBATest extends TestCase
             [RGBA::fromRGBA(56, 52, 46, 255), HSLA::fromHSLA(34, 0.1, 0.2),],
             [RGBA::fromRGBA(56, 52, 46, 255), HSL::fromHSL(34, 0.1, 0.2),],
         ];
+    }
+
+    #[Test]
+    #[DataProvider('canBeCreatedFromDTODataProvider')]
+    public function canBeCreatedFromDTO(string $expected, DColor $input): void
+    {
+        $testee = self::getTesteeFrom($input);
+        self::assertEquals($expected, $testee::class);
+    }
+
+    private static function getTesteeFrom(mixed $value): IRGBAColor
+    {
+        return RGBA::from($value);
     }
 
     #[Test]

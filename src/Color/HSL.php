@@ -21,14 +21,21 @@ class HSL extends AColor implements IHSLColor
         protected float $saturation,
         protected float $lightness,
     ) {
-        parent::__construct(
-            colorModel: static::colorModel(),
-        );
     }
 
     protected static function colorModel(): IColorModel
     {
         return new ModelHSL();
+    }
+
+    protected static function fromDTO(DColor $dto): IColor
+    {
+        /** @var DHSL $dto */
+        return self::fromHSL(
+            (int)round($dto->h * 360),
+            $dto->s,
+            $dto->l,
+        );
     }
 
     public function toString(): string
@@ -100,16 +107,5 @@ class HSL extends AColor implements IHSLColor
     public function getLightness(): float
     {
         return $this->lightness;
-    }
-
-
-    protected static function fromDTO(DColor $dto): IColor
-    {
-        /** @var DHSL $dto */
-        return self::fromHSL(
-            (int)round($dto->h * 360),
-            $dto->s,
-            $dto->l,
-        );
     }
 }

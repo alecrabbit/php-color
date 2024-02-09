@@ -121,19 +121,6 @@ final class HSLATest extends TestCase
         ];
     }
 
-    #[Test]
-    #[DataProvider('canBeCreatedFromDTODataProvider')]
-    public function canBeCreatedFromDTO(string $expected, DColor $input): void
-    {
-        $testee = self::getTesteeFrom($input);
-        self::assertEquals($expected, $testee::class);
-    }
-
-    private static function getTesteeFrom(mixed $value): IHSLAColor
-    {
-        return HSLA::from($value);
-    }
-
     public static function canBeCreatedFromStringDataProvider(): iterable
     {
         foreach (self::stringAndHSLODataFeeder() as $item) {
@@ -152,6 +139,19 @@ final class HSLATest extends TestCase
                 ]
             ];
         }
+    }
+
+    #[Test]
+    #[DataProvider('canBeCreatedFromDTODataProvider')]
+    public function canBeCreatedFromDTO(string $expected, DColor $input): void
+    {
+        $testee = self::getTesteeFrom($input);
+        self::assertEquals($expected, $testee::class);
+    }
+
+    private static function getTesteeFrom(mixed $value): IHSLAColor
+    {
+        return HSLA::from($value);
     }
 
     #[Test]

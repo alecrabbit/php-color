@@ -26,10 +26,10 @@ final readonly class HSLAParser implements IDHSLParser
     {
         if (preg_match(self::REGEXP_HSLA, $value, $matches)) {
             return new DHSL(
-                $this->precision->adjust($this->extract->value((string)$matches[1], 360)),
-                $this->precision->adjust($this->extract->value((string)$matches[3])),
-                $this->precision->adjust($this->extract->value((string)$matches[5])),
-                $this->precision->adjust($this->extract->value((string)($matches[7] ?? '1'))),
+                $this->precision->adjust($this->extract->value($matches[1], 360)),
+                $this->precision->adjust($this->extract->value($matches[3])),
+                $this->precision->adjust($this->extract->value($matches[5])),
+                $this->precision->adjust($this->extract->value(($matches[7] ?? '1'))),
             );
         }
 

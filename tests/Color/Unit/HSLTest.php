@@ -122,19 +122,19 @@ final class HSLTest extends TestCase
         ];
     }
 
+    public static function canBeCreatedFromDTODataProvider(): iterable
+    {
+        yield from [
+            [HSL::class, new DHSL(0, 0, 0)],
+        ];
+    }
+
     #[Test]
     #[DataProvider('canBeCreatedFromDataProvider')]
     public function canBeCreatedFrom(IColor $expected, IColor $incoming): void
     {
         $testee = HSL::from($incoming);
         self::assertEquals($expected, $testee);
-    }
-
-    public static function canBeCreatedFromDTODataProvider(): iterable
-    {
-        yield from [
-            [HSL::class, new DHSL(0, 0, 0)],
-        ];
     }
 
     #[Test]

@@ -15,6 +15,24 @@ use PHPUnit\Framework\Attributes\Test;
  */
 final class RegExpTest extends TestCase
 {
+    public static function validateRegexpDataProvider(): iterable
+    {
+        foreach (self::hslaRegExpDataFeeder() as $item) {
+            yield [
+                '/^hsla?\((\d+(\.\d+)?%?)(?:,\s*|\s*)(\d+(\.\d+)?%?)(?:,\s*|\s*)(\d+(\.\d+)?%?)(?:(?:,\s*|\s*\/\s*)(\d+(\.\d+)?%?))?\)$/',
+                $item[0],
+                $item[1],
+            ];
+        }
+        foreach (self::rgbaRegExpDataFeeder() as $item) {
+            yield [
+                '/^rgba?\((\d+(\.\d+)?%?)(?:,\s*|\s*)(\d+(\.\d+)?%?)(?:,\s*|\s*)(\d+(\.\d+)?%?)(?:(?:,\s*|\s*\/\s*)(\d+(\.\d+)?%?))?\)$/',
+                $item[0],
+                $item[1],
+            ];
+        }
+    }
+
     public static function hslaRegExpDataFeeder(): iterable
     {
         yield from        [
@@ -52,27 +70,9 @@ final class RegExpTest extends TestCase
         ];
     }
 
-    public static function validateRegexpDataProvider(): iterable
-    {
-        foreach (self::hslaRegExpDataFeeder() as $item) {
-            yield [
-                '/^hsla?\((\d+(\.\d+)?%?)(?:,\s*|\s*)(\d+(\.\d+)?%?)(?:,\s*|\s*)(\d+(\.\d+)?%?)(?:(?:,\s*|\s*\/\s*)(\d+(\.\d+)?%?))?\)$/',
-                $item[0],
-                $item[1],
-            ];
-        }
-        foreach (self::rgbaRegExpDataFeeder() as $item) {
-            yield [
-                '/^rgba?\((\d+(\.\d+)?%?)(?:,\s*|\s*)(\d+(\.\d+)?%?)(?:,\s*|\s*)(\d+(\.\d+)?%?)(?:(?:,\s*|\s*\/\s*)(\d+(\.\d+)?%?))?\)$/',
-                $item[0],
-                $item[1],
-            ];
-        }
-    }
-
     #[Test]
     #[DataProvider('validateRegexpDataProvider')]
-    public function validateRegexp(string $pattern ,array $expected, string $input): void
+    public function validateRegexp(string $pattern, array $expected, string $input): void
     {
         preg_match($pattern, $input, $matches);
 

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Color\Unit\Store\ParserStore;
 
-use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Parser\RGBAParser;
 use AlecRabbit\Color\RGB;

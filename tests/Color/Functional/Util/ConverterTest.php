@@ -26,7 +26,7 @@ final class ConverterTest extends TestCase
             [To\ToHexConverter::class, Color\Hex::class],
             [To\ToHexConverter::class, Color\Hex::class],
             [To\ToHexConverter::class, Color\Contract\IHexColor::class],
-            [To\ToRGBAConverter::class,Color\RGBA::class],
+            [To\ToRGBAConverter::class, Color\RGBA::class],
             [To\ToRGBAConverter::class, Color\Contract\IRGBAColor::class],
             [To\ToHSLConverter::class, Color\HSL::class],
             [To\ToHSLConverter::class, Color\Contract\IHSLColor::class],

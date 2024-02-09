@@ -259,6 +259,13 @@ final class AHexTest extends TestCase
         ];
     }
 
+    public static function canBeCreatedFromDTODataProvider(): iterable
+    {
+        yield from [
+            [AHex::class, new DRGB(0, 0, 0)],
+        ];
+    }
+
     #[Test]
     #[DataProvider('canBeCreatedFromIntegerDataProvider')]
     public function canBeCreatedFromInteger(array $expected, array $incoming): void
@@ -294,11 +301,9 @@ final class AHexTest extends TestCase
         self::assertSame($result[self::VALUE], $testee->getValue());
     }
 
-    public static function canBeCreatedFromDTODataProvider(): iterable
+    private static function getTesteeFromString(string $value): IAHexColor
     {
-        yield from [
-            [AHex::class, new DRGB(0, 0, 0)],
-        ];
+        return AHex::from($value);
     }
 
     #[Test]
@@ -313,12 +318,6 @@ final class AHexTest extends TestCase
     {
         return AHex::from($value);
     }
-
-    private static function getTesteeFromString(string $value): IAHexColor
-    {
-        return AHex::from($value);
-    }
-
 
     #[Test]
     #[DataProvider('canBeCreatedFromRGBDataProvider')]

@@ -12,22 +12,22 @@ use RuntimeException;
 
 final class AColorOverride extends AColor
 {
-    public function toString(): string
-    {
-        throw new RuntimeException('INTENTIONALLY Not implemented.');
-    }
-
-    protected function toDTO(): DColor
-    {
-        throw new RuntimeException('INTENTIONALLY Not implemented.');
-    }
-
     protected static function colorModel(): IColorModel
     {
         throw new RuntimeException('INTENTIONALLY Not implemented.');
     }
 
     protected static function fromDTO(DColor $dto): IColor
+    {
+        throw new RuntimeException('INTENTIONALLY Not implemented.');
+    }
+
+    public function toString(): string
+    {
+        throw new RuntimeException('INTENTIONALLY Not implemented.');
+    }
+
+    protected function toDTO(): DColor
     {
         throw new RuntimeException('INTENTIONALLY Not implemented.');
     }

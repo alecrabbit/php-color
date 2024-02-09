@@ -189,9 +189,9 @@ final readonly class NameParser implements IDRGBParser
         };
     }
 
-    private function getHexColorString(string $value): string
+    private function isNamedColor(string $value): bool
     {
-        return self::NAMED_COLORS[$value];
+        return array_key_exists($value, self::NAMED_COLORS);
     }
 
     private function createDRGB(string $value): DRGB
@@ -201,8 +201,8 @@ final readonly class NameParser implements IDRGBParser
         );
     }
 
-    private function isNamedColor(string $value): bool
+    private function getHexColorString(string $value): string
     {
-        return array_key_exists($value, self::NAMED_COLORS);
+        return self::NAMED_COLORS[$value];
     }
 }

@@ -44,7 +44,7 @@ abstract class AToConverter implements IToConverter
     }
 
     /**
-     * // TODO (2024-01-18 16:33) [Alec Rabbit]: make protected again [0f579dfe-000a-43f4-82b1-833c7173017d]
+     * // TODO (2024-01-18 16:33) [Alec Rabbit]: make method getTargetColorModel() protected again? [0f579dfe-000a-43f4-82b1-833c7173017d]
      */
     abstract public function getTargetColorModel(): IColorModel;
 }
