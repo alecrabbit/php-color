@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color;
+namespace AlecRabbit\Color\Service;
 
-use AlecRabbit\Color\Contract\IPrecisionAdjuster;
+use AlecRabbit\Color\Contract\Service\IPrecisionAdjuster;
 
 use function round;
 

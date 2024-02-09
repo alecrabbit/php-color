@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color;
+namespace AlecRabbit\Color\Service;
 
-use AlecRabbit\Color\Contract\IHexColorStrNormalizer;
+use AlecRabbit\Color\Contract\Service\IHexColorStrNormalizer;
 
 final readonly class HexColorStrNormalizer implements IHexColorStrNormalizer
 {

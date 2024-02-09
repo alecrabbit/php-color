@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Parser;
 
-use AlecRabbit\Color\Contract\IPrecisionAdjuster;
 use AlecRabbit\Color\Contract\Parser\IDRGBParser;
+use AlecRabbit\Color\Contract\Service\IPrecisionAdjuster;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\DTO\DRGB;
-use AlecRabbit\Color\PrecisionAdjuster;
+use AlecRabbit\Color\Service\PrecisionAdjuster;
 
 final readonly class RGBAParser implements IDRGBParser
 {

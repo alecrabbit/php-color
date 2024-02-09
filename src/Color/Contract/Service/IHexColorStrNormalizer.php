@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Color\Contract;
+namespace AlecRabbit\Color\Contract\Service;
 
 interface IHexColorStrNormalizer
 {

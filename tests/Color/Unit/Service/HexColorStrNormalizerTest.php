@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Color\Unit;
+namespace AlecRabbit\Tests\Color\Unit\Service;
 
-use AlecRabbit\Color\Contract\IHexColorStrNormalizer;
-use AlecRabbit\Color\HexColorStrNormalizer;
+use AlecRabbit\Color\Contract\Service\IHexColorStrNormalizer;
+use AlecRabbit\Color\Service\HexColorStrNormalizer;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;

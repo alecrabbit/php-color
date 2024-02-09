@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Parser;
 
-use AlecRabbit\Color\Contract\IPrecisionAdjuster;
 use AlecRabbit\Color\Contract\Parser\IDHSLParser;
+use AlecRabbit\Color\Contract\Service\IPrecisionAdjuster;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\DTO\DHSL;
-use AlecRabbit\Color\PrecisionAdjuster;
+use AlecRabbit\Color\Service\PrecisionAdjuster;
 
 final readonly class HSLAParser implements IDHSLParser
 {
