@@ -8,6 +8,7 @@ use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Contract\IRegistry;
+use AlecRabbit\Color\Exception\ConverterUnavailable;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\Contract\Converter\IConverter;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
@@ -52,6 +53,8 @@ final class Registry implements IRegistry
      * @param class-string<T> $target
      *
      * @psalm-return IToConverter<T>
+     *
+     * @throws ConverterUnavailable
      */
     public function getToConverter(string $target): IToConverter
     {

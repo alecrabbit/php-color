@@ -11,6 +11,8 @@ use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Util\Color;
 
+use AlecRabbit\Color\Util\Converter;
+
 use function is_string;
 
 abstract class AColor implements IColor
@@ -108,7 +110,7 @@ abstract class AColor implements IColor
 
     protected function getConverter(string $to): IToConverter
     {
-        return Color::to($to);
+        return Converter::to($to);
     }
 
     public function __toString(): string

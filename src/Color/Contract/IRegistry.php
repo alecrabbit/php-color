@@ -6,6 +6,7 @@ namespace AlecRabbit\Color\Contract;
 
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
+use AlecRabbit\Color\Exception\ConverterUnavailable;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\Contract\Converter\IConverter;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
@@ -33,6 +34,8 @@ interface IRegistry
      * @param class-string<T> $target
      *
      * @psalm-return IToConverter<T>
+     *
+     * @throws ConverterUnavailable
      */
     public function getToConverter(string $target): IToConverter;
 

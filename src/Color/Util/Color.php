@@ -8,11 +8,12 @@ use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IRegistry;
 use AlecRabbit\Color\Registry\Registry;
+use AlecRabbit\Color\Util\Contract\IColorUtility;
 
 /**
  * Utility class for convenient color instantiation.
  */
-final class Color implements IColorUtil
+final class Color implements IColorUtility
 {
     /**
      * @codeCoverageIgnore
@@ -51,17 +52,5 @@ final class Color implements IColorUtil
     private static function fromValue(mixed $value): IColor
     {
         return self::getRegistry()->getInstantiator($value)->from($value);
-    }
-
-    /**
-     * @template T of IColor
-     *
-     * @param class-string<T> $target
-     *
-     * @psalm-return IToConverter<T>
-     */
-    public static function to(string $target): IToConverter
-    {
-        return self::getRegistry()->getToConverter($target);
     }
 }
