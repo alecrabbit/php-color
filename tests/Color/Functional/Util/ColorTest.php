@@ -31,9 +31,9 @@ final class ColorTest extends TestCase
     private static function canCreateColorFromDataFeeder(): iterable
     {
         yield from [
-            [Hex::class, '#ff00ff'],
+            [RGBA::class, '#ff00ff'],
             [RGBA::class, 'rgba(255, 0, 255, 1)'],
-            [HSL::class, 'hsl(234, 100%, 50%)'],
+            [HSLA::class, 'hsl(234, 100%, 50%)'],
             [HSLA::class, 'hsla(234, 100%, 50%, 1)'],
             [RGBA::class, RGBA::from('rgba(255, 0, 255, 1)')],
             [RGB::class, RGB::from('rgba(255, 0, 255, 1)')],
@@ -41,7 +41,7 @@ final class ColorTest extends TestCase
             [Hex8::class, Hex8::from('rgba(255, 0, 255, 1)')],
             [HSL::class, HSL::from('hsla(255 0% 50% / 1)')],
             [HSLA::class, HSLA::from('hsla(255 0% 50% / 1)')],
-            [RGB::class, 'rgb(255, 0, 255)'],
+            [RGBA::class, 'rgb(255, 0, 255)'],
         ];
     }
 
@@ -99,14 +99,14 @@ final class ColorTest extends TestCase
     {
         yield from [
             // (expected)class-string<IColor>, (incoming)IColor|DColor|string
-            [Hex::class, '#ff00ff'],
-            [Hex8::class, '#ffffffff'],
+            [RGBA::class, '#ff00ff'],
+            [RGBA::class, '#ffffffff'],
             [RGBA::class, 'rgba(255, 0, 255, 1)'],
-            [HSL::class, 'hsl(234, 100%, 50%)'],
+            [HSLA::class, 'hsl(234, 100%, 50%)'],
             [RGBA::class, new DRGB(255, 0, 255)],
             [HSLA::class, new DHSL(0, 0, 0)],
             [HSLA::class, 'hsla(234, 100%, 50%, 1)'],
-            [RGB::class, 'rgb(255, 0, 255)'],
+            [RGBA::class, 'rgb(255, 0, 255)'],
             [RGB::class, RGB::fromRGB(0, 0, 0)],
             [HSL::class, HSL::fromHSL(0, 0, 0)],
         ];

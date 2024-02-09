@@ -7,6 +7,7 @@ namespace AlecRabbit\Color\Util;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IRegistry;
 use AlecRabbit\Color\Exception\UnsupportedValue;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Registry\Registry;
 use AlecRabbit\Color\Util\Contract\IColorUtility;
 
@@ -49,7 +50,15 @@ final class Color implements IColorUtility
 
     private static function tryFromValue(mixed $value): ?IColor
     {
-        return self::getRegistry()->findInstantiator($value)?->tryFrom($value);
+        $registry = self::getRegistry();
+
+        if (\is_string($value)) {
+            $value = $registry->findParser($value)?->tryParse($value);
+        }
+
+        return $value instanceof DColor
+            ? $registry->findInstantiator($value)?->tryFrom($value)
+            : null;
     }
 
     private static function getRegistry(): IRegistry

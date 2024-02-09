@@ -8,6 +8,7 @@ use AlecRabbit\Color\Contract\Parser\IDRGBParser;
 use AlecRabbit\Color\Contract\Service\IHexColorStrNormalizer;
 use AlecRabbit\Color\Contract\Service\IPrecisionAdjuster;
 use AlecRabbit\Color\Exception\InvalidArgument;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Service\HexColorStrNormalizer;
 use AlecRabbit\Color\Service\PrecisionAdjuster;
@@ -31,6 +32,18 @@ final readonly class HEXAParser implements IDRGBParser
 
     public function parse(string $value): DRGB
     {
+        return $this->tryParse($value)
+            ??
+            throw new InvalidArgument(
+                sprintf(
+                    'Invalid color format: "%s".',
+                    $value,
+                )
+            );
+    }
+
+    public function tryParse(string $value): ?DRGB
+    {
         if (preg_match(self::REGEXP_HEXA, $value, $matches)) {
             $hex = $this->normalize(
                 $this->removeParentheses($matches[0]),
@@ -39,13 +52,7 @@ final readonly class HEXAParser implements IDRGBParser
 
             return $this->createDRGB($hex);
         }
-
-        throw new InvalidArgument(
-            sprintf(
-                'Invalid color format: "%s".',
-                $value,
-            )
-        );
+        return null;
     }
 
     private function normalize(string $matches, bool $swapAlpha): string

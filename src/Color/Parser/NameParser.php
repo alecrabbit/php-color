@@ -167,18 +167,31 @@ final readonly class NameParser implements IDRGBParser
     ) {
     }
 
+    private function createDRGB(string $value): DRGB
+    {
+        return $this->hex->parse(
+            $this->getHexColorString($value)
+        );
+    }
+
     public function parse(string $value): DRGB
+    {
+        return $this->tryParse($value)
+            ?? throw new InvalidArgument(
+                sprintf(
+                    'Invalid color format: "%s".',
+                    $value,
+                )
+            );
+    }
+
+    public function tryParse(string $value): ?DRGB
     {
         if ($this->isSupported($value)) {
             return $this->createDRGB($value);
         }
 
-        throw new InvalidArgument(
-            sprintf(
-                'Invalid color format: "%s".',
-                $value,
-            )
-        );
+        return null;
     }
 
     public function isSupported(mixed $value): bool
@@ -192,13 +205,6 @@ final readonly class NameParser implements IDRGBParser
     private function isNamedColor(string $value): bool
     {
         return array_key_exists($value, self::NAMED_COLORS);
-    }
-
-    private function createDRGB(string $value): DRGB
-    {
-        return $this->hex->parse(
-            $this->getHexColorString($value)
-        );
     }
 
     private function getHexColorString(string $value): string

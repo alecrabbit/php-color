@@ -31,15 +31,12 @@ final class RGBAInstantiatorTest extends TestCase
                 UnsupportedValue::class,
                 'Unsupported dto value of type "AlecRabbit\Color\Model\DTO\DHSL" provided.'
             ],
-            ['hsl(22, 100%, 50%)', UnrecognizedColorString::class, 'Unrecognized color string: "hsl(22, 100%, 50%)".'],
+            ['hsl(22, 100%, 50%)', UnsupportedValue::class, 'Unsupported value of type "string" provided.'],
             [
                 'hsla(56, 100%, 50%, 1)',
-                UnrecognizedColorString::class,
-                'Unrecognized color string: "hsla(56, 100%, 50%, 1)".'
+                UnsupportedValue::class,
+                'Unsupported value of type "string" provided.'
             ],
-            ['rgb(23, 0, 255)', UnrecognizedColorString::class, 'Unrecognized color string: "rgb(23, 0, 255)".'],
-            ['slategray', UnrecognizedColorString::class, 'Unrecognized color string: "slategray".'],
-            ['invalid', UnrecognizedColorString::class, 'Unrecognized color string: "invalid".'],
         ];
     }
 
@@ -47,10 +44,6 @@ final class RGBAInstantiatorTest extends TestCase
     {
         yield from [
             [new DRGB(0, 0, 0)],
-            ['rgba(0, 0, 0, 0.5)'],
-            ['rgba(0, 2, 255, 1)'],
-            ['rgba(255, 11, 255, 0)'],
-            ['rgba(255, 11, 255, 0.1)'],
         ];
     }
 
@@ -58,10 +51,6 @@ final class RGBAInstantiatorTest extends TestCase
     {
         yield from [
             [new DRGB(0, 0, 0)],
-            ['rgba(255, 11, 255, 0)'],
-            ['rgba(0, 0, 0, 0.5)'],
-            ['rgba(0, 2, 255, 1)'],
-            ['rgba(255, 11, 255, 0.1)'],
         ];
     }
 
@@ -71,15 +60,6 @@ final class RGBAInstantiatorTest extends TestCase
             [new DHSL(0, 0, 0)],
             ['#ff0000'],
             ['rgb(23, 0, 255)'],
-            ['rgb(213, 30, 25)'],
-            ['ff0000'],
-            ['#ff0'],
-            ['ff0'],
-            ['slategray'],
-            ['rgb(13, 230, 125)'],
-            ['rgb(22, 22, 22)'],
-            ['rgb(0, 0, 0)'],
-            ['slaTeGray'],
             ['hsl(22, 100%, 50%)'],
             ['hsla(56, 100%, 50%, 1)'],
         ];

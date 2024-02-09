@@ -8,6 +8,7 @@ use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Contract\IRegistry;
+use AlecRabbit\Color\Contract\Parser\IParser;
 use AlecRabbit\Color\Exception\ConverterUnavailable;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\Contract\Converter\IConverter;
@@ -16,6 +17,7 @@ use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Model\Store\ConverterStore as ModelConverterStore;
 use AlecRabbit\Color\Store\ConverterStore;
 use AlecRabbit\Color\Store\InstantiatorStore;
+use AlecRabbit\Color\Store\ParserStore;
 
 final class Registry implements IRegistry
 {
@@ -77,5 +79,10 @@ final class Registry implements IRegistry
     public function findInstantiator(mixed $value): ?IInstantiator
     {
         return (new InstantiatorStore())->findByValue($value);
+    }
+
+    public function findParser(mixed $value): ?IParser
+    {
+        return (new ParserStore())->findByValue($value);
     }
 }

@@ -6,6 +6,7 @@ namespace AlecRabbit\Color\Contract\Instantiator;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Exception\UnsupportedValue;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 
 /**
  * @template-covariant T of IColor
@@ -19,10 +20,10 @@ interface IInstantiator
      *
      * @throws UnsupportedValue
      */
-    public function from(mixed $value): IColor;
+    public function from(DColor $value): IColor;
 
     /**
      * @psalm-return T
      */
-    public function tryFrom(mixed $value): ?IColor;
+    public function tryFrom(DColor $value): ?IColor;
 }

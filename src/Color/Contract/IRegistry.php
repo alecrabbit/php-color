@@ -6,6 +6,7 @@ namespace AlecRabbit\Color\Contract;
 
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
+use AlecRabbit\Color\Contract\Parser\IParser;
 use AlecRabbit\Color\Exception\ConverterUnavailable;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\Contract\Converter\IConverter;
@@ -45,4 +46,6 @@ interface IRegistry
     public function getInstantiator(mixed $value): IInstantiator;
 
     public function findInstantiator(mixed $value): ?IInstantiator;
+
+    public function findParser(mixed $value): ?IParser;
 }

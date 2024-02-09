@@ -38,9 +38,6 @@ abstract class AInstantiator implements IInstantiator
 
     public static function isSupported(mixed $value): bool
     {
-        /** @var mixed $value */
-        $value = is_string($value) ? self::normalizeString($value) : $value;
-
         return static::canInstantiate($value);
     }
 
@@ -53,21 +50,17 @@ abstract class AInstantiator implements IInstantiator
     {
         return match (true) {
             $color instanceof DColor => static::canInstantiateFromDTO($color),
-            is_string($color) => static::canInstantiateFromString($color),
             default => false,
         };
     }
 
     abstract protected static function canInstantiateFromDTO(DColor $color): bool;
 
-    abstract protected static function canInstantiateFromString(string $value, array &$matches = []): bool;
-
     /** @inheritDoc */
     public function from(mixed $value): IColor
     {
         return match (true) {
             $value instanceof DColor => $this->fromDTO($value),
-            is_string($value) => $this->fromString($value),
             default => throw new UnsupportedValue(
                 sprintf(
                     'Unsupported value of type "%s" provided.',

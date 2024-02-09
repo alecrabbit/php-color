@@ -8,6 +8,7 @@ use AlecRabbit\Color\Contract\Parser\IDHSLParser;
 use AlecRabbit\Color\Contract\Service\IFloatExtractor;
 use AlecRabbit\Color\Contract\Service\IPrecisionAdjuster;
 use AlecRabbit\Color\Exception\InvalidArgument;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Service\FloatExtractor;
 use AlecRabbit\Color\Service\PrecisionAdjuster;
@@ -24,6 +25,17 @@ final readonly class HSLAParser implements IDHSLParser
 
     public function parse(string $value): DHSL
     {
+        return $this->tryParse($value)
+            ?? throw new InvalidArgument(
+                sprintf(
+                    'Invalid color format: "%s".',
+                    $value,
+                )
+            );
+    }
+
+    public function tryParse(string $value): ?DHSL
+    {
         if (preg_match(self::REGEXP_HSLA, $value, $matches)) {
             return new DHSL(
                 $this->precision->adjust($this->extract->value($matches[1], 360)),
@@ -32,13 +44,7 @@ final readonly class HSLAParser implements IDHSLParser
                 $this->precision->adjust($this->extract->value(($matches[7] ?? '1'))),
             );
         }
-
-        throw new InvalidArgument(
-            sprintf(
-                'Invalid color format: "%s".',
-                $value,
-            )
-        );
+        return null;
     }
 
     public function isSupported(mixed $value): bool
