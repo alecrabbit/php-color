@@ -38,22 +38,6 @@ class HSL extends AColor implements IHSLColor
         );
     }
 
-    public function toString(): string
-    {
-        return
-            sprintf(
-                (string)static::FORMAT_HSL,
-                $this->hue,
-                round($this->saturation * 100),
-                round($this->lightness * 100),
-            );
-    }
-
-    public function withHue(int $hue): IHSLColor
-    {
-        return self::fromHSL($hue, $this->saturation, $this->lightness);
-    }
-
     public static function fromHSL(int $hue, float $saturation = 1.0, float $lightness = 0.5): IHSLColor
     {
         return
@@ -72,6 +56,22 @@ class HSL extends AColor implements IHSLColor
     protected static function refineValue(float $value): float
     {
         return round(max(0.0, min(1.0, $value)), 2);
+    }
+
+    public function toString(): string
+    {
+        return
+            sprintf(
+                (string)static::FORMAT_HSL,
+                $this->hue,
+                round($this->saturation * 100),
+                round($this->lightness * 100),
+            );
+    }
+
+    public function withHue(int $hue): IHSLColor
+    {
+        return self::fromHSL($hue, $this->saturation, $this->lightness);
     }
 
     public function withSaturation(float $saturation): IHSLColor

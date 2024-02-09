@@ -24,17 +24,17 @@ class RGB extends ARGBValueColor implements IRGBColor
         );
     }
 
-    public function withRed(int $red): IRGBColor
-    {
-        return self::fromRGB($red, $this->getGreen(), $this->getBlue());
-    }
-
     public static function fromRGB(int $r, int $g, int $b): IRGBColor
     {
         return
             new self(
                 self::componentsToValue($r, $g, $b),
             );
+    }
+
+    public function withRed(int $red): IRGBColor
+    {
+        return self::fromRGB($red, $this->getGreen(), $this->getBlue());
     }
 
     public function withGreen(int $green): IRGBColor

@@ -68,7 +68,7 @@ abstract class AColor implements IColor
     public function to(string $to): IColor|DColor
     {
         if ($to === self::getDtoType()) {
-            return $this->toDTO();
+            return $this->dto();
         }
 
         if ($this::class === $to) {
@@ -76,6 +76,11 @@ abstract class AColor implements IColor
         }
 
         return $this->doConvert($to);
+    }
+
+    public function dto(): DColor
+    {
+        return $this->toDTO();
     }
 
     abstract protected function toDTO(): DColor;

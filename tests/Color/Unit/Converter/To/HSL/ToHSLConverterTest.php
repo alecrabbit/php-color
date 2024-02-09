@@ -70,9 +70,9 @@ final class ToHSLConverterTest extends TestCase
             ->method('getColorModel')
             ->willReturn($modelFrom);
 
-        $incoming
+         $incoming
             ->expects(self::once())
-            ->method('to')
+            ->method('dto')
             ->willReturn($dtoFrom);
 
         $registry = $this->getConverterRegistryMock();

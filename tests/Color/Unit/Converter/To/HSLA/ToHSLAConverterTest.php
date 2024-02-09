@@ -72,7 +72,7 @@ final class ToHSLAConverterTest extends TestCase
 
         $incoming
             ->expects(self::once())
-            ->method('to')
+            ->method('dto')
             ->willReturn($dtoFrom);
 
         $registry = $this->getConverterRegistryMock();

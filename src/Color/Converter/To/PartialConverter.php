@@ -24,7 +24,7 @@ final readonly class PartialConverter implements IPartialConverter
         $sourceColorModel = $color->getColorModel();
 
         return $this->getModelConverter($sourceColorModel)
-            ->convert($color->to($sourceColorModel->dtoType()));
+            ->convert($color->dto());
     }
 
 

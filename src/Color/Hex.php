@@ -30,6 +30,14 @@ class Hex extends ARGBValueColor implements IHexColor
         );
     }
 
+    public static function fromRGB(int $r, int $g, int $b): IHexColor
+    {
+        return
+            new self(
+                self::componentsToValue($r, $g, $b),
+            );
+    }
+
     public function toString(): string
     {
         return sprintf((string)static::FORMAT_HEX, $this->getValue());
@@ -38,14 +46,6 @@ class Hex extends ARGBValueColor implements IHexColor
     public function withRed(int $red): IHexColor
     {
         return self::fromRGB($red, $this->getGreen(), $this->getBlue());
-    }
-
-    public static function fromRGB(int $r, int $g, int $b): IHexColor
-    {
-        return
-            new self(
-                self::componentsToValue($r, $g, $b),
-            );
     }
 
     public function withGreen(int $green): IHexColor

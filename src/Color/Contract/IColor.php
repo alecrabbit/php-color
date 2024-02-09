@@ -27,4 +27,6 @@ interface IColor extends IHasToString,
      * @psalm-return T
      */
     public function to(string $to): IColor|DColor;
+
+    public function dto(): DColor;
 }
