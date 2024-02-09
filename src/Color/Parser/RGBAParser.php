@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Parser;
 
 use AlecRabbit\Color\Contract\Parser\IDRGBParser;
+use AlecRabbit\Color\Contract\Service\IFloatExtractor;
 use AlecRabbit\Color\Contract\Service\IPrecisionAdjuster;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\DTO\DRGB;
+use AlecRabbit\Color\Service\FloatExtractor;
 use AlecRabbit\Color\Service\PrecisionAdjuster;
 
 final readonly class RGBAParser implements IDRGBParser
@@ -16,6 +18,7 @@ final readonly class RGBAParser implements IDRGBParser
 
     public function __construct(
         private IPrecisionAdjuster $precision = new PrecisionAdjuster(),
+        private IFloatExtractor $extract = new FloatExtractor(),
     ) {
     }
 
@@ -23,10 +26,10 @@ final readonly class RGBAParser implements IDRGBParser
     {
         if (preg_match(self::REGEXP_RGBA, $value, $matches)) {
             return new DRGB(
-                $this->precision->adjust($this->extractValue((string)$matches[1], 255)),
-                $this->precision->adjust($this->extractValue((string)$matches[3], 255)),
-                $this->precision->adjust($this->extractValue((string)$matches[5], 255)),
-                $this->precision->adjust($this->extractValue((string)($matches[7] ?? '1'))),
+                $this->precision->adjust($this->extract->value((string)$matches[1], 255)),
+                $this->precision->adjust($this->extract->value((string)$matches[3], 255)),
+                $this->precision->adjust($this->extract->value((string)$matches[5], 255)),
+                $this->precision->adjust($this->extract->value((string)($matches[7] ?? '1'))),
 
             );
         }
@@ -39,14 +42,6 @@ final readonly class RGBAParser implements IDRGBParser
         );
     }
 
-    private function extractValue(string $value, float $div = 1): float
-    {
-        if (str_ends_with($value, '%')) {
-            return (float)$value / 100;
-        }
-
-        return (float)$value / $div;
-    }
     public function isSupported(mixed $value): bool
     {
         return match (true) {

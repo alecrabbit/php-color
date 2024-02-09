@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Gradient\Vector;
 
-use AlecRabbit\Color\Contract\Gradient\Vector\IVector;
+use AlecRabbit\Color\Contract\Gradient\Vector\IGradientVector;
 
-final readonly class Vector implements IVector
+final readonly class GradientVector implements IGradientVector
 {
     private const CALCULATION_PRECISION = 6;
 

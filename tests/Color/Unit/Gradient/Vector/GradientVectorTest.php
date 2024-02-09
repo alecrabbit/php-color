@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Color\Unit\Gradient\Vector;
 
 
-use AlecRabbit\Color\Contract\Gradient\Vector\IVector;
-use AlecRabbit\Color\Gradient\Vector\Vector;
+use AlecRabbit\Color\Contract\Gradient\Vector\IGradientVector;
+use AlecRabbit\Color\Gradient\Vector\GradientVector;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-final class VectorTest extends TestCase
+final class GradientVectorTest extends TestCase
 {
 
     public static function canGetProvider(): iterable
@@ -55,15 +55,15 @@ final class VectorTest extends TestCase
     {
         $vector = $this->getTesteeInstance();
 
-        self::assertInstanceOf(Vector::class, $vector);
+        self::assertInstanceOf(GradientVector::class, $vector);
     }
 
     private function getTesteeInstance(
         null|int|float $start = null,
         null|int|float $step = null,
         null|int $precision = null,
-    ): IVector {
-        return new Vector(
+    ): IGradientVector {
+        return new GradientVector(
             x: $start ?? 0,
             step: $step ?? 0,
             precision: $precision ?? 6,
