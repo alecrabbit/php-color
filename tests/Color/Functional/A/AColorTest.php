@@ -6,11 +6,9 @@ namespace AlecRabbit\Tests\Color\Functional\A;
 
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Exception\UnsupportedValue;
-use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Tests\Color\Functional\A\Override\AColorOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\MockObject\MockObject;
 
 final class AColorTest extends TestCase
 {
@@ -22,17 +20,9 @@ final class AColorTest extends TestCase
         self::assertInstanceOf(AColorOverride::class, $color);
     }
 
-    private function getTesteeInstance(
-        ?IColorModel $colorModel = null
-    ): IColor {
-        return new AColorOverride(
-            colorModel: $colorModel ?? $this->getColorModelMock()
-        );
-    }
-
-    private function getColorModelMock(): MockObject&IColorModel
+    private function getTesteeInstance(): IColor
     {
-        return $this->createMock(IColorModel::class);
+        return new AColorOverride();
     }
 
     #[Test]

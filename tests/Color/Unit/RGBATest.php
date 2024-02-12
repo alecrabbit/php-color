@@ -9,6 +9,7 @@ use AlecRabbit\Color\Contract\IRGBAColor;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\HSLA;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelRGB;
 use AlecRabbit\Color\RGB;
@@ -168,12 +169,19 @@ final class RGBATest extends TestCase
         ];
     }
 
+    public static function canBeCreatedFromDTODataProvider(): iterable
+    {
+        yield from [
+            [RGBA::class, new DRGB(0, 0, 0)],
+        ];
+    }
+
     public static function canBeCreatedFromStringDataProvider(): iterable
     {
         yield from [
             ['rgb(0, 0, 0)', 0, 0, 0, 1.0],
             ['rgba(0, 0, 0, 1.0)', 0, 0, 0, 1.0],
-            ['rgba(0, 12, 33, 0.333)', 0, 12, 33, 0.329412],
+            ['rgba(0, 12, 33, 0.333)', 0, 12, 33, 0.333333],
             ['rgba(0, 0, 1, 1.0)', 0, 0, 1, 1.0],
             ['rgb(0, 12, 1)', 0, 12, 1, 1.0],
         ];
@@ -189,6 +197,19 @@ final class RGBATest extends TestCase
             [RGBA::fromRGBA(56, 52, 46, 255), HSLA::fromHSLA(34, 0.1, 0.2),],
             [RGBA::fromRGBA(56, 52, 46, 255), HSL::fromHSL(34, 0.1, 0.2),],
         ];
+    }
+
+    #[Test]
+    #[DataProvider('canBeCreatedFromDTODataProvider')]
+    public function canBeCreatedFromDTO(string $expected, DColor $input): void
+    {
+        $testee = self::getTesteeFrom($input);
+        self::assertEquals($expected, $testee::class);
+    }
+
+    private static function getTesteeFrom(mixed $value): IRGBAColor
+    {
+        return RGBA::from($value);
     }
 
     #[Test]

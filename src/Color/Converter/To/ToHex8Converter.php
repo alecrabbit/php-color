@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Converter\To;
 
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHex8Color;
 use AlecRabbit\Color\Converter\To\A\AToConverter;
 use AlecRabbit\Color\Hex8;
-use AlecRabbit\Color\Instantiator\Hex8Instantiator;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Model\ModelRGB;
 use ArrayObject;
@@ -20,16 +21,16 @@ final class ToHex8Converter extends AToConverter
 {
     public static function getTargets(): Traversable
     {
-        return new ArrayObject([Hex8::class, IHex8Color::class]);
+        return new ArrayObject([self::targetColorModel()->dtoType(), Hex8::class, IHex8Color::class]);
     }
 
-    public static function getInstantiatorClass(): string
-    {
-        return Hex8Instantiator::class;
-    }
-
-    public function getTargetColorModel(): IColorModel
+    protected static function targetColorModel(): IColorModel
     {
         return new ModelRGB();
+    }
+
+    protected function getInstance(DColor $dto): IColor
+    {
+        return Hex8::from($dto);
     }
 }

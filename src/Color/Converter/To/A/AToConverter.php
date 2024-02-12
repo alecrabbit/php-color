@@ -6,9 +6,8 @@ namespace AlecRabbit\Color\Converter\To\A;
 
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
-use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Contract\IRegistry;
-use AlecRabbit\Color\Converter\To\PartialConverter;
+use AlecRabbit\Color\Model\Contract\Converter\IConverter;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Registry\Registry;
@@ -28,23 +27,30 @@ abstract class AToConverter implements IToConverter
 
     abstract public static function getTargets(): Traversable;
 
+
     public function convert(IColor $color): IColor
     {
-        /** @var class-string<IInstantiator<T>> $instantiatorClass */
-        $instantiatorClass = static::getInstantiatorClass();
+        $converter = $this->getModelConverter($color->getColorModel(), $this->getTargetColorModel());
+        $dto = $converter->convert($color->dto());
 
-        return (new $instantiatorClass())->from($this->partialConvert($color));
+        return $this->getInstance($dto);
     }
 
-    abstract public static function getInstantiatorClass(): string;
-
-    public function partialConvert(IColor $color): DColor
+    private function getModelConverter(IColorModel $from, IColorModel $to): IConverter
     {
-        return (new PartialConverter($this->getTargetColorModel(), $this->registry))->convert($color);
+        return $this->registry->getModelConverter($from, $to);
     }
 
     /**
-     * // TODO (2024-01-18 16:33) [Alec Rabbit]: make protected again [0f579dfe-000a-43f4-82b1-833c7173017d]
+     * // TODO (2024-01-18 16:33) [Alec Rabbit]: make method getTargetColorModel() protected again? [0f579dfe-000a-43f4-82b1-833c7173017d]
      */
-    abstract public function getTargetColorModel(): IColorModel;
+    protected function getTargetColorModel(): IColorModel
+    {
+        return static::targetColorModel();
+    }
+
+    /**
+     * @psalm-return T
+     */
+    abstract protected function getInstance(DColor $dto): IColor;
 }

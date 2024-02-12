@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Color\Converter\To;
 
+use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLAColor;
 use AlecRabbit\Color\Converter\To\A\AToConverter;
 use AlecRabbit\Color\HSLA;
-use AlecRabbit\Color\Instantiator\HSLAInstantiator;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Model\ModelHSL;
 use ArrayObject;
@@ -20,16 +21,16 @@ final class ToHSLAConverter extends AToConverter
 {
     public static function getTargets(): Traversable
     {
-        return new ArrayObject([HSLA::class, IHSLAColor::class]);
+        return new ArrayObject([self::targetColorModel()->dtoType(), HSLA::class, IHSLAColor::class]);
     }
 
-    public static function getInstantiatorClass(): string
-    {
-        return HSLAInstantiator::class;
-    }
-
-    public function getTargetColorModel(): IColorModel
+    protected static function targetColorModel(): IColorModel
     {
         return new ModelHSL();
+    }
+
+    protected function getInstance(DColor $dto): IColor
+    {
+        return HSLA::from($dto);
     }
 }

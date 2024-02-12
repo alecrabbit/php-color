@@ -6,6 +6,7 @@ namespace AlecRabbit\Color\Contract\Store;
 
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
+use AlecRabbit\Color\Exception\ConverterUnavailable;
 
 interface IConverterStore
 {
@@ -20,6 +21,8 @@ interface IConverterStore
      * @param class-string<T> $target
      *
      * @psalm-return IToConverter<T>
+     *
+     * @throws ConverterUnavailable
      */
     public function getByTarget(string $target): IToConverter;
 }

@@ -9,8 +9,12 @@ use AlecRabbit\Color\Contract\IRGBColor;
 use AlecRabbit\Color\Contract\Store\IInstantiatorStore;
 use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Instantiator\HexInstantiator;
+use AlecRabbit\Color\Instantiator\HSLAInstantiator;
 use AlecRabbit\Color\Instantiator\HSLInstantiator;
+use AlecRabbit\Color\Instantiator\RGBAInstantiator;
 use AlecRabbit\Color\Instantiator\RGBInstantiator;
+use AlecRabbit\Color\Model\DTO\DHSL;
+use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Store\InstantiatorStore;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -22,9 +26,8 @@ final class InstantiatorStoreTest extends TestCase
     public static function canProvideInstantiatorDataProvider(): iterable
     {
         yield from [
-            [RGBInstantiator::class, 'rgb(0, 0, 0)'],
-            [HexInstantiator::class, '000'],
-            [HSLInstantiator::class, 'hsl(0, 0%, 0%)'],
+            [RGBAInstantiator::class, new DRGB(0, 0, 0)],
+            [HSLAInstantiator::class, new DHSL(0, 0, 0)],
         ];
     }
 
@@ -32,6 +35,7 @@ final class InstantiatorStoreTest extends TestCase
     {
         yield from [
             ['', 'Instantiator for color "" is not registered.'],
+            ['000', 'Instantiator for color "000" is not registered.'],
             ['blabla', 'Instantiator for color "blabla" is not registered.'],
             [1, 'Instantiator for value of type "int" is not registered.'],
             [new stdClass(), 'Instantiator for value of type "stdClass" is not registered.'],
@@ -41,7 +45,7 @@ final class InstantiatorStoreTest extends TestCase
 
     #[Test]
     #[DataProvider('canProvideInstantiatorDataProvider')]
-    public function canProvideInstantiator(string $class, string $color): void
+    public function canProvideInstantiator(string $class, mixed $color): void
     {
         $factory = $this->getTestee();
         $instantiator = $factory->getByValue($color);
@@ -69,7 +73,7 @@ final class InstantiatorStoreTest extends TestCase
             )
         );
 
-        InstantiatorStore::register(IRGBColor::class, $class);
+        InstantiatorStore::register($class);
 
         self::fail('Exception was not thrown.');
     }

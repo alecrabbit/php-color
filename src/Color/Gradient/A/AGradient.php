@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Color\Gradient\A;
 
 use AlecRabbit\Color\Contract\Gradient\IGradient;
-use AlecRabbit\Color\Contract\Gradient\Vector\IVector;
+use AlecRabbit\Color\Contract\Gradient\Vector\IGradientVector;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Exception\InvalidArgument;
-use AlecRabbit\Color\Gradient\Vector\Vector;
+use AlecRabbit\Color\Gradient\Vector\GradientVector;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Util\Color;
 use Traversable;
@@ -81,11 +81,11 @@ abstract readonly class AGradient implements IGradient
         return Color::from($color);
     }
 
-    protected function createVector(float $start, float $end, int $count): IVector
+    protected function createVector(float $start, float $end, int $count): IGradientVector
     {
         $step = $this->calculateStep($start, $end, $count);
 
-        return new Vector($start, $step);
+        return new GradientVector($start, $step);
     }
 
     protected function calculateStep(float $start, float $end, int $count): float

@@ -8,6 +8,7 @@ use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\HSL;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\ModelHSL;
 use AlecRabbit\Color\RGBA;
@@ -121,12 +122,32 @@ final class HSLTest extends TestCase
         ];
     }
 
+    public static function canBeCreatedFromDTODataProvider(): iterable
+    {
+        yield from [
+            [HSL::class, new DHSL(0, 0, 0)],
+        ];
+    }
+
     #[Test]
     #[DataProvider('canBeCreatedFromDataProvider')]
     public function canBeCreatedFrom(IColor $expected, IColor $incoming): void
     {
         $testee = HSL::from($incoming);
         self::assertEquals($expected, $testee);
+    }
+
+    #[Test]
+    #[DataProvider('canBeCreatedFromDTODataProvider')]
+    public function canBeCreatedFromDTO(string $expected, DColor $input): void
+    {
+        $testee = self::getTesteeFrom($input);
+        self::assertEquals($expected, $testee::class);
+    }
+
+    private static function getTesteeFrom(mixed $value): IHSLColor
+    {
+        return HSL::from($value);
     }
 
     #[Test]

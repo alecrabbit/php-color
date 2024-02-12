@@ -16,32 +16,8 @@ use function str_starts_with;
 /**
  * @extends AInstantiator<IRGBAColor>
  */
-class RGBAInstantiator extends AInstantiator
+final class RGBAInstantiator extends AInstantiator
 {
-    protected const REGEXP_RGBA = '/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)$/';
-
-    /** @inheritDoc */
-    protected function createFromString(string $value): ?IColor
-    {
-        $matches = [];
-        if (self::canInstantiateFromString($value, $matches)) {
-            return
-                RGBA::fromRGBO(
-                    (int)$matches[1],
-                    (int)$matches[2],
-                    (int)$matches[3],
-                    isset($matches[4]) ? (float)$matches[4] : 1.0,
-                );
-        }
-
-        return null;
-    }
-
-    protected static function canInstantiateFromString(string $value, array &$matches = []): bool
-    {
-        return str_starts_with($value, 'rgba(') && preg_match(self::REGEXP_RGBA, $value, $matches);
-    }
-
     protected function createFromDTO(DColor $value): ?IColor
     {
         if (self::canInstantiateFromDTO($value)) {

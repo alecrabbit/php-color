@@ -10,17 +10,13 @@ use AlecRabbit\Color\Exception\UnsupportedValue;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Util\Color;
+use AlecRabbit\Color\Util\Converter;
 
 use function is_string;
 
 abstract class AColor implements IColor
 {
     protected const COMPONENT = 0xFF;
-
-    public function __construct(
-        protected readonly IColorModel $colorModel
-    ) {
-    }
 
     public static function from(mixed $value): IColor
     {
@@ -44,8 +40,24 @@ abstract class AColor implements IColor
 
     protected static function instantiateColor(DColor|string $value): IColor
     {
+        if ($value instanceof DColor && $value::class === self::dtoType()) {
+            return static::fromDTO($value);
+        }
+
         return Color::from($value);
     }
+
+    /**
+     * @return class-string<DColor>
+     */
+    protected static function dtoType(): string
+    {
+        return static::colorModel()->dtoType();
+    }
+
+    abstract protected static function colorModel(): IColorModel;
+
+    abstract protected static function fromDTO(DColor $dto): IColor;
 
     /**
      * @template T of IColor|DColor
@@ -56,19 +68,20 @@ abstract class AColor implements IColor
      */
     public function to(string $to): IColor|DColor
     {
-        if ($to === $this->dtoType()) {
-            return $this->toDTO();
+        if ($to === self::dtoType()) {
+            return $this->dto();
         }
 
-        return $this->convert($to);
+        if ($this::class === $to) {
+            return $this;
+        }
+
+        return $this->doConvert($to);
     }
 
-    /**
-     * @return class-string<DColor>
-     */
-    protected function dtoType(): string
+    public function dto(): DColor
     {
-        return $this->colorModel->dtoType();
+        return $this->toDTO();
     }
 
     abstract protected function toDTO(): DColor;
@@ -80,13 +93,16 @@ abstract class AColor implements IColor
      *
      * @psalm-return T
      */
-    protected function convert(string $to): IColor|DColor
+    protected function doConvert(string $to): IColor|DColor
     {
-        if ($this::class === $to) {
-            return $this;
-        }
+        /** @var IToConverter<T> $converter */
+        $converter = $this->getConverter($to);
 
-        return $this->doConvert($to);
+        $result = $converter->convert($this);
+
+        return is_subclass_of($to, DColor::class)
+            ? $result->dto()
+            : $result;
     }
 
     /**
@@ -94,21 +110,11 @@ abstract class AColor implements IColor
      *
      * @param class-string<T> $to
      *
-     * @psalm-return T
+     * @psalm-return IToConverter<T>
      */
-    protected function doConvert(string $to): IColor|DColor
-    {
-        /** @var IToConverter<T> $converter */
-        $converter = $this->getConverter($to);
-
-        return is_subclass_of($to, DColor::class)
-            ? $converter->partialConvert($this)
-            : $converter->convert($this);
-    }
-
     protected function getConverter(string $to): IToConverter
     {
-        return Color::to($to);
+        return Converter::to($to);
     }
 
     public function __toString(): string
@@ -120,6 +126,6 @@ abstract class AColor implements IColor
 
     public function getColorModel(): IColorModel
     {
-        return $this->colorModel;
+        return static::colorModel();
     }
 }

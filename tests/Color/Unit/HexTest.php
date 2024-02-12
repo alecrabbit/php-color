@@ -7,6 +7,7 @@ namespace AlecRabbit\Tests\Color\Unit;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Hex;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelRGB;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -112,6 +113,13 @@ final class HexTest extends TestCase
         }
     }
 
+    public static function canBeCreatedFromDTODataProvider(): iterable
+    {
+        yield from [
+            [Hex::class, new DRGB(0, 0, 0)],
+        ];
+    }
+
     #[Test]
     #[DataProvider('canBeCreatedFromIntegerDataProvider')]
     public function canBeCreatedFromInteger(array $expected, array $incoming): void
@@ -167,6 +175,19 @@ final class HexTest extends TestCase
         self::assertSame($result[self::BLUE], $testee->getBlue());
         self::assertSame($result[self::VALUE], $testee->getValue());
         self::assertSame($result[self::TO_STRING], $testee->toString());
+    }
+
+    #[Test]
+    #[DataProvider('canBeCreatedFromDTODataProvider')]
+    public function canBeCreatedFromDTO(string $expected, DColor $input): void
+    {
+        $testee = self::getTesteeFrom($input);
+        self::assertEquals($expected, $testee::class);
+    }
+
+    private static function getTesteeFrom(mixed $value): IHexColor
+    {
+        return Hex::from($value);
     }
 
     #[Test]
