@@ -20,7 +20,7 @@ final class RGBAInstantiator extends AInstantiator
 {
     protected function createFromDTO(DColor $value): ?IColor
     {
-        if (self::canInstantiateFromDTO($value)) {
+        if (self::isValidType($value)) {
             /** @var DRGB $value */
             return RGBA::fromRGBA(
                 (int)round($value->r * 0xFF),
@@ -33,7 +33,7 @@ final class RGBAInstantiator extends AInstantiator
         return null;
     }
 
-    protected static function canInstantiateFromDTO(DColor $color): bool
+    protected static function isValidType(DColor $color): bool
     {
         return $color instanceof DRGB;
     }

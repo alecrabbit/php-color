@@ -36,12 +36,12 @@ abstract class AInstantiator implements IInstantiator
     protected static function canInstantiate(mixed $color): bool
     {
         return match (true) {
-            $color instanceof DColor => static::canInstantiateFromDTO($color),
+            $color instanceof DColor => static::isValidType($color),
             default => false,
         };
     }
 
-    abstract protected static function canInstantiateFromDTO(DColor $color): bool;
+    abstract protected static function isValidType(DColor $color): bool;
 
     /** @inheritDoc */
     public function from(mixed $value): IColor

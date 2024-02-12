@@ -19,7 +19,7 @@ final class HSLAInstantiator extends AInstantiator
 
     protected function createFromDTO(DColor $value): ?IColor
     {
-        if (self::canInstantiateFromDTO($value)) {
+        if (self::isValidType($value)) {
             /** @var DHSL $value */
             return HSLA::fromHSLA(
                 (int)round($value->h * 360),
@@ -32,7 +32,7 @@ final class HSLAInstantiator extends AInstantiator
         return null;
     }
 
-    protected static function canInstantiateFromDTO(DColor $color): bool
+    protected static function isValidType(DColor $color): bool
     {
         return $color instanceof DHSL;
     }
