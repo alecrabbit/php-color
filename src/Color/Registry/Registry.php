@@ -29,12 +29,16 @@ final class Registry implements IRegistry
                 is_subclass_of($class, IModelConverter::class) => self::attachModelConverter($class),
                 is_subclass_of($class, IToConverter::class) => self::attachToConverter($class),
                 is_subclass_of($class, IInstantiator::class) => self::attachInstantiator($class),
+                is_subclass_of($class, IParser::class) => self::attachParser($class),
                 default => throw new InvalidArgument(sprintf('Invalid class "%s".', $class)),
             };
         }
     }
 
-    /** @param class-string<IModelConverter> $class */
+    /**
+     * @param class-string<IModelConverter> $class
+     * @throws \AlecRabbit\Color\Model\Exception\InvalidArgument
+     */
     private static function attachModelConverter(string $class): void
     {
         ModelConverterStore::add($class);
@@ -51,6 +55,11 @@ final class Registry implements IRegistry
         InstantiatorStore::register($class);
     }
 
+    private static function attachParser(string $class): void
+    {
+        ParserStore::register($class);
+    }
+
     /**
      * @template T of IColor
      *
@@ -65,16 +74,9 @@ final class Registry implements IRegistry
         return (new ConverterStore())->getByTarget($target);
     }
 
-    public function getInstantiator(mixed $value): IInstantiator
-    {
-        return (new InstantiatorStore())->getByValue($value);
-    }
-
     /** @inheritDoc */
-    public function getModelConverter(
-        IColorModel $from,
-        IColorModel $to
-    ): IConverter {
+    public function getModelConverter(IColorModel $from, IColorModel $to): IConverter
+    {
         return (new ModelConverterStore())->getConverter($from, $to);
     }
 

@@ -7,11 +7,11 @@ use AlecRabbit\Color\Converter;
 use AlecRabbit\Color\Instantiator;
 use AlecRabbit\Color\Parser;
 use AlecRabbit\Color\Registry\Registry;
-use AlecRabbit\Color\Store\ParserStore;
 
 // @codeCoverageIgnoreStart
 
 Registry::attach(
+    // Converters
     Converter\To\ToHexConverter::class,
     Converter\To\ToAHexConverter::class,
     Converter\To\ToHex8Converter::class,
@@ -19,13 +19,14 @@ Registry::attach(
     Converter\To\ToRGBAConverter::class,
     Converter\To\ToHSLConverter::class,
     Converter\To\ToHSLAConverter::class,
+    // Instantiators
     Instantiator\RGBAInstantiator::class,
     Instantiator\HSLAInstantiator::class,
+    // Parsers
+    Parser\RGBAParser::class,
+    Parser\HEXAParser::class,
+    Parser\HSLAParser::class,
+    Parser\NameParser::class,
 );
-
-ParserStore::register(Parser\RGBAParser::class);
-ParserStore::register(Parser\HEXAParser::class);
-ParserStore::register(Parser\HSLAParser::class);
-ParserStore::register(Parser\NameParser::class);
 
 // @codeCoverageIgnoreEnd

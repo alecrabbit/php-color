@@ -8,7 +8,6 @@ use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\Instantiator\IInstantiator;
 use AlecRabbit\Color\Contract\Parser\IParser;
 use AlecRabbit\Color\Exception\ConverterUnavailable;
-use AlecRabbit\Color\Exception\InvalidArgument;
 use AlecRabbit\Color\Model\Contract\Converter\IConverter;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
 use AlecRabbit\Color\Model\Contract\IColorModel;
@@ -17,17 +16,14 @@ use AlecRabbit\Color\Model\Exception\UnsupportedModelConversion;
 interface IRegistry
 {
     /**
-     * @param class-string<IModelConverter|IToConverter> ...$classes
+     * @param class-string<IModelConverter|IToConverter|IInstantiator|IParser> ...$classes
      */
     public static function attach(string ...$classes): void;
 
     /**
      * @throws UnsupportedModelConversion
      */
-    public function getModelConverter(
-        IColorModel $from,
-        IColorModel $to
-    ): IConverter;
+    public function getModelConverter(IColorModel $from, IColorModel $to): IConverter;
 
     /**
      * @template T of IColor
@@ -39,11 +35,6 @@ interface IRegistry
      * @throws ConverterUnavailable
      */
     public function getToConverter(string $target): IToConverter;
-
-    /**
-     * @throws InvalidArgument
-     */
-    public function getInstantiator(mixed $value): IInstantiator;
 
     public function findInstantiator(mixed $value): ?IInstantiator;
 
