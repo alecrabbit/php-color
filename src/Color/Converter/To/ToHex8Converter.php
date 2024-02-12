@@ -29,7 +29,7 @@ final class ToHex8Converter extends AToConverter
         return new ModelRGB();
     }
 
-    protected function getInstance(DColor $dto): IColor
+    protected function createInstance(DColor $dto): IColor
     {
         return Hex8::from($dto);
     }

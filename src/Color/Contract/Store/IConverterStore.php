@@ -7,6 +7,7 @@ namespace AlecRabbit\Color\Contract\Store;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Exception\ConverterUnavailable;
+use AlecRabbit\Color\Model\Contract\DTO\DColor;
 
 interface IConverterStore
 {

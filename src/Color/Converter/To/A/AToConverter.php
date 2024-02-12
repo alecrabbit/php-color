@@ -7,7 +7,6 @@ namespace AlecRabbit\Color\Converter\To\A;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IRegistry;
-use AlecRabbit\Color\Model\Contract\Converter\IConverter;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Registry\Registry;
@@ -30,20 +29,16 @@ abstract class AToConverter implements IToConverter
 
     public function convert(IColor $color): IColor
     {
-        $converter = $this->getModelConverter($color->getColorModel(), $this->getTargetColorModel());
-        $dto = $converter->convert($color->dto());
+        $modelConverter = $this->registry->getModelConverter(
+            $color->getColorModel(),
+            $this->getTargetColorModel()
+        );
 
-        return $this->getInstance($dto);
+        $dto = $modelConverter->convert($color->dto());
+
+        return $this->createInstance($dto);
     }
 
-    private function getModelConverter(IColorModel $from, IColorModel $to): IConverter
-    {
-        return $this->registry->getModelConverter($from, $to);
-    }
-
-    /**
-     * // TODO (2024-01-18 16:33) [Alec Rabbit]: make method getTargetColorModel() protected again? [0f579dfe-000a-43f4-82b1-833c7173017d]
-     */
     protected function getTargetColorModel(): IColorModel
     {
         return static::targetColorModel();
@@ -52,5 +47,5 @@ abstract class AToConverter implements IToConverter
     /**
      * @psalm-return T
      */
-    abstract protected function getInstance(DColor $dto): IColor;
+    abstract protected function createInstance(DColor $dto): IColor;
 }

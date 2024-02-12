@@ -20,9 +20,9 @@ interface IColor extends IHasToString,
     public function getColorModel(): IColorModel;
 
     /**
-     * @template T of IColor|DColor
+     * @template T of IColor
      *
-     * @param class-string<T> $to
+     * @param class-string<T>|class-string<DColor> $to
      *
      * @psalm-return T
      */

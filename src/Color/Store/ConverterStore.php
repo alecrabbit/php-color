@@ -16,7 +16,7 @@ use function array_reverse;
 final class ConverterStore implements IConverterStore
 {
     /**
-     * @var Array<class-string<IColor>, class-string<IToConverter<IColor>>>
+     * @var Array<class-string<IColor|DColor>, class-string<IToConverter<IColor|DColor>>>
      */
     protected static array $registered = [];
 
@@ -26,6 +26,7 @@ final class ConverterStore implements IConverterStore
     public static function register(string $converterClass): void
     {
         self::assertConverterClass($converterClass);
+        /** @var class-string<IColor|DColor> $targetClass */
         foreach ($converterClass::getTargets() as $targetClass) {
             self::assertTargetClass($targetClass);
             self::$registered[$targetClass] = $converterClass;
@@ -49,7 +50,7 @@ final class ConverterStore implements IConverterStore
     }
 
     /**
-     * @param class-string<IColor> $class
+     * @param class-string<IColor|DColor> $class
      */
     protected static function assertTargetClass(string $class): void
     {
@@ -78,7 +79,7 @@ final class ConverterStore implements IConverterStore
     /**
      * @template T of IColor
      *
-     * @param class-string<T> $target
+     * @param class-string<T>|class-string<DColor> $target
      *
      * @psalm-return IToConverter<T>
      */
@@ -92,14 +93,14 @@ final class ConverterStore implements IConverterStore
     /**
      * @template T of IColor
      *
-     * @param class-string<T> $target
+     * @param class-string<T>|class-string<DColor> $target
      *
      * @return class-string<IToConverter<T>>
      */
     private function getConverterClass(string $target): string
     {
         return
-            $this->searchForConverter($target)
+            $this->findConverterClass($target)
             ??
             throw new ConverterUnavailable(
                 sprintf('Converter class for "%s" is not available.', $target)
@@ -107,28 +108,14 @@ final class ConverterStore implements IConverterStore
     }
 
     /**
-     * @param class-string<DColor> $target
+     * @template T of IColor
      *
-     * @return null|class-string<IToConverter>
+     * @param class-string<T>|class-string<DColor> $target
+     *
+     * @return null|class-string<IToConverter<T>>
      */
-    private function searchForConverter(string $target): ?string
+    private function findConverterClass(string $target): ?string
     {
-//        if (is_subclass_of($target, DColor::class)) {
-//            /** @var class-string<IToConverter> $converterClass */
-//            foreach ($this->getRegistered() as $converterClass) {
-//                $instance = new $converterClass();
-//                // TODO (2024-01-18 16:33) [Alec Rabbit]: [0f579dfe-000a-43f4-82b1-833c7173017d]
-//                if ($instance->getTargetColorModel()->dtoType() === $target) {
-//                    return $converterClass;
-//                }
-//            }
-//        }
-
         return self::$registered[$target] ?? null;
-    }
-
-    private function getRegistered(): array
-    {
-        return array_reverse(self::$registered, true);
     }
 }

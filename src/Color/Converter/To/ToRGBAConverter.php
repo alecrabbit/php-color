@@ -29,7 +29,7 @@ final class ToRGBAConverter extends AToConverter
         return new ModelRGB();
     }
 
-    protected function getInstance(DColor $dto): IColor
+    protected function createInstance(DColor $dto): IColor
     {
         return RGBA::from($dto);
     }

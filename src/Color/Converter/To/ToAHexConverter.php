@@ -30,7 +30,7 @@ final class ToAHexConverter extends AToConverter
     }
 
     /** @inheritDoc */
-    protected function getInstance(DColor $dto): IColor
+    protected function createInstance(DColor $dto): IColor
     {
         return AHex::from($dto);
     }

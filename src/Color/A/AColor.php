@@ -60,11 +60,11 @@ abstract class AColor implements IColor
     abstract protected static function fromDTO(DColor $dto): IColor;
 
     /**
-     * @template T of IColor|DColor
+     * @template T of IColor
      *
-     * @param class-string<T> $to
+     * @param class-string<T>|class-string<DColor> $to
      *
-     * @psalm-return T
+     * @psalm-return T|DColor
      */
     public function to(string $to): IColor|DColor
     {
@@ -87,11 +87,11 @@ abstract class AColor implements IColor
     abstract protected function toDTO(): DColor;
 
     /**
-     * @template T of IColor|DColor
+     * @template T of IColor
      *
-     * @param class-string<T> $to
+     * @param class-string<T>|class-string<DColor> $to
      *
-     * @psalm-return T
+     * @psalm-return T|DColor
      */
     protected function doConvert(string $to): IColor|DColor
     {

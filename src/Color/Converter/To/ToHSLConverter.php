@@ -29,7 +29,7 @@ final class ToHSLConverter extends AToConverter
         return new ModelHSL();
     }
 
-    protected function getInstance(DColor $dto): IColor
+    protected function createInstance(DColor $dto): IColor
     {
         return HSL::from($dto);
     }
