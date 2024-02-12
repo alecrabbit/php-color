@@ -42,10 +42,6 @@ abstract class AToConverter implements IToConverter
     {
         return $this->registry->getModelConverter($from, $to);
     }
-    public function partialConvert(IColor $color): DColor
-    {
-        return (new PartialConverter($this->getTargetColorModel(), $this->registry))->convert($color);
-    }
 
     /**
      * // TODO (2024-01-18 16:33) [Alec Rabbit]: make method getTargetColorModel() protected again? [0f579dfe-000a-43f4-82b1-833c7173017d]

@@ -97,9 +97,11 @@ abstract class AColor implements IColor
         /** @var IToConverter<T> $converter */
         $converter = $this->getConverter($to);
 
+        $result = $converter->convert($this);
+
         return is_subclass_of($to, DColor::class)
-            ? $converter->partialConvert($this)
-            : $converter->convert($this);
+            ? $result->dto()
+            : $result;
     }
 
     /**
