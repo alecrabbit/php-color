@@ -105,7 +105,7 @@ final class ToRGBAConverterTest extends TestCase
         $class = ToRGBAConverter::class;
         $targets = $class::getTargets();
 
-        self::assertCount(2, $targets);
+        self::assertCount(3, $targets);
         self::assertContains(IRGBAColor::class, $targets);
         self::assertContains(RGBA::class, $targets);
     }

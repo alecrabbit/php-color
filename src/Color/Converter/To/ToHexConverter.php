@@ -21,10 +21,10 @@ final class ToHexConverter extends AToConverter
 {
     public static function getTargets(): Traversable
     {
-        return new ArrayObject([Hex::class, IHexColor::class]);
+        return new ArrayObject([self::targetColorModel()->dtoType(), Hex::class, IHexColor::class]);
     }
 
-    public function getTargetColorModel(): IColorModel
+    protected static function targetColorModel(): IColorModel
     {
         return new ModelRGB();
     }

@@ -105,7 +105,7 @@ final class ToHex8ConverterTest extends TestCase
         $class = ToHex8Converter::class;
         $targets = $class::getTargets();
 
-        self::assertCount(2, $targets);
+        self::assertCount(3, $targets);
         self::assertContains(IHex8Color::class, $targets);
         self::assertContains(Hex8::class, $targets);
     }

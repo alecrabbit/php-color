@@ -21,10 +21,10 @@ final class ToRGBAConverter extends AToConverter
 {
     public static function getTargets(): Traversable
     {
-        return new ArrayObject([RGBA::class, IRGBAColor::class]);
+        return new ArrayObject([self::targetColorModel()->dtoType(), RGBA::class, IRGBAColor::class]);
     }
 
-    public function getTargetColorModel(): IColorModel
+    protected static function targetColorModel(): IColorModel
     {
         return new ModelRGB();
     }

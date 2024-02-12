@@ -21,10 +21,10 @@ final class ToAHexConverter extends AToConverter
 {
     public static function getTargets(): Traversable
     {
-        return new ArrayObject([AHex::class, IAHexColor::class]);
+        return new ArrayObject([self::targetColorModel()->dtoType(), AHex::class, IAHexColor::class]);
     }
 
-    public function getTargetColorModel(): IColorModel
+    protected static function targetColorModel(): IColorModel
     {
         return new ModelRGB();
     }

@@ -21,10 +21,10 @@ final class ToRGBConverter extends AToConverter
 {
     public static function getTargets(): Traversable
     {
-        return new ArrayObject([RGB::class, IRGBColor::class]);
+        return new ArrayObject([self::targetColorModel()->dtoType(), RGB::class, IRGBColor::class]);
     }
 
-    public function getTargetColorModel(): IColorModel
+    protected static function targetColorModel(): IColorModel
     {
         return new ModelRGB();
     }

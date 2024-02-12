@@ -7,9 +7,7 @@ namespace AlecRabbit\Color\Converter\To\A;
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
 use AlecRabbit\Color\Contract\IRegistry;
-use AlecRabbit\Color\Converter\To\PartialConverter;
 use AlecRabbit\Color\Model\Contract\Converter\IConverter;
-use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
 use AlecRabbit\Color\Model\Contract\DTO\DColor;
 use AlecRabbit\Color\Model\Contract\IColorModel;
 use AlecRabbit\Color\Registry\Registry;
@@ -46,7 +44,10 @@ abstract class AToConverter implements IToConverter
     /**
      * // TODO (2024-01-18 16:33) [Alec Rabbit]: make method getTargetColorModel() protected again? [0f579dfe-000a-43f4-82b1-833c7173017d]
      */
-    abstract public function getTargetColorModel(): IColorModel;
+    protected function getTargetColorModel(): IColorModel
+    {
+        return static::targetColorModel();
+    }
 
     /**
      * @psalm-return T

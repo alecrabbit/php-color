@@ -21,10 +21,10 @@ final class ToHSLConverter extends AToConverter
 {
     public static function getTargets(): Traversable
     {
-        return new ArrayObject([HSL::class, IHSLColor::class]);
+        return new ArrayObject([self::targetColorModel()->dtoType(), HSL::class, IHSLColor::class]);
     }
 
-    public function getTargetColorModel(): IColorModel
+    protected static function targetColorModel(): IColorModel
     {
         return new ModelHSL();
     }

@@ -105,7 +105,7 @@ final class ToRGBConverterTest extends TestCase
         $class = ToRGBConverter::class;
         $targets = $class::getTargets();
 
-        self::assertCount(2, $targets);
+        self::assertCount(3, $targets);
         self::assertContains(IRGBColor::class, $targets);
         self::assertContains(RGB::class, $targets);
     }

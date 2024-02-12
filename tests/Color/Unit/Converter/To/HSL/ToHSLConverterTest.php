@@ -49,7 +49,7 @@ final class ToHSLConverterTest extends TestCase
         $class = ToHSLConverter::class;
         $targets = $class::getTargets();
 
-        self::assertCount(2, $targets);
+        self::assertCount(3, $targets);
         self::assertContains(IHSLColor::class, $targets);
         self::assertContains(HSL::class, $targets);
     }

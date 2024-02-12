@@ -105,7 +105,7 @@ final class ToHexConverterTest extends TestCase
         $class = ToHexConverter::class;
         $targets = $class::getTargets();
 
-        self::assertCount(2, $targets);
+        self::assertCount(3, $targets);
         self::assertContains(IHexColor::class, $targets);
         self::assertContains(Hex::class, $targets);
     }
