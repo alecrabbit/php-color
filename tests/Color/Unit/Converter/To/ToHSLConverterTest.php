@@ -2,38 +2,38 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Color\Unit\Converter\To\RGBA;
+namespace AlecRabbit\Tests\Color\Unit\Converter\To;
 
 
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
+use AlecRabbit\Color\Contract\IHSLColor;
 use AlecRabbit\Color\Contract\IRegistry;
-use AlecRabbit\Color\Contract\IRGBAColor;
-use AlecRabbit\Color\Converter\To\ToRGBAConverter;
+use AlecRabbit\Color\Converter\To\ToHSLConverter;
+use AlecRabbit\Color\HSL;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
 use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelHSL;
 use AlecRabbit\Color\Model\ModelRGB;
-use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class ToRGBAConverterTest extends TestCase
+final class ToHSLConverterTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
     {
         $toConverter = $this->getTesteeInstance();
 
-        self::assertInstanceOf(ToRGBAConverter::class, $toConverter);
+        self::assertInstanceOf(ToHSLConverter::class, $toConverter);
     }
 
     private function getTesteeInstance(
         ?IRegistry $registry = null,
     ): IToConverter {
-        return new ToRGBAConverter(
+        return new ToHSLConverter(
             registry: $registry ?? $this->getConverterRegistryMock(),
         );
     }
@@ -44,14 +44,25 @@ final class ToRGBAConverterTest extends TestCase
     }
 
     #[Test]
+    public function canGetTargets(): void
+    {
+        $class = ToHSLConverter::class;
+        $targets = $class::getTargets();
+
+        self::assertCount(3, $targets);
+        self::assertContains(IHSLColor::class, $targets);
+        self::assertContains(HSL::class, $targets);
+    }
+
+    #[Test]
     public function canConvert(): void
     {
-        $dtoFrom = new DHSL(0, 0, 0);
-        $dtoTo = new DRGB(0, 0, 0);
-        $expected = RGBA::fromRGB(0, 0, 0);
+        $dtoFrom = new DRGB(0, 0, 0);
+        $dtoTo = new DHSL(0, 0, 0);
+        $expected = HSL::fromHSL(0, 0, 0);
 
-        $modelFrom = new ModelHSL();
-        $modelTo = new ModelRGB();
+        $modelFrom = new ModelRGB();
+        $modelTo = new ModelHSL();
 
         $incoming = $this->getConvertableColorMock();
         $incoming
@@ -97,16 +108,5 @@ final class ToRGBAConverterTest extends TestCase
     private function getModelConverterMock(): MockObject&IModelConverter
     {
         return $this->createMock(IModelConverter::class);
-    }
-
-    #[Test]
-    public function canGetTargets(): void
-    {
-        $class = ToRGBAConverter::class;
-        $targets = $class::getTargets();
-
-        self::assertCount(3, $targets);
-        self::assertContains(IRGBAColor::class, $targets);
-        self::assertContains(RGBA::class, $targets);
     }
 }

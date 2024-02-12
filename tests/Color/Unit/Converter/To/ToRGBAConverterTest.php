@@ -2,38 +2,38 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Color\Unit\Converter\To\Hex;
+namespace AlecRabbit\Tests\Color\Unit\Converter\To;
 
 
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
-use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Contract\IRegistry;
-use AlecRabbit\Color\Converter\To\ToHexConverter;
-use AlecRabbit\Color\Hex;
+use AlecRabbit\Color\Contract\IRGBAColor;
+use AlecRabbit\Color\Converter\To\ToRGBAConverter;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
 use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\DTO\DRGB;
 use AlecRabbit\Color\Model\ModelHSL;
 use AlecRabbit\Color\Model\ModelRGB;
+use AlecRabbit\Color\RGBA;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class ToHexConverterTest extends TestCase
+final class ToRGBAConverterTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
     {
         $toConverter = $this->getTesteeInstance();
 
-        self::assertInstanceOf(ToHexConverter::class, $toConverter);
+        self::assertInstanceOf(ToRGBAConverter::class, $toConverter);
     }
 
     private function getTesteeInstance(
         ?IRegistry $registry = null,
     ): IToConverter {
-        return new ToHexConverter(
+        return new ToRGBAConverter(
             registry: $registry ?? $this->getConverterRegistryMock(),
         );
     }
@@ -48,7 +48,7 @@ final class ToHexConverterTest extends TestCase
     {
         $dtoFrom = new DHSL(0, 0, 0);
         $dtoTo = new DRGB(0, 0, 0);
-        $expected = Hex::fromRGB(0, 0, 0);
+        $expected = RGBA::fromRGB(0, 0, 0);
 
         $modelFrom = new ModelHSL();
         $modelTo = new ModelRGB();
@@ -102,11 +102,11 @@ final class ToHexConverterTest extends TestCase
     #[Test]
     public function canGetTargets(): void
     {
-        $class = ToHexConverter::class;
+        $class = ToRGBAConverter::class;
         $targets = $class::getTargets();
 
         self::assertCount(3, $targets);
-        self::assertContains(IHexColor::class, $targets);
-        self::assertContains(Hex::class, $targets);
+        self::assertContains(IRGBAColor::class, $targets);
+        self::assertContains(RGBA::class, $targets);
     }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Color\Unit\Converter\To\RGB;
+namespace AlecRabbit\Tests\Color\Unit\Converter\To;
 
 
 use AlecRabbit\Color\Contract\Converter\IToConverter;

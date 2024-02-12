@@ -40,16 +40,17 @@ abstract class AColor implements IColor
 
     protected static function instantiateColor(DColor|string $value): IColor
     {
-        if ($value instanceof DColor && $value::class === self::getDtoType()) {
+        if ($value instanceof DColor && $value::class === self::dtoType()) {
             return static::fromDTO($value);
         }
+
         return Color::from($value);
     }
 
     /**
      * @return class-string<DColor>
      */
-    protected static function getDtoType(): string
+    protected static function dtoType(): string
     {
         return static::colorModel()->dtoType();
     }
@@ -67,7 +68,7 @@ abstract class AColor implements IColor
      */
     public function to(string $to): IColor|DColor
     {
-        if ($to === self::getDtoType()) {
+        if ($to === self::dtoType()) {
             return $this->dto();
         }
 
@@ -86,7 +87,7 @@ abstract class AColor implements IColor
     abstract protected function toDTO(): DColor;
 
     /**
-     * @template T of IColor
+     * @template T of IColor|DColor
      *
      * @param class-string<T> $to
      *

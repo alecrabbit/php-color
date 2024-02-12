@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Color\Unit\Converter\To\HSL;
+namespace AlecRabbit\Tests\Color\Unit\Converter\To;
 
 
 use AlecRabbit\Color\Contract\Converter\IToConverter;
 use AlecRabbit\Color\Contract\IColor;
-use AlecRabbit\Color\Contract\IHSLColor;
+use AlecRabbit\Color\Contract\IHexColor;
 use AlecRabbit\Color\Contract\IRegistry;
-use AlecRabbit\Color\Converter\To\ToHSLConverter;
-use AlecRabbit\Color\HSL;
+use AlecRabbit\Color\Converter\To\ToHexConverter;
+use AlecRabbit\Color\Hex;
 use AlecRabbit\Color\Model\Contract\Converter\IModelConverter;
 use AlecRabbit\Color\Model\DTO\DHSL;
 use AlecRabbit\Color\Model\DTO\DRGB;
@@ -20,20 +20,20 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class ToHSLConverterTest extends TestCase
+final class ToHexConverterTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
     {
         $toConverter = $this->getTesteeInstance();
 
-        self::assertInstanceOf(ToHSLConverter::class, $toConverter);
+        self::assertInstanceOf(ToHexConverter::class, $toConverter);
     }
 
     private function getTesteeInstance(
         ?IRegistry $registry = null,
     ): IToConverter {
-        return new ToHSLConverter(
+        return new ToHexConverter(
             registry: $registry ?? $this->getConverterRegistryMock(),
         );
     }
@@ -44,25 +44,14 @@ final class ToHSLConverterTest extends TestCase
     }
 
     #[Test]
-    public function canGetTargets(): void
-    {
-        $class = ToHSLConverter::class;
-        $targets = $class::getTargets();
-
-        self::assertCount(3, $targets);
-        self::assertContains(IHSLColor::class, $targets);
-        self::assertContains(HSL::class, $targets);
-    }
-
-    #[Test]
     public function canConvert(): void
     {
-        $dtoFrom = new DRGB(0, 0, 0);
-        $dtoTo = new DHSL(0, 0, 0);
-        $expected = HSL::fromHSL(0, 0, 0);
+        $dtoFrom = new DHSL(0, 0, 0);
+        $dtoTo = new DRGB(0, 0, 0);
+        $expected = Hex::fromRGB(0, 0, 0);
 
-        $modelFrom = new ModelRGB();
-        $modelTo = new ModelHSL();
+        $modelFrom = new ModelHSL();
+        $modelTo = new ModelRGB();
 
         $incoming = $this->getConvertableColorMock();
         $incoming
@@ -108,5 +97,16 @@ final class ToHSLConverterTest extends TestCase
     private function getModelConverterMock(): MockObject&IModelConverter
     {
         return $this->createMock(IModelConverter::class);
+    }
+
+    #[Test]
+    public function canGetTargets(): void
+    {
+        $class = ToHexConverter::class;
+        $targets = $class::getTargets();
+
+        self::assertCount(3, $targets);
+        self::assertContains(IHexColor::class, $targets);
+        self::assertContains(Hex::class, $targets);
     }
 }
